@@ -1,0 +1,89 @@
+div.receipt {
+  background-color: #222222;
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid white;
+  height: 25px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+label.receipt {
+  color: #FFFF00;
+  font-weight: bold;
+  vertical-align: middle;
+  line-height: 25px;
+}
+
+div.transaction-text-div {
+  width:100%;
+  background-color:#333333;
+  text-align: center;
+  font-family: courier;
+  height:20px;
+}
+
+table.totals-grid {
+  width: 100%;
+}
+
+tr.totals-tr {
+  width: 100%;
+}
+
+td.single-cell {
+  width: 100%;
+}
+
+td.td-value {
+  text-align: right;
+}
+
+hr.division {
+  width: 100%;
+  color: #AAAAAA;
+}
+
+label.label-text {
+  color: #AAAAAA;
+}
+
+label.calc-amount-value {
+  font-weight: bold;
+  text-align: right;
+}
+
+label.grand-total {
+  font-size: 12pt;
+  color: #EEEEEE;
+  font-weight: bold;
+  display: block;
+}
+
+label.grand-total-value {
+  font-size: 16pt;
+  color: #06C258;
+  font-weight: bold;
+  vertical-align: middle;
+  line-height: 30px;
+}
+
+div.grand-total-value {
+  width: 100%;
+  background-color: #444444;
+  text-align: center;
+  border-radius: 8px;
+  border: 2px solid #06C258;
+}
+
+input.cash-input {
+  padding: 10px 10px 10px 10px;
+  height: 30px;
+  width: 100px;
+}
+
+label.cash-change {
+  color: #ff3333;
+  font-weight: bold;
+  /*background-color:#222222;*/
+}

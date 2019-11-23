@@ -51,7 +51,7 @@ BEGIN
     DECLARE id,next_id INT UNSIGNED DEFAULT 0;
     SET id = (SELECT MAX(transaction_id) FROM items_transactions);
     IF (id <> (SELECT MAX(transaction_id) FROM items_transactions_details)) THEN
-    	RETURN 0;
+        RETURN 0;
     END IF;
     RETURN id + 1;
 END $$
@@ -63,7 +63,7 @@ BEGIN
     DECLARE customer VARCHAR(30) DEFAULT NULL;
     SET id = get_next_transaction_id();
     IF id = 0 THEN
-    	SET success = FALSE;
+        SET success = FALSE;
     	LEAVE proc_insert_items_transaction;
     END IF;
     SET customer = json_unquote(json_extract(data, '$.customer'));

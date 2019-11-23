@@ -20,7 +20,13 @@ class SqlTransactionHandler {
 
 	onAjaxSuccess(data, thiz) {
 		thiz.transactionId = data;
-		thiz.getNextTransactionId();
+		const transactionId = thiz.getNextTransactionId();
+		const e = new CustomEvent(EVENT_NEXT_TRANSACTION_ID_LOADED, {
+                        detail: {
+                                transactionId:transactionId
+                        }
+                });
+                document.getElementById("eventdispatcher").dispatchEvent(e);
         }
 
 	getNextTransactionId() {

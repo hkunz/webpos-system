@@ -22,6 +22,10 @@ function addZero(i) {
   	return i;
 }
 
+function updateNextTransactionId() {
+	const id = sql_transaction_handler.getNextTransactionId();
+	$('#transaction_id').text(id);
+}
 
 $(document).ready(function() {
 	$("#eventdispatcher").on(EVENT_ITEM_AMOUNT_POPUP_INPUT_COMPLETE, function(e) {
@@ -37,6 +41,7 @@ $(document).ready(function() {
 			brand_name:e.detail.brand_name
 		});
 	});
+
 	$("#eventdispatcher").on(EVENT_COMMIT_TRANSACTION, function(e) {
 		let sub_total = e.detail.sub_total;
 		let discount = e.detail.discount;
@@ -59,4 +64,10 @@ $(document).ready(function() {
 		let json = JSON.stringify(o);
 		alert("value == " + json);
 	});
+
+	$("#eventdispatcher").on(EVENT_NEXT_TRANSACTION_ID_LOADED, function(e) {
+		updateNextTransactionId();
+	});
+
+	updateNextTransactionId();
 });

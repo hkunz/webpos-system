@@ -1,6 +1,3 @@
-<?php
-  include "../php/db.php"
-?>
 <!DOCTYPE html>
 <html>
 <!-- Search Item code: https://www.cloudways.com/blog/live-search-php-mysql-ajax/ -->
@@ -84,7 +81,7 @@
       <label class="receipt">RECEIPT</label>
     </div>
     <div class="transaction-text-div">
-      Transaction ID: <span style="color:#ffff00;"><b><?php echo mysqli_fetch_array(mysqli_query($con, "SELECT get_next_transaction_id()"))[0]?></b></span>
+      Transaction ID: <label id="transaction_id" style="color:#ffff00;font-weight:bold;">0</label>
     </div>
     <hr/>
     <table class="totals-grid">

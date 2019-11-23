@@ -16,4 +16,20 @@ $(document).ready(function() {
 			brand_name:e.detail.brand_name
 		});
 	});
+	$("#eventdispatcher").on(EVENT_COMMIT_TRANSACTION, function(e) {
+		let sub_total = e.detail.sub_total;
+		let discount = e.detail.discount;
+		let grand_total = e.detail.grand_total;
+		let cash = e.detail.cash;
+		//alert("commit ==== " + sub_total + ": " + discount + ": " + grand_total + ": " + cash);
+		let json = {};
+                let items = item_selects_list_handler.simpleList;
+                json['transaction_id'] = 6;
+                json['customer'] = "harry";
+                json['type'] = "SELL";
+                json['items'] = items;
+		alert("JSON == " + JSON.stringify(json));	
+                //*/
+                //{"transaction_id":"',5,'","customer":"chuyte","type","SELL","items":[{},{}]}'
+	});
 });

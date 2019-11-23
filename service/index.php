@@ -20,6 +20,7 @@
   <script type="text/javascript" src="js/ItemSearchInputHandler.js"></script>
   <script type="text/javascript" src="js/ItemSelectionListHandler.js"></script>
   <script type="text/javascript" src="js/GrandTotalViewHandler.js"></script>
+   <script type="text/javascript" src="../js/sound-effects.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
 </head>
 
@@ -62,10 +63,17 @@
       <input type="datetime-local" name="transaction_timestamp">
       <br>
     </form>
-    <br/>
     Item Search:
     <div style="width:100%">
       <input type="text" class="awesomplete" id="search_item_input" placeholder="Type here to search item ..." spellcheck="false" />
+    </div>
+    <div class="items-list-header">
+      <div style="float:left;width:30px;height:100%;background-color:#111111">
+        <label class="items-list-header">&nbsp;#</label>
+      </div>
+      <label class="items-list-header" style="width:15px;"></label>
+      <label class="items-list-header" style="width:66px;">Qty</label>
+      <label class="items-list-header" style="width:300px;">Description</label>
     </div>
     <div class="items-list" id="items_list"/>
   </div>
@@ -111,7 +119,7 @@
       <tr class="totals-tr">
         <td><label class="label-text">Cash:</label></td>
         <td class="td-value">
-          <input class="cash-input" type="number" id="cash_input" disabled="true" min="0"/>
+          <input class="cash-input" type="number" id="cash_input" disabled="true" min="0" placeholder="₱"/>
         </td>
       </tr>
       <tr class="totals-tr">

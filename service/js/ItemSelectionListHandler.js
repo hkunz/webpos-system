@@ -26,6 +26,7 @@ class ItemSelectionListHandler {
 		if (isnew) {
 			this.addListRowItem(item);
 		}
+		sfx_click.play();
 		this.debug_dump();
 	}
 
@@ -56,7 +57,7 @@ class ItemSelectionListHandler {
 
 		newdiv.setAttribute('id', this.getItemIdName(id));
 		newdiv.className = "divtr";
-		newdiv.innerHTML = '<div style="width:100%;"><div id="' + this.getRowItemNumberBoxIdName(id) + '" class="item-number-box" style="background-color:' + this.getRowItemNumberBoxColor(len) + '"><label id="list_number" class="list-number">' + len + '</label></div><input id="' + this.getRowItemAmountInputIdName(id)  + '" class="amount-input-small item-amount-input" style="margin-top:3px;" value="' + item.amount + '" type="number" min="1" max="999"/><div class="descriptions"><label class="description" id="line1">' + '[' + item.code + '] ' + description  + '</label><label id="line2" class="sub-description">' + '[' + item.unit + '] ' + '[₱' + item.price + '] ' + item.description + '</label></div><div class="divtd" style="float:right;vertical-align:middle;"><label id="' + this.getItemPriceIdName(id)  + '" class="item-price" style="display:block;float:left;">' + this.getTotalPrice(item) + '</label><button id="' + this.getItemRemoveButtonIdName(id) + '" class="delete-button" style="display:block;float:right;">x</button></div></div>'
+		newdiv.innerHTML = '<div style="width:100%;"><div id="' + this.getRowItemNumberBoxIdName(id) + '" class="item-number-box" style="background-color:' + this.getRowItemNumberBoxColor(len) + '"><label id="list_number" class="list-number">' + len + '</label></div><input id="' + this.getRowItemAmountInputIdName(id)  + '" class="amount-input-small item-amount-input-no-border" style="margin-top:4px;" value="' + item.amount + '" type="number" min="1" max="999"/><div class="descriptions"><label class="description" id="line1">' + '[' + item.code + '] ' + description  + '</label><label id="line2" class="sub-description">' + '[' + item.unit + '] ' + '[₱' + item.price + '] ' + description + '</label></div><div class="divtd" style="float:right;vertical-align:middle;"><label id="' + this.getItemPriceIdName(id)  + '" class="item-price" style="display:block;float:left;">' + this.getTotalPrice(item) + '</label><button id="' + this.getItemRemoveButtonIdName(id) + '" class="delete-button" style="display:block;float:right;">x</button></div></div>'
 		document.getElementById(this.getItemsListIdName()).appendChild(newdiv);
 		let button = document.getElementById(this.getItemRemoveButtonIdName(id));
 		button.addEventListener('click', function(e) {
@@ -98,6 +99,7 @@ class ItemSelectionListHandler {
 	}
 
 	onRemoveListRowItemClick(thiz, itemId) {
+		sfx_delete.play();
 		const len = thiz.list.length;
 		for (let i = 0; i < len; ++i) {
 			let item = thiz.list[i];
@@ -142,6 +144,15 @@ class ItemSelectionListHandler {
 			this.style["background-color"] = thiz.getRowItemDivBackgroundColor(++i);
 			div.firstChild.innerHTML = i;
 		});
+	}
+
+	get simpleList() {
+		var items = [];
+		for (let i = 0; i < this.list.length; ++i) {
+			let itm = this.list[i];
+			items.push({"itemId":itm.itemId, "amount":itm.amount});
+		}
+		return items;
 	}
 
 	getTotalPrice(item) {

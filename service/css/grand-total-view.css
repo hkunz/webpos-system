@@ -80,6 +80,8 @@ input.cash-input {
   padding: 10px 10px 10px 10px;
   height: 30px;
   width: 100px;
+  border: 1px solid #AAAAAA;
+  border-radius:5px;
 }
 
 label.cash-change {

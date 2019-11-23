@@ -20,6 +20,14 @@ input.item-amount-input {
   margin-left:3px;
 }
 
+input.item-amount-input-no-border {
+  float:left;
+  margin-left:3px;
+  margin-top:2px;
+  border: 1px solid #AAAAAA;
+  border-radius:6px;
+}
+
 button.delete-button {
   background-color: #F44336; /* Red */
   color: white;
@@ -66,6 +74,23 @@ label.sub-description {
 div.items-list {
   display: table;
   width: 100%;
+}
+
+div.items-list-header {
+  background-color: #333333;
+  vertical-align: middle;
+  height: 25px;
+  width: 100%;
+  border-top-right-radius: 7px;
+  border-top-left-radius: 7px;
+  overflow:hidden;
+}
+
+label.items-list-header {
+  color: #FFFF66;
+  font-size: 11pt;
+  float: left;
+  margin-top: 3px;
 }
 
 div.divtr {

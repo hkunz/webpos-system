@@ -64,7 +64,7 @@ BEGIN
     SET id = get_next_transaction_id();
     IF id = 0 THEN
         SET success = FALSE;
-    	LEAVE proc_insert_items_transaction;
+        LEAVE proc_insert_items_transaction;
     END IF;
     SET customer = json_unquote(json_extract(data, '$.customer'));
     SELECT customer;

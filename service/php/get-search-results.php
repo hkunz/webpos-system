@@ -1,6 +1,6 @@
 <?php
 include "../../php/db.php";
-//Getting value of "search" variable from "script.js".
+
 if (isset($_POST['search'])) {
 	$Name = str_replace(" ", "%", $_POST['search']);
    	$Query = "
@@ -14,17 +14,6 @@ if (isset($_POST['search'])) {
 	;
 
 	$ExecQuery = MySQLi_query($con, $Query);
-
-   /*
-   while ($Result = MySQLi_fetch_array($ExecQuery)) {
-        $code = $Result['bar_code'];
-        $output = (empty($code) ? "XXXXXXXXXXXXX" : $code) . ' [' .
-	$Result['unit'] . '] ' .
-	$Result['item_description'] . ' [₱' .
-	$Result['sell_price'] . '] {{' . 
-        $Result['item_id'] . '}}||';
-        echo $output;
-   }*/
 
 	while ($Result = MySQLi_fetch_array($ExecQuery)) {
 		$code = $Result['bar_code'];
@@ -50,7 +39,7 @@ if (isset($_POST['search'])) {
 			"{{price}}$price{{price}}" .
 			"||"
 		;
-   }
+	}
 }
 ?>
 

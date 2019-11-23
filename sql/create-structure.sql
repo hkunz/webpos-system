@@ -40,11 +40,10 @@ CREATE TABLE items_transactions_details (
 	PRIMARY KEY (transaction_id, item_id)
 );
 
-DROP PROCEDURE IF EXISTS insert_items_transaction;
-DROP FUNCTION IF EXISTS get_next_transaction_id;
 
 DELIMITER $$
 
+DROP FUNCTION IF EXISTS get_next_transaction_id$$
 CREATE FUNCTION get_next_transaction_id() RETURNS INT UNSIGNED
 function_get_next_transaction_id:
 BEGIN
@@ -56,21 +55,47 @@ BEGIN
     RETURN id + 1;
 END $$
 
-CREATE PROCEDURE insert_items_transaction(IN data JSON, IN date TIMESTAMP, OUT success BOOLEAN)
+DROP PROCEDURE IF EXISTS insert_items_transaction$$
+CREATE PROCEDURE insert_items_transaction(IN data JSON, OUT success BOOLEAN)
 proc_insert_items_transaction:
 BEGIN
-	DECLARE id INT UNSIGNED DEFAULT 0;
+    DECLARE id INT UNSIGNED DEFAULT 0;
     DECLARE customer VARCHAR(30) DEFAULT NULL;
+	DECLARE type VARCHAR(10);
+    DECLARE timestamp TIMESTAMP;
+	DECLARE transaction_id INT UNSIGNED DEfAULT json_unquote(json_extract(data, '$.transaction_id'));
+
+    SET success = FALSE;
+    SET @items = json_unquote(json_extract(data, '$.items'));
     SET id = get_next_transaction_id();
-    IF id = 0 THEN
-        SET success = FALSE;
+
+    IF id = 0 OR id <> transaction_id THEN
         LEAVE proc_insert_items_transaction;
     END IF;
+
     SET customer = json_unquote(json_extract(data, '$.customer'));
-    SELECT customer;
+    SET timestamp = json_unquote(json_extract(data, '$.timestamp'));
+    SET type = json_unquote(json_extract(data, '$.type'));
+
+    INSERT INTO `items_transactions`(`transaction_id`, `customer`, `type`, `date`) VALUES (transaction_id, customer, type, timestamp);
+	CALL insert_items_transaction_details(transaction_id, @items, @success);
+END $$
+
+DROP PROCEDURE IF EXISTS insert_items_transaction_details$$
+CREATE PROCEDURE insert_items_transaction_details(IN transaction_id INT UNSIGNED, IN data JSON, OUT success BOOLEAN)
+proc_insert_items_transaction_details:
+BEGIN
+    DECLARE json_len TINYINT UNSIGNED DEFAULT JSON_LENGTH(data);
+    DECLARE i TINYINT UNSIGNED DEFAULT 0;
+    WHILE `i` < `json_len` DO
+        INSERT INTO `items_transactions_details`(`transaction_id`, `item_id`, `amount`)
+        VALUES (transaction_id, JSON_EXTRACT(`data`, CONCAT('$[', `i`, '].itemId')), JSON_EXTRACT(`data`, CONCAT('$[', `i`, '].amount')));
+        SET `i` := `i` + 1;
+    END WHILE;
     SET success = TRUE;
 END $$
+
 DELIMITER ;
 
--- call insert_items_transaction(CONCAT('{"transaction_id":"',5,'","customer":"chuyte","type","SELL","items":[{},{}]}'), CURRENT_TIMESTAMP, @success);
+-- CALL insert_items_transaction('{"transaction_id":"6","customer":"Harry Kunz","type":"SALE","items":[{"itemId":"221","amount":2},{"itemId":"181","amount":3},{"itemId":"32","amount":10}],"timestamp":"2019-11-23 20:46:52","sub_total":93,"discount":0,"cash":100,"grand_total":93}', @success);
 

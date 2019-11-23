@@ -27,6 +27,20 @@ function updateNextTransactionId() {
 	$('#transaction_id').text(id);
 }
 
+function commitSaleTransaction(json) {
+	$.ajax({
+		type: "POST",
+		url: "php/commit-sale-transaction.php?_=" + new Date().getTime(),
+		data: {
+			json: json
+		},
+		success: function(data) {
+			alert("transaction complete: " + data);
+		}
+	});
+}
+
+
 $(document).ready(function() {
 	$("#eventdispatcher").on(EVENT_ITEM_AMOUNT_POPUP_INPUT_COMPLETE, function(e) {
 		item_selects_list_handler.addItem({
@@ -47,7 +61,6 @@ $(document).ready(function() {
 		let discount = e.detail.discount;
 		let grand_total = e.detail.grand_total;
 		let cash = e.detail.cash;
-		//alert("commit ==== " + sub_total + ": " + discount + ": " + grand_total + ": " + cash);
 		let typeElement = document.getElementById('transaction_type');
 		let type = typeElement.options[typeElement.selectedIndex].text;
 		let o = {};
@@ -61,8 +74,15 @@ $(document).ready(function() {
                 o['type'] = type;
                 o['items'] = items;
 		o['timestamp'] = timestamp;
+		o['sub_total'] = sub_total;
+		o['discount'] = discount;
+		o['cash'] = cash;
+		o['grand_total'] = grand_total;
 		let json = JSON.stringify(o);
-		alert("value == " + json);
+		console.log("commit transaction: " + json);
+		if (type == "SALE") {
+			commitSaleTransaction(json);
+		}
 	});
 
 	$("#eventdispatcher").on(EVENT_NEXT_TRANSACTION_ID_LOADED, function(e) {

@@ -13,6 +13,7 @@ label.list-number {
   vertical-align:middle;
   padding-left:5px;
   padding-top:5px;
+  text-shadow: 1px 1px #777777;
 }
 
 input.item-amount-input {
@@ -58,6 +59,7 @@ label.description {
   overflow: hidden;
   display:block;
   width:100%;
+  text-shadow: 1px 1px #222222;
 }
 
 label.sub-description {
@@ -68,6 +70,7 @@ label.sub-description {
   margin-top:-2px;
   font-size:10pt;
   color:#999999;
+  text-shadow: #555555;
   width:100%;
 }
 
@@ -91,6 +94,7 @@ label.items-list-header {
   font-size: 11pt;
   float: left;
   margin-top: 3px;
+  text-shadow: 1px 1px #111111;
 }
 
 div.divtr {
@@ -119,5 +123,6 @@ label.item-price {
   font-size:13pt;
   color:#ffffff;
   margin:5px 10px 0px 0px;
-  font-weight:bold
+  font-weight:bold;
+  text-shadow: 1px 1px #333333;
 }

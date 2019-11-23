@@ -20,7 +20,8 @@
   <script type="text/javascript" src="js/ItemSearchInputHandler.js"></script>
   <script type="text/javascript" src="js/ItemSelectionListHandler.js"></script>
   <script type="text/javascript" src="js/GrandTotalViewHandler.js"></script>
-   <script type="text/javascript" src="../js/sound-effects.js"></script>
+  <script type="text/javascript" src="js/SqlTransactionHandler.js"></script>
+  <script type="text/javascript" src="../js/sound-effects.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
 </head>
 
@@ -31,7 +32,7 @@
         <div class="popupCloseButton">X</div>
         <label id="popup_item_code" style="display:block;color:#888888;padding-bottom:6px;font-weight:bold"></label>
         <div style="width:100%;border:0px solid #222222;border-radius:5px">
-          <label id="popup_item_description" style="display:block;padding-bottom:10px;"></label>
+          <label id="popup_item_description" style="display:block;padding-bottom:10px;text-shadow:1px 1px #111111;"></label>
         </div>
 	<label id="popup_item_category" style="color:#888888"></label><br/>
 	<label>===&gt;&nbsp;</label><label id="popup_item_price" style="color:#FF3333;font-weight:bold"></label><label>&nbsp;&lt;===</label><br/>
@@ -48,10 +49,10 @@
     <form>
     <br/>
       Customer:&nbsp;&nbsp;&nbsp;
-      <input type="text" name="customer" maxlength="30" placeholder="Customer Name" spellcheck="false"/>
+      <input type="text" id="customer" maxlength="30" placeholder="Customer Name" spellcheck="false"/>
       <br>
       Transaction:
-      <select name="transaction_type">
+      <select id="transaction_type">
         <option value="sale">SALE</option>
         <option value="restock">RESTOCK</option>
         <option value="return">RETURN</option>
@@ -60,7 +61,7 @@
       </select>
       <br>
       Timestamp:&nbsp;&nbsp;
-      <input type="datetime-local" name="transaction_timestamp">
+      <input type="datetime-local" id="transaction_timestamp" step="1">
       <br>
     </form>
     Item Search:

@@ -1,6 +1,24 @@
 const item_amount_input_handler = new ItemAmountInputPopupHandler();
 const item_search_input_handler = new ItemSearchInputHandler();
 const item_selects_list_handler = new ItemSelectionListHandler();
+const sql_transaction_handler = new SqlTransactionHandler();
+
+function getTimestamp(date) {
+	const d = new Date(date);
+	const month = '' + (d.getMonth() + 1);
+	const day = '' + d.getDate();
+	const year = d.getFullYear();
+	const h = addZero(d.getHours());
+	const m = addZero(d.getMinutes());
+	const s = addZero(d.getSeconds());
+	const time = h + ":" + m + ":" + s;
+	return year + '-' + month + '-' + day + ' ' + (h + ":" + m + ":" + s);
+}
+
+function addZero(i) {
+	if (i < 10) i = "0" + i;
+  	return i;
+}
 
 $(document).ready(function() {
 	$("#eventdispatcher").on(EVENT_ITEM_AMOUNT_POPUP_INPUT_COMPLETE, function(e) {
@@ -22,14 +40,21 @@ $(document).ready(function() {
 		let grand_total = e.detail.grand_total;
 		let cash = e.detail.cash;
 		//alert("commit ==== " + sub_total + ": " + discount + ": " + grand_total + ": " + cash);
-		let json = {};
+		let typeElement = document.getElementById('transaction_type');
+		let type = typeElement.options[typeElement.selectedIndex].text;
+		let o = {};
+		let timestamp = document.getElementById('transaction_timestamp').value.replace('T',' ');
                 let items = item_selects_list_handler.simpleList;
-                json['transaction_id'] = 6;
-                json['customer'] = "harry";
-                json['type'] = "SELL";
-                json['items'] = items;
-		alert("JSON == " + JSON.stringify(json));	
-                //*/
-                //{"transaction_id":"',5,'","customer":"chuyte","type","SELL","items":[{},{}]}'
+		if (timestamp == '') {
+			timestamp = getTimestamp(Date.now());
+		}
+                o['transaction_id'] = 6;
+                o['customer'] = document.getElementById('customer').value;
+                o['type'] = type;
+                o['items'] = items;
+		o['timestamp'] = timestamp;
+		let json = JSON.stringify(o);
+		alert("value == " + json);
+		//sql_transaction_handler.
 	});
 });

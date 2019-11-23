@@ -52,7 +52,7 @@ class GrandTotalViewHandler {
 		let cash = cashInput.value == '' ? 0 : Number(cashInput.value);
 		let change = cash - this.grand_total;
 		let changeText = '₱ ' + GrandTotalViewHandler.getAmountText(change);
-		let ready = change > 0;
+		let ready = (cashInput.value != '' && change >= 0);
 		thiz.cash = cash;
 		$('#' + this.getCashChangeIdName()).text(ready ? changeText : '');
 		let paymentReady = (changeText != '');
@@ -60,6 +60,7 @@ class GrandTotalViewHandler {
 	}
 
 	onCommitButtonClick(thiz) {
+		let commitButton = document.getElementById(this.getCommitButtonIdName());                                                                                                   commitButton.disabled = true;
 		sfx_commit_transaction.currentTime = 0;
 		sfx_commit_transaction.play();
 

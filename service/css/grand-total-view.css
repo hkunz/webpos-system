@@ -87,5 +87,6 @@ input.cash-input {
 label.cash-change {
   color: #ff3333;
   font-weight: bold;
+  text-shadow: 1px 1px #222222;
   /*background-color:#222222;*/
 }

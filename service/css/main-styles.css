@@ -124,6 +124,7 @@ button.commit-transaction-button {
   background-color: #06C258; /* Green */
   border: 2px solid #0;
   color: white;
+  text-shadow: 1px 1px #666666;
   padding: 0px;
   text-align: center;
   text-decoration: none;
@@ -139,6 +140,7 @@ button.commit-transaction-button {
 button.commit-transaction-button:disabled {
   background-color: #333333;
   color: #555555;
+  text-shadow: 1px 1px #222222;
   cursor: default;
 }
 

@@ -1,0 +1,21 @@
+https://medium.com/@fiqriismail/how-to-setup-apache-mysql-and-php-in-linux-subsystem-for-windows-10-e03e67afe6ee
+
+$ sudo service apache2 start #(test localhost and see /var/www/html)
+$ ps aux
+$ sudo apt-get install mysql-server
+$ sudo service mysql start
+$ mysql -u root -p #(ENTER without password)
+mysql> show databases;
+$ sudo apt-get install php libapache2-mod-php php-mcrypt php-mysql
+$ sudo service apache2 restart
+$ sudo echo '<?php phpinfo(); ?>' > /var/www/html/test.php
+$ open -a "Google Chrome" /var/www/html/test.php
+
+$ sudo apt-get install phpmyadmin
+# config under /etc/apache2/conf-enabled/phpmyadmin.conf and /etc/phpmyadmin/config.inc.php
+# Enable AllowNoPassword /etc/phpmyadmin/config.inc.php
+$ sudo service apache2 restart
+# phpmyadmin uses user and pass from mysql so use username "root" and empty password as initial default
+
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' IDENTIFIED BY 'password'
+

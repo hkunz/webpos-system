@@ -1,5 +1,5 @@
 <?php
-include "db.php";
+include "../../php/db.php";
 //Getting value of "search" variable from "script.js".
 if (isset($_POST['search'])) {
 	$Name = str_replace(" ", "%", $_POST['search']);

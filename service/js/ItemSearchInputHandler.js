@@ -28,7 +28,7 @@ class ItemSearchInputHandler {
 		} else {
 			$.ajax({
 				type: "POST",
-				url: "ajax.php?_=" + new Date().getTime(),
+				url: "php/get-search-results.php?_=" + new Date().getTime(),
 				data: {
 					search: name
 				},

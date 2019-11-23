@@ -3,6 +3,8 @@ const item_search_input_handler = new ItemSearchInputHandler();
 const item_selects_list_handler = new ItemSelectionListHandler();
 const sql_transaction_handler = new SqlTransactionHandler();
 
+let thiz = this;
+
 function getTimestamp(date) {
 	const d = new Date(date);
 	const month = '' + (d.getMonth() + 1);
@@ -19,6 +21,7 @@ function addZero(i) {
 	if (i < 10) i = "0" + i;
   	return i;
 }
+
 
 $(document).ready(function() {
 	$("#eventdispatcher").on(EVENT_ITEM_AMOUNT_POPUP_INPUT_COMPLETE, function(e) {
@@ -48,13 +51,12 @@ $(document).ready(function() {
 		if (timestamp == '') {
 			timestamp = getTimestamp(Date.now());
 		}
-                o['transaction_id'] = 6;
+                o['transaction_id'] = sql_transaction_handler.getNextTransactionId();
                 o['customer'] = document.getElementById('customer').value;
                 o['type'] = type;
                 o['items'] = items;
 		o['timestamp'] = timestamp;
 		let json = JSON.stringify(o);
 		alert("value == " + json);
-		//sql_transaction_handler.
 	});
 });

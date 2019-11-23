@@ -1,5 +1,5 @@
 <?php
-  include "db.php"
+  include "../php/db.php"
 ?>
 <!DOCTYPE html>
 <html>
@@ -13,8 +13,8 @@
   <link type="text/css" rel="stylesheet" href="css/items-list-styles.css">
   <link type="text/css" rel="stylesheet" href="css/grand-total-view.css">
   <link type="text/css" rel="stylesheet" href="css/awesomplete.css">
-  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-  <script type="text/javascript" src="js/awesomplete.js"></script>
+  <script type="text/javascript" src="js/libs/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="js/libs/awesomplete.js"></script>
   <script type="text/javascript" src="js/constants.js"></script>
   <script type="text/javascript" src="js/ItemAmountInputPopupHandler.js"></script>
   <script type="text/javascript" src="js/ItemSearchInputHandler.js"></script>

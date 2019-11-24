@@ -27,7 +27,7 @@ function updateNextTransactionId() {
 	$('#transaction_id').text(id);
 }
 
-function commitSaleTransaction(json) {
+function commitSaleTransaction(thiz, json) {
 	$.ajax({
 		type: "POST",
 		url: "php/commit-sale-transaction.php?_=" + new Date().getTime(),
@@ -35,11 +35,24 @@ function commitSaleTransaction(json) {
 			json: json
 		},
 		success: function(data) {
-			alert("transaction complete: " + data);
+			const json = JSON.parse(data);
+			const id = json.transaction_id;
+			alert((json.success == 1 ? "Transaction '" + id + "' Complete" : "Transaction '" + id + "' Error"));
+			thiz.prepareNextTransaction(thiz);
 		}
 	});
 }
 
+function prepareNextTransaction(thiz) {
+	sql_transaction_handler.phpGetNextTransactionId();
+	reset();
+}
+
+function reset() {
+	document.getElementById('transaction_timestamp').value = '';
+	document.getElementById('customer').value = '';
+	item_selects_list_handler.reset();
+}
 
 $(document).ready(function() {
 	$("#eventdispatcher").on(EVENT_ITEM_AMOUNT_POPUP_INPUT_COMPLETE, function(e) {
@@ -76,12 +89,12 @@ $(document).ready(function() {
 		o['timestamp'] = timestamp;
 		o['sub_total'] = sub_total;
 		o['discount'] = discount;
-		o['cash'] = cash;
+		o['payment'] = cash;
 		o['grand_total'] = grand_total;
 		let json = JSON.stringify(o);
 		console.log("commit transaction: " + json);
 		if (type == "SALE") {
-			commitSaleTransaction(json);
+			commitSaleTransaction(thiz, json);
 		}
 	});
 

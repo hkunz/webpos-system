@@ -81,7 +81,7 @@
       <label class="receipt">RECEIPT</label>
     </div>
     <div class="transaction-text-div">
-      Transaction ID: <label id="transaction_id" style="color:#ffff00;font-weight:bold;">0</label>
+      Transaction ID: <label id="transaction_id" style="color:#ffff00;font-weight:bold;">&nbsp;</label>
     </div>
     <hr/>
     <table class="totals-grid">

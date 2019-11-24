@@ -7,6 +7,14 @@ class ItemSelectionListHandler {
 		this.list = [];
 	}
 
+	reset() {
+		sfx_delete.play();
+		this.list = [];
+		let div = document.getElementById(this.getItemsListIdName());
+		div.innerHTML = '';
+		this.updateTotalPrice(this);
+	}
+
 	addItem(item) {
 		let itm = null;
 		let len = this.list.length;
@@ -28,10 +36,6 @@ class ItemSelectionListHandler {
 		}
 		sfx_click.play();
 		this.debug_dump();
-	}
-
-	reset() {
-		this.list.length = 0;
 	}
 
 	debug_dump() {

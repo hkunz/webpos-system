@@ -1,12 +1,14 @@
 <?php
 //Database connection.
-$con = MySQLi_connect(
-   "localhost", //Server host name.
-   "hkunz", //Database username.
-   "@Student219", //Database password.
-   "chuyte" //Database name or anything you would like to call it.
-);
-//Check connection
+
+$server = "localhost";
+$user = "hkunz";
+$pass = "@Student219";
+$db = "chuyte";
+
+$con = MySQLi_connect($server, $user, $pass, $db); //for procedural use
+$sql_con = new mysqli($server, $user, $pass, $db); //for object-oriented use
+
 if (MySQLi_connect_errno()) {
    echo "Failed to connect to MySQL: " . MySQLi_connect_error();
 }

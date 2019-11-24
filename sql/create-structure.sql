@@ -78,7 +78,8 @@ BEGIN
     SET type = json_unquote(json_extract(data, '$.type'));
 
     INSERT INTO `items_transactions`(`transaction_id`, `customer`, `type`, `date`) VALUES (transaction_id, customer, type, timestamp);
-	CALL insert_items_transaction_details(transaction_id, @items, @success);
+    CALL insert_items_transaction_details(transaction_id, @items, @success2);
+    SET success = @success2;
 END $$
 
 DROP PROCEDURE IF EXISTS insert_items_transaction_details$$

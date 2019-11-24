@@ -100,18 +100,21 @@ proc_insert_items_transaction_details:
 BEGIN
     DECLARE json_len TINYINT UNSIGNED DEFAULT JSON_LENGTH(data);
     DECLARE i TINYINT UNSIGNED DEFAULT 0;
-    DECLARE item_id INT UNSIGNED DEFAULT 0;
-    DECLARE amount INT DEFAULT 0;
+    DECLARE _item_id INT UNSIGNED DEFAULT 0;
+    DECLARE _amount INT UNSIGNED DEFAULT 0;
+    DECLARE delta INT DEFAULT 0;
+
     WHILE `i` < `json_len` DO
-        SET `item_id` = CONCAT('$[', `i`, '].itemId');
-        SET `amount` = CONCAT('$[', `i`, '].amount');
+        SET `_item_id` = JSON_EXTRACT(data, CONCAT('$[', `i`, '].itemId'));
+        SET `_amount` = JSON_EXTRACT(data, CONCAT('$[', `i`, '].amount'));
+        SET `delta` = `_amount`;
+        INSERT INTO `items_transactions_details` (`transaction_id`, `item_id`, `amount`)
+        VALUES (`transaction_id`, `_item_id`, `_amount`);
         IF `type`='SALE' THEN
-            SET `amount` = -`amount`;
+            SET `delta` = -`_amount`;
         END IF;
-        INSERT INTO `items_transactions_details`(`transaction_id`, `item_id`, `amount`)
-        VALUES (transaction_id, JSON_EXTRACT(`data`, `itemId`), JSON_EXTRACT(`data`, `amount`));
-        CALL update_stocks(`item_id`, `amount`, @success2);
-        SET `i` := `i` + 1;
+        CALL update_item_stock(`_item_id`, `delta`, @success2);
+        SET `i` = `i` + 1;
     END WHILE;
     SET success = TRUE;
 END $$
@@ -122,7 +125,7 @@ DELIMITER $$
 CREATE PROCEDURE update_item_stock(IN itemId INT UNSIGNED, IN delta INT, OUT success BOOLEAN)
 proc_update_item_stock:
 BEGIN
-    DECLARE am INT UNSIGNED DEFAULT 0;
+    DECLARE amount INT UNSIGNED DEFAULT 0;
     IF EXISTS (SELECT `stock` FROM `items_stock` WHERE `item_id`=`itemId`) THEN
     BEGIN
         SELECT t.`stock` INTO @amount FROM `items_stock` t WHERE t.`item_id`=`itemId`;
@@ -147,5 +150,5 @@ BEGIN
 END $$
 DELIMITER ;
 
--- CALL insert_items_transaction('{"transaction_id":"6","customer":"Harry Kunz","type":"SALE","items":[{"itemId":"221","amount":2},{"itemId":"181","amount":3},{"itemId":"32","amount":10}],"timestamp":"2019-11-23 20:46:52","sub_total":93,"discount":0,"cash":100,"grand_total":93}', @success);
-
+-- CALL insert_items_transaction('{"transaction_id":"6","customer":"Harry Kunz","type":"SALE","items":[{"itemId":"221","amount":2},{"itemId":"181","amount":3},{"itemId":"32","amount":10}],"timestamp":"2019-11-23 20:46:52","sub_total":93,"discount":0,"cash":100,"grand_total":93,"payment":100}', @success);
+-- CALL insert_items_transaction('{"transaction_id":"6","customer":"","type":"SALE","items":[{"itemId":"221","amount":1}],"timestamp":"2019-11-24 15:27:40","sub_total":2.5,"discount":0,"payment":5,"grand_total":2.5}', @success);

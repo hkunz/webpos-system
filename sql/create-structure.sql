@@ -41,9 +41,8 @@ CREATE TABLE items_transactions_details (
 );
 
 
+DROP FUNCTION IF EXISTS get_next_transaction_id;
 DELIMITER $$
-
-DROP FUNCTION IF EXISTS get_next_transaction_id$$
 CREATE FUNCTION get_next_transaction_id() RETURNS INT UNSIGNED
 function_get_next_transaction_id:
 BEGIN
@@ -54,8 +53,10 @@ BEGIN
     END IF;
     RETURN id + 1;
 END $$
+DELIMITER ;
 
-DROP PROCEDURE IF EXISTS insert_items_transaction$$
+DROP PROCEDURE IF EXISTS insert_items_transaction;
+DELIMITER $$
 CREATE PROCEDURE insert_items_transaction(IN data JSON, OUT success BOOLEAN)
 proc_insert_items_transaction:
 BEGIN
@@ -81,18 +82,55 @@ BEGIN
     CALL insert_items_transaction_details(transaction_id, @items, @success2);
     SET success = @success2;
 END $$
+DELIMITER ;
 
-DROP PROCEDURE IF EXISTS insert_items_transaction_details$$
+DROP PROCEDURE IF EXISTS insert_items_transaction_details;
+DELIMITER $$
 CREATE PROCEDURE insert_items_transaction_details(IN transaction_id INT UNSIGNED, IN data JSON, OUT success BOOLEAN)
 proc_insert_items_transaction_details:
 BEGIN
     DECLARE json_len TINYINT UNSIGNED DEFAULT JSON_LENGTH(data);
     DECLARE i TINYINT UNSIGNED DEFAULT 0;
+    DECLARE item_id INT UNSIGNED DEFAULT 0;
+    DECLARE amount INT UNSIGNED DEFAULT 0;
     WHILE `i` < `json_len` DO
+        SET `item_id` = CONCAT('$[', `i`, '].itemId');
+        SET `amount` = CONCAT('$[', `i`, '].amount');
         INSERT INTO `items_transactions_details`(`transaction_id`, `item_id`, `amount`)
-        VALUES (transaction_id, JSON_EXTRACT(`data`, CONCAT('$[', `i`, '].itemId')), JSON_EXTRACT(`data`, CONCAT('$[', `i`, '].amount')));
+        VALUES (transaction_id, JSON_EXTRACT(`data`, `itemId`), JSON_EXTRACT(`data`, `amount`));
+        CALL update_stocks(`item_id`, `amount`, @success2);
         SET `i` := `i` + 1;
     END WHILE;
+    SET success = TRUE;
+END $$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS update_item_stock;
+DELIMITER $$
+CREATE PROCEDURE update_item_stock(IN itemId INT UNSIGNED, IN delta INT SIGNED, OUT success BOOLEAN)
+proc_update_item_stock:
+BEGIN
+    DECLARE am INT UNSIGNED DEFAULT 0;
+    IF EXISTS (SELECT `stock` FROM `items_stock` WHERE `item_id`=`itemId`) THEN
+    BEGIN
+        SELECT t.`stock` INTO @amount FROM `items_stock` t WHERE t.`item_id`=`itemId`;
+        IF @amount = 0 AND `delta` < 0 THEN
+            LEAVE proc_update_item_stock;
+        END IF;
+        IF -`delta` > @amount THEN
+            SET @amount = 0;
+        ELSE
+            SET @amount = @amount + `delta`;
+        END IF;
+        UPDATE `items_stock` t SET t.`stock`=@amount WHERE t.item_id=`itemId`;
+    END;
+    ELSE
+    BEGIN
+        IF `delta` > 0 THEN
+            INSERT INTO `items_stock`(`item_id`, `stock`) VALUES (`itemId`,`delta`);
+        END IF;
+    END;
+    END IF;
     SET success = TRUE;
 END $$
 

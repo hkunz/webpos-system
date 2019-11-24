@@ -28,7 +28,11 @@ CREATE TABLE items_transactions (
 	transaction_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	customer VARCHAR(30),
 	type ENUM('RESTOCK', 'SALE', 'RETURN', 'LOSS', 'SURPLUS') NOT NULL,
-	date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+	date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	sub_total DECIMAL(13,2) NOT NULL DEFAULT 0,
+	grand_total DECIMAL(13,2) NOT NULL DEFAULT 0,
+	discount DECIMAL(13,2) NOT NULL DEFAULT 0,
+	payment DECIMAL(13,2) NOT NULL DEFAULT 0
 );
 
 CREATE TABLE items_transactions_details (
@@ -65,6 +69,10 @@ BEGIN
 	DECLARE type VARCHAR(10);
     DECLARE timestamp TIMESTAMP;
 	DECLARE transaction_id INT UNSIGNED DEfAULT json_unquote(json_extract(data, '$.transaction_id'));
+    DECLARE grand_total DECIMAL(13,2) DEFAULT json_unquote(json_extract(data, '$.grand_total'));
+    DECLARE sub_total DECIMAL(13,2) DEFAULT json_unquote(json_extract(data, '$.sub_total'));
+    DECLARE discount DECIMAL(13,2) DEFAULT json_unquote(json_extract(data, '$.discount'));
+    DECLARE payment DECIMAL(13,2) DEFAULT json_unquote(json_extract(data, '$.payment'));
 
     SET success = FALSE;
     SET @items = json_unquote(json_extract(data, '$.items'));
@@ -78,24 +86,28 @@ BEGIN
     SET timestamp = json_unquote(json_extract(data, '$.timestamp'));
     SET type = json_unquote(json_extract(data, '$.type'));
 
-    INSERT INTO `items_transactions`(`transaction_id`, `customer`, `type`, `date`) VALUES (transaction_id, customer, type, timestamp);
-    CALL insert_items_transaction_details(transaction_id, @items, @success2);
+    INSERT INTO `items_transactions`(`transaction_id`, `customer`, `type`, `date`, `sub_total`, `grand_total`, `discount`, `payment`)
+    VALUES (`transaction_id`, `customer`, `type`, `timestamp`, `sub_total`, `grand_total`, `discount`, `payment`);
+    CALL insert_items_transaction_details(`transaction_id`, `type`, @items, @success2);
     SET success = @success2;
 END $$
 DELIMITER ;
 
 DROP PROCEDURE IF EXISTS insert_items_transaction_details;
 DELIMITER $$
-CREATE PROCEDURE insert_items_transaction_details(IN transaction_id INT UNSIGNED, IN data JSON, OUT success BOOLEAN)
+CREATE PROCEDURE insert_items_transaction_details(IN transaction_id INT UNSIGNED, IN type VARCHAR(10), IN data JSON, OUT success BOOLEAN)
 proc_insert_items_transaction_details:
 BEGIN
     DECLARE json_len TINYINT UNSIGNED DEFAULT JSON_LENGTH(data);
     DECLARE i TINYINT UNSIGNED DEFAULT 0;
     DECLARE item_id INT UNSIGNED DEFAULT 0;
-    DECLARE amount INT UNSIGNED DEFAULT 0;
+    DECLARE amount INT DEFAULT 0;
     WHILE `i` < `json_len` DO
         SET `item_id` = CONCAT('$[', `i`, '].itemId');
         SET `amount` = CONCAT('$[', `i`, '].amount');
+        IF `type`='SALE' THEN
+            SET `amount` = -`amount`;
+        END IF;
         INSERT INTO `items_transactions_details`(`transaction_id`, `item_id`, `amount`)
         VALUES (transaction_id, JSON_EXTRACT(`data`, `itemId`), JSON_EXTRACT(`data`, `amount`));
         CALL update_stocks(`item_id`, `amount`, @success2);
@@ -107,7 +119,7 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS update_item_stock;
 DELIMITER $$
-CREATE PROCEDURE update_item_stock(IN itemId INT UNSIGNED, IN delta INT SIGNED, OUT success BOOLEAN)
+CREATE PROCEDURE update_item_stock(IN itemId INT UNSIGNED, IN delta INT, OUT success BOOLEAN)
 proc_update_item_stock:
 BEGIN
     DECLARE am INT UNSIGNED DEFAULT 0;
@@ -133,7 +145,6 @@ BEGIN
     END IF;
     SET success = TRUE;
 END $$
-
 DELIMITER ;
 
 -- CALL insert_items_transaction('{"transaction_id":"6","customer":"Harry Kunz","type":"SALE","items":[{"itemId":"221","amount":2},{"itemId":"181","amount":3},{"itemId":"32","amount":10}],"timestamp":"2019-11-23 20:46:52","sub_total":93,"discount":0,"cash":100,"grand_total":93}', @success);

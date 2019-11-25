@@ -48,10 +48,10 @@ class GrandTotalViewHandler {
 		this.sub_total = total;
 		this.discount = 0; //TODO: implement discount
 		this.service_charge = this.getServiceChargeAmount(this);
-		this.grand_total = total + this.service_charge - this.discount;
+		this.grand_total = len > 0 ? total + this.service_charge - this.discount : 0;
 		$('#discount_value').text(GrandTotalViewHandler.getAmountText(this.discount));
 		$('#grand_total_value').text(GrandTotalViewHandler.getAmountText(this.grand_total));
-		const nothingToPay = (this.grand_total == 0);
+		const nothingToPay = len <= 0; //(this.grand_total == 0);
 		let cashInput = document.getElementById(this.getCashInputIdName());
 		let serviceChInput = document.getElementById(this.getServiceChargeIdName());
 		cashInput.disabled = nothingToPay;

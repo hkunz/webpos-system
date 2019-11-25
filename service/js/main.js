@@ -35,6 +35,7 @@ function commitTransaction(thiz, json) {
 			json: json
 		},
 		success: function(data) {
+			console.log("commit-sale-transaction success: " + data);
 			const json = JSON.parse(data);
 			const id = json.transaction_id;
 			alert((json.success == 1 ? "Transaction '" + id + "' Complete" : "Transaction '" + id + "' Error"));

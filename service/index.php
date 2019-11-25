@@ -32,7 +32,7 @@
           <label id="popup_item_description" style="display:block;padding-bottom:10px;text-shadow:1px 1px #111111;"></label>
         </div>
 	<label id="popup_item_category" style="color:#888888"></label><br/>
-	<label>===&gt;&nbsp;</label><label id="popup_item_price" style="color:#FF3333;font-weight:bold"></label><label>&nbsp;&lt;===</label><br/>
+	<label>===&gt;&nbsp;</label><label id="popup_item_price" style="color:#FF3333;font-weight:bold;text-shadow: 1px 1px #222222;"></label><label>&nbsp;&lt;===</label><br/>
 	<form>
         	<input class="amount-input" style="margin-top:10px;margin-left:25px;" type="number" id="popup_amount_input" min="1" max="999"/>
         	<label id="item_amount_unit"></label>
@@ -46,7 +46,7 @@
     <form>
     <br/>
       Customer:&nbsp;&nbsp;&nbsp;
-      <input type="text" id="customer" style="margin-bottom:7px;" maxlength="30" placeholder="Customer Name" spellcheck="false"/>
+      <input type="text" id="customer" style="margin-bottom:7px;" maxlength="30" placeholder="Customer Name ..." spellcheck="false"/>
       <br>
       Transaction:
       <select id="transaction_type">
@@ -100,7 +100,7 @@
         <td colspan="2"><hr class="division"/></td>
       </tr>
       <tr class="totals-tr">
-        <td class="td-value" colspan="2">
+        <td>
           <label class="grand-total">GRAND TOTAL:</label> 
         </td>
       </tr>

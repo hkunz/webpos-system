@@ -10,7 +10,8 @@ if (isset($_POST['search'])) {
 		OR general_name LIKE '%$Name%'
 		OR brand_name LIKE '%$Name%'  
 		OR category LIKE '%$Name%')
-		LIMIT 15"
+		ORDER BY item_description ASC
+		LIMIT 20;"
 	;
 
 	$ExecQuery = MySQLi_query($con, $Query);

@@ -9,13 +9,16 @@ class GrandTotalViewHandler {
 		this.discount = 0;
 		$(document).ready(function() {
 			$(document).on("change, mouseup, keyup", "#" + thiz.getCashInputIdName(), function(e) {
-                        	thiz.onChangeMouseUpKeyUp(thiz);
-                	});
-                	$(document).on("click", "#" + thiz.getCashInputIdName(), function(e) {
-                        	thiz.onChangeMouseUpKeyUp(thiz);
-                	});
+				thiz.onChangeMouseUpKeyUp(thiz);
+			});
+			$(document).on("click", "#" + thiz.getCashInputIdName(), function(e) {
+				thiz.onChangeMouseUpKeyUp(thiz);
+			});
 			$('#' + thiz.getCommitButtonIdName()).click(function(e) {
 				thiz.onCommitButtonClick(thiz);
+			});
+			$('#require_payment_checkbox').change(function(e) {
+				thiz.onRequirePaymentCheckChange(e, thiz);
 			});
 		});
 	}
@@ -52,11 +55,26 @@ class GrandTotalViewHandler {
 		let cash = cashInput.value == '' ? 0 : Number(cashInput.value);
 		let change = cash - this.grand_total;
 		let changeText = '₱ ' + GrandTotalViewHandler.getAmountText(change);
-		let ready = (cashInput.value != '' && change >= 0);
+		let ready = thiz.isPaymentReady(thiz);
 		thiz.cash = cash;
 		$('#' + this.getCashChangeIdName()).text(ready ? changeText : '');
-		let paymentReady = (changeText != '');
-		let commitButton = document.getElementById(this.getCommitButtonIdName());                                                                                                   commitButton.disabled = !ready;
+		thiz.updateCommitButton(thiz);
+	}
+
+	updateCommitButton(thiz) {
+		let requirePay = thiz.isRequirePaymentChecked();
+		let ready = thiz.isPaymentReady(thiz);
+		let commitButton = document.getElementById(thiz.getCommitButtonIdName());
+		let enableCommit = ready || (!requirePay && thiz.sub_total > 0);
+		commitButton.disabled = !enableCommit;
+	}
+
+	isPaymentReady(thiz) {
+		let cashInput = document.getElementById(this.getCashInputIdName());
+		let cash = (cashInput.value == '' ? 0 : Number(cashInput.value));
+		let change = cash - this.grand_total;
+		let ready = (cashInput.value != '' && change >= 0);
+		return ready;
 	}
 
 	onCommitButtonClick(thiz) {
@@ -75,6 +93,13 @@ class GrandTotalViewHandler {
                 document.getElementById("eventdispatcher").dispatchEvent(e);
 	}
 
+	onRequirePaymentCheckChange(e, thiz) {
+		thiz.updateCommitButton(thiz);
+	}
+
+	isRequirePaymentChecked() {
+		return $('#require_payment_checkbox').is(":checked");
+	}
 
 	static getAmountText(value) {
 		return value.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");

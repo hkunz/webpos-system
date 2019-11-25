@@ -27,8 +27,9 @@ class ItemAmountInputPopupHandler {
 				thiz.supplier = item.supplier;
 				thiz.general_name = item.general_name;
 				thiz.category = item.category;
+				let id_text = ' <span style="color:#999999">[ID-' + thiz.itemId + ']</span>';
 				document.getElementById('popup_item_code').innerHTML = "[" + thiz.code + "]";
-                		document.getElementById('popup_item_description').innerHTML = $('<textarea />').html(thiz.description).text();
+				document.getElementById('popup_item_description').innerHTML = $('<textarea />').html(thiz.description).text() + id_text;
 				document.getElementById('popup_item_category').innerHTML = thiz.category;
 				document.getElementById('popup_item_price').innerHTML = "₱" + thiz.price;
 				document.getElementById('item_amount_unit').innerHTML = item.unit;

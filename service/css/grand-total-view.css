@@ -51,12 +51,14 @@ label.label-text {
 label.calc-amount-value {
   font-weight: bold;
   text-align: right;
+  text-shadow: 1px 1px #222222;
 }
 
 label.grand-total {
   font-size: 17px;
   color: #EEEEEE;
   font-weight: bold;
+  text-shadow: 1px 1px #222222;
 }
 
 label.grand-total-value {
@@ -79,13 +81,19 @@ div.grand-total-value {
 input.cash-input {
   padding: 10px 10px 10px 10px;
   height: 30px;
-  width: 100px;
+  width: 120px;
   border: 1px solid #AAAAAA;
   border-radius:5px;
 }
 
 input.cash-input:focus {
   border: 1px solid #ffff99;
+}
+
+input.cash-input:disabled {
+  background-color: #333333;
+  border: 1px solid #777;
+  box-shadow: 0 0 1px 1px #222;
 }
 
 label.cash-change {
@@ -106,4 +114,5 @@ div.require-payment {
   border-radius:5px;
   padding-left:5px;
   padding-top:7px;
+  text-shadow: 1px 1px #222222;
 }

@@ -55,7 +55,7 @@ class ItemSearchInputHandler {
 			const brand_name = this.getValue(item, "{{brand_name}}");
 			const general_name = this.getValue(item, "{{general_name}}");
 			const supplier = this.getValue(item, "{{supplier}}");
-			const label = code + " [" + unit + "] " + description + " [₱" + price + "] {{" + itemId + "}}";
+			const label = code + " [" + unit + "] " + description + " [₱" + price + "]";
 			const json =
 				'{"itemId":"' + itemId +
 				'","code":"' + code +

@@ -24,6 +24,11 @@ input {
   box-shadow: 0 0 2px 2px #222222;
 }
 
+input:disabled {
+  background-color: #444444;
+  border: 1px solid #999;
+}
+
 input.amount-input {
   width:60px;
   text-align:center;
@@ -171,6 +176,7 @@ button.commit-transaction-button:hover:enabled {
   display: block;
   position: relative;
   left: 2px;
+  width: 85%;
   padding-top: 0px;
   padding-left: 31px;
   margin-bottom: 12px;

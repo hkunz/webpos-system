@@ -25,14 +25,15 @@ CREATE TABLE items_stock (
 );
 
 CREATE TABLE items_transactions (
-	transaction_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	customer VARCHAR(30),
-	type ENUM('RESTOCK', 'SALE', 'RETURN', 'LOSS', 'SURPLUS') NOT NULL,
-	date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	sub_total DECIMAL(13,2) NOT NULL DEFAULT 0,
-	grand_total DECIMAL(13,2) NOT NULL DEFAULT 0,
-	discount DECIMAL(13,2) NOT NULL DEFAULT 0,
-	payment DECIMAL(13,2) NOT NULL DEFAULT 0
+    transaction_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    customer VARCHAR(30),
+    type ENUM('RESTOCK', 'SALE', 'RETURN', 'LOSS', 'SURPLUS') NOT NULL,
+    date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    sub_total DECIMAL(13,2) NOT NULL DEFAULT 0,
+    service_charge DECIMAL(13,2) NOT NULL DEFAULT 0,
+    grand_total DECIMAL(13,2) NOT NULL DEFAULT 0,
+    discount DECIMAL(13,2) NOT NULL DEFAULT 0,
+    payment DECIMAL(13,2) NOT NULL DEFAULT 0
 );
 
 CREATE TABLE items_transactions_details (
@@ -71,6 +72,7 @@ BEGIN
 	DECLARE transaction_id INT UNSIGNED DEfAULT json_unquote(json_extract(data, '$.transaction_id'));
     DECLARE grand_total DECIMAL(13,2) DEFAULT json_unquote(json_extract(data, '$.grand_total'));
     DECLARE sub_total DECIMAL(13,2) DEFAULT json_unquote(json_extract(data, '$.sub_total'));
+    DECLARE service_charge DECIMAL(13,2) DEFAULT json_unquote(json_extract(data, '$.service_charge'));
     DECLARE discount DECIMAL(13,2) DEFAULT json_unquote(json_extract(data, '$.discount'));
     DECLARE payment DECIMAL(13,2) DEFAULT json_unquote(json_extract(data, '$.payment'));
 
@@ -87,7 +89,7 @@ BEGIN
     SET type = json_unquote(json_extract(data, '$.type'));
 
     INSERT INTO `items_transactions`(`transaction_id`, `customer`, `type`, `date`, `sub_total`, `grand_total`, `discount`, `payment`)
-    VALUES (`transaction_id`, `customer`, `type`, `timestamp`, `sub_total`, `grand_total`, `discount`, `payment`);
+    VALUES (`transaction_id`, `customer`, `type`, `timestamp`, `sub_total`, `service_charge`, `grand_total`, `discount`, `payment`);
     CALL insert_items_transaction_details(`transaction_id`, `type`, @items, @success2);
     SET success = @success2;
 END $$

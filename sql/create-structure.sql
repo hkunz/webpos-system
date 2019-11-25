@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS items;
 CREATE TABLE items (
 	item_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	bar_code VARCHAR(13) NOT NULL,
-	unit ENUM('bar','bot','bx','crd','cut','dz','jar','pad','pc','pd','pg','pk','rm','sbx','set','tie') NOT NULL,
+	unit ENUM('bar','bot','bx','crd','cut','dz','jar','ld','pad','pc','pd','pg','pk','rm','sbx','set','tie') NOT NULL,
 	count SMALLINT UNSIGNED NOT NULL,
 	item_description VARCHAR(100) NOT NULL,
 	general_name VARCHAR(30) NOT NULL,

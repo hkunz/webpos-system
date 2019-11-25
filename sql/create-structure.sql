@@ -88,7 +88,7 @@ BEGIN
     SET timestamp = json_unquote(json_extract(data, '$.timestamp'));
     SET type = json_unquote(json_extract(data, '$.type'));
 
-    INSERT INTO `items_transactions`(`transaction_id`, `customer`, `type`, `date`, `sub_total`, `grand_total`, `discount`, `payment`)
+    INSERT INTO `items_transactions`(`transaction_id`, `customer`, `type`, `date`, `sub_total`, `service_charge`, `grand_total`, `discount`, `payment`)
     VALUES (`transaction_id`, `customer`, `type`, `timestamp`, `sub_total`, `service_charge`, `grand_total`, `discount`, `payment`);
     CALL insert_items_transaction_details(`transaction_id`, `type`, @items, @success2);
     SET success = @success2;
@@ -153,4 +153,4 @@ END $$
 DELIMITER ;
 
 -- CALL insert_items_transaction('{"transaction_id":"6","customer":"Harry Kunz","type":"SALE","items":[{"itemId":"221","amount":2},{"itemId":"181","amount":3},{"itemId":"32","amount":10}],"timestamp":"2019-11-23 20:46:52","sub_total":93,"discount":0,"cash":100,"grand_total":93,"payment":100}', @success);
--- CALL insert_items_transaction('{"transaction_id":"6","customer":"","type":"SALE","items":[{"itemId":"221","amount":1}],"timestamp":"2019-11-24 15:27:40","sub_total":2.5,"discount":0,"payment":5,"grand_total":2.5}', @success);
+-- CALL insert_items_transaction('{"transaction_id":"6","customer":"","type":"SALE","items":[{"itemId":"221","amount":1}],"timestamp":"2019-11-24 15:27:40","sub_total":2.5,"service_charge":1,"discount":0,"payment":5,"grand_total":2.5}', @success);

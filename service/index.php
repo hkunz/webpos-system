@@ -93,6 +93,15 @@
         <td colspan="2"><hr class="division"/></td>
       </tr>
       <tr class="totals-tr">
+        <td><label class="label-text">Service Charge:</label></td>
+        <td class="td-value">
+          <input class="cash-input" type="number" id="service_charge_input" disabled="true" min="0" placeholder="₱"/>
+        </td>
+      </tr>
+      <tr class="totals-tr">
+        <td colspan="2"><hr class="division"/></td>
+      </tr>
+      <tr class="totals-tr">
         <td><label class="label-text">Discount:</label></td>
         <td class="td-value"><label id="discount_value" class="calc-amount-value">0.00</label></td>
       </tr>

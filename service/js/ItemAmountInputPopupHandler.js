@@ -63,13 +63,14 @@ class ItemAmountInputPopupHandler {
 	}
 
 	onPopupEnter() {
+		let amount = Number(document.getElementById('popup_amount_input').value);
 		const e = new CustomEvent(EVENT_ITEM_AMOUNT_POPUP_INPUT_COMPLETE, {
 			detail: {
 				code:this.code,
 				unit:this.unit,
 				itemId:this.itemId,
 				description:this.description,
-				amount:Number(document.getElementById('popup_amount_input').value),
+				amount:(amount > 0 ? amount : 1),
 				price:this.price,
 			}
 		});

@@ -73,6 +73,7 @@ $(document).ready(function() {
 
 	$("#eventdispatcher").on(EVENT_COMMIT_TRANSACTION, function(e) {
 		let sub_total = e.detail.sub_total;
+		let service_charge = detail.service_charge;
 		let discount = e.detail.discount;
 		let grand_total = e.detail.grand_total;
 		let cash = e.detail.cash;
@@ -90,6 +91,7 @@ $(document).ready(function() {
                 o['items'] = items;
 		o['timestamp'] = timestamp;
 		o['sub_total'] = sub_total;
+		o['service_charge'] = service_charge;
 		o['discount'] = discount;
 		o['payment'] = cash;
 		o['grand_total'] = grand_total;

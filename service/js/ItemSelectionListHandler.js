@@ -3,13 +3,15 @@
 class ItemSelectionListHandler {
 	constructor() {
 		$(document).on("change, mouseup, keyup", "#quantity", this.onChangeMouseUpKeyUp);
-		this.grand_total_handler = new GrandTotalViewHandler();
 		this.list = [];
+		this.grand_total_handler = new GrandTotalViewHandler();
+		this.grand_total_handler.setList(this.list);
 	}
 
 	reset() {
 		sfx_delete.play();
 		this.list = [];
+		this.grand_total_handler.setList(this.list);
 		let div = document.getElementById(this.getItemsListIdName());
 		div.innerHTML = '';
 		this.updateTotalPrice(this);
@@ -154,7 +156,9 @@ class ItemSelectionListHandler {
 		var items = [];
 		for (let i = 0; i < this.list.length; ++i) {
 			let itm = this.list[i];
-			items.push({"itemId":itm.itemId, "amount":itm.amount});
+			if (itm.amount > 0) {
+				items.push({"itemId":itm.itemId, "amount":itm.amount});
+			}
 		}
 		return items;
 	}

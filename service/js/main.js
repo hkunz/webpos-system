@@ -27,7 +27,7 @@ function updateNextTransactionId() {
 	$('#transaction_id').text(id);
 }
 
-function commitSaleTransaction(thiz, json) {
+function commitTransaction(thiz, json) {
 	$.ajax({
 		type: "POST",
 		url: "php/commit-sale-transaction.php?_=" + new Date().getTime(),
@@ -51,6 +51,8 @@ function prepareNextTransaction(thiz) {
 function reset() {
 	document.getElementById('transaction_timestamp').value = '';
 	document.getElementById('customer').value = '';
+	document.getElementById('transaction_type').value = 'sale';
+	$('#require_payment_checkbox').prop('checked', true);
 	item_selects_list_handler.reset();
 }
 
@@ -93,8 +95,8 @@ $(document).ready(function() {
 		o['grand_total'] = grand_total;
 		let json = JSON.stringify(o);
 		console.log("commit transaction: " + json);
-		if (type == "SALE") {
-			commitSaleTransaction(thiz, json);
+		if (type == "SALE" || type == "RESTOCK") {
+			commitTransaction(thiz, json);
 		}
 	});
 

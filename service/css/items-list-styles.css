@@ -24,9 +24,16 @@ input.item-amount-input {
 input.item-amount-input-no-border {
   float:left;
   margin-left:3px;
-  margin-top:2px;
+  bottom: 0px;
   border: 1px solid #AAAAAA;
   border-radius:6px;
+  box-shadow: 0 0 0px 0px #000000;
+  margin-top: 5px;
+}
+
+input.item-amount-input-no-border:focus {
+  border: 1px solid #FFFFAA;
+  box-shadow: 0 0 1px 1px #000000;
 }
 
 button.delete-button {
@@ -41,6 +48,12 @@ button.delete-button {
   cursor: pointer;
   height: 32px;
   width: 30px;
+}
+
+div.search_item {
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 6px;
 }
 
 div.descriptions {

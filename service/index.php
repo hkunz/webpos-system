@@ -46,7 +46,7 @@
     <form>
     <br/>
       Customer:&nbsp;&nbsp;&nbsp;
-      <input type="text" id="customer" maxlength="30" placeholder="Customer Name" spellcheck="false"/>
+      <input type="text" id="customer" style="margin-bottom:7px;" maxlength="30" placeholder="Customer Name" spellcheck="false"/>
       <br>
       Transaction:
       <select id="transaction_type">
@@ -62,7 +62,7 @@
       <br>
     </form>
     Item Search:
-    <div style="width:100%">
+    <div class="search_item">
       <input type="text" class="awesomplete" id="search_item_input" placeholder="Type here to search item ..." spellcheck="false" />
     </div>
     <div class="items-list-header">
@@ -83,37 +83,46 @@
     <div class="transaction-text-div">
       Transaction ID: <label id="transaction_id" style="color:#ffff00;font-weight:bold;">&nbsp;</label>
     </div>
-    <hr/>
+    <br/>
     <table class="totals-grid">
       <tr class="totals-tr">
         <td><label class="label-text">Sub-Total:</label></td>
         <td class="td-value"><label id="sub_total_value" class="calc-amount-value">0.00</label></td>
       </tr>
       <tr class="totals-tr">
-        <td><hr class="division"/></td>
+        <td colspan="2"><hr class="division"/></td>
       </tr>
       <tr class="totals-tr">
         <td><label class="label-text">Discount:</label></td>
         <td class="td-value"><label id="discount_value" class="calc-amount-value">0.00</label></td>
       </tr>
       <tr class="totals-tr">
-        <td><hr class="division"/></td>
+        <td colspan="2"><hr class="division"/></td>
       </tr>
       <tr class="totals-tr">
-        <td>
-          <label class="grand-total">GRAND TOTAL: </label>
+        <td class="td-value" colspan="2">
+          <label class="grand-total">GRAND TOTAL:</label> 
         </td>
-        <td></td>
       </tr>
       <tr class="totals-tr">
-        <td></td>
-        <td class="td-value">
-          <div class="grand-total-value" style="background-color:#222222;height:35px;text-align:center">
+      </tr>
+      <tr class="totals-tr">
+        <td class="td-value" colspan="2">
+          <div class="grand-total-value">
             <label class="grand-total-value" style="padding-right:5px;">₱</label><label id="grand_total_value" class="grand-total-value">0.00</label>
           </div>
         </td>
       </tr>
-      <tr height="10px"></tr>
+      <tr class="totals-tr">
+        <td colspan="2">
+          <div class="require-payment">
+            <label class="checkbox-container">Require payment
+              <input id="require_payment_checkbox" type="checkbox" checked>
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </td>
+      </tr>
       <tr class="totals-tr">
         <td><label class="label-text">Cash:</label></td>
         <td class="td-value">
@@ -121,7 +130,7 @@
         </td>
       </tr>
       <tr class="totals-tr">
-        <td><hr class="division"/></td>
+        <td colspan="2"><hr class="division"/></td>
       </tr>
       <tr class="totals-tr">
         <td><label class="label-text">Change:</label></td>

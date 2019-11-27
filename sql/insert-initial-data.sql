@@ -92,10 +92,10 @@ INSERT INTO items VALUES
 ("95","4800047820250","pc","1","Green Cross 70% Solution Antiseptic Disinfectant Isopropyl Alcohol (60ml)","Alcohol","Green Cross","Toiletry","17.00","20.00","Chuyte"),
 ("96","4800047820243","pc","1","Green Cross 70% Solution Antiseptic Disinfectant Isopropyl Alcohol (150ml)","Alcohol","Green Cross","Toiletry","29.25","35.00","Chuyte"),
 ("97","4800011120614","pc","1","Casino 70% Solution Active Ethyl Alcohol Triclosan (150ml)","Alcohol","Casino","Toiletry","29.50","35.00","Chuyte"),
-("98","","dz","12","Sliding Folder Short","Folder","","School & Office","54.00","0.00","Chuyte"),
-("99","","pc","1","Sliding Folder Short","Folder","","School & Office","4.50","6.00","Chuyte"),
-("100","","dz","12","Sliding Folder Long","Folder","","School & Office","66.00","0.00","Chuyte"),
-("101","","pc","1","Sliding Folder Long","Folder","","School & Office","5.50","7.00","Chuyte"),
+("98","","dz","12","Sliding Plastic Folder Short","Folder","","School & Office","54.00","0.00","Chuyte"),
+("99","","pc","1","Sliding Plastic Folder Short","Folder","","School & Office","4.50","6.00","Chuyte"),
+("100","","dz","12","Sliding Plastic Folder Long","Folder","","School & Office","66.00","0.00","Chuyte"),
+("101","","pc","1","Sliding Plastic Folder Long","Folder","","School & Office","5.50","7.00","Chuyte"),
 ("102","","rm","100","Folder Long (14pts)","Folder","","School & Office","450.00","0.00","Chuyte"),
 ("103","","pc","1","Folder Long (14pts)","Folder","","School & Office","5.00","7.00","Chuyte"),
 ("104","","rm","100","Folder Short (14pts)","Folder","","School & Office","400.00","0.00","Chuyte"),
@@ -243,7 +243,9 @@ INSERT INTO items VALUES
 ("246","","dz","12","Nail Clipper No. 003 Nail Cutter","Nail Clipper","Trim","Personal Hygiene","120.00","0.00","Chuyte"),
 ("247","","pc","1","Nail Clipper No. 003 Nail Cutter","Nail Clipper","Trim","Personal Hygiene","10.00","15.00","Chuyte"),
 ("248","6944376800045","dz","12","Crown Rubble Plant Shoe Glue High Density No:SJ118","Show Glue","Crown","Hardware","0.00","0.00","Chuyte"),
-("249","6944376800045","pc","1","Crown Rubble Plant Shoe Glue High Density No:SJ118","Show Glue","Crown","Hardware","0.00","10.00","Chuyte");
+("249","6944376800045","pc","1","Crown Rubble Plant Shoe Glue High Density No:SJ118","Show Glue","Crown","Hardware","5.50","10.00","Chuyte"),
+("250","6944376800045","bx","50","LCC 828-B Lighter","Show Glue","LCC","Hardware","272.50","0.00","Chuyte"),
+("251","6944376800045","pc","1","LCC 828-B Lighter","Show Glue","LCC","Hardware","5.45","10.00","Chuyte");
 
 INSERT INTO `items_transactions` (`transaction_id`, `customer`, `type`, `date`) VALUES
 ('1', NULL, 'RESTOCK', '2019-09-23 08:00:00'),

@@ -1,10 +1,10 @@
 INSERT INTO items VALUES
-("1","","pg","1","Service Print Black","Print Service","Klebbys","Service","0.00","2.00","Klebbys"),
-("2","","pg","1","Service Print Color","Print Service","Klebbys","Service","0.00","5.00","Klebbys"),
-("3","","pg","1","Service Print Color Full","Print Service","Klebbys","Service","0.00","10.00","Klebbys"),
-("4","","pg","1","Service Photocopy Black","Print Service","Klebbys","Service","0.00","2.00","Klebbys"),
-("5","","pg","1","Service Photocopy Color","Print Service","Klebbys","Service","0.00","5.00","Klebbys"),
-("6","","pg","1","Service Photocopy Color Full","Print Service","Klebbys","Service","0.00","10.00","Klebbys"),
+("1","","pg","1","Service Print Black & White Page","Print Service","Klebbys","Service","0.00","2.00","Klebbys"),
+("2","","pg","1","Service Print Color Page","Print Service","Klebbys","Service","0.00","5.00","Klebbys"),
+("3","","pg","1","Service Print Color Full Page","Print Service","Klebbys","Service","0.00","10.00","Klebbys"),
+("4","","pg","1","Service Photocopy Black & White Page","Print Service","Klebbys","Service","0.00","2.00","Klebbys"),
+("5","","pg","1","Service Photocopy Color Page","Print Service","Klebbys","Service","0.00","5.00","Klebbys"),
+("6","","pg","1","Service Photocopy Color Full Page","Print Service","Klebbys","Service","0.00","10.00","Klebbys"),
 ("7","","pg","1","Service Scan Page","Print Service","Klebbys","Service","0.00","8.00","Klebbys"),
 ("8","","ld","1","Service Prepaid Load &#8369;0.01 Credit Increment","Prepaid Load Service","Klebbys","Service","0.00","0.01","Klebbys"),
 ("9","","ld","1","Service Prepaid Load &#8369;0.25 Credit Increment","Prepaid Load Service","Klebbys","Service","0.00","0.25","Klebbys"),
@@ -20,6 +20,10 @@ INSERT INTO items VALUES
 ("19","","ld","1","Service Prepaid Load &#8369;50.00 Credit (5% discount)","Prepaid Load Service","Klebbys","Service","0.00","47.50","Klebbys"),
 ("20","","ld","1","Service Prepaid Load &#8369;100.00 Credit (10% discount)","Prepaid Load Service","Klebbys","Service","0.00","90.00","Klebbys"),
 ("21","","ld","1","Service Prepaid Load &#8369;100.00 Credit (5% discount)","Prepaid Load Service","Klebbys","Service","0.00","95.00","Klebbys"),
+("22","","pg","1","Service ID Copy Photocopy Black & White","Print Service","Klebbys","Service","0.00","4.00","Klebbys"),
+("23","","pg","1","Service ID Copy Photocopy Color","Print Service","Klebbys","Service","0.00","10.00","Klebbys"),
+("24","","pc","1","Service Photo 2X2\" Picture Print","Photo Print Service","Klebbys","Service","0.00","5.00","Klebbys"),
+("25","","pc","1","Service Photo 3.5X2.5\" Picture Print","Photo Print Service","Klebbys","Service","0.00","5.00","Klebbys"),
 ("30","4806530360098","pc","1","TM Puncher T-07009 Medium","Puncher","TM","School & Office","70.00","0.00","Chuyte"),
 ("31","6971642400142","dz","12","TM Binder Clip T-20501-51mm 2\"","Binder Clip","TM","School & Office","66.00","0.00","Chuyte"),
 ("32","","pc","1","TM Binder Clip T-20501-51mm 2\"","Binder Clip","TM","School & Office","5.50","7.00","Chuyte"),
@@ -234,7 +238,12 @@ INSERT INTO items VALUES
 ("241","","pc","1","Mini Envelope","Mini Envelope","","School & Office","0.20","1.00","Chuyte"),
 ("242","","pc","1","Wild Husky Cut-Size Clear Plastic Cover (Gauge 2.6 13.5\"x5m*)","Plastic Cover","","School & Office","28.00","35.00","Chuyte"),
 ("243","4902430333597","pc","1","Head & Shoulders Cool Menthol Anti Dandruff Shampoo Sashet (12ml)","Shampoo","","School & Office","4.40","6.00","Conchitas"),
-("244","9556031063305","pc","1","Palmolive Naturals Pinkish & Glow Soap (115g)","Bath Soap","","Toiletry","29.50","36.00","Conchitas");
+("244","9556031063305","pc","1","Palmolive Naturals Pinkish & Glow Soap (115g)","Bath Soap","","Toiletry","29.50","36.00","Conchitas"),
+("245","","pc","1","Medic Aid Adhesive Bandages","Medical Plaster","Medicaid","Personal Hygiene","0.35","1.00","Chuyte"),
+("246","","dz","1","Nail Clipper / Nail Cutter","Nail Clipper","","Personal Hygiene","120.00","0.00","Chuyte"),
+("247","","pc","1","Nail Clipper / Nail Cutter","Nail Clipper","","Personal Hygiene","10.00","15.00","Chuyte");
+
+
 
 INSERT INTO `items_transactions` (`transaction_id`, `customer`, `type`, `date`) VALUES
 ('1', NULL, 'RESTOCK', '2019-09-23 08:00:00'),
@@ -609,5 +618,7 @@ INSERT INTO items_stock (`item_id`,`stock`) VALUES
 (241,20),
 (242,6),
 (243,12),
-(244,6);
-
+(244,6),
+(245,100),
+(246,0),
+(247,12);

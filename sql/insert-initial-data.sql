@@ -239,11 +239,11 @@ INSERT INTO items VALUES
 ("242","","pc","1","Wild Husky Cut-Size Clear Plastic Cover (Gauge 2.6 13.5\"x5m*)","Plastic Cover","","School & Office","28.00","35.00","Chuyte"),
 ("243","4902430333597","pc","1","Head & Shoulders Cool Menthol Anti Dandruff Shampoo Sashet (12ml)","Shampoo","","School & Office","4.40","6.00","Conchitas"),
 ("244","9556031063305","pc","1","Palmolive Naturals Pinkish & Glow Soap (115g)","Bath Soap","","Toiletry","29.50","36.00","Conchitas"),
-("245","","pc","1","Medic Aid Adhesive Bandages","Medical Plaster","Medicaid","Personal Hygiene","0.35","1.00","Chuyte"),
-("246","","dz","1","Nail Clipper / Nail Cutter","Nail Clipper","","Personal Hygiene","120.00","0.00","Chuyte"),
-("247","","pc","1","Nail Clipper / Nail Cutter","Nail Clipper","","Personal Hygiene","10.00","15.00","Chuyte");
-
-
+("245","3416702548257","pc","1","Medicare Antiseptic Plastic Bantam Strips w/ Acrinol","Medical Plaster","Medicaid","Personal Hygiene","0.35","1.00","Chuyte"),
+("246","","dz","12","Nail Clipper No. 003 Nail Cutter","Nail Clipper","Trim","Personal Hygiene","120.00","0.00","Chuyte"),
+("247","","pc","1","Nail Clipper No. 003 Nail Cutter","Nail Clipper","Trim","Personal Hygiene","10.00","15.00","Chuyte"),
+("248","6944376800045","dz","12","Crown Rubble Plant Shoe Glue High Density No:SJ118","Show Glue","Crown","Hardware","0.00","0.00","Chuyte"),
+("249","6944376800045","pc","1","Crown Rubble Plant Shoe Glue High Density No:SJ118","Show Glue","Crown","Hardware","0.00","10.00","Chuyte");
 
 INSERT INTO `items_transactions` (`transaction_id`, `customer`, `type`, `date`) VALUES
 ('1', NULL, 'RESTOCK', '2019-09-23 08:00:00'),

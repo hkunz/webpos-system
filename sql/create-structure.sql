@@ -45,6 +45,35 @@ CREATE TABLE items_transactions_details (
 	PRIMARY KEY (transaction_id, item_id)
 );
 
+DROP VIEW IF EXISTS view_transactions_products;
+CREATE VIEW view_transactions_products AS (
+    SELECT tt.date, i.item_id, i.unit, i.item_description, i.unit_price, i.sell_price, t.transaction_id, t.amount, t.amount * i.unit_price AS "cost", t.amount * i.sell_price AS "revenue", (t.amount * i.sell_price) - (t.amount * i.unit_price) as "profit"
+    FROM items i
+    INNER JOIN items_transactions_details t ON i.item_id = t.item_id
+    INNER JOIN items_transactions tt ON t.transaction_id = tt.transaction_id
+    WHERE tt.type='SALE' AND i.category<>'service'
+    ORDER by t.transaction_id DESC
+);
+
+DROP VIEW IF EXISTS view_transactions_services;
+CREATE VIEW view_transactions_services AS (
+    SELECT tt.date, i.item_id, i.item_description, i.unit_price, i.sell_price, t.transaction_id, t.amount, t.amount * i.unit_price AS "cost", t.amount * i.sell_price AS "revenue"
+    FROM items i
+    INNER JOIN items_transactions_details t ON i.item_id = t.item_id
+    INNER JOIN items_transactions tt ON t.transaction_id = tt.transaction_id
+    WHERE tt.type='SALE' AND i.category='service' AND i.general_name<>'Prepaid Load Service'
+    ORDER by t.transaction_id DESC
+);
+
+DROP VIEW IF EXISTS view_transactions_prepaid_load;
+CREATE VIEW view_transactions_prepaid_load AS (
+    SELECT tt.date, i.item_id, i.item_description, i.unit_price, i.sell_price, t.transaction_id, t.amount, t.amount * i.unit_price AS "cost", tt.grand_total as "total_by_transaction_id"
+    FROM items i
+    INNER JOIN items_transactions_details t ON i.item_id = t.item_id
+    INNER JOIN items_transactions tt ON t.transaction_id = tt.transaction_id
+    WHERE tt.type='SALE' AND i.category='service' AND i.general_name='Prepaid Load Service'
+    ORDER by t.transaction_id DESC
+);
 
 DROP FUNCTION IF EXISTS get_next_transaction_id;
 DELIMITER $$
@@ -57,6 +86,60 @@ BEGIN
         RETURN 0;
     END IF;
     RETURN id + 1;
+END $$
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS get_total_prepaid_load_revenue;
+DELIMITER $$
+CREATE FUNCTION get_total_prepaid_load_revenue(dateStart TIMESTAMP, dateEnd TIMESTAMP) RETURNS INT UNSIGNED
+function_get_total_prepaid_load_revenue:
+BEGIN
+    DECLARE revenue INT UNSIGNED DEFAULT 0;
+    SET revenue = (SELECT SUM(`gtotal`) FROM (
+        SELECT transaction_id, MAX(`total_by_transaction_id`) as `gtotal` FROM (
+            SELECT * FROM `view_transactions_prepaid_load` WHERE `date`>=dateStart AND `date`<=dateEnd
+        ) AS T GROUP BY `transaction_id`
+    ) AS T);
+	return revenue;
+END $$
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS get_total_prepaid_load_profit;
+DELIMITER $$
+CREATE FUNCTION get_total_prepaid_load_profit(dateStart TIMESTAMP, dateEnd TIMESTAMP) RETURNS INT UNSIGNED
+function_get_total_prepaid_load_profit:
+BEGIN
+    DECLARE costs, revenue INT UNSIGNED DEFAULT 0;
+    SET costs = (SELECT SUM(`cost`) FROM `view_transactions_prepaid_load` WHERE `date`>=dateStart AND `date`<=dateEnd);
+    SET revenue = get_total_prepaid_load_revenue(dateStart, dateEnd);
+	return revenue - costs;
+END $$
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS get_total_products_revenue;
+DELIMITER $$
+CREATE FUNCTION get_total_products_revenue(dateStart TIMESTAMP, dateEnd TIMESTAMP) RETURNS INT UNSIGNED
+function_get_total_products_revenue:
+BEGIN
+    return (SELECT SUM(`revenue`) FROM `view_transactions_products` WHERE `date`>=dateStart AND `date`<=dateEnd);
+END $$
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS get_total_products_profit;
+DELIMITER $$
+CREATE FUNCTION get_total_products_profit(dateStart TIMESTAMP, dateEnd TIMESTAMP) RETURNS INT UNSIGNED
+function_get_total_products_profit:
+BEGIN
+    return (SELECT SUM(`profit`) FROM `view_transactions_products` WHERE `date`>=dateStart AND `date`<=dateEnd);
+END $$
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS get_total_services_revenue;
+DELIMITER $$
+CREATE FUNCTION get_total_services_revenue(dateStart TIMESTAMP, dateEnd TIMESTAMP) RETURNS INT UNSIGNED
+function_get_total_services_revenue:
+BEGIN
+    return (SELECT SUM(`revenue`) FROM `view_transactions_services` WHERE `date`>=dateStart AND `date`<=dateEnd);
 END $$
 DELIMITER ;
 

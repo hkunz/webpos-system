@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS items_transactions_details;
 DROP TABLE IF EXISTS items_transactions;
 DROP TABLE IF EXISTS items_stock;
+DROP TABLE IF EXISTS items_prices;
 DROP TABLE IF EXISTS items;
 
 CREATE TABLE items (
@@ -12,10 +13,18 @@ CREATE TABLE items (
 	general_name VARCHAR(30) NOT NULL,
 	brand_name VARCHAR(25),
 	category ENUM('Electronics','Food Additive','Galenical','Hardware','Household','Personal Accessory','Personal Hygiene','Pharmaceutical','School & Office','Service','Toiletry') NOT NULL,
-	unit_price DECIMAL(13,2) NOT NULL,
-	sell_price DECIMAL(13,2) NOT NULL,
 	supplier_name ENUM('Chuyte','Klebbys','Conchitas','Hypermart','Other') NOT NULL
 );
+
+CREATE TABLE items_prices (
+    row_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    item_id INT UNSIGNED NOT NULL,
+    unit_price_asofdate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    unit_price DECIMAL(13,2) NOT NULL,
+    sell_price_asofdate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    sell_price DECIMAL(13,2) NOT NULL,
+    FOREIGN KEY (item_id) REFERENCES items(item_id)
+)
 
 CREATE TABLE items_stock (
 	item_id INT UNSIGNED NOT NULL,
@@ -45,15 +54,101 @@ CREATE TABLE items_transactions_details (
 	PRIMARY KEY (transaction_id, item_id)
 );
 
+DROP VIEW IF EXISTS view_items_prices_latest;
+CREATE VIEW view_items_prices_latest AS
+SELECT Z.row_id as 'u_rid', ZZ.row_id as 's_rid', Z.item_id, Z.unit_price, Z.unit_price_asofdate, ZZ.sell_price, ZZ.sell_price_asofdate FROM (SELECT A.row_id, A.item_id, A.unit_price, A.unit_price_asofdate
+FROM items_prices A
+RIGHT JOIN (
+	SELECT B.item_id, MAX(B.row_id) max_row FROM items_prices B
+    INNER JOIN (
+        SELECT D.item_id, MAX(D.unit_price_asofdate) max_date
+        FROM items_prices D GROUP BY D.item_id
+    ) as E ON max_date = B.unit_price_asofdate AND E.item_id = B.item_id GROUP BY B.item_id
+) as C ON A.row_id = max_row AND A.item_id = C.item_id) as Z
+INNER JOIN (
+SELECT AA.row_id, AA.item_id, AA.sell_price, AA.sell_price_asofdate
+FROM items_prices AA
+RIGHT JOIN (
+	SELECT BB.item_id, MAX(BB.row_id) max_row2 FROM items_prices BB
+    INNER JOIN (
+        SELECT DD.item_id, MAX(DD.sell_price_asofdate) max_date2
+        FROM items_prices DD GROUP BY DD.item_id
+    ) as EE ON max_date2 = BB.sell_price_asofdate AND EE.item_id = BB.item_id GROUP BY BB.item_id
+) as CC ON AA.row_id = max_row2 AND AA.item_id = CC.item_id
+) as ZZ ON Z.item_id = ZZ.item_id ORDER BY Z.item_id DESC;
+
+DROP VIEW IF EXISTS view_items;
+CREATE VIEW view_items AS
+SELECT `item_id`, `bar_code`, `unit`, `count`, `item_description`, `general_name`, `brand_name`, `category`, j.`unit_price_latest`, j.`sell_price_latest`, `supplier_name`, IFNULL(jj.`stock`,0) as 'stock' FROM items i
+LEFT JOIN (
+    SELECT v.item_id as 'id1', v.unit_price as 'unit_price_latest', v.sell_price as 'sell_price_latest'
+    FROM view_items_prices_latest AS v
+) j ON i.item_id = j.id1
+LEFT JOIN (
+    SELECT s.item_id as 'id2', s.stock FROM items_stock s
+) jj ON i.item_id = jj.id2
+ORDER BY i.item_id DESC;
+
 DROP VIEW IF EXISTS view_transactions_products;
 CREATE VIEW view_transactions_products AS (
-    SELECT tt.date, i.item_id, i.unit, i.item_description, i.unit_price, i.sell_price, t.transaction_id, t.amount, t.amount * i.unit_price AS "cost", t.amount * i.sell_price AS "revenue", (t.amount * i.sell_price) - (t.amount * i.unit_price) as "profit"
+    SELECT tt.date, i.item_id, i.unit, i.item_description, p.unit_price, p.sell_price, t.transaction_id, t.amount, t.amount * p.unit_price AS "cost", t.amount * p.sell_price AS "revenue", (t.amount * p.sell_price) - (t.amount * p.unit_price) as "profit"
     FROM items i
     INNER JOIN items_transactions_details t ON i.item_id = t.item_id
     INNER JOIN items_transactions tt ON t.transaction_id = tt.transaction_id
+    INNER JOIN view_items_prices_latest p ON p.item_id = i.item_id
     WHERE tt.type='SALE' AND i.category<>'service'
     ORDER by t.transaction_id DESC
 );
+
+-- --- TEST
+SELECT tt.date, ip.sell_price_asofdate, i.item_id, i.unit, i.item_description, ip.unit_price, ip.sell_price, t.transaction_id, t.amount, t.amount * ip.unit_price AS "cost", t.amount * ip.sell_price AS "revenue", (t.amount * ip.sell_price) - (t.amount * ip.unit_price) as "profit"
+FROM items i
+LEFT JOIN items_transactions_details t ON i.item_id = t.item_id
+LEFT JOIN items_transactions tt ON t.transaction_id = tt.transaction_id
+LEFT JOIN view_items_prices_latest p ON p.item_id = i.item_id
+LEFT JOIN (items_prices ip) ON ip.item_id=i.item_id AND tt.date >= ip.sell_price_asofdate
+WHERE tt.type='SALE' AND i.category<>'service' AND i.item_id=148
+ORDER by t.transaction_id DESC
+
+SELECT tt.date, ip.sell_price_asofdate, i.item_id, i.unit, i.item_description, ip.unit_price, ip.sell_price, t.transaction_id, t.amount, t.amount * ip.unit_price AS "cost", t.amount * ip.sell_price AS "revenue", (t.amount * ip.sell_price) - (t.amount * ip.unit_price) as "profit"
+FROM items i
+LEFT JOIN items_transactions_details t ON i.item_id = t.item_id
+LEFT JOIN items_transactions tt ON t.transaction_id = tt.transaction_id
+LEFT JOIN view_items_prices_latest p ON p.item_id = i.item_id
+LEFT JOIN (
+    SELECT s2.item_id, s2.unit_price, s2.sell_price, s2.sell_price_asofdate
+    FROM items_prices s2
+    LEFT JOIN (
+        SELECT ss.item_id, MAX(ss.sell_price_asofdate) FROM items_prices ss
+        GROUP BY ss.item_id
+    ) f ON f.item_id=s2.item_id AND f.date >= f.sell_price_asofdate
+) ip ON ip.item_id=i.item_id
+WHERE tt.type='SALE' AND i.category<>'service' AND i.item_id=148
+ORDER by t.transaction_id DESC
+
+-- https://stackoverflow.com/questions/59108043/1054-unknown-column-tt-date-in-where-clause
+
+
+SELECT tt.date, max_date, ip.sell_price_asofdate, i.item_id, i.unit, i.item_description, ip.unit_price, ip.sell_price, t.transaction_id, t.amount, t.amount * ip.unit_price AS "cost", t.amount * ip.sell_price AS "revenue", (t.amount * ip.sell_price) - (t.amount * ip.unit_price) as "profit"
+FROM items i
+LEFT JOIN items_transactions_details t ON i.item_id = t.item_id
+LEFT JOIN (
+    SELECT * FROM items_transactions t2
+) tt ON t.transaction_id = tt.transaction_id
+LEFT JOIN (
+    SELECT s2.item_id, s2.unit_price, s2.sell_price, s2.sell_price_asofdate
+    FROM items_prices s2
+) ip ON ip.item_id=i.item_id AND tt.date >= ip.sell_price_asofdate
+LEFT JOIN (
+    SELECT ss.item_id, MAX(ss.sell_price_asofdate) as max_date FROM items_prices ss
+    GROUP BY ss.item_id
+) f ON f.item_id=i.item_id
+LEFT JOIN (
+    SELECT * FROM view_items_prices_latest p
+) ttt ON ttt.item_id = i.item_id
+WHERE tt.type='SALE' AND i.category<>'service' AND i.item_id=148
+ORDER by t.transaction_id DESC
+-- ---
 
 DROP VIEW IF EXISTS view_transactions_services;
 CREATE VIEW view_transactions_services AS (

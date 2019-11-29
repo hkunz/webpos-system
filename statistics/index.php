@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+  <title>Klebby's Statistics</title>
+  <link type="text/css" rel="stylesheet" href="../css/main-styles.css">
+  <link type="text/css" rel="stylesheet" href="../css/awesomplete.css">
+  <script type="text/javascript" src="../js/libs/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="../js/libs/awesomplete.js"></script>
+  <script type="text/javascript" src="../js/sound-effects.js"></script>
+  <script type="text/javascript" src="../js/Utils.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
+</head>
+
+<body class="body">
+  <div class="container-wrapper">
+  <div class="container-left">
+    <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>
+     | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
+    <br/><br/>
+    <label class='standard-label'>Total Revenue To Date:</label> 
+    <label id='revenue_total' class='drop-shadow'></label><br/>
+    <hr class='division'/>
+    <label class='standard-label'>&nbsp;&nbsp;Prepaid-Load:</label>
+    <label id='revenue_total_prepaid' class='drop-shadow'></label> (<label id='profit_total_prepaid' class='drop-shadow profit'></label>)<br/>
+    <label class='standard-label'>&nbsp;&nbsp;Products:</label>
+    <label id='revenue_total_products' class='drop-shadow'></label> (<label id='profit_total_products' class='drop-shadow profit'></label>)<br/>
+    <label class='standard-label'>&nbsp;&nbsp;Services:</label>
+    <label id='revenue_total_services' class='drop-shadow'></label><br/>
+    <hr class='division'/>
+    <label class='standard-label'>Total Revenue For Current Month:</label>
+    <label id='revenue_total_curr_month' class='drop-shadow'></label><br/>
+    <hr class='division'/>
+    <label class='standard-label'>&nbsp;&nbsp;Prepaid-Load:</label>
+    <label id='revenue_total_curr_month_prepaid' class='drop-shadow'></label> (<label id='profit_curr_month_prepaid' class='drop-shadow profit'></label>)<br/>
+    <label class='standard-label'>&nbsp;&nbsp;Products:</label>
+    <label id='revenue_total_curr_month_products' class='drop-shadow'></label> (<label id='profit_curr_month_products' class='drop-shadow profit'></label>)<br/>
+    <label class='standard-label'>&nbsp;&nbsp;Services:</label>
+    <label id='revenue_total_curr_month_services' class='drop-shadow'></label><br/>
+    <hr class='division'/>
+    <label class='standard-label'>Total Revenue For Previous Month:</label>
+    <label id='revenue_total_prev_month' class='drop-shadow'></label><br/>
+    <hr class='division'/>
+    <label class='standard-label'>&nbsp;&nbsp;Prepaid-Load:</label>
+    <label id='revenue_total_prev_month_prepaid' class='drop-shadow'></label> (<label id='profit_prev_month_prepaid' class='drop-shadow profit'></label>)<br/>
+    <label class='standard-label'>&nbsp;&nbsp;Products:</label>
+    <label id='revenue_total_prev_month_products' class='drop-shadow'></label> (<label id='profit_prev_month_products' class='drop-shadow profit'></label>)<br/>
+    <label class='standard-label'>&nbsp;&nbsp;Services:</label>
+    <label id='revenue_total_prev_month_services' class='drop-shadow'></label><br/>
+    <hr class='division'/>
+  </div>
+  </div>
+  <div class="container-right">
+    <button id="commit_transaction_button" class="commit-transaction-button" disabled="true">COMMIT TRANSACTION</button>
+  </div>
+  </div>
+  <div id="eventdispatcher" style="display:none;" />
+</body>
+</html>
+

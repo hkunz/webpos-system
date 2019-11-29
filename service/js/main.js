@@ -23,7 +23,7 @@ function addZero(i) {
 }
 
 function updateNextTransactionId() {
-	const id = sql_transaction_handler.getNextTransactionId();
+	const id = ('0000000' + sql_transaction_handler.getNextTransactionId()).slice(-7);
 	$('#transaction_id').text(id);
 }
 

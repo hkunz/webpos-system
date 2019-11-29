@@ -5,13 +5,14 @@
 <meta charset="UTF-8">
   <title>Klebby's Store</title>
   <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
-  <link type="text/css" rel="stylesheet" href="css/main-styles.css">
+  <link type="text/css" rel="stylesheet" href="../css/main-styles.css">
   <link type="text/css" rel="stylesheet" href="css/item-amount-popup.css">
   <link type="text/css" rel="stylesheet" href="css/items-list-styles.css">
   <link type="text/css" rel="stylesheet" href="css/grand-total-view.css">
-  <link type="text/css" rel="stylesheet" href="css/awesomplete.css">
-  <script type="text/javascript" src="js/libs/jquery-3.4.1.min.js"></script>
-  <script type="text/javascript" src="js/libs/awesomplete.js"></script>
+  <link type="text/css" rel="stylesheet" href="../css/awesomplete.css">
+  <script type="text/javascript" src="../js/libs/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="../js/libs/awesomplete.js"></script>
+  <script type="text/javascript" src="../js/Utils.js"></script>
   <script type="text/javascript" src="js/constants.js"></script>
   <script type="text/javascript" src="js/ItemAmountInputPopupHandler.js"></script>
   <script type="text/javascript" src="js/ItemSearchInputHandler.js"></script>
@@ -22,7 +23,7 @@
   <script type="text/javascript" src="js/main.js"></script>
 </head>
 
-<body bgcolor="#454545">
+<body class="body">
   <div class="hover_bkgr_fricc" id="amount_popup_box">
     <span class="helper"></span>
     <div style="width:100%;">
@@ -41,8 +42,7 @@
   </div>
   <div class="container-wrapper">
   <div class="container-left">
-    <span class="heading">
-       <u><b style="color:#FFFF00;">Klebby's Supplies &amp; Computer Services</b></u></span><span> | </span><span style="color:#CCCCCC;">KUNZ Inc</span>
+    <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>                                                              | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
     <form>
     <br/>
       Customer:&nbsp;&nbsp;&nbsp;

@@ -5,13 +5,17 @@ html *
    font-family: Consolas;
 }
 
-body {
-  bgcolor : #000000;
-  width:98%
+body.body {
+  background-color: #454545;
 }
 
 .heading {
-  color: #00FF00;
+  color: #FFFF00;
+  font-weight: bold;
+}
+
+.heading-sub {
+  color: #CCCCCC;
 }
 
 input {
@@ -258,4 +262,23 @@ button.commit-transaction-button:hover:enabled {
 button:focus {
   outline: none;
   box-shadow: 0 0 2px 2px #222222;
+}
+
+hr.division {
+  width: 100%;
+  border-color: #555555;
+}
+
+label.drop-shadow {
+  color: #FFFFFF;
+  text-shadow: 1px 1px #222222;
+}
+
+label.standard-label {
+  color: #999999;
+  text-shadow: 1px 1px #333333;
+}
+
+label.profit {
+  color: #00FF00;
 }

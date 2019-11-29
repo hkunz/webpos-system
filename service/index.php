@@ -30,8 +30,9 @@
         <div class="popupCloseButton">X</div>
         <label id="popup_item_code" style="display:block;color:#888888;padding-bottom:6px;font-weight:bold"></label>
         <div style="width:100%;border:0px solid #222222;border-radius:5px">
-          <label id="popup_item_description" style="display:block;padding-bottom:10px;text-shadow:1px 1px #111111;"></label>
+          <label id="popup_item_description" style="display:block;padding-bottom:10px;text-shadow:1px 1px #111111;"></label><label id="popup_item_stock" style="color:#FFFF00">
         </div>
+	<label id="popup_item_stock" style="color:#FFFF00"></label><br/>
 	<label id="popup_item_category" style="color:#888888"></label><br/>
 	<label>===&gt;&nbsp;</label><label id="popup_item_price" style="color:#FF3333;font-weight:bold;text-shadow: 1px 1px #222222;"></label><label>&nbsp;&lt;===</label><br/>
 	<form>

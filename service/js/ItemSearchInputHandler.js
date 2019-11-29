@@ -55,6 +55,7 @@ class ItemSearchInputHandler {
 			const brand_name = this.getValue(item, "{{brand_name}}");
 			const general_name = this.getValue(item, "{{general_name}}");
 			const supplier = this.getValue(item, "{{supplier}}");
+			const stock = this.getValue(item, "{{stock}}");
 			const label = code + " [" + unit + "] " + description + " [₱" + price + "]";
 			const json =
 				'{"itemId":"' + itemId +
@@ -65,6 +66,7 @@ class ItemSearchInputHandler {
 				'","brand_name":"' + brand_name +
 				'","general_name":"' + general_name +
 				'","supplier":"' + supplier +
+				'","stock":"' + stock +
 				'","description":"' + description.replace(/\"/g, "&#34;").replace(/\'/g, "&#39;").replace(/&/g, "&amp;") +
 			'"}';
 				

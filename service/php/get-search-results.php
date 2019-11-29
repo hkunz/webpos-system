@@ -4,13 +4,13 @@ include "../../php/db.php";
 if (isset($_POST['search'])) {
 	$Name = str_replace(" ", "%", $_POST['search']);
    	$Query = "
-		SELECT * FROM items
-		WHERE sell_price > 0 AND (item_description LIKE '%$Name%'
+		SELECT * FROM view_items
+		WHERE sell_price_latest > 0 AND (item_description LIKE '%$Name%'
 		OR bar_code LIKE '%$Name%'
 		OR general_name LIKE '%$Name%'
 		OR brand_name LIKE '%$Name%'  
 		OR category LIKE '%$Name%')
-		ORDER BY item_description ASC
+		ORDER BY item_description DESC
 		LIMIT 20;"
 	;
 
@@ -21,12 +21,13 @@ if (isset($_POST['search'])) {
 		$code = (empty($code) ? "XXXXXXXXXXXXX" : $code);
 		$unit = $Result['unit'];
 		$description = $Result['item_description'];
-		$price = $Result['sell_price'];
+		$price = $Result['sell_price_latest'];
 		$id = $Result['item_id'];
 		$category = $Result['category'];
 		$general_name = $Result['general_name'];
 		$brand_name = $Result['brand_name'];
 		$supplier = $Result['supplier_name'];
+		$stock = $Result['stock'];
 
 		echo
 			"{{id}}$id{{id}}" .
@@ -38,6 +39,7 @@ if (isset($_POST['search'])) {
 			"{{brand_name}}$brand_name{{brand_name}}" .
 			"{{supplier}}$supplier{{supplier}}" .
 			"{{price}}$price{{price}}" .
+			"{{stock}}$stock{{stock}}" .
 			"||"
 		;
 	}

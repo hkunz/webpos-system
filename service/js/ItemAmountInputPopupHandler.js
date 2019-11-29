@@ -12,6 +12,7 @@ class ItemAmountInputPopupHandler {
 		this.supplier = null;
 		this.general_name = null;
 		this.price = 0;
+		this.stock = 0;
 
 		$(document).ready(function() {
 			$("#search_item_input").on('awesomplete-selectcomplete', function(e) {
@@ -27,10 +28,12 @@ class ItemAmountInputPopupHandler {
 				thiz.supplier = item.supplier;
 				thiz.general_name = item.general_name;
 				thiz.category = item.category;
+				thiz.stock = item.stock;
 				let id_text = ' <span style="color:#999999">[ID-' + thiz.itemId + ']</span>';
 				document.getElementById('popup_item_code').innerHTML = "[" + thiz.code + "]";
 				document.getElementById('popup_item_description').innerHTML = $('<textarea />').html(thiz.description).text() + id_text;
 				document.getElementById('popup_item_category').innerHTML = thiz.category;
+				document.getElementById('popup_item_stock').innerHTML = (thiz.category.toLowerCase() == 'service' ? '' : '[X' + thiz.stock + ']');
 				document.getElementById('popup_item_price').innerHTML = "₱" + thiz.price;
 				document.getElementById('item_amount_unit').innerHTML = item.unit;
 				thiz.showPopup(true);

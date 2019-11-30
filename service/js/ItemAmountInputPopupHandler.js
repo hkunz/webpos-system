@@ -44,8 +44,13 @@ class ItemAmountInputPopupHandler {
 					e.stopImmediatePropagation();
 					thiz.onPopupEnter();
 					return false;
-				}	
-			}));	
+				}
+				if (e.keyCode == 27 && thiz.item_amount_popup_visible == true) {
+					e.stopImmediatePropagation();
+                                        thiz.showPopup(false);
+                                        return false;
+				}
+			}));
 
 			$("#amount_popup_box").click(function(e) {
 				e.stopImmediatePropagation();

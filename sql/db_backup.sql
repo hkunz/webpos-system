@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 30, 2019 at 12:42 AM
--- Server version: 5.7.24-0ubuntu0.16.04.1
+-- Generation Time: Dec 01, 2019 at 05:24 PM
+-- Server version: 8.0.18
 -- PHP Version: 7.0.33-0ubuntu0.16.04.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -24,6 +24,7 @@ DELIMITER $$
 --
 -- Procedures
 --
+DROP PROCEDURE IF EXISTS `insert_items_transaction`$$
 CREATE DEFINER=`hkunz`@`localhost` PROCEDURE `insert_items_transaction` (IN `data` JSON, OUT `success` BOOLEAN)  proc_insert_items_transaction:
 BEGIN
     DECLARE id INT UNSIGNED DEFAULT 0;
@@ -55,6 +56,7 @@ BEGIN
     SET success = @success2;
 END$$
 
+DROP PROCEDURE IF EXISTS `insert_items_transaction_details`$$
 CREATE DEFINER=`hkunz`@`localhost` PROCEDURE `insert_items_transaction_details` (IN `transaction_id` INT UNSIGNED, IN `type` VARCHAR(10), IN `data` JSON, OUT `success` BOOLEAN)  proc_insert_items_transaction_details:
 BEGIN
     DECLARE json_len TINYINT UNSIGNED DEFAULT JSON_LENGTH(data);
@@ -78,6 +80,7 @@ BEGIN
     SET success = TRUE;
 END$$
 
+DROP PROCEDURE IF EXISTS `update_item_stock`$$
 CREATE DEFINER=`hkunz`@`localhost` PROCEDURE `update_item_stock` (IN `itemId` INT UNSIGNED, IN `delta` INT, OUT `success` BOOLEAN)  proc_update_item_stock:
 BEGIN
     DECLARE amount INT UNSIGNED DEFAULT 0;
@@ -107,6 +110,7 @@ END$$
 --
 -- Functions
 --
+DROP FUNCTION IF EXISTS `get_next_transaction_id`$$
 CREATE DEFINER=`hkunz`@`localhost` FUNCTION `get_next_transaction_id` () RETURNS INT(10) UNSIGNED function_get_next_transaction_id:
 BEGIN
     DECLARE id,next_id INT UNSIGNED DEFAULT 0;
@@ -117,6 +121,7 @@ BEGIN
     RETURN id + 1;
 END$$
 
+DROP FUNCTION IF EXISTS `get_total_prepaid_load_profit`$$
 CREATE DEFINER=`hkunz`@`localhost` FUNCTION `get_total_prepaid_load_profit` (`dateStart` TIMESTAMP, `dateEnd` TIMESTAMP) RETURNS INT(10) UNSIGNED function_get_total_prepaid_load_profit:
 BEGIN
     DECLARE costs, revenue INT UNSIGNED DEFAULT 0;
@@ -125,27 +130,25 @@ BEGIN
 	return revenue - costs;
 END$$
 
+DROP FUNCTION IF EXISTS `get_total_prepaid_load_revenue`$$
 CREATE DEFINER=`hkunz`@`localhost` FUNCTION `get_total_prepaid_load_revenue` (`dateStart` TIMESTAMP, `dateEnd` TIMESTAMP) RETURNS INT(10) UNSIGNED function_get_total_prepaid_load_revenue:
 BEGIN
-    DECLARE revenue INT UNSIGNED DEFAULT 0;
-    SET revenue = (SELECT SUM(`gtotal`) FROM (
-        SELECT transaction_id, MAX(`total_by_transaction_id`) as `gtotal` FROM (
-            SELECT * FROM `view_transactions_prepaid_load` WHERE `date`>=dateStart AND `date`<=dateEnd
-        ) AS T GROUP BY `transaction_id`
-    ) AS T);
-	return revenue;
+    return (SELECT SUM(`revenue`) FROM `view_transactions_prepaid_load` WHERE `date`>=dateStart AND `date`<=dateEnd);
 END$$
 
+DROP FUNCTION IF EXISTS `get_total_products_profit`$$
 CREATE DEFINER=`hkunz`@`localhost` FUNCTION `get_total_products_profit` (`dateStart` TIMESTAMP, `dateEnd` TIMESTAMP) RETURNS INT(10) UNSIGNED function_get_total_products_profit:
 BEGIN
     return (SELECT SUM(`profit`) FROM `view_transactions_products` WHERE `date`>=dateStart AND `date`<=dateEnd);
 END$$
 
+DROP FUNCTION IF EXISTS `get_total_products_revenue`$$
 CREATE DEFINER=`hkunz`@`localhost` FUNCTION `get_total_products_revenue` (`dateStart` TIMESTAMP, `dateEnd` TIMESTAMP) RETURNS INT(10) UNSIGNED function_get_total_products_revenue:
 BEGIN
     return (SELECT SUM(`revenue`) FROM `view_transactions_products` WHERE `date`>=dateStart AND `date`<=dateEnd);
 END$$
 
+DROP FUNCTION IF EXISTS `get_total_services_revenue`$$
 CREATE DEFINER=`hkunz`@`localhost` FUNCTION `get_total_services_revenue` (`dateStart` TIMESTAMP, `dateEnd` TIMESTAMP) RETURNS INT(10) UNSIGNED function_get_total_services_revenue:
 BEGIN
     return (SELECT SUM(`revenue`) FROM `view_transactions_services` WHERE `date`>=dateStart AND `date`<=dateEnd);
@@ -159,6 +162,7 @@ DELIMITER ;
 -- Table structure for table `items`
 --
 
+DROP TABLE IF EXISTS `items`;
 CREATE TABLE `items` (
   `item_id` int(10) UNSIGNED NOT NULL,
   `bar_code` varchar(13) NOT NULL,
@@ -168,8 +172,6 @@ CREATE TABLE `items` (
   `general_name` varchar(30) NOT NULL,
   `brand_name` varchar(25) DEFAULT NULL,
   `category` enum('Electronics','Food Additive','Galenical','Hardware','Household','Personal Accessory','Personal Hygiene','Pharmaceutical','School & Office','Service','Toiletry') NOT NULL,
-  `unit_price` decimal(13,2) NOT NULL,
-  `sell_price` decimal(13,2) NOT NULL,
   `supplier_name` enum('Chuyte','Klebbys','Conchitas','Hypermart','Other') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -177,254 +179,254 @@ CREATE TABLE `items` (
 -- Dumping data for table `items`
 --
 
-INSERT INTO `items` (`item_id`, `bar_code`, `unit`, `count`, `item_description`, `general_name`, `brand_name`, `category`, `unit_price`, `sell_price`, `supplier_name`) VALUES
-(1, '', 'pg', 1, 'Service Print Black & White Page', 'Print Service', 'Klebbys', 'Service', '0.00', '2.00', 'Klebbys'),
-(2, '', 'pg', 1, 'Service Print Color Page', 'Print Service', 'Klebbys', 'Service', '0.00', '5.00', 'Klebbys'),
-(3, '', 'pg', 1, 'Service Print Color Full Page', 'Print Service', 'Klebbys', 'Service', '0.00', '10.00', 'Klebbys'),
-(4, '', 'pg', 1, 'Service Photocopy Black & White Page', 'Print Service', 'Klebbys', 'Service', '0.00', '2.00', 'Klebbys'),
-(5, '', 'pg', 1, 'Service Photocopy Color Page', 'Print Service', 'Klebbys', 'Service', '0.00', '5.00', 'Klebbys'),
-(6, '', 'pg', 1, 'Service Photocopy Color Full Page', 'Print Service', 'Klebbys', 'Service', '0.00', '10.00', 'Klebbys'),
-(7, '', 'pg', 1, 'Service Scan Page', 'Print Service', 'Klebbys', 'Service', '0.00', '8.00', 'Klebbys'),
-(8, '', 'ld', 1, 'Service Prepaid Load &#8369;0.01 Credit Increment', 'Prepaid Load Service', 'Klebbys', 'Service', '0.01', '0.01', 'Klebbys'),
-(9, '', 'ld', 1, 'Service Prepaid Load &#8369;0.25 Credit Increment', 'Prepaid Load Service', 'Klebbys', 'Service', '0.25', '0.25', 'Klebbys'),
-(10, '', 'ld', 1, 'Service Prepaid Load &#8369;0.50 Credit Increment', 'Prepaid Load Service', 'Klebbys', 'Service', '0.50', '0.50', 'Klebbys'),
-(11, '', 'ld', 1, 'Service Prepaid Load &#8369;1.00 Credit Increment', 'Prepaid Load Service', 'Klebbys', 'Service', '1.00', '1.00', 'Klebbys'),
-(12, '', 'ld', 1, 'Service Prepaid Load &#8369;10.00 Credit (10% discount)', 'Prepaid Load Service', 'Klebbys', 'Service', '9.00', '9.00', 'Klebbys'),
-(13, '', 'ld', 1, 'Service Prepaid Load &#8369;10.00 Credit (5% discount)', 'Prepaid Load Service', 'Klebbys', 'Service', '9.50', '9.50', 'Klebbys'),
-(14, '', 'ld', 1, 'Service Prepaid Load &#8369;20.00 Credit (10% discount)', 'Prepaid Load Service', 'Klebbys', 'Service', '18.00', '18.00', 'Klebbys'),
-(15, '', 'ld', 1, 'Service Prepaid Load &#8369;20.00 Credit (5% discount)', 'Prepaid Load Service', 'Klebbys', 'Service', '19.00', '19.00', 'Klebbys'),
-(16, '', 'ld', 1, 'Service Prepaid Load &#8369;30.00 Credit (10% discount)', 'Prepaid Load Service', 'Klebbys', 'Service', '27.00', '27.00', 'Klebbys'),
-(17, '', 'ld', 1, 'Service Prepaid Load &#8369;30.00 Credit (5% discount)', 'Prepaid Load Service', 'Klebbys', 'Service', '28.50', '28.50', 'Klebbys'),
-(18, '', 'ld', 1, 'Service Prepaid Load &#8369;50.00 Credit (10% discount)', 'Prepaid Load Service', 'Klebbys', 'Service', '45.00', '45.00', 'Klebbys'),
-(19, '', 'ld', 1, 'Service Prepaid Load &#8369;50.00 Credit (5% discount)', 'Prepaid Load Service', 'Klebbys', 'Service', '47.50', '47.50', 'Klebbys'),
-(20, '', 'ld', 1, 'Service Prepaid Load &#8369;100.00 Credit (10% discount)', 'Prepaid Load Service', 'Klebbys', 'Service', '90.00', '90.00', 'Klebbys'),
-(21, '', 'ld', 1, 'Service Prepaid Load &#8369;100.00 Credit (5% discount)', 'Prepaid Load Service', 'Klebbys', 'Service', '95.00', '95.00', 'Klebbys'),
-(22, '', 'pg', 1, 'Service ID Copy Photocopy Black & White', 'Print Service', 'Klebbys', 'Service', '0.00', '4.00', 'Klebbys'),
-(23, '', 'pg', 1, 'Service ID Copy Photocopy Color', 'Print Service', 'Klebbys', 'Service', '0.00', '10.00', 'Klebbys'),
-(24, '', 'pc', 1, 'Service Photo 2X2" Picture Print', 'Photo Print Service', 'Klebbys', 'Service', '0.00', '5.00', 'Klebbys'),
-(25, '', 'pc', 1, 'Service Photo 3.5X2.5" Picture Print', 'Photo Print Service', 'Klebbys', 'Service', '0.00', '5.00', 'Klebbys'),
-(30, '4806530360098', 'pc', 1, 'TM Puncher T-07009 Medium', 'Puncher', 'TM', 'School & Office', '70.00', '0.00', 'Chuyte'),
-(31, '6971642400142', 'dz', 12, 'TM Binder Clip T-20501-51mm 2"', 'Binder Clip', 'TM', 'School & Office', '66.00', '0.00', 'Chuyte'),
-(32, '', 'pc', 1, 'TM Binder Clip T-20501-51mm 2"', 'Binder Clip', 'TM', 'School & Office', '5.50', '7.00', 'Chuyte'),
-(33, '6971642400159', 'dz', 12, 'TM Binder Clip T-20501-41mm 1-5/8"', 'Binder Clip', 'TM', 'School & Office', '40.00', '0.00', 'Chuyte'),
-(34, '', 'pc', 1, 'TM Binder Clip T-20501-41mm 1-5/8"', 'Binder Clip', 'TM', 'School & Office', '3.33', '4.50', 'Chuyte'),
-(35, '6971642400166', 'dz', 12, 'TM Binder Clip T-20501-32mm 1-1/4"', 'Binder Clip', 'TM', 'School & Office', '25.00', '0.00', 'Chuyte'),
-(36, '', 'pc', 1, 'TM Binder Clip T-20501-32mm 1-1/4"', 'Binder Clip', 'TM', 'School & Office', '2.08', '3.00', 'Chuyte'),
-(37, '4806530360395', 'sbx', 100, 'TM Paper Clip T-20101-50mm (Jumbo)', 'Paper Clip', 'TM', 'School & Office', '20.00', '0.00', 'Chuyte'),
-(38, '', 'pc', 1, 'TM Paper Clip T-20101-50mm (Jumbo)', 'Paper Clip', 'TM', 'School & Office', '0.20', '0.50', 'Chuyte'),
-(39, '', 'sbx', 100, 'TM Paper Clip M20101-33mm (Small)', 'Paper Clip', 'TM', 'School & Office', '10.00', '0.00', 'Chuyte'),
-(40, '', 'pc', 1, 'TM Paper Clip M20101-33mm (Small)', 'Paper Clip', 'TM', 'School & Office', '0.10', '0.25', 'Chuyte'),
-(41, '6936328041026', 'pc', 1, 'TM Stapler T-01017 #10', 'Stapler', 'TM', 'School & Office', '30.00', '0.00', 'Chuyte'),
-(42, '8802203001455', 'dz', 12, 'Dong-A My-Gel 0.5mm Sign Pen Black', 'Sign Pen', 'Dong-A', 'School & Office', '222.00', '0.00', 'Chuyte'),
-(43, '8802203083659', 'pc', 1, 'Dong-A My-Gel 0.5mm Sign Pen Black', 'Sign Pen', 'Dong-A', 'School & Office', '18.50', '22.00', 'Chuyte'),
-(44, '8802203001462', 'dz', 12, 'Dong-A My-Gel 0.5mm Sign Pen Blue', 'Sign Pen', 'Dong-A', 'School & Office', '222.00', '0.00', 'Chuyte'),
-(45, '8802203083666', 'pc', 1, 'Dong-A My-Gel 0.5mm Sign Pen Blue', 'Sign Pen', 'Dong-A', 'School & Office', '18.50', '22.00', 'Chuyte'),
-(46, '4806502160756', 'pc', 1, 'Tisyu 300-Sheet Toilet Paper (100x100mm)', 'Toilet Paper', 'Tisyu', 'Toiletry', '9.00', '11.00', 'Chuyte'),
-(47, '4800096473889', 'pc', 1, 'Good & Cheap 200-Sheet Toilet Paper (98x95mm)', 'Toilet Paper', 'Good & Cheap', 'Toiletry', '7.50', '10.00', 'Chuyte'),
-(48, '4806530360678', 'pk', 20, 'TM Glossy Photo Paper A4 (210x297mm)', 'Photo Paper', 'TM', 'School & Office', '60.00', '0.00', 'Chuyte'),
-(49, '', 'pc', 1, 'TM Glossy Photo Paper A4 (210x297mm)', 'Photo Paper', 'TM', 'School & Office', '3.00', '4.00', 'Chuyte'),
-(50, '4806506318856', 'pk', 8, 'Sisters Night Plus Heavy Flow Napkin (270mm)', 'Feminine Sanitary Pad', 'Sisters', 'Toiletry', '25.00', '0.00', 'Chuyte'),
-(51, '', 'pc', 1, 'Sisters Night Plus Heavy Flow Napkin (270mm)', 'Feminine Sanitary Pad', 'Sisters', 'Toiletry', '3.13', '4.00', 'Chuyte'),
-(52, '4806506318832', 'pk', 8, 'Sisters Day Maxi Regular Flow Napkin (240mm)', 'Feminine Sanitary Pad', 'Sisters', 'Toiletry', '19.00', '0.00', 'Chuyte'),
-(53, '', 'pc', 1, 'Sisters Day Maxi Regular Flow Napkin (240mm)', 'Feminine Sanitary Pad', 'Sisters', 'Toiletry', '2.38', '3.00', 'Chuyte'),
-(54, '4902505040788', 'dz', 12, 'Pilot Super Color Marker Pen SC-B Broad Black', 'Marker Pen', 'Pilot', 'School & Office', '936.00', '0.00', 'Chuyte'),
-(55, '4902505088179', 'pc', 1, 'Pilot Super Color Marker Pen SC-B Broad Black', 'Marker Pen', 'Pilot', 'School & Office', '78.00', '86.00', 'Chuyte'),
-(56, '', 'dz', 12, 'Dixon D2378 Permanent Refillable 3mm Marker Pen', 'Marker Pen', 'Dixon', 'School & Office', '108.00', '0.00', 'Chuyte'),
-(57, '6954941713007', 'pc', 1, 'Dixon D2378 Permanent Refillable 3mm Marker Pen', 'Marker Pen', 'Dixon', 'School & Office', '9.00', '11.00', 'Chuyte'),
-(58, '', 'dz', 12, 'TM Correction Fluid TM149 (15ml)', 'Correction Fluid', 'TM', 'School & Office', '120.00', '0.00', 'Chuyte'),
-(59, '4806530362160', 'pc', 1, 'TM Correction Fluid TM149 (15ml)', 'Correction Fluid', 'TM', 'School & Office', '10.00', '13.00', 'Chuyte'),
-(60, '4806523080002', 'sbx', 1, 'Max Staples No.10-1M 1000 staples (5mm)', 'Staple Wire', 'Max', 'School & Office', '5.00', '7.00', 'Chuyte'),
-(61, '', 'pc', 1, 'MGK Ruler 12"', 'Ruler', 'MGK', 'School & Office', '3.50', '5.00', 'Chuyte'),
-(62, '', 'pk', 100, 'Index Card 5x8"', 'Index Card', '', 'School & Office', '45.00', '0.00', 'Chuyte'),
-(63, '', 'pc', 1, 'Index Card 5x8"', 'Index Card', '', 'School & Office', '0.45', '1.00', 'Chuyte'),
-(64, '', 'pc', 1, 'White Mug', 'Mug', '', 'Household', '24.00', '0.00', 'Chuyte'),
-(65, '6970431420026', 'crd', 12, 'Shenling Padlock (25mm)', 'Padlock', 'Shenling', 'Hardware', '264.00', '0.00', 'Chuyte'),
-(66, '', 'pc', 1, 'Shenling Padlock (25mm)', 'Padlock', 'Shenling', 'Hardware', '22.00', '29.00', 'Chuyte'),
-(67, '', 'tie', 6, 'Rejoice Shampoo Perfume Fresh Sachet (16ml)', 'Shampoo', 'Rejoice', 'Toiletry', '30.00', '0.00', 'Chuyte'),
-(68, '4902430775878', 'pc', 1, 'Rejoice Shampoo Perfume Fresh Sachet (16ml)', 'Shampoo', 'Rejoice', 'Toiletry', '5.00', '7.00', 'Chuyte'),
-(69, '', 'tie', 7, 'Rejoice Shampoo Rich Soft Smooth Sachet (13ml)', 'Shampoo', 'Rejoice', 'Toiletry', '25.00', '0.00', 'Chuyte'),
-(70, '4902430822909', 'pc', 1, 'Rejoice Shampoo Rich Soft Smooth Sachet (13ml)', 'Shampoo', 'Rejoice', 'Toiletry', '3.57', '5.00', 'Chuyte'),
-(71, '4800888139283', 'pc', 1, 'Creamsilk Conditioner Hairfall Defense Sachet (11ml)', 'Conditioner', 'Creamsilk', 'Toiletry', '5.75', '7.00', 'Chuyte'),
-(72, '4902430934800', 'pc', 1, 'Safeguard Soap Pure White 135g', 'Bath Soap', 'Safeguard', 'Toiletry', '42.00', '50.00', 'Chuyte'),
-(73, '4902430495042', 'pc', 1, 'Safeguard Soap Classic Beige 90g', 'Bath Soap', 'Safeguard', 'Toiletry', '30.00', '36.00', 'Chuyte'),
-(74, '4902430441902', 'crd', 6, 'Gillette Rubie Double-Blade Long Handle Shaver (Yellow)', 'Shaver', 'Gillette', 'Toiletry', '132.00', '0.00', 'Chuyte'),
-(75, '', 'pc', 1, 'Gillette Rubie Double-Blade Long Handle Shaver (Yellow)', 'Shaver', 'Gillette', 'Toiletry', '22.00', '25.00', 'Chuyte'),
-(76, '', 'tie', 6, 'Closeup Ever Fresh Twin Pack Gel Toothpaste Sachet Red Hot (2x10g)', 'Toothpaste', 'Closeup', 'Toiletry', '35.00', '42.00', 'Chuyte'),
-(77, '4800888147288', 'pc', 1, 'Closeup Ever Fresh Twin Pack Gel Toothpaste Sachet Red Hot (2x10g)', 'Toothpaste', 'Closeup', 'Toiletry', '5.83', '7.00', 'Chuyte'),
-(78, '8850006321133', 'pc', 1, 'Colgate Maximum Cavity Protection Great Regular Flavor (25ml 37g)', 'Toothpaste', 'Colgate', 'Toiletry', '23.00', '28.00', 'Chuyte'),
-(79, '4801010194002', 'bx', 50, 'Band-Aid Anti-Septic Adhesive Bandages', 'Medical Plaster', 'Band-Aid', 'Personal Hygiene', '65.00', '0.00', 'Chuyte'),
-(80, '', 'pc', 1, 'Band-Aid Anti-Septic Adhesive Bandages', 'Medical Plaster', 'Band-Aid', 'Personal Hygiene', '1.30', '2.00', 'Chuyte'),
-(81, '', 'dz', 12, 'Joy Complete Clean Kalamansi Dishwashing Liquid (20ml)', 'Dish Detergent', 'Joy', 'Toiletry', '0.00', '0.00', 'Chuyte'),
-(82, '4902430434393', 'pc', 1, 'Joy Complete Clean Kalamansi Dishwashing Liquid (20ml)', 'Dish Detergent', 'Joy', 'Toiletry', '5.00', '7.00', 'Chuyte'),
-(83, '', 'dz', 12, 'Nails Nail Polish Remover w/ Acetone (30ml)', 'Nail Polish Remover', 'Nails', 'Personal Hygiene', '57.00', '0.00', 'Chuyte'),
-(84, '4800147310477', 'pc', 1, 'Nails Nail Polish Remover w/ Acetone (30ml)', 'Nail Polish Remover', 'Nails', 'Personal Hygiene', '4.75', '6.00', 'Chuyte'),
-(85, '48031547', 'pc', 1, 'Efficascent Oil Regular (25ml)', 'Liniment', 'Efficascent', 'Galenical', '28.00', '34.00', 'Chuyte'),
-(86, '48035156', 'pc', 1, 'Efficascent Oil Extra Strength (25ml)', 'Liniment', 'Efficascent', 'Galenical', '33.00', '39.00', 'Chuyte'),
-(87, '4801010104100', 'pc', 1, 'Johnson\'s Baby Powder Milk+Rice (50g)', 'Baby Powder', 'Johnson\'s', 'Personal Hygiene', '24.25', '29.00', 'Chuyte'),
-(88, '48032742', 'pc', 1, 'Johnson\'s Baby Powder White (25g)', 'Baby Powder', 'Johnson\'s', 'Personal Hygiene', '14.00', '17.00', 'Chuyte'),
-(89, '3022014800019', 'crd', 12, 'MGK Scissors 5" M19005', 'Scissors', 'MGK', 'School & Office', '156.00', '0.00', 'Chuyte'),
-(90, '', 'pc', 1, 'MGK Scissors 5" M19005', 'Scissors', 'MGK', 'School & Office', '13.00', '16.00', 'Chuyte'),
-(91, '3800138233113', 'crd', 12, 'Cutter Knife (Big)', 'Box Cutter', '', 'School & Office', '96.00', '0.00', 'Chuyte'),
-(92, '', 'pc', 1, 'Cutter Knife (Big)', 'Box Cutter', '', 'School & Office', '8.00', '10.00', 'Chuyte'),
-(93, '6920805678287', 'crd', 12, 'Art Designing Knives Cutter (Small)', 'Box Cutter', '', 'School & Office', '54.00', '0.00', 'Chuyte'),
-(94, '', 'pc', 1, 'Art Designing Knives Cutter (Small)', 'Box Cutter', '', 'School & Office', '4.50', '6.00', 'Chuyte'),
-(95, '4800047820250', 'pc', 1, 'Green Cross 70% Solution Antiseptic Disinfectant Isopropyl Alcohol (60ml)', 'Alcohol', 'Green Cross', 'Toiletry', '17.00', '20.00', 'Chuyte'),
-(96, '4800047820243', 'pc', 1, 'Green Cross 70% Solution Antiseptic Disinfectant Isopropyl Alcohol (150ml)', 'Alcohol', 'Green Cross', 'Toiletry', '29.25', '35.00', 'Chuyte'),
-(97, '4800011120614', 'pc', 1, 'Casino 70% Solution Active Ethyl Alcohol Triclosan (150ml)', 'Alcohol', 'Casino', 'Toiletry', '29.50', '35.00', 'Chuyte'),
-(98, '', 'dz', 12, 'Sliding Plastic Folder Short', 'Folder', '', 'School & Office', '54.00', '0.00', 'Chuyte'),
-(99, '', 'pc', 1, 'Sliding Plastic Folder Short', 'Folder', '', 'School & Office', '4.50', '6.00', 'Chuyte'),
-(100, '', 'dz', 12, 'Sliding Plastic Folder Long', 'Folder', '', 'School & Office', '66.00', '0.00', 'Chuyte'),
-(101, '', 'pc', 1, 'Sliding Plastic Folder Long', 'Folder', '', 'School & Office', '5.50', '7.00', 'Chuyte'),
-(102, '', 'rm', 100, 'Folder Long (14pts)', 'Folder', '', 'School & Office', '450.00', '0.00', 'Chuyte'),
-(103, '', 'pc', 1, 'Folder Long (14pts)', 'Folder', '', 'School & Office', '5.00', '7.00', 'Chuyte'),
-(104, '', 'rm', 100, 'Folder Short (14pts)', 'Folder', '', 'School & Office', '400.00', '0.00', 'Chuyte'),
-(105, '', 'pc', 1, 'Folder Short (14pts)', 'Folder', '', 'School & Office', '4.50', '6.00', 'Chuyte'),
-(106, '', 'pc', 1, 'Doormat Cloth', 'Doormat', '', 'Household', '30.00', '0.00', 'Chuyte'),
-(107, '', 'rm', 20, 'Hapi 1/2 Crosswise Pad', 'Intermediate Pad Paper', 'Hapi', 'School & Office', '120.00', '0.00', 'Chuyte'),
-(108, '', 'pad', 1, 'Hapi 1/2 Crosswise Pad', 'Intermediate Pad Paper', 'Hapi', 'School & Office', '6.00', '8.00', 'Chuyte'),
-(109, '', 'rm', 20, 'Hapi 1/2 Lengthwise 50 Leaves Quiz Pad (100x250mm)', 'Intermediate Pad Paper', 'Hapi', 'School & Office', '120.00', '0.00', 'Chuyte'),
-(110, '4806508030541', 'pad', 1, 'Hapi 1/2 Lengthwise 50 Leaves Quiz Pad (100x250mm)', 'Intermediate Pad Paper', 'Hapi', 'School & Office', '6.00', '8.00', 'Chuyte'),
-(111, '', 'rm', 10, 'Premiere 1/2 Crosswise 80 Leaves Quiz Pad (200x125mm)', 'Intermediate Pad Paper', 'Premiere', 'School & Office', '120.00', '0.00', 'Chuyte'),
-(112, '4806503872450', 'pad', 1, 'Premiere 1/2 Crosswise 80 Leaves Quiz Pad (200x125mm)', 'Intermediate Pad Paper', 'Premiere', 'School & Office', '12.00', '15.00', 'Chuyte'),
-(113, '', 'rm', 10, 'Premiere 1/2 Lengthwise Quiz Pad', 'Intermediate Pad Paper', 'Premiere', 'School & Office', '120.00', '0.00', 'Chuyte'),
-(114, '', 'pad', 1, 'Premiere 1/2 Lengthwise Quiz Pad', 'Intermediate Pad Paper', 'Premiere', 'School & Office', '12.00', '15.00', 'Chuyte'),
-(115, '', 'pk', 10, 'Pixel Neon Notes', 'Notebook', 'Pixel', 'School & Office', '60.00', '0.00', 'Chuyte'),
-(116, '4806508030008', 'pc', 1, 'Daily Pocket Notes', 'Notebook', 'Pixel', 'School & Office', '5.00', '7.00', 'Chuyte'),
-(117, '', 'rm', 20, 'Hapi 1/4 50 Leaves Quiz Pad (100x125mm)', 'Intermediate Pad Paper', 'Hapi', 'School & Office', '60.00', '0.00', 'Chuyte'),
-(118, '4806508030558', 'pad', 1, 'Hapi 1/4 50 Leaves Quiz Pad (100x125mm)', 'Intermediate Pad Paper', 'Hapi', 'School & Office', '3.00', '4.00', 'Chuyte'),
-(119, '8802103994053', 'pk', 1, 'Dove 3in1 Facial Cleansing Wipes (25w)', 'Wet wipe', 'Dove', 'Toiletry', '20.00', '25.00', 'Chuyte'),
-(120, '', 'rm', 10, 'Jumbo Intermediate Pad 80 Leaves (200x250mm)', 'Intermediate Pad Paper', 'Jumbo', 'School & Office', '150.00', '0.00', 'Chuyte'),
-(121, '4806514413390', 'pad', 1, 'Jumbo Intermediate Pad 80 Leaves (200x250mm)', 'Intermediate Pad Paper', 'Jumbo', 'School & Office', '15.00', '18.00', 'Chuyte'),
-(122, '', 'pc', 1, 'Glue Gun Glue Stick (Big)', 'Glue Stick', '', 'School & Office', '6.00', '8.00', 'Chuyte'),
-(123, '', 'pc', 1, 'Armak Double-Sided Tape 1/2"', 'Double-Sided Tape', 'Armak', 'School & Office', '12.00', '15.00', 'Chuyte'),
-(124, '', 'pc', 1, 'Masking Tape 3/4"', 'Paper Adhesive Tape', '', 'School & Office', '12.00', '15.00', 'Chuyte'),
-(125, '', 'pc', 1, 'Armak Scotch Tape 1"', 'Adhesive Tape', 'Armak', 'School & Office', '12.00', '15.00', 'Chuyte'),
-(126, '', 'dz', 12, 'Armak Scotch Tape 1/2"', 'Adhesive Tape', 'Armak', 'School & Office', '24.00', '0.00', 'Chuyte'),
-(127, '', 'pc', 1, 'Armak Scotch Tape 1/2"', 'Adhesive Tape', 'Armak', 'School & Office', '2.00', '3.00', 'Chuyte'),
-(128, '4806030300617', 'jar', 25, 'HBW 3000 Retractable Oil Base Gel Pen Black (0.7mm)', 'Ballpen', 'HBW', 'School & Office', '100.00', '0.00', 'Chuyte'),
-(129, '', 'pc', 1, 'HBW 3000 Retractable Oil Base Gel Pen Black (0.7mm)', 'Ballpen', 'HBW', 'School & Office', '4.00', '6.00', 'Chuyte'),
-(130, '4806030300624', 'jar', 25, 'HBW 3000 Retractable Oil Base Gel Pen Blue (0.7mm)', 'Ballpen', 'HBW', 'School & Office', '100.00', '0.00', 'Chuyte'),
-(131, '', 'pc', 1, 'HBW 3000 Retractable Oil Base Gel Pen Blue (0.7mm)', 'Ballpen', 'HBW', 'School & Office', '4.00', '6.00', 'Chuyte'),
-(132, '', 'sbx', 1, 'Mitsuya Thumbtacks', 'Thumbtack', 'Mitsuya', 'School & Office', '10.00', '13.00', 'Chuyte'),
-(133, '4809012371001', 'sbx', 1, 'Mitsuko Thumbtacks No.111', 'Thumbtack', 'Mitsuko', 'School & Office', '7.50', '10.00', 'Chuyte'),
-(134, '', 'pc', 1, 'Clearbook (Long)', 'Clearbook', '', 'School & Office', '33.00', '40.00', 'Chuyte'),
-(135, '', 'pc', 1, 'Clearbook (Short)', 'Clearbook', '', 'School & Office', '30.00', '36.00', 'Chuyte'),
-(136, '', 'pk', 30, 'Ponytail Hair Tie', 'Hair Tie', 'Ponytail', 'Personal Accessory', '54.00', '0.00', 'Chuyte'),
-(137, '', 'pc', 1, 'Ponytail Hair Tie', 'Hair Tie', 'Ponytail', 'Personal Accessory', '1.80', '3.00', 'Chuyte'),
-(138, '6932177474213', 'pc', 1, 'TM Calculator TM-12 Digits', 'Calculator', 'TM', 'School & Office', '130.00', '0.00', 'Chuyte'),
-(139, '6928394900659', 'crd', 4, 'Kingever Extra Heavy Duty R6 1.5V AA Battery', 'Battery', 'Kingever', 'Electronics', '10.00', '13.00', 'Chuyte'),
-(140, '', 'pc', 1, 'Kingever Extra Heavy Duty R6 1.5V AA Battery', 'Battery', 'Kingever', 'Electronics', '2.50', '4.00', 'Chuyte'),
-(141, '6928394900666', 'crd', 4, 'Kingever Extra Heavy Duty R03 1.5V AAA Battery', 'Battery', 'Kingever', 'Electronics', '10.00', '13.00', 'Chuyte'),
-(142, '', 'pc', 1, 'Kingever Extra Heavy Duty R03 1.5V AAA Battery', 'Battery', 'Kingever', 'Electronics', '2.50', '4.00', 'Chuyte'),
-(143, '4800045380190', 'pc', 1, 'Shield Soap Sachet Cleansing White (60g)', 'Bath Soap', 'Shield', 'Toiletry', '13.00', '16.00', 'Chuyte'),
-(144, '', 'pk', 1, 'Sanicare Regular Cotton Balls (50)', 'Cotton Balls', 'Sanicare', 'Toiletry', '15.00', '17.00', 'Chuyte'),
-(145, '4800552051019', 'rm', 250, 'Avia Premium Colored Assorted Construction Paper (8.5x11")', 'Construction Paper', 'Avia', 'School & Office', '170.00', '0.00', 'Chuyte'),
-(146, '', 'pc', 1, 'Avia Premium Colored Assorted Construction Paper (8.5x11")', 'Construction Paper', 'Avia', 'School & Office', '0.68', '1.00', 'Chuyte'),
-(147, '', 'dz', 12, 'Ariel Sunrise Fresh 10X-Oxyclean Power Detergent Powder Sachet (70g)', 'Detergent', 'Ariel', 'Toiletry', '140.00', '0.00', 'Chuyte'),
-(148, '4902430583169', 'pc', 1, 'Ariel Sunrise Fresh 10X-Oxyclean Power Detergent Powder Sachet (70g)', 'Detergent', 'Ariel', 'Toiletry', '11.67', '14.00', 'Chuyte'),
-(149, '', 'dz', 12, 'Palmolive Shampoo & Conditioner Sachet Healthy & Smooth (15ml)', 'Shampoo & Conditioner', 'Palmolive', 'Toiletry', '60.00', '0.00', 'Chuyte'),
-(150, '8850006493038', 'pc', 1, 'Palmolive Shampoo & Conditioner Sachet Healthy & Smooth (15ml)', 'Shampoo & Conditioner', 'Palmolive', 'Toiletry', '5.00', '7.00', 'Chuyte'),
-(151, '', 'dz', 12, 'Palmolive Shampoo & Conditioner Sachet Intensive Moisture (15ml)', 'Shampoo & Conditioner', 'Palmolive', 'Toiletry', '60.00', '0.00', 'Chuyte'),
-(152, '8850006493014', 'pc', 1, 'Palmolive Shampoo & Conditioner Sachet Intensive Moisture (15ml)', 'Shampoo & Conditioner', 'Palmolive', 'Toiletry', '5.00', '7.00', 'Chuyte'),
-(153, '', 'dz', 12, 'Creamsilk Conditioner Standout Straight Sachet (12ml)', 'Conditioner', 'Creamsilk', 'Toiletry', '68.00', '0.00', 'Chuyte'),
-(154, '4800888139306', 'pc', 1, 'Creamsilk Conditioner Standout Straight Sachet (12ml)', 'Conditioner', 'Creamsilk', 'Toiletry', '5.67', '7.00', 'Chuyte'),
-(155, '', 'dz', 12, 'Surf w/ Fabcon Sun Fresh Detergent Powder Sachet (57g)', 'Detergent', 'Surf', 'Toiletry', '63.00', '0.00', 'Chuyte'),
-(156, '4800888151841', 'pc', 1, 'Surf w/ Fabcon Sun Fresh Detergent Powder Sachet (57g)', 'Detergent', 'Surf', 'Toiletry', '5.25', '7.00', 'Chuyte'),
-(157, '', 'dz', 12, 'Surf w/ Fabcon Cherry Blossom Detergent Powder Sachet (50g)', 'Detergent', 'Surf', 'Toiletry', '63.00', '0.00', 'Chuyte'),
-(158, '4800888189806', 'pc', 1, 'Surf w/ Fabcon Cherry Blossom Detergent Powder Sachet (50g)', 'Detergent', 'Surf', 'Toiletry', '5.25', '7.00', 'Chuyte'),
-(159, '4800888136749', 'bar', 4, 'Surf Oxybubbles Kalamansi Detergent Bar (380g)', 'Detergent', 'Surf', 'Toiletry', '21.50', '0.00', 'Chuyte'),
-(160, '', 'cut', 1, 'Surf Oxybubbles Kalamansi Detergent Bar (380g)', 'Detergent', 'Surf', 'Toiletry', '5.38', '7.00', 'Chuyte'),
-(161, '4902430278119', 'bar', 4, 'TideUltra Original Scent Detergent Bar (380g)', 'Detergent', 'Tide', 'Toiletry', '21.00', '0.00', 'Chuyte'),
-(162, '', 'cut', 1, 'TideUltra Original Scent Detergent Bar (380g)', 'Detergent', 'Tide', 'Toiletry', '5.25', '7.00', 'Chuyte'),
-(163, '', 'pc', 1, 'Triangle 4pcs Combo Set 9307-10', 'Trigo School Supplies', '', 'School & Office', '20.00', '25.00', 'Chuyte'),
-(164, '', 'pc', 1, 'Illustration Board 1/8', 'Illustration Board', '', 'School & Office', '4.50', '6.00', 'Chuyte'),
-(165, '', 'pc', 1, 'Illustration Board 1/4', 'Illustration Board', '', 'School & Office', '9.00', '12.00', 'Chuyte'),
-(166, '', 'pc', 1, 'Illustration Board 1/2', 'Illustration Board', '', 'School & Office', '18.00', '22.00', 'Chuyte'),
-(167, '', 'dz', 12, 'Easy White Multi-Purpose Glue 40g (Small)', 'Multi-Purpose Glue', 'Easy', 'School & Office', '96.00', '0.00', 'Chuyte'),
-(168, '4620171010378', 'pc', 1, 'Easy White Multi-Purpose Glue 40g (Small)', 'Multi-Purpose Glue', 'Easy', 'School & Office', '8.00', '10.00', 'Chuyte'),
-(169, '', 'pc', 1, 'Armak Brown Packing Tape (Thin 2")', 'Packing Tape', 'Armak', 'School & Office', '8.00', '10.00', 'Chuyte'),
-(170, '', 'pc', 1, 'TM Protractor (Big)', 'Protractor', 'TM', 'School & Office', '3.50', '5.00', 'Chuyte'),
-(171, '6936328010022', 'bx', 50, 'TM Paper Fastener T-20601-D', 'Paper Fastener', 'TM', 'School & Office', '28.00', '0.00', 'Chuyte'),
-(172, '', 'set', 1, 'TM Paper Fastener T-20601-D', 'Paper Fastener', 'TM', 'School & Office', '0.56', '1.00', 'Chuyte'),
-(173, '', 'pk', 50, 'MGK Push Pin M30001-50', 'Push Pin', 'MGK', 'School & Office', '15.00', '18.00', 'Chuyte'),
-(174, '4806018680083', 'pk', 50, 'Crown Hi-Quality B-007 Map Pins Assorted Colors', 'Map Pin', 'Crown', 'School & Office', '15.00', '18.00', 'Chuyte'),
-(175, '', 'pc', 1, 'Brown Envelope Long', 'Brown Envelope', '', 'School & Office', '1.50', '4.00', 'Chuyte'),
-(176, '', 'pc', 1, 'Brown Envelope Short', 'Brown Envelope', '', 'School & Office', '1.20', '3.00', 'Chuyte'),
-(177, '', 'pc', 1, 'Plastic Envelope Long', 'Plastic Envelope', '', 'School & Office', '7.00', '10.00', 'Chuyte'),
-(178, '', 'pc', 1, 'Sesno Correction Tape PS-06 (5mm)', 'Correction Tape', 'Sesno', 'School & Office', '23.00', '28.00', 'Chuyte'),
-(179, '4806515986619', 'pc', 1, 'Electro Pure Tawas Powder (Red)', 'Alum', 'Electro', 'Toiletry', '8.00', '10.00', 'Chuyte'),
-(180, '4806515987715', 'pc', 1, 'Electro Tawas w/ Scent Powder (Yellow)', 'Alum', 'Electro', 'Toiletry', '10.00', '12.00', 'Chuyte'),
-(181, '', 'pc', 1, 'Manila Paper', 'Manila Paper', '', 'School & Office', '4.00', '6.00', 'Chuyte'),
-(182, '4806502143339', 'rm', 500, 'Copyone 20 Kleencut Advantage Multi-Purpose Paper A4', 'Bond Paper', 'Copyone', 'School & Office', '185.00', '0.00', 'Chuyte'),
-(183, '', 'pc', 1, 'Copyone 20 Kleencut Advantage Multi-Purpose Paper A4', 'Bond Paper', 'Copyone', 'School & Office', '0.37', '1.00', 'Chuyte'),
-(184, '4806502143315', 'rm', 500, 'Copyone 20 Kleencut Advantage Multi-Purpose Paper Legal (8.5x13")', 'Bond Paper', 'Copyone', 'School & Office', '210.00', '0.00', 'Chuyte'),
-(185, '', 'pc', 1, 'Copyone 20 Kleencut Advantage Multi-Purpose Paper Legal (8.5x13")', 'Bond Paper', 'Copyone', 'School & Office', '0.42', '1.00', 'Chuyte'),
-(186, '4806502143308', 'rm', 500, 'Copyone 20 Kleencut Advantage Multi-Purpose Paper Letter (8.5x11")', 'Bond Paper', 'Copyone', 'School & Office', '180.00', '0.00', 'Chuyte'),
-(187, '', 'pc', 1, 'Copyone 20 Kleencut Advantage Multi-Purpose Paper Letter (8.5x11")', 'Bond Paper', 'Copyone', 'School & Office', '0.36', '1.00', 'Chuyte'),
-(188, '', 'pc', 1, 'Display Screen Small', 'Mesh Wire Display', '', 'Hardware', '160.00', '0.00', 'Chuyte'),
-(189, '', 'pc', 1, 'Uno Plastic Chair', 'Plastic Chair', 'Uno', 'Household', '360.00', '0.00', 'Chuyte'),
-(190, '', 'pc', 1, 'Cofta Plastic Table 24x24"', 'Plastic Table', 'Cofta', 'Household', '1200.00', '0.00', 'Chuyte'),
-(191, '', 'dz', 12, 'Mongol #2 Pencil', 'Pencil', 'Mongol', 'School & Office', '75.00', '0.00', 'Chuyte'),
-(192, '', 'pc', 1, 'Mongol #2 Pencil', 'Pencil', 'Mongol', 'School & Office', '6.25', '8.00', 'Chuyte'),
-(193, '', 'dz', 12, 'Prime Excel Ballpen Black', 'Ballpen', 'Prime', 'School & Office', '48.00', '0.00', 'Chuyte'),
-(194, '', 'pc', 1, 'Prime Excel Ballpen Black', 'Ballpen', 'Prime', 'School & Office', '4.00', '6.00', 'Chuyte'),
-(195, '', 'dz', 12, 'Prime Excel Ballpen Blue', 'Ballpen', 'Prime', 'School & Office', '48.00', '0.00', 'Chuyte'),
-(196, '4904810335061', 'pc', 1, 'Prime Excel Ballpen Blue', 'Ballpen', 'Prime', 'School & Office', '4.00', '6.00', 'Chuyte'),
-(197, '', 'bx', 25, 'HBW 2020 Ballpen Black', 'Ballpen', 'HBW', 'School & Office', '106.25', '0.00', 'Chuyte'),
-(198, '', 'pc', 1, 'HBW 2020 Ballpen Black', 'Ballpen', 'HBW', 'School & Office', '4.25', '6.00', 'Chuyte'),
-(199, '', 'rm', 100, 'Cartolina White', 'Cartolina', '', 'School & Office', '500.00', '0.00', 'Chuyte'),
-(200, '', 'pc', 1, 'Cartolina White', 'Cartolina', '', 'School & Office', '5.00', '7.00', 'Chuyte'),
-(201, '', 'rm', 100, 'Cartolina Color', 'Cartolina', '', 'School & Office', '700.00', '0.00', 'Chuyte'),
-(202, '', 'pc', 1, 'Cartolina Color', 'Cartolina', '', 'School & Office', '7.00', '9.00', 'Chuyte'),
-(203, '', 'bot', 1, 'Zonrox Bleach Scented Fresh 250ml', 'Bleach', 'Zonrox', 'Toiletry', '13.75', '16.50', 'Hypermart'),
-(204, '', 'bot', 1, 'Zonrox Bleach Scented Lemon 250ml', 'Bleach', 'Zonrox', 'Toiletry', '13.75', '16.50', 'Hypermart'),
-(205, '', 'bot', 1, 'Zonrox Bleach Scented Flor 250ml', 'Bleach', 'Zonrox', 'Toiletry', '13.50', '16.50', 'Hypermart'),
-(206, '', 'bot', 1, 'Zonrox Bleach Color Safe 250ml', 'Bleach', 'Zonrox', 'Toiletry', '20.70', '26.00', 'Conchitas'),
-(207, '', 'bot', 1, 'Zonrox Bleach Original 250ml', 'Bleach', 'Zonrox', 'Toiletry', '12.25', '16.00', 'Conchitas'),
-(208, '4808888431222', 'bot', 1, 'Palmolive Silky Straight Keratin Shampoo & Conditioner (90ml)', 'Shampoo & Conditioner', 'Palmolive', 'Toiletry', '49.50', '57.00', 'Hypermart'),
-(209, '4808888413594', 'bot', 1, 'Palmolive Intensive Moisture Coco Shampoo & Conditioner (90ml)', 'Shampoo & Conditioner', 'Palmolive', 'Toiletry', '49.50', '57.00', 'Hypermart'),
-(210, '9556031063268', 'bar', 1, 'Palmolive Naturals Irresistible Softness Soap (80g)', 'Bath Soap', 'Palmolive', 'Toiletry', '21.50', '25.00', 'Hypermart'),
-(211, '4902430414418', 'bot', 1, 'Head & Shoulders Cool Menthol Anti Dandruff Shampoo (70ml)', 'Shampoo', 'Head & Shoulder', 'Toiletry', '49.50', '57.00', 'Hypermart'),
-(212, '4800888156280', 'bot', 1, 'Sunsilk Co-Creations Strong & Long Shampoo (90ml)', 'Shampoo', 'Sunsilk', 'Toiletry', '49.50', '57.00', 'Hypermart'),
-(213, '4800888140852', 'bot', 1, 'Sunsilk Co-Creations Smooth & Manageable Shampoo (90ml)', 'Shampoo', 'Sunsilk', 'Toiletry', '49.50', '57.00', 'Hypermart'),
-(214, '8850007372882', 'pk', 16, 'Modess Regular w/ Wings Napkin', 'Feminine Sanitary Pad', 'Modess', 'Toiletry', '70.00', '0.00', 'Hypermart'),
-(215, '', 'pc', 1, 'Modess Regular w/ Wings Napkin', 'Feminine Sanitary Pad', 'Modess', 'Toiletry', '4.37', '6.00', 'Hypermart'),
-(216, '4808888320106', 'pc', 1, 'Colgate Classic Deep Clean Toothbrush', 'Toothbrush', 'Colgate', 'Toiletry', '12.00', '15.00', 'Hypermart'),
-(217, '8998866800761', 'bar', 1, 'Wings Active White Oxy White Technology Detergent Cut Bar (150g)', 'Detergent', 'Wings', 'Toiletry', '7.75', '9.50', 'Hypermart'),
-(218, '', 'bot', 1, 'Datu Puti Vinegar Spiced 3', 'Vinegar', 'Datu Puti', 'Food Additive', '33.75', '0.00', 'Hypermart'),
-(219, '', 'pc', 1, 'Shine Master Natural Premium Paste Wax (90g)', 'Floor Wax', 'Shine Master', 'Household', '13.00', '16.00', 'Hypermart'),
-(220, '4809012222051', 'pk', 20, 'A&B Candle & Wax Esperma No.5', 'Candle', 'A&B', 'Household', '38.00', '0.00', 'Chuyte'),
-(221, '', 'pc', 1, 'A&B Candle & Wax Esperma No.5', 'Candle', 'A&B', 'Household', '1.90', '2.50', 'Chuyte'),
-(222, '8993242107038', 'rm', 500, 'Copy & Laser High Performance Office Paper (216x279mm)', 'Bond Paper', 'Copy & Laser', 'School & Office', '180.00', '0.00', 'Chuyte'),
-(223, '', 'pc', 1, 'Copy & Laser High Performance Office Paper (216x279mm)', 'Bond Paper', 'Copy & Laser', 'School & Office', '0.36', '1.00', 'Chuyte'),
-(224, '', 'crd', 10, 'HBS Immuno-C 500mg Capsule Vitamin C', 'Vitamin C', 'HBS', 'Pharmaceutical', '60.00', '0.00', 'Other'),
-(225, '', 'pc', 1, 'HBS Immuno-C 500mg Capsule Vitamin C', 'Vitamin C', 'HBS', 'Pharmaceutical', '6.00', '8.00', 'Other'),
-(226, '', 'crd', 10, 'Biogesic Paracetamol 500mg Tablet', 'Paracetamol', 'Biogesic', 'Pharmaceutical', '40.00', '0.00', 'Other'),
-(227, '', 'pc', 1, 'Biogesic Paracetamol 500mg Tablet', 'Paracetamol', 'Biogesic', 'Pharmaceutical', '4.00', '5.00', 'Other'),
-(228, '', 'crd', 10, 'Ponstan Mefenamic Acid 500mg Capsule', 'Mefenamic', 'Ponstan', 'Pharmaceutical', '250.00', '0.00', 'Other'),
-(229, '', 'pc', 1, 'Ponstan Mefenamic Acid 500mg Capsule', 'Mefenamic', 'Ponstan', 'Pharmaceutical', '25.00', '30.00', 'Other'),
-(230, '', 'crd', 10, 'Neozep Forte 10mg/2mg/500mg Tablet', 'Common Cold Medicine', 'Neozep Forte', 'Pharmaceutical', '50.00', '0.00', 'Other'),
-(231, '', 'pc', 1, 'Neozep Forte 10mg/2mg/500mg Tablet', 'Common Cold Medicine', 'Neozep Forte', 'Pharmaceutical', '5.00', '7.00', 'Other'),
-(232, '', 'crd', 10, 'Nafarin A', 'Common Cold Medicine', 'Nafarin A', 'Pharmaceutical', '0.00', '0.00', 'Other'),
-(233, '', 'pc', 1, 'Nafarin A', 'Common Cold Medicine', 'Nafarin A', 'Pharmaceutical', '0.00', '0.00', 'Other'),
-(234, '', 'pc', 1, 'Rexona Natural Whitening Fresh Rose Deo-Lotion 48hr (4ml)', 'Deodorant', 'Rexona', 'Toiletry', '8.00', '10.00', 'Other'),
-(235, '', 'rm', 10, 'Yellow Pad', 'Yellow Pad', '', 'School & Office', '220.00', '270.00', 'Chuyte'),
-(236, '', 'pd', 10, 'Yellow Pad', 'Yellow Pad', '', 'School & Office', '22.00', '28.00', 'Chuyte'),
-(237, '4806524879261', 'pd', 1, 'Megan Quick Notes 3x3" Adhesive Notes (100 sheets)', 'Adhesive Note', 'Megan', 'School & Office', '22.00', '25.00', 'Chuyte'),
-(238, '4806508031074', 'pc', 1, 'P1 Spiral Yarn Notebook (148x200mm 80 Leaves)', 'Notebook', '', 'School & Office', '13.00', '17.00', 'Chuyte'),
-(239, '4806508030787', 'pc', 1, 'Pixel Notes Writing Notebook (148x200mm 80 Leaves)', 'Notebook', '', 'School & Office', '12.00', '16.00', 'Chuyte'),
-(240, '', 'pc', 1, 'Letter Envelope', 'Letter Envelope', '', 'School & Office', '0.20', '1.00', 'Chuyte'),
-(241, '', 'pc', 1, 'Mini Envelope', 'Mini Envelope', '', 'School & Office', '0.20', '1.00', 'Chuyte'),
-(242, '', 'pc', 1, 'Wild Husky Cut-Size Clear Plastic Cover (Gauge 2.6 13.5"x5m*)', 'Plastic Cover', '', 'School & Office', '28.00', '35.00', 'Chuyte'),
-(243, '4902430333597', 'pc', 1, 'Head & Shoulders Cool Menthol Anti Dandruff Shampoo Sashet (12ml)', 'Shampoo', '', 'School & Office', '4.40', '6.00', 'Conchitas'),
-(244, '9556031063305', 'pc', 1, 'Palmolive Naturals Pinkish & Glow Soap (115g)', 'Bath Soap', '', 'Toiletry', '29.50', '36.00', 'Conchitas'),
-(245, '', 'pc', 1, 'Medicare Antiseptic Plastic Bantam Strips w/ Acrinol', 'Medical Plaster', 'Medicaid', 'Personal Hygiene', '0.35', '1.00', 'Chuyte'),
-(246, '', 'dz', 12, 'Nail Clipper No. 003 Nail Cutter', 'Nail Clipper', '', 'Personal Hygiene', '120.00', '0.00', 'Chuyte'),
-(247, '', 'pc', 1, 'Nail Clipper No. 003 Nail Cutter', 'Nail Clipper', '', 'Personal Hygiene', '10.00', '15.00', 'Chuyte'),
-(248, '6944376800045', 'dz', 12, 'Crown Rubble Plant Shoe Glue High Density No:SJ118', 'Show Glue', 'Crown', 'Hardware', '0.00', '0.00', 'Chuyte'),
-(249, '6944376800045', 'pc', 1, 'Crown Rubble Plant Shoe Glue High Density No:SJ118', 'Show Glue', 'Crown', 'Hardware', '5.50', '10.00', 'Chuyte'),
-(250, '6944376800045', 'bx', 50, 'LCC 828-B Lighter', 'Show Glue', 'LCC', 'Hardware', '272.50', '0.00', 'Chuyte'),
-(251, '6944376800045', 'pc', 1, 'LCC 828-B Lighter', 'Show Glue', 'LCC', 'Hardware', '5.45', '10.00', 'Chuyte');
+INSERT INTO `items` (`item_id`, `bar_code`, `unit`, `count`, `item_description`, `general_name`, `brand_name`, `category`, `supplier_name`) VALUES
+(1, '', 'pg', 1, 'Service Print Black & White Page', 'Print Service', 'Klebbys', 'Service', 'Klebbys'),
+(2, '', 'pg', 1, 'Service Print Color Page', 'Print Service', 'Klebbys', 'Service', 'Klebbys'),
+(3, '', 'pg', 1, 'Service Print Color Full Page', 'Print Service', 'Klebbys', 'Service', 'Klebbys'),
+(4, '', 'pg', 1, 'Service Photocopy Black & White Page', 'Print Service', 'Klebbys', 'Service', 'Klebbys'),
+(5, '', 'pg', 1, 'Service Photocopy Color Page', 'Print Service', 'Klebbys', 'Service', 'Klebbys'),
+(6, '', 'pg', 1, 'Service Photocopy Color Full Page', 'Print Service', 'Klebbys', 'Service', 'Klebbys'),
+(7, '', 'pg', 1, 'Service Scan Page', 'Print Service', 'Klebbys', 'Service', 'Klebbys'),
+(8, '', 'ld', 1, 'Service Prepaid Load &#8369;0.01 Credit Increment', 'Prepaid Load Service', 'Klebbys', 'Service', 'Klebbys'),
+(9, '', 'ld', 1, 'Service Prepaid Load &#8369;0.25 Credit Increment', 'Prepaid Load Service', 'Klebbys', 'Service', 'Klebbys'),
+(10, '', 'ld', 1, 'Service Prepaid Load &#8369;0.50 Credit Increment', 'Prepaid Load Service', 'Klebbys', 'Service', 'Klebbys'),
+(11, '', 'ld', 1, 'Service Prepaid Load &#8369;1.00 Credit Increment', 'Prepaid Load Service', 'Klebbys', 'Service', 'Klebbys'),
+(12, '', 'ld', 1, 'Service Prepaid Load &#8369;10.00 Credit (10% discount)', 'Prepaid Load Service', 'Klebbys', 'Service', 'Klebbys'),
+(13, '', 'ld', 1, 'Service Prepaid Load &#8369;10.00 Credit (5% discount)', 'Prepaid Load Service', 'Klebbys', 'Service', 'Klebbys'),
+(14, '', 'ld', 1, 'Service Prepaid Load &#8369;20.00 Credit (10% discount)', 'Prepaid Load Service', 'Klebbys', 'Service', 'Klebbys'),
+(15, '', 'ld', 1, 'Service Prepaid Load &#8369;20.00 Credit (5% discount)', 'Prepaid Load Service', 'Klebbys', 'Service', 'Klebbys'),
+(16, '', 'ld', 1, 'Service Prepaid Load &#8369;30.00 Credit (10% discount)', 'Prepaid Load Service', 'Klebbys', 'Service', 'Klebbys'),
+(17, '', 'ld', 1, 'Service Prepaid Load &#8369;30.00 Credit (5% discount)', 'Prepaid Load Service', 'Klebbys', 'Service', 'Klebbys'),
+(18, '', 'ld', 1, 'Service Prepaid Load &#8369;50.00 Credit (10% discount)', 'Prepaid Load Service', 'Klebbys', 'Service', 'Klebbys'),
+(19, '', 'ld', 1, 'Service Prepaid Load &#8369;50.00 Credit (5% discount)', 'Prepaid Load Service', 'Klebbys', 'Service', 'Klebbys'),
+(20, '', 'ld', 1, 'Service Prepaid Load &#8369;100.00 Credit (10% discount)', 'Prepaid Load Service', 'Klebbys', 'Service', 'Klebbys'),
+(21, '', 'ld', 1, 'Service Prepaid Load &#8369;100.00 Credit (5% discount)', 'Prepaid Load Service', 'Klebbys', 'Service', 'Klebbys'),
+(22, '', 'pg', 1, 'Service ID Copy Photocopy Black & White', 'Print Service', 'Klebbys', 'Service', 'Klebbys'),
+(23, '', 'pg', 1, 'Service ID Copy Photocopy Color', 'Print Service', 'Klebbys', 'Service', 'Klebbys'),
+(24, '', 'pc', 1, 'Service Photo 2X2" Picture Print', 'Photo Print Service', 'Klebbys', 'Service', 'Klebbys'),
+(25, '', 'pc', 1, 'Service Photo 3.5X2.5" Picture Print', 'Photo Print Service', 'Klebbys', 'Service', 'Klebbys'),
+(30, '4806530360098', 'pc', 1, 'TM Puncher T-07009 Medium', 'Puncher', 'TM', 'School & Office', 'Chuyte'),
+(31, '6971642400142', 'dz', 12, 'TM Binder Clip T-20501-51mm 2"', 'Binder Clip', 'TM', 'School & Office', 'Chuyte'),
+(32, '', 'pc', 1, 'TM Binder Clip T-20501-51mm 2"', 'Binder Clip', 'TM', 'School & Office', 'Chuyte'),
+(33, '6971642400159', 'dz', 12, 'TM Binder Clip T-20501-41mm 1-5/8"', 'Binder Clip', 'TM', 'School & Office', 'Chuyte'),
+(34, '', 'pc', 1, 'TM Binder Clip T-20501-41mm 1-5/8"', 'Binder Clip', 'TM', 'School & Office', 'Chuyte'),
+(35, '6971642400166', 'dz', 12, 'TM Binder Clip T-20501-32mm 1-1/4"', 'Binder Clip', 'TM', 'School & Office', 'Chuyte'),
+(36, '', 'pc', 1, 'TM Binder Clip T-20501-32mm 1-1/4"', 'Binder Clip', 'TM', 'School & Office', 'Chuyte'),
+(37, '4806530360395', 'sbx', 100, 'TM Paper Clip T-20101-50mm (Jumbo)', 'Paper Clip', 'TM', 'School & Office', 'Chuyte'),
+(38, '', 'pc', 1, 'TM Paper Clip T-20101-50mm (Jumbo)', 'Paper Clip', 'TM', 'School & Office', 'Chuyte'),
+(39, '', 'sbx', 100, 'TM Paper Clip M20101-33mm (Small)', 'Paper Clip', 'TM', 'School & Office', 'Chuyte'),
+(40, '', 'pc', 1, 'TM Paper Clip M20101-33mm (Small)', 'Paper Clip', 'TM', 'School & Office', 'Chuyte'),
+(41, '6936328041026', 'pc', 1, 'TM Stapler T-01017 #10', 'Stapler', 'TM', 'School & Office', 'Chuyte'),
+(42, '8802203001455', 'dz', 12, 'Dong-A My-Gel 0.5mm Sign Pen Black', 'Sign Pen', 'Dong-A', 'School & Office', 'Chuyte'),
+(43, '8802203083659', 'pc', 1, 'Dong-A My-Gel 0.5mm Sign Pen Black', 'Sign Pen', 'Dong-A', 'School & Office', 'Chuyte'),
+(44, '8802203001462', 'dz', 12, 'Dong-A My-Gel 0.5mm Sign Pen Blue', 'Sign Pen', 'Dong-A', 'School & Office', 'Chuyte'),
+(45, '8802203083666', 'pc', 1, 'Dong-A My-Gel 0.5mm Sign Pen Blue', 'Sign Pen', 'Dong-A', 'School & Office', 'Chuyte'),
+(46, '4806502160756', 'pc', 1, 'Tisyu 300-Sheet Toilet Paper (100x100mm)', 'Toilet Paper', 'Tisyu', 'Toiletry', 'Chuyte'),
+(47, '4800096473889', 'pc', 1, 'Good & Cheap 200-Sheet Toilet Paper (98x95mm)', 'Toilet Paper', 'Good & Cheap', 'Toiletry', 'Chuyte'),
+(48, '4806530360678', 'pk', 20, 'TM Glossy Photo Paper A4 (210x297mm)', 'Photo Paper', 'TM', 'School & Office', 'Chuyte'),
+(49, '', 'pc', 1, 'TM Glossy Photo Paper A4 (210x297mm)', 'Photo Paper', 'TM', 'School & Office', 'Chuyte'),
+(50, '4806506318856', 'pk', 8, 'Sisters Night Plus Heavy Flow Napkin (270mm)', 'Feminine Sanitary Pad', 'Sisters', 'Toiletry', 'Chuyte'),
+(51, '', 'pc', 1, 'Sisters Night Plus Heavy Flow Napkin (270mm)', 'Feminine Sanitary Pad', 'Sisters', 'Toiletry', 'Chuyte'),
+(52, '4806506318832', 'pk', 8, 'Sisters Day Maxi Regular Flow Napkin (240mm)', 'Feminine Sanitary Pad', 'Sisters', 'Toiletry', 'Chuyte'),
+(53, '', 'pc', 1, 'Sisters Day Maxi Regular Flow Napkin (240mm)', 'Feminine Sanitary Pad', 'Sisters', 'Toiletry', 'Chuyte'),
+(54, '4902505040788', 'dz', 12, 'Pilot Super Color Marker Pen SC-B Broad Black', 'Marker Pen', 'Pilot', 'School & Office', 'Chuyte'),
+(55, '4902505088179', 'pc', 1, 'Pilot Super Color Marker Pen SC-B Broad Black', 'Marker Pen', 'Pilot', 'School & Office', 'Chuyte'),
+(56, '', 'dz', 12, 'Dixon D2378 Permanent Refillable 3mm Marker Pen', 'Marker Pen', 'Dixon', 'School & Office', 'Chuyte'),
+(57, '6954941713007', 'pc', 1, 'Dixon D2378 Permanent Refillable 3mm Marker Pen', 'Marker Pen', 'Dixon', 'School & Office', 'Chuyte'),
+(58, '', 'dz', 12, 'TM Correction Fluid TM149 (15ml)', 'Correction Fluid', 'TM', 'School & Office', 'Chuyte'),
+(59, '4806530362160', 'pc', 1, 'TM Correction Fluid TM149 (15ml)', 'Correction Fluid', 'TM', 'School & Office', 'Chuyte'),
+(60, '4806523080002', 'sbx', 1, 'Max Staples No.10-1M 1000 staples (5mm)', 'Staple Wire', 'Max', 'School & Office', 'Chuyte'),
+(61, '', 'pc', 1, 'MGK Ruler 12"', 'Ruler', 'MGK', 'School & Office', 'Chuyte'),
+(62, '', 'pk', 100, 'Index Card 5x8"', 'Index Card', '', 'School & Office', 'Chuyte'),
+(63, '', 'pc', 1, 'Index Card 5x8"', 'Index Card', '', 'School & Office', 'Chuyte'),
+(64, '', 'pc', 1, 'White Mug', 'Mug', '', 'Household', 'Chuyte'),
+(65, '6970431420026', 'crd', 12, 'Shenling Padlock (25mm)', 'Padlock', 'Shenling', 'Hardware', 'Chuyte'),
+(66, '', 'pc', 1, 'Shenling Padlock (25mm)', 'Padlock', 'Shenling', 'Hardware', 'Chuyte'),
+(67, '', 'tie', 6, 'Rejoice Shampoo Perfume Fresh Sachet (16ml)', 'Shampoo', 'Rejoice', 'Toiletry', 'Chuyte'),
+(68, '4902430775878', 'pc', 1, 'Rejoice Shampoo Perfume Fresh Sachet (16ml)', 'Shampoo', 'Rejoice', 'Toiletry', 'Chuyte'),
+(69, '', 'tie', 7, 'Rejoice Shampoo Rich Soft Smooth Sachet (13ml)', 'Shampoo', 'Rejoice', 'Toiletry', 'Chuyte'),
+(70, '4902430822909', 'pc', 1, 'Rejoice Shampoo Rich Soft Smooth Sachet (13ml)', 'Shampoo', 'Rejoice', 'Toiletry', 'Chuyte'),
+(71, '4800888139283', 'pc', 1, 'Creamsilk Conditioner Hairfall Defense Sachet (11ml)', 'Conditioner', 'Creamsilk', 'Toiletry', 'Chuyte'),
+(72, '4902430934800', 'pc', 1, 'Safeguard Soap Pure White 135g', 'Bath Soap', 'Safeguard', 'Toiletry', 'Chuyte'),
+(73, '4902430495042', 'pc', 1, 'Safeguard Soap Classic Beige 90g', 'Bath Soap', 'Safeguard', 'Toiletry', 'Chuyte'),
+(74, '4902430441902', 'crd', 6, 'Gillette Rubie Double-Blade Long Handle Shaver (Yellow)', 'Shaver', 'Gillette', 'Toiletry', 'Chuyte'),
+(75, '', 'pc', 1, 'Gillette Rubie Double-Blade Long Handle Shaver (Yellow)', 'Shaver', 'Gillette', 'Toiletry', 'Chuyte'),
+(76, '', 'tie', 6, 'Closeup Ever Fresh Twin Pack Gel Toothpaste Sachet Red Hot (2x10g)', 'Toothpaste', 'Closeup', 'Toiletry', 'Chuyte'),
+(77, '4800888147288', 'pc', 1, 'Closeup Ever Fresh Twin Pack Gel Toothpaste Sachet Red Hot (2x10g)', 'Toothpaste', 'Closeup', 'Toiletry', 'Chuyte'),
+(78, '8850006321133', 'pc', 1, 'Colgate Maximum Cavity Protection Great Regular Flavor (25ml 37g)', 'Toothpaste', 'Colgate', 'Toiletry', 'Chuyte'),
+(79, '4801010194002', 'bx', 50, 'Band-Aid Anti-Septic Adhesive Bandages', 'Medical Plaster', 'Band-Aid', 'Personal Hygiene', 'Chuyte'),
+(80, '', 'pc', 1, 'Band-Aid Anti-Septic Adhesive Bandages', 'Medical Plaster', 'Band-Aid', 'Personal Hygiene', 'Chuyte'),
+(81, '', 'dz', 12, 'Joy Complete Clean Kalamansi Dishwashing Liquid (20ml)', 'Dish Detergent', 'Joy', 'Toiletry', 'Chuyte'),
+(82, '4902430434393', 'pc', 1, 'Joy Complete Clean Kalamansi Dishwashing Liquid (20ml)', 'Dish Detergent', 'Joy', 'Toiletry', 'Chuyte'),
+(83, '', 'dz', 12, 'Nails Nail Polish Remover w/ Acetone (30ml)', 'Nail Polish Remover', 'Nails', 'Personal Hygiene', 'Chuyte'),
+(84, '4800147310477', 'pc', 1, 'Nails Nail Polish Remover w/ Acetone (30ml)', 'Nail Polish Remover', 'Nails', 'Personal Hygiene', 'Chuyte'),
+(85, '48031547', 'pc', 1, 'Efficascent Oil Regular (25ml)', 'Liniment', 'Efficascent', 'Galenical', 'Chuyte'),
+(86, '48035156', 'pc', 1, 'Efficascent Oil Extra Strength (25ml)', 'Liniment', 'Efficascent', 'Galenical', 'Chuyte'),
+(87, '4801010104100', 'pc', 1, 'Johnson\'s Baby Powder Milk+Rice (50g)', 'Baby Powder', 'Johnson\'s', 'Personal Hygiene', 'Chuyte'),
+(88, '48032742', 'pc', 1, 'Johnson\'s Baby Powder White (25g)', 'Baby Powder', 'Johnson\'s', 'Personal Hygiene', 'Chuyte'),
+(89, '3022014800019', 'crd', 12, 'MGK Scissors 5" M19005', 'Scissors', 'MGK', 'School & Office', 'Chuyte'),
+(90, '', 'pc', 1, 'MGK Scissors 5" M19005', 'Scissors', 'MGK', 'School & Office', 'Chuyte'),
+(91, '3800138233113', 'crd', 12, 'Cutter Knife (Big)', 'Box Cutter', '', 'School & Office', 'Chuyte'),
+(92, '', 'pc', 1, 'Cutter Knife (Big)', 'Box Cutter', '', 'School & Office', 'Chuyte'),
+(93, '6920805678287', 'crd', 12, 'Art Designing Knives Cutter (Small)', 'Box Cutter', '', 'School & Office', 'Chuyte'),
+(94, '', 'pc', 1, 'Art Designing Knives Cutter (Small)', 'Box Cutter', '', 'School & Office', 'Chuyte'),
+(95, '4800047820250', 'pc', 1, 'Green Cross 70% Solution Antiseptic Disinfectant Isopropyl Alcohol (60ml)', 'Alcohol', 'Green Cross', 'Toiletry', 'Chuyte'),
+(96, '4800047820243', 'pc', 1, 'Green Cross 70% Solution Antiseptic Disinfectant Isopropyl Alcohol (150ml)', 'Alcohol', 'Green Cross', 'Toiletry', 'Chuyte'),
+(97, '4800011120614', 'pc', 1, 'Casino 70% Solution Active Ethyl Alcohol Triclosan (150ml)', 'Alcohol', 'Casino', 'Toiletry', 'Chuyte'),
+(98, '', 'dz', 12, 'Sliding Plastic Folder Short', 'Folder', '', 'School & Office', 'Chuyte'),
+(99, '', 'pc', 1, 'Sliding Plastic Folder Short', 'Folder', '', 'School & Office', 'Chuyte'),
+(100, '', 'dz', 12, 'Sliding Plastic Folder Long', 'Folder', '', 'School & Office', 'Chuyte'),
+(101, '', 'pc', 1, 'Sliding Plastic Folder Long', 'Folder', '', 'School & Office', 'Chuyte'),
+(102, '', 'rm', 100, 'Folder Long (14pts)', 'Folder', '', 'School & Office', 'Chuyte'),
+(103, '', 'pc', 1, 'Folder Long (14pts)', 'Folder', '', 'School & Office', 'Chuyte'),
+(104, '', 'rm', 100, 'Folder Short (14pts)', 'Folder', '', 'School & Office', 'Chuyte'),
+(105, '', 'pc', 1, 'Folder Short (14pts)', 'Folder', '', 'School & Office', 'Chuyte'),
+(106, '', 'pc', 1, 'Doormat Cloth', 'Doormat', '', 'Household', 'Chuyte'),
+(107, '', 'rm', 20, 'Hapi 1/2 Crosswise Pad', 'Intermediate Pad Paper', 'Hapi', 'School & Office', 'Chuyte'),
+(108, '', 'pad', 1, 'Hapi 1/2 Crosswise Pad', 'Intermediate Pad Paper', 'Hapi', 'School & Office', 'Chuyte'),
+(109, '', 'rm', 20, 'Hapi 1/2 Lengthwise 50 Leaves Quiz Pad (100x250mm)', 'Intermediate Pad Paper', 'Hapi', 'School & Office', 'Chuyte'),
+(110, '4806508030541', 'pad', 1, 'Hapi 1/2 Lengthwise 50 Leaves Quiz Pad (100x250mm)', 'Intermediate Pad Paper', 'Hapi', 'School & Office', 'Chuyte'),
+(111, '', 'rm', 10, 'Premiere 1/2 Crosswise 80 Leaves Quiz Pad (200x125mm)', 'Intermediate Pad Paper', 'Premiere', 'School & Office', 'Chuyte'),
+(112, '4806503872450', 'pad', 1, 'Premiere 1/2 Crosswise 80 Leaves Quiz Pad (200x125mm)', 'Intermediate Pad Paper', 'Premiere', 'School & Office', 'Chuyte'),
+(113, '', 'rm', 10, 'Premiere 1/2 Lengthwise Quiz Pad', 'Intermediate Pad Paper', 'Premiere', 'School & Office', 'Chuyte'),
+(114, '', 'pad', 1, 'Premiere 1/2 Lengthwise Quiz Pad', 'Intermediate Pad Paper', 'Premiere', 'School & Office', 'Chuyte'),
+(115, '', 'pk', 10, 'Pixel Neon Notes', 'Notebook', 'Pixel', 'School & Office', 'Chuyte'),
+(116, '4806508030008', 'pc', 1, 'Daily Pocket Notes', 'Notebook', 'Pixel', 'School & Office', 'Chuyte'),
+(117, '', 'rm', 20, 'Hapi 1/4 50 Leaves Quiz Pad (100x125mm)', 'Intermediate Pad Paper', 'Hapi', 'School & Office', 'Chuyte'),
+(118, '4806508030558', 'pad', 1, 'Hapi 1/4 50 Leaves Quiz Pad (100x125mm)', 'Intermediate Pad Paper', 'Hapi', 'School & Office', 'Chuyte'),
+(119, '8802103994053', 'pk', 1, 'Dove 3in1 Facial Cleansing Wipes (25w)', 'Wet wipe', 'Dove', 'Toiletry', 'Chuyte'),
+(120, '', 'rm', 10, 'Jumbo Intermediate Pad 80 Leaves (200x250mm)', 'Intermediate Pad Paper', 'Jumbo', 'School & Office', 'Chuyte'),
+(121, '4806514413390', 'pad', 1, 'Jumbo Intermediate Pad 80 Leaves (200x250mm)', 'Intermediate Pad Paper', 'Jumbo', 'School & Office', 'Chuyte'),
+(122, '', 'pc', 1, 'Glue Gun Glue Stick (Big)', 'Glue Stick', '', 'School & Office', 'Chuyte'),
+(123, '', 'pc', 1, 'Armak Double-Sided Tape 1/2"', 'Double-Sided Tape', 'Armak', 'School & Office', 'Chuyte'),
+(124, '', 'pc', 1, 'Masking Tape 3/4"', 'Paper Adhesive Tape', '', 'School & Office', 'Chuyte'),
+(125, '', 'pc', 1, 'Armak Scotch Tape 1"', 'Adhesive Tape', 'Armak', 'School & Office', 'Chuyte'),
+(126, '', 'dz', 12, 'Armak Scotch Tape 1/2"', 'Adhesive Tape', 'Armak', 'School & Office', 'Chuyte'),
+(127, '', 'pc', 1, 'Armak Scotch Tape 1/2"', 'Adhesive Tape', 'Armak', 'School & Office', 'Chuyte'),
+(128, '4806030300617', 'jar', 25, 'HBW 3000 Retractable Oil Base Gel Pen Black (0.7mm)', 'Ballpen', 'HBW', 'School & Office', 'Chuyte'),
+(129, '', 'pc', 1, 'HBW 3000 Retractable Oil Base Gel Pen Black (0.7mm)', 'Ballpen', 'HBW', 'School & Office', 'Chuyte'),
+(130, '4806030300624', 'jar', 25, 'HBW 3000 Retractable Oil Base Gel Pen Blue (0.7mm)', 'Ballpen', 'HBW', 'School & Office', 'Chuyte'),
+(131, '', 'pc', 1, 'HBW 3000 Retractable Oil Base Gel Pen Blue (0.7mm)', 'Ballpen', 'HBW', 'School & Office', 'Chuyte'),
+(132, '', 'sbx', 1, 'Mitsuya Thumbtacks', 'Thumbtack', 'Mitsuya', 'School & Office', 'Chuyte'),
+(133, '4809012371001', 'sbx', 1, 'Mitsuko Thumbtacks No.111', 'Thumbtack', 'Mitsuko', 'School & Office', 'Chuyte'),
+(134, '', 'pc', 1, 'Clearbook (Long)', 'Clearbook', '', 'School & Office', 'Chuyte'),
+(135, '', 'pc', 1, 'Clearbook (Short)', 'Clearbook', '', 'School & Office', 'Chuyte'),
+(136, '', 'pk', 30, 'Ponytail Hair Tie', 'Hair Tie', 'Ponytail', 'Personal Accessory', 'Chuyte'),
+(137, '', 'pc', 1, 'Ponytail Hair Tie', 'Hair Tie', 'Ponytail', 'Personal Accessory', 'Chuyte'),
+(138, '6932177474213', 'pc', 1, 'TM Calculator TM-12 Digits', 'Calculator', 'TM', 'School & Office', 'Chuyte'),
+(139, '6928394900659', 'crd', 4, 'Kingever Extra Heavy Duty R6 1.5V AA Battery', 'Battery', 'Kingever', 'Electronics', 'Chuyte'),
+(140, '', 'pc', 1, 'Kingever Extra Heavy Duty R6 1.5V AA Battery', 'Battery', 'Kingever', 'Electronics', 'Chuyte'),
+(141, '6928394900666', 'crd', 4, 'Kingever Extra Heavy Duty R03 1.5V AAA Battery', 'Battery', 'Kingever', 'Electronics', 'Chuyte'),
+(142, '', 'pc', 1, 'Kingever Extra Heavy Duty R03 1.5V AAA Battery', 'Battery', 'Kingever', 'Electronics', 'Chuyte'),
+(143, '4800045380190', 'pc', 1, 'Shield Soap Sachet Cleansing White (60g)', 'Bath Soap', 'Shield', 'Toiletry', 'Chuyte'),
+(144, '', 'pk', 1, 'Sanicare Regular Cotton Balls (50)', 'Cotton Balls', 'Sanicare', 'Toiletry', 'Chuyte'),
+(145, '4800552051019', 'rm', 250, 'Avia Premium Colored Assorted Construction Paper (8.5x11")', 'Construction Paper', 'Avia', 'School & Office', 'Chuyte'),
+(146, '', 'pc', 1, 'Avia Premium Colored Assorted Construction Paper (8.5x11")', 'Construction Paper', 'Avia', 'School & Office', 'Chuyte'),
+(147, '', 'dz', 12, 'Ariel Sunrise Fresh 10X-Oxyclean Power Detergent Powder Sachet (70g)', 'Detergent', 'Ariel', 'Toiletry', 'Chuyte'),
+(148, '4902430583169', 'pc', 1, 'Ariel Sunrise Fresh 10X-Oxyclean Power Detergent Powder Sachet (70g)', 'Detergent', 'Ariel', 'Toiletry', 'Chuyte'),
+(149, '', 'dz', 12, 'Palmolive Shampoo & Conditioner Sachet Healthy & Smooth (15ml)', 'Shampoo & Conditioner', 'Palmolive', 'Toiletry', 'Chuyte'),
+(150, '8850006493038', 'pc', 1, 'Palmolive Shampoo & Conditioner Sachet Healthy & Smooth (15ml)', 'Shampoo & Conditioner', 'Palmolive', 'Toiletry', 'Chuyte'),
+(151, '', 'dz', 12, 'Palmolive Shampoo & Conditioner Sachet Intensive Moisture (15ml)', 'Shampoo & Conditioner', 'Palmolive', 'Toiletry', 'Chuyte'),
+(152, '8850006493014', 'pc', 1, 'Palmolive Shampoo & Conditioner Sachet Intensive Moisture (15ml)', 'Shampoo & Conditioner', 'Palmolive', 'Toiletry', 'Chuyte'),
+(153, '', 'dz', 12, 'Creamsilk Conditioner Standout Straight Sachet (12ml)', 'Conditioner', 'Creamsilk', 'Toiletry', 'Chuyte'),
+(154, '4800888139306', 'pc', 1, 'Creamsilk Conditioner Standout Straight Sachet (12ml)', 'Conditioner', 'Creamsilk', 'Toiletry', 'Chuyte'),
+(155, '', 'dz', 12, 'Surf w/ Fabcon Sun Fresh Detergent Powder Sachet (57g)', 'Detergent', 'Surf', 'Toiletry', 'Chuyte'),
+(156, '4800888151841', 'pc', 1, 'Surf w/ Fabcon Sun Fresh Detergent Powder Sachet (57g)', 'Detergent', 'Surf', 'Toiletry', 'Chuyte'),
+(157, '', 'dz', 12, 'Surf w/ Fabcon Cherry Blossom Detergent Powder Sachet (50g)', 'Detergent', 'Surf', 'Toiletry', 'Chuyte'),
+(158, '4800888189806', 'pc', 1, 'Surf w/ Fabcon Cherry Blossom Detergent Powder Sachet (50g)', 'Detergent', 'Surf', 'Toiletry', 'Chuyte'),
+(159, '4800888136749', 'bar', 4, 'Surf Oxybubbles Kalamansi Detergent Bar (380g)', 'Detergent', 'Surf', 'Toiletry', 'Chuyte'),
+(160, '', 'cut', 1, 'Surf Oxybubbles Kalamansi Detergent Bar (380g)', 'Detergent', 'Surf', 'Toiletry', 'Chuyte'),
+(161, '4902430278119', 'bar', 4, 'TideUltra Original Scent Detergent Bar (380g)', 'Detergent', 'Tide', 'Toiletry', 'Chuyte'),
+(162, '', 'cut', 1, 'TideUltra Original Scent Detergent Bar (380g)', 'Detergent', 'Tide', 'Toiletry', 'Chuyte'),
+(163, '', 'pc', 1, 'Triangle 4pcs Combo Set 9307-10', 'Trigo School Supplies', '', 'School & Office', 'Chuyte'),
+(164, '', 'pc', 1, 'Illustration Board 1/8', 'Illustration Board', '', 'School & Office', 'Chuyte'),
+(165, '', 'pc', 1, 'Illustration Board 1/4', 'Illustration Board', '', 'School & Office', 'Chuyte'),
+(166, '', 'pc', 1, 'Illustration Board 1/2', 'Illustration Board', '', 'School & Office', 'Chuyte'),
+(167, '', 'dz', 12, 'Easy White Multi-Purpose Glue 40g (Small)', 'Multi-Purpose Glue', 'Easy', 'School & Office', 'Chuyte'),
+(168, '4620171010378', 'pc', 1, 'Easy White Multi-Purpose Glue 40g (Small)', 'Multi-Purpose Glue', 'Easy', 'School & Office', 'Chuyte'),
+(169, '', 'pc', 1, 'Armak Brown Packing Tape (Thin 2")', 'Packing Tape', 'Armak', 'School & Office', 'Chuyte'),
+(170, '', 'pc', 1, 'TM Protractor (Big)', 'Protractor', 'TM', 'School & Office', 'Chuyte'),
+(171, '6936328010022', 'bx', 50, 'TM Paper Fastener T-20601-D', 'Paper Fastener', 'TM', 'School & Office', 'Chuyte'),
+(172, '', 'set', 1, 'TM Paper Fastener T-20601-D', 'Paper Fastener', 'TM', 'School & Office', 'Chuyte'),
+(173, '', 'pk', 50, 'MGK Push Pin M30001-50', 'Push Pin', 'MGK', 'School & Office', 'Chuyte'),
+(174, '4806018680083', 'pk', 50, 'Crown Hi-Quality B-007 Map Pins Assorted Colors', 'Map Pin', 'Crown', 'School & Office', 'Chuyte'),
+(175, '', 'pc', 1, 'Brown Envelope Long', 'Brown Envelope', '', 'School & Office', 'Chuyte'),
+(176, '', 'pc', 1, 'Brown Envelope Short', 'Brown Envelope', '', 'School & Office', 'Chuyte'),
+(177, '', 'pc', 1, 'Plastic Envelope Long', 'Plastic Envelope', '', 'School & Office', 'Chuyte'),
+(178, '', 'pc', 1, 'Sesno Correction Tape PS-06 (5mm)', 'Correction Tape', 'Sesno', 'School & Office', 'Chuyte'),
+(179, '4806515986619', 'pc', 1, 'Electro Pure Tawas Powder (Red)', 'Alum', 'Electro', 'Toiletry', 'Chuyte'),
+(180, '4806515987715', 'pc', 1, 'Electro Tawas w/ Scent Powder (Yellow)', 'Alum', 'Electro', 'Toiletry', 'Chuyte'),
+(181, '', 'pc', 1, 'Manila Paper', 'Manila Paper', '', 'School & Office', 'Chuyte'),
+(182, '4806502143339', 'rm', 500, 'Copyone 20 Kleencut Advantage Multi-Purpose Paper A4', 'Bond Paper', 'Copyone', 'School & Office', 'Chuyte'),
+(183, '', 'pc', 1, 'Copyone 20 Kleencut Advantage Multi-Purpose Paper A4', 'Bond Paper', 'Copyone', 'School & Office', 'Chuyte'),
+(184, '4806502143315', 'rm', 500, 'Copyone 20 Kleencut Advantage Multi-Purpose Paper Legal (8.5x13")', 'Bond Paper', 'Copyone', 'School & Office', 'Chuyte'),
+(185, '', 'pc', 1, 'Copyone 20 Kleencut Advantage Multi-Purpose Paper Legal (8.5x13")', 'Bond Paper', 'Copyone', 'School & Office', 'Chuyte'),
+(186, '4806502143308', 'rm', 500, 'Copyone 20 Kleencut Advantage Multi-Purpose Paper Letter (8.5x11")', 'Bond Paper', 'Copyone', 'School & Office', 'Chuyte'),
+(187, '', 'pc', 1, 'Copyone 20 Kleencut Advantage Multi-Purpose Paper Letter (8.5x11")', 'Bond Paper', 'Copyone', 'School & Office', 'Chuyte'),
+(188, '', 'pc', 1, 'Display Screen Small', 'Mesh Wire Display', '', 'Hardware', 'Chuyte'),
+(189, '', 'pc', 1, 'Uno Plastic Chair', 'Plastic Chair', 'Uno', 'Household', 'Chuyte'),
+(190, '', 'pc', 1, 'Cofta Plastic Table 24x24"', 'Plastic Table', 'Cofta', 'Household', 'Chuyte'),
+(191, '', 'dz', 12, 'Mongol #2 Pencil', 'Pencil', 'Mongol', 'School & Office', 'Chuyte'),
+(192, '', 'pc', 1, 'Mongol #2 Pencil', 'Pencil', 'Mongol', 'School & Office', 'Chuyte'),
+(193, '', 'dz', 12, 'Prime Excel Ballpen Black', 'Ballpen', 'Prime', 'School & Office', 'Chuyte'),
+(194, '', 'pc', 1, 'Prime Excel Ballpen Black', 'Ballpen', 'Prime', 'School & Office', 'Chuyte'),
+(195, '', 'dz', 12, 'Prime Excel Ballpen Blue', 'Ballpen', 'Prime', 'School & Office', 'Chuyte'),
+(196, '4904810335061', 'pc', 1, 'Prime Excel Ballpen Blue', 'Ballpen', 'Prime', 'School & Office', 'Chuyte'),
+(197, '', 'bx', 25, 'HBW 2020 Ballpen Black', 'Ballpen', 'HBW', 'School & Office', 'Chuyte'),
+(198, '', 'pc', 1, 'HBW 2020 Ballpen Black', 'Ballpen', 'HBW', 'School & Office', 'Chuyte'),
+(199, '', 'rm', 100, 'Cartolina White', 'Cartolina', '', 'School & Office', 'Chuyte'),
+(200, '', 'pc', 1, 'Cartolina White', 'Cartolina', '', 'School & Office', 'Chuyte'),
+(201, '', 'rm', 100, 'Cartolina Color', 'Cartolina', '', 'School & Office', 'Chuyte'),
+(202, '', 'pc', 1, 'Cartolina Color', 'Cartolina', '', 'School & Office', 'Chuyte'),
+(203, '', 'bot', 1, 'Zonrox Bleach Scented Fresh 250ml', 'Bleach', 'Zonrox', 'Toiletry', 'Hypermart'),
+(204, '', 'bot', 1, 'Zonrox Bleach Scented Lemon 250ml', 'Bleach', 'Zonrox', 'Toiletry', 'Hypermart'),
+(205, '', 'bot', 1, 'Zonrox Bleach Scented Flor 250ml', 'Bleach', 'Zonrox', 'Toiletry', 'Hypermart'),
+(206, '', 'bot', 1, 'Zonrox Bleach Color Safe 250ml', 'Bleach', 'Zonrox', 'Toiletry', 'Conchitas'),
+(207, '', 'bot', 1, 'Zonrox Bleach Original 250ml', 'Bleach', 'Zonrox', 'Toiletry', 'Conchitas'),
+(208, '4808888431222', 'bot', 1, 'Palmolive Silky Straight Keratin Shampoo & Conditioner (90ml)', 'Shampoo & Conditioner', 'Palmolive', 'Toiletry', 'Hypermart'),
+(209, '4808888413594', 'bot', 1, 'Palmolive Intensive Moisture Coco Shampoo & Conditioner (90ml)', 'Shampoo & Conditioner', 'Palmolive', 'Toiletry', 'Hypermart'),
+(210, '9556031063268', 'bar', 1, 'Palmolive Naturals Irresistible Softness Soap (80g)', 'Bath Soap', 'Palmolive', 'Toiletry', 'Hypermart'),
+(211, '4902430414418', 'bot', 1, 'Head & Shoulders Cool Menthol Anti Dandruff Shampoo (70ml)', 'Shampoo', 'Head & Shoulder', 'Toiletry', 'Hypermart'),
+(212, '4800888156280', 'bot', 1, 'Sunsilk Co-Creations Strong & Long Shampoo (90ml)', 'Shampoo', 'Sunsilk', 'Toiletry', 'Hypermart'),
+(213, '4800888140852', 'bot', 1, 'Sunsilk Co-Creations Smooth & Manageable Shampoo (90ml)', 'Shampoo', 'Sunsilk', 'Toiletry', 'Hypermart'),
+(214, '8850007372882', 'pk', 16, 'Modess Regular w/ Wings Napkin', 'Feminine Sanitary Pad', 'Modess', 'Toiletry', 'Hypermart'),
+(215, '', 'pc', 1, 'Modess Regular w/ Wings Napkin', 'Feminine Sanitary Pad', 'Modess', 'Toiletry', 'Hypermart'),
+(216, '4808888320106', 'pc', 1, 'Colgate Classic Deep Clean Toothbrush', 'Toothbrush', 'Colgate', 'Toiletry', 'Hypermart'),
+(217, '8998866800761', 'bar', 1, 'Wings Active White Oxy White Technology Detergent Cut Bar (150g)', 'Detergent', 'Wings', 'Toiletry', 'Hypermart'),
+(218, '', 'bot', 1, 'Datu Puti Vinegar Spiced 3', 'Vinegar', 'Datu Puti', 'Food Additive', 'Hypermart'),
+(219, '', 'pc', 1, 'Shine Master Natural Premium Paste Wax (90g)', 'Floor Wax', 'Shine Master', 'Household', 'Hypermart'),
+(220, '4809012222051', 'pk', 20, 'A&B Candle & Wax Esperma No.5', 'Candle', 'A&B', 'Household', 'Chuyte'),
+(221, '', 'pc', 1, 'A&B Candle & Wax Esperma No.5', 'Candle', 'A&B', 'Household', 'Chuyte'),
+(222, '8993242107038', 'rm', 500, 'Copy & Laser High Performance Office Paper (216x279mm)', 'Bond Paper', 'Copy & Laser', 'School & Office', 'Chuyte'),
+(223, '', 'pc', 1, 'Copy & Laser High Performance Office Paper (216x279mm)', 'Bond Paper', 'Copy & Laser', 'School & Office', 'Chuyte'),
+(224, '', 'crd', 10, 'HBS Immuno-C 500mg Capsule Vitamin C', 'Vitamin C', 'HBS', 'Pharmaceutical', 'Other'),
+(225, '', 'pc', 1, 'HBS Immuno-C 500mg Capsule Vitamin C', 'Vitamin C', 'HBS', 'Pharmaceutical', 'Other'),
+(226, '', 'crd', 10, 'Biogesic Paracetamol 500mg Tablet', 'Paracetamol', 'Biogesic', 'Pharmaceutical', 'Other'),
+(227, '', 'pc', 1, 'Biogesic Paracetamol 500mg Tablet', 'Paracetamol', 'Biogesic', 'Pharmaceutical', 'Other'),
+(228, '', 'crd', 10, 'Ponstan Mefenamic Acid 500mg Capsule', 'Mefenamic', 'Ponstan', 'Pharmaceutical', 'Other'),
+(229, '', 'pc', 1, 'Ponstan Mefenamic Acid 500mg Capsule', 'Mefenamic', 'Ponstan', 'Pharmaceutical', 'Other'),
+(230, '', 'crd', 10, 'Neozep Forte 10mg/2mg/500mg Tablet', 'Common Cold Medicine', 'Neozep Forte', 'Pharmaceutical', 'Other'),
+(231, '', 'pc', 1, 'Neozep Forte 10mg/2mg/500mg Tablet', 'Common Cold Medicine', 'Neozep Forte', 'Pharmaceutical', 'Other'),
+(232, '', 'crd', 10, 'Nafarin A', 'Common Cold Medicine', 'Nafarin A', 'Pharmaceutical', 'Other'),
+(233, '', 'pc', 1, 'Nafarin A', 'Common Cold Medicine', 'Nafarin A', 'Pharmaceutical', 'Other'),
+(234, '', 'pc', 1, 'Rexona Natural Whitening Fresh Rose Deo-Lotion 48hr (4ml)', 'Deodorant', 'Rexona', 'Toiletry', 'Other'),
+(235, '', 'rm', 10, 'Yellow Pad', 'Yellow Pad', '', 'School & Office', 'Chuyte'),
+(236, '', 'pd', 10, 'Yellow Pad', 'Yellow Pad', '', 'School & Office', 'Chuyte'),
+(237, '4806524879261', 'pd', 1, 'Megan Quick Notes 3x3" Adhesive Notes (100 sheets)', 'Adhesive Note', 'Megan', 'School & Office', 'Chuyte'),
+(238, '4806508031074', 'pc', 1, 'P1 Spiral Yarn Notebook (148x200mm 80 Leaves)', 'Notebook', '', 'School & Office', 'Chuyte'),
+(239, '4806508030787', 'pc', 1, 'Pixel Notes Writing Notebook (148x200mm 80 Leaves)', 'Notebook', '', 'School & Office', 'Chuyte'),
+(240, '', 'pc', 1, 'Letter Envelope', 'Letter Envelope', '', 'School & Office', 'Chuyte'),
+(241, '', 'pc', 1, 'Mini Envelope', 'Mini Envelope', '', 'School & Office', 'Chuyte'),
+(242, '', 'pc', 1, 'Wild Husky Cut-Size Clear Plastic Cover (Gauge 2.6 13.5"x5m*)', 'Plastic Cover', '', 'School & Office', 'Chuyte'),
+(243, '4902430333597', 'pc', 1, 'Head & Shoulders Cool Menthol Anti Dandruff Shampoo Sashet (12ml)', 'Shampoo', '', 'School & Office', 'Conchitas'),
+(244, '9556031063305', 'pc', 1, 'Palmolive Naturals Pinkish & Glow Soap (115g)', 'Bath Soap', '', 'Toiletry', 'Conchitas'),
+(245, '', 'pc', 1, 'Medicare Antiseptic Plastic Bantam Strips w/ Acrinol', 'Medical Plaster', 'Medicaid', 'Personal Hygiene', 'Chuyte'),
+(246, '', 'dz', 12, 'Nail Clipper No. 003 Nail Cutter', 'Nail Clipper', '', 'Personal Hygiene', 'Chuyte'),
+(247, '', 'pc', 1, 'Nail Clipper No. 003 Nail Cutter', 'Nail Clipper', '', 'Personal Hygiene', 'Chuyte'),
+(248, '6944376800045', 'dz', 12, 'Crown Rubble Plant Shoe Glue High Density No:SJ118', 'Show Glue', 'Crown', 'Hardware', 'Chuyte'),
+(249, '6944376800045', 'pc', 1, 'Crown Rubble Plant Shoe Glue High Density No:SJ118', 'Show Glue', 'Crown', 'Hardware', 'Chuyte'),
+(250, '6944376800045', 'bx', 50, 'LCC 828-B Lighter', 'Show Glue', 'LCC', 'Hardware', 'Chuyte'),
+(251, '6944376800045', 'pc', 1, 'LCC 828-B Lighter', 'Show Glue', 'LCC', 'Hardware', 'Chuyte');
 
 -- --------------------------------------------------------
 
@@ -432,6 +434,7 @@ INSERT INTO `items` (`item_id`, `bar_code`, `unit`, `count`, `item_description`,
 -- Table structure for table `items_prices`
 --
 
+DROP TABLE IF EXISTS `items_prices`;
 CREATE TABLE `items_prices` (
   `row_id` int(10) UNSIGNED NOT NULL,
   `item_id` int(10) UNSIGNED NOT NULL,
@@ -694,7 +697,9 @@ INSERT INTO `items_prices` (`row_id`, `item_id`, `unit_price_asofdate`, `unit_pr
 (247, 250, '2019-08-31 16:00:00', '272.50', '2019-08-31 16:00:00', '0.00'),
 (248, 251, '2019-08-31 16:00:00', '5.45', '2019-08-31 16:00:00', '10.00'),
 (259, 148, '2019-08-31 16:00:00', '11.67', '2019-11-27 16:00:00', '13.00'),
-(260, 148, '2019-08-31 16:00:00', '11.67', '2019-09-04 16:00:00', '14.00');
+(260, 148, '2019-08-31 16:00:00', '11.67', '2019-09-04 16:00:00', '14.00'),
+(261, 148, '2019-08-31 16:00:00', '11.67', '2019-11-27 16:00:00', '13.00'),
+(262, 148, '2019-11-23 01:00:01', '11.67', '2019-09-04 16:00:00', '14.00');
 
 -- --------------------------------------------------------
 
@@ -702,6 +707,7 @@ INSERT INTO `items_prices` (`row_id`, `item_id`, `unit_price_asofdate`, `unit_pr
 -- Table structure for table `items_stock`
 --
 
+DROP TABLE IF EXISTS `items_stock`;
 CREATE TABLE `items_stock` (
   `item_id` int(10) UNSIGNED NOT NULL,
   `stock` int(10) UNSIGNED NOT NULL,
@@ -948,6 +954,7 @@ INSERT INTO `items_stock` (`item_id`, `stock`, `row_id`) VALUES
 -- Table structure for table `items_transactions`
 --
 
+DROP TABLE IF EXISTS `items_transactions`;
 CREATE TABLE `items_transactions` (
   `transaction_id` int(10) UNSIGNED NOT NULL,
   `customer` varchar(30) DEFAULT NULL,
@@ -1573,7 +1580,10 @@ INSERT INTO `items_transactions` (`transaction_id`, `customer`, `type`, `date`, 
 (605, '', 'SALE', '2019-11-28 09:37:50', '47.50', '4.50', '52.00', '0.00', '1000.00'),
 (606, 'Denalie C.', 'SALE', '2019-11-28 09:42:28', '47.50', '2.50', '50.00', '0.00', '0.00'),
 (607, '', 'SALE', '2019-11-28 09:50:57', '1.00', '0.00', '1.00', '0.00', '1.00'),
-(608, '', 'RESTOCK', '2019-11-28 10:19:24', '36.00', '0.00', '36.00', '0.00', '21.00');
+(608, '', 'RESTOCK', '2019-11-28 10:19:24', '36.00', '0.00', '36.00', '0.00', '21.00'),
+(609, '', 'SALE', '2019-11-28 10:39:00', '95.00', '7.00', '102.00', '0.00', '102.00'),
+(610, 'Jhondrex', 'SALE', '2019-11-30 05:27:52', '47.50', '2.50', '50.00', '0.00', '0.00'),
+(611, 'Tita Jo', 'SALE', '2019-12-01 02:30:00', '270.00', '30.00', '300.00', '0.00', '0.00');
 
 -- --------------------------------------------------------
 
@@ -1581,6 +1591,7 @@ INSERT INTO `items_transactions` (`transaction_id`, `customer`, `type`, `date`, 
 -- Table structure for table `items_transactions_details`
 --
 
+DROP TABLE IF EXISTS `items_transactions_details`;
 CREATE TABLE `items_transactions_details` (
   `transaction_id` int(10) UNSIGNED NOT NULL,
   `item_id` int(10) UNSIGNED NOT NULL,
@@ -2372,13 +2383,17 @@ INSERT INTO `items_transactions_details` (`transaction_id`, `item_id`, `amount`)
 (605, 19, 1),
 (606, 19, 1),
 (607, 240, 1),
-(608, 181, 6);
+(608, 181, 6),
+(609, 21, 1),
+(610, 19, 1),
+(611, 20, 3);
 
 -- --------------------------------------------------------
 
 --
 -- Stand-in structure for view `view_items`
 --
+DROP VIEW IF EXISTS `view_items`;
 CREATE TABLE `view_items` (
 `item_id` int(10) unsigned
 ,`bar_code` varchar(13)
@@ -2391,7 +2406,7 @@ CREATE TABLE `view_items` (
 ,`unit_price_latest` decimal(13,2)
 ,`sell_price_latest` decimal(13,2)
 ,`supplier_name` enum('Chuyte','Klebbys','Conchitas','Hypermart','Other')
-,`stock` decimal(10,0)
+,`stock` bigint(10)
 );
 
 -- --------------------------------------------------------
@@ -2399,10 +2414,9 @@ CREATE TABLE `view_items` (
 --
 -- Stand-in structure for view `view_items_prices_latest`
 --
+DROP VIEW IF EXISTS `view_items_prices_latest`;
 CREATE TABLE `view_items_prices_latest` (
-`u_rid` int(10) unsigned
-,`s_rid` int(10) unsigned
-,`item_id` int(10) unsigned
+`item_id` int(10) unsigned
 ,`unit_price` decimal(13,2)
 ,`unit_price_asofdate` timestamp
 ,`sell_price` decimal(13,2)
@@ -2412,8 +2426,23 @@ CREATE TABLE `view_items_prices_latest` (
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `view_items_transactions_prices`
+--
+DROP VIEW IF EXISTS `view_items_transactions_prices`;
+CREATE TABLE `view_items_transactions_prices` (
+`date` timestamp
+,`item_id` int(10) unsigned
+,`transaction_id` int(10) unsigned
+,`unit_price` decimal(13,2)
+,`sell_price` decimal(13,2)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Stand-in structure for view `view_transactions_prepaid_load`
 --
+DROP VIEW IF EXISTS `view_transactions_prepaid_load`;
 CREATE TABLE `view_transactions_prepaid_load` (
 `date` timestamp
 ,`item_id` int(10) unsigned
@@ -2423,7 +2452,8 @@ CREATE TABLE `view_transactions_prepaid_load` (
 ,`transaction_id` int(10) unsigned
 ,`amount` int(10) unsigned
 ,`cost` decimal(23,2)
-,`total_by_transaction_id` decimal(13,2)
+,`revenue` decimal(24,2)
+,`profit` decimal(25,2)
 );
 
 -- --------------------------------------------------------
@@ -2431,6 +2461,7 @@ CREATE TABLE `view_transactions_prepaid_load` (
 --
 -- Stand-in structure for view `view_transactions_products`
 --
+DROP VIEW IF EXISTS `view_transactions_products`;
 CREATE TABLE `view_transactions_products` (
 `date` timestamp
 ,`item_id` int(10) unsigned
@@ -2450,12 +2481,11 @@ CREATE TABLE `view_transactions_products` (
 --
 -- Stand-in structure for view `view_transactions_services`
 --
+DROP VIEW IF EXISTS `view_transactions_services`;
 CREATE TABLE `view_transactions_services` (
 `date` timestamp
 ,`item_id` int(10) unsigned
 ,`item_description` varchar(100)
-,`unit_price` decimal(13,2)
-,`sell_price` decimal(13,2)
 ,`transaction_id` int(10) unsigned
 ,`amount` int(10) unsigned
 ,`cost` decimal(23,2)
@@ -2468,7 +2498,8 @@ CREATE TABLE `view_transactions_services` (
 -- Structure for view `view_items`
 --
 DROP TABLE IF EXISTS `view_items`;
--- in use(#1046 - No database selected)
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`hkunz`@`localhost` SQL SECURITY DEFINER VIEW `view_items`  AS  select `i`.`item_id` AS `item_id`,`i`.`bar_code` AS `bar_code`,`i`.`unit` AS `unit`,`i`.`count` AS `count`,`i`.`item_description` AS `item_description`,`i`.`general_name` AS `general_name`,`i`.`brand_name` AS `brand_name`,`i`.`category` AS `category`,`j`.`unit_price_latest` AS `unit_price_latest`,`j`.`sell_price_latest` AS `sell_price_latest`,`i`.`supplier_name` AS `supplier_name`,ifnull(`jj`.`stock`,0) AS `stock` from ((`items` `i` left join (select `v`.`item_id` AS `id1`,`v`.`unit_price` AS `unit_price_latest`,`v`.`sell_price` AS `sell_price_latest` from `view_items_prices_latest` `v`) `j` on((`i`.`item_id` = `j`.`id1`))) left join (select `s`.`item_id` AS `id2`,`s`.`stock` AS `stock` from `items_stock` `s`) `jj` on((`i`.`item_id` = `jj`.`id2`))) order by `i`.`item_id` desc ;
 
 -- --------------------------------------------------------
 
@@ -2476,7 +2507,17 @@ DROP TABLE IF EXISTS `view_items`;
 -- Structure for view `view_items_prices_latest`
 --
 DROP TABLE IF EXISTS `view_items_prices_latest`;
--- in use(#1046 - No database selected)
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`hkunz`@`localhost` SQL SECURITY DEFINER VIEW `view_items_prices_latest`  AS  select `AAA`.`item_id` AS `item_id`,`AAA`.`unit_price` AS `unit_price`,`AAA`.`unit_price_asofdate` AS `unit_price_asofdate`,`BBB`.`sell_price` AS `sell_price`,`BBB`.`sell_price_asofdate` AS `sell_price_asofdate` from ((select `AA`.`item_id` AS `item_id`,`AA`.`unit_price` AS `unit_price`,`AA`.`unit_price_asofdate` AS `unit_price_asofdate` from (select `A`.`item_id` AS `item_id`,`A`.`unit_price` AS `unit_price`,`A`.`unit_price_asofdate` AS `unit_price_asofdate`,row_number() OVER (PARTITION BY `A`.`item_id` ORDER BY `A`.`unit_price_asofdate` desc,`A`.`row_id` desc )  AS `u_row_num` from `items_prices` `A`) `AA` where (`AA`.`u_row_num` = 1)) `AAA` left join (select `BB`.`item_id` AS `item_id`,`BB`.`sell_price` AS `sell_price`,`BB`.`sell_price_asofdate` AS `sell_price_asofdate` from (select `B`.`item_id` AS `item_id`,`B`.`sell_price` AS `sell_price`,`B`.`sell_price_asofdate` AS `sell_price_asofdate`,row_number() OVER (PARTITION BY `B`.`item_id` ORDER BY `B`.`sell_price_asofdate` desc,`B`.`row_id` desc )  AS `s_row_num` from `items_prices` `B`) `BB` where (`BB`.`s_row_num` = 1)) `BBB` on((`AAA`.`item_id` = `BBB`.`item_id`))) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `view_items_transactions_prices`
+--
+DROP TABLE IF EXISTS `view_items_transactions_prices`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`hkunz`@`localhost` SQL SECURITY DEFINER VIEW `view_items_transactions_prices`  AS  select `bb`.`date` AS `date`,`i`.`item_id` AS `item_id`,`bb`.`transaction_id` AS `transaction_id`,(select `pp`.`unit_price` from `items_prices` `pp` where ((`i`.`item_id` = `pp`.`item_id`) and (`bb`.`date` >= `pp`.`unit_price_asofdate`)) order by `pp`.`unit_price_asofdate` desc,`pp`.`row_id` desc limit 1) AS `unit_price`,(select `pp`.`sell_price` from `items_prices` `pp` where ((`i`.`item_id` = `pp`.`item_id`) and (`bb`.`date` >= `pp`.`sell_price_asofdate`)) order by `pp`.`sell_price_asofdate` desc,`pp`.`row_id` desc limit 1) AS `sell_price` from ((`items_transactions` `bb` left join `items_transactions_details` `t` on((`bb`.`transaction_id` = `t`.`transaction_id`))) left join `items` `i` on((`i`.`item_id` = `t`.`item_id`))) ;
 
 -- --------------------------------------------------------
 
@@ -2485,7 +2526,7 @@ DROP TABLE IF EXISTS `view_items_prices_latest`;
 --
 DROP TABLE IF EXISTS `view_transactions_prepaid_load`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`hkunz`@`localhost` SQL SECURITY DEFINER VIEW `view_transactions_prepaid_load`  AS  (select `tt`.`date` AS `date`,`i`.`item_id` AS `item_id`,`i`.`item_description` AS `item_description`,`i`.`unit_price` AS `unit_price`,`i`.`sell_price` AS `sell_price`,`t`.`transaction_id` AS `transaction_id`,`t`.`amount` AS `amount`,(`t`.`amount` * `i`.`unit_price`) AS `cost`,`tt`.`grand_total` AS `total_by_transaction_id` from ((`items` `i` join `items_transactions_details` `t` on((`i`.`item_id` = `t`.`item_id`))) join `items_transactions` `tt` on((`t`.`transaction_id` = `tt`.`transaction_id`))) where ((`tt`.`type` = 'SALE') and (`i`.`category` = 'service') and (`i`.`general_name` = 'Prepaid Load Service')) order by `t`.`transaction_id` desc) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`hkunz`@`localhost` SQL SECURITY DEFINER VIEW `view_transactions_prepaid_load`  AS  select `tt`.`date` AS `date`,`i`.`item_id` AS `item_id`,`i`.`item_description` AS `item_description`,`p`.`unit_price` AS `unit_price`,`p`.`sell_price` AS `sell_price`,`t`.`transaction_id` AS `transaction_id`,`t`.`amount` AS `amount`,(`t`.`amount` * `p`.`unit_price`) AS `cost`,((`t`.`amount` * `p`.`sell_price`) + `tt`.`service_charge`) AS `revenue`,(((`t`.`amount` * `p`.`sell_price`) - (`t`.`amount` * `p`.`unit_price`)) + `tt`.`service_charge`) AS `profit` from (((`items` `i` left join `items_transactions_details` `t` on((`i`.`item_id` = `t`.`item_id`))) left join `items_transactions` `tt` on((`t`.`transaction_id` = `tt`.`transaction_id`))) left join `view_items_transactions_prices` `p` on(((`p`.`transaction_id` = `tt`.`transaction_id`) and (`p`.`item_id` = `i`.`item_id`)))) where ((`tt`.`type` = 'SALE') and (`i`.`category` = 'service') and (`i`.`general_name` = 'Prepaid Load Service')) order by `t`.`transaction_id` desc ;
 
 -- --------------------------------------------------------
 
@@ -2493,7 +2534,8 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`hkunz`@`localhost` SQL SECURITY DEFINER VIEW
 -- Structure for view `view_transactions_products`
 --
 DROP TABLE IF EXISTS `view_transactions_products`;
--- in use(#1046 - No database selected)
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`hkunz`@`localhost` SQL SECURITY DEFINER VIEW `view_transactions_products`  AS  select `tt`.`date` AS `date`,`i`.`item_id` AS `item_id`,`i`.`unit` AS `unit`,`i`.`item_description` AS `item_description`,`p`.`unit_price` AS `unit_price`,`p`.`sell_price` AS `sell_price`,`t`.`transaction_id` AS `transaction_id`,`t`.`amount` AS `amount`,(`t`.`amount` * `p`.`unit_price`) AS `cost`,(`t`.`amount` * `p`.`sell_price`) AS `revenue`,((`t`.`amount` * `p`.`sell_price`) - (`t`.`amount` * `p`.`unit_price`)) AS `profit` from (((`items` `i` left join `items_transactions_details` `t` on((`i`.`item_id` = `t`.`item_id`))) left join `items_transactions` `tt` on((`t`.`transaction_id` = `tt`.`transaction_id`))) left join `view_items_transactions_prices` `p` on(((`p`.`transaction_id` = `tt`.`transaction_id`) and (`p`.`item_id` = `i`.`item_id`)))) where ((`tt`.`type` = 'SALE') and (`i`.`category` <> 'service')) order by `t`.`transaction_id` desc ;
 
 -- --------------------------------------------------------
 
@@ -2502,7 +2544,7 @@ DROP TABLE IF EXISTS `view_transactions_products`;
 --
 DROP TABLE IF EXISTS `view_transactions_services`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`hkunz`@`localhost` SQL SECURITY DEFINER VIEW `view_transactions_services`  AS  (select `tt`.`date` AS `date`,`i`.`item_id` AS `item_id`,`i`.`item_description` AS `item_description`,`i`.`unit_price` AS `unit_price`,`i`.`sell_price` AS `sell_price`,`t`.`transaction_id` AS `transaction_id`,`t`.`amount` AS `amount`,(`t`.`amount` * `i`.`unit_price`) AS `cost`,(`t`.`amount` * `i`.`sell_price`) AS `revenue` from ((`items` `i` join `items_transactions_details` `t` on((`i`.`item_id` = `t`.`item_id`))) join `items_transactions` `tt` on((`t`.`transaction_id` = `tt`.`transaction_id`))) where ((`tt`.`type` = 'SALE') and (`i`.`category` = 'service') and (`i`.`general_name` <> 'Prepaid Load Service')) order by `t`.`transaction_id` desc) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`hkunz`@`localhost` SQL SECURITY DEFINER VIEW `view_transactions_services`  AS  select `tt`.`date` AS `date`,`i`.`item_id` AS `item_id`,`i`.`item_description` AS `item_description`,`t`.`transaction_id` AS `transaction_id`,`t`.`amount` AS `amount`,(`t`.`amount` * `p`.`unit_price`) AS `cost`,(`t`.`amount` * `p`.`sell_price`) AS `revenue` from (((`items` `i` left join `items_transactions_details` `t` on((`i`.`item_id` = `t`.`item_id`))) left join `items_transactions` `tt` on((`t`.`transaction_id` = `tt`.`transaction_id`))) left join `view_items_transactions_prices` `p` on(((`p`.`transaction_id` = `tt`.`transaction_id`) and (`p`.`item_id` = `i`.`item_id`)))) where ((`tt`.`type` = 'SALE') and (`i`.`category` = 'service') and (`i`.`general_name` <> 'Prepaid Load Service')) order by `t`.`transaction_id` desc ;
 
 --
 -- Indexes for dumped tables
@@ -2554,7 +2596,7 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `items_prices`
 --
 ALTER TABLE `items_prices`
-  MODIFY `row_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=261;
+  MODIFY `row_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=263;
 --
 -- AUTO_INCREMENT for table `items_stock`
 --
@@ -2564,7 +2606,7 @@ ALTER TABLE `items_stock`
 -- AUTO_INCREMENT for table `items_transactions`
 --
 ALTER TABLE `items_transactions`
-  MODIFY `transaction_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=610;
+  MODIFY `transaction_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=613;
 --
 -- Constraints for dumped tables
 --
@@ -2573,20 +2615,20 @@ ALTER TABLE `items_transactions`
 -- Constraints for table `items_prices`
 --
 ALTER TABLE `items_prices`
-  ADD CONSTRAINT `items_prices_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`);
+  ADD CONSTRAINT `items_prices_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `items_stock`
 --
 ALTER TABLE `items_stock`
-  ADD CONSTRAINT `items_stock_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`);
+  ADD CONSTRAINT `items_stock_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `items_transactions_details`
 --
 ALTER TABLE `items_transactions_details`
-  ADD CONSTRAINT `items_transactions_details_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`),
-  ADD CONSTRAINT `items_transactions_details_ibfk_2` FOREIGN KEY (`transaction_id`) REFERENCES `items_transactions` (`transaction_id`);
+  ADD CONSTRAINT `items_transactions_details_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `items_transactions_details_ibfk_2` FOREIGN KEY (`transaction_id`) REFERENCES `items_transactions` (`transaction_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

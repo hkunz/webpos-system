@@ -48,6 +48,16 @@
     <label class='standard-label'>&nbsp;&nbsp;Services:</label>
     <label id='revenue_total_prev_month_services' class='drop-shadow'></label><br/>
     <hr class='division'/>
+    <label class='standard-label'>Total Revenue For One Before Previous Month:</label>
+    <label id='revenue_total_prev2_month' class='drop-shadow'></label><br/>
+    <hr class='division'/>
+    <label class='standard-label'>&nbsp;&nbsp;Prepaid-Load:</label>
+    <label id='revenue_total_prev2_month_prepaid' class='drop-shadow'></label> (<label id='profit_prev2_month_prepaid' class='drop-shadow profit'></label>)<br/>
+    <label class='standard-label'>&nbsp;&nbsp;Products:</label>
+    <label id='revenue_total_prev2_month_products' class='drop-shadow'></label> (<label id='profit_prev2_month_products' class='drop-shadow profit'></label>)<br/>
+    <label class='standard-label'>&nbsp;&nbsp;Services:</label>
+    <label id='revenue_total_prev2_month_services' class='drop-shadow'></label><br/>
+    <hr class='division'/>
   </div>
   </div>
   <div class="container-right">

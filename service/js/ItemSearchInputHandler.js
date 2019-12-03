@@ -1,46 +1,11 @@
 "use strict";
 
-class ItemSearchInputHandler {
+class ItemSearchInputHandler extends AwesompleteInputHandler {
 	constructor() {
-		let thiz = this;
-		thiz.search_item_input = null;
-		$(document).ready(function() {
-			thiz.onInitialise(thiz);
-		});
-	}
-
-	onInitialise(thiz) {
-		thiz.search_item_input = new Awesomplete(document.getElementById("search_item_input"), {
-			minChars:2,
-			maxItems:20,
-			autoFirst:true,
-			replace: function(suggestion) {
-				this.input.value = suggestion.label;
-			}
-		});
-		$("#search_item_input").keyup(function(e) {thiz.onItemSearchInputChange(e, thiz)});
-	}
-
-	onItemSearchInputChange(e, thiz) {
-		let name = $("#search_item_input").val();
-		if (name == "") {
-			//$("#items_dropdown").html("");
-		} else {
-			$.ajax({
-				type: "POST",
-				url: "php/get-search-results.php?_=" + new Date().getTime(),
-				data: {
-					search: name
-				},
-				success: function(data) {
-					thiz.onAjaxSuccess(data, thiz);
-				}
-			});
-		}
+		super("search_item_input", "php/get-search-results.php");
 	}
 
 	onAjaxSuccess(data, thiz) {
-		//https://github.com/LeaVerou/awesomplete/issues/17207
 		const adata = data.split('||');
 		const len = adata ? adata.length : 0;
 		let list = [];
@@ -72,8 +37,8 @@ class ItemSearchInputHandler {
 				
 			list.push({label:label, value:json, itemId:itemId});
 		}
-		thiz.search_item_input.list = list;
-		thiz.search_item_input.evaluate();
+		thiz.input_element.list = list;
+		thiz.input_element.evaluate();
 	}
 
 	getValue(item, value) {

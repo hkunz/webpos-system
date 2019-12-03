@@ -35,7 +35,7 @@ if (isset($_POST['search'])) {
 
 	while ($Result = MySQLi_fetch_array($ExecQuery)) {
 		$code = $Result['bar_code'];
-		$code = (empty($code) ? "XXXXXXXXXXXXX" : $code);
+		$code = (empty($code) ? "≡≡≡≡≡≡≡≡≡≡≡≡≡" : $code);
 		$unit = $Result['unit'];
 		$description = $Result['item_description'];
 		$price = $Result['sell_price'];

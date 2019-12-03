@@ -6,6 +6,18 @@ class Utils {
                 return Number.parseFloat(value).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
 
+	static getTimestamp(date) {
+		const d = new Date(date);
+		const month = '' + (d.getMonth() + 1);
+		const day = '' + d.getDate();
+		const year = d.getFullYear();
+		const h = addZero(d.getHours());
+		const m = addZero(d.getMinutes());
+		const s = addZero(d.getSeconds());
+		const time = h + ":" + m + ":" + s;
+		return year + '-' + month + '-' + day + ' ' + (h + ":" + m + ":" + s);
+	}
+
 	static getAmountPesoText(value) {
 		return '₱' + Utils.getAmountText(value);
 	}
@@ -30,17 +42,25 @@ class Utils {
 	}
 
 	static getTimestampPreviousMonthStart() {
-		let m = new Date();
-		m.setMonth(m.getMonth() - 1);
-		return m.getFullYear() + "-" + (m.getMonth()+1) +"-01 00:00:00";
+		return Utils.getTimestampPreviousMonthsStart(1);
 	}
 
 	static getTimestampPreviousMonthEnd() {
-                let m = new Date();
-		m.setMonth(m.getMonth() - 1);
-		let d = new Date(m.getFullYear(), m.getMonth() + 1, 0);
-                return d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate() + " 23:59:59";
+		return Utils.getTimestampPreviousMonthsEnd(1);
         }
+
+	static getTimestampPreviousMonthsStart(months) {
+		let m = new Date();
+		m.setMonth(m.getMonth() - months);
+		return m.getFullYear() + "-" + (m.getMonth()+1) +"-01 00:00:00";
+	}
+
+	static getTimestampPreviousMonthsEnd(months) {
+		let m = new Date();
+		m.setMonth(m.getMonth() - months);
+		let d = new Date(m.getFullYear(), m.getMonth() + 1, 0);
+		return d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate() + " 23:59:59";
+	}
 
 	static getTimestampCurrentMonthStart() {
 		let m = new Date();

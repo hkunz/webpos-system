@@ -11,7 +11,7 @@ CREATE TABLE items (
 	count SMALLINT UNSIGNED NOT NULL,
 	item_description VARCHAR(100) NOT NULL,
 	general_name VARCHAR(30) NOT NULL,
-	brand_name VARCHAR(25),
+	brand_name VARCHAR(25) NOT NULL,
 	category ENUM('Electronics','Food Additive','Galenical','Hardware','Household','Personal Accessory','Personal Hygiene','Pharmaceutical','School & Office','Service','Toiletry') NOT NULL,
 	supplier_name ENUM('Chuyte','Klebbys','Conchitas','Hypermart','Other') NOT NULL
 );
@@ -52,6 +52,15 @@ CREATE TABLE items_transactions_details (
 	FOREIGN KEY (item_id) REFERENCES items(item_id),
 	FOREIGN KEY (transaction_id) REFERENCES items_transactions(transaction_id),
 	PRIMARY KEY (transaction_id, item_id)
+);
+
+DROP TABLE IF EXISTS operational_expenses;
+CREATE TABLE operational_expenses (
+    expense_transaction_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    type ENUM('PRINTING_STOCKS', 'ELECTRICITY') NOT NULL,
+    grand_total DECIMAL(13,2) NOT NULL,
+    remarks VARCHAR(100) NOT NULL
 );
 
 DROP VIEW IF EXISTS view_items_prices_latest;
@@ -178,7 +187,7 @@ DELIMITER ;
 
 DROP FUNCTION IF EXISTS get_total_prepaid_load_revenue;
 DELIMITER $$
-CREATE FUNCTION get_total_prepaid_load_revenue(dateStart TIMESTAMP, dateEnd TIMESTAMP) RETURNS INT UNSIGNED
+CREATE FUNCTION get_total_prepaid_load_revenue(dateStart TIMESTAMP, dateEnd TIMESTAMP) RETURNS DECIMAL(13,2) UNSIGNED
 function_get_total_prepaid_load_revenue:
 BEGIN
     return (SELECT SUM(`revenue`) FROM `view_transactions_prepaid_load` WHERE `date`>=dateStart AND `date`<=dateEnd);
@@ -187,10 +196,10 @@ DELIMITER ;
 
 DROP FUNCTION IF EXISTS get_total_prepaid_load_profit;
 DELIMITER $$
-CREATE FUNCTION get_total_prepaid_load_profit(dateStart TIMESTAMP, dateEnd TIMESTAMP) RETURNS INT UNSIGNED
+CREATE FUNCTION get_total_prepaid_load_profit(dateStart TIMESTAMP, dateEnd TIMESTAMP) RETURNS DECIMAL(13,2) UNSIGNED
 function_get_total_prepaid_load_profit:
 BEGIN
-    DECLARE costs, revenue INT UNSIGNED DEFAULT 0;
+    DECLARE costs, revenue DECIMAL(13,2) UNSIGNED DEFAULT 0;
     SET costs = (SELECT SUM(`cost`) FROM `view_transactions_prepaid_load` WHERE `date`>=dateStart AND `date`<=dateEnd);
     SET revenue = get_total_prepaid_load_revenue(dateStart, dateEnd);
 	return revenue - costs;
@@ -199,7 +208,7 @@ DELIMITER ;
 
 DROP FUNCTION IF EXISTS get_total_products_revenue;
 DELIMITER $$
-CREATE FUNCTION get_total_products_revenue(dateStart TIMESTAMP, dateEnd TIMESTAMP) RETURNS INT UNSIGNED
+CREATE FUNCTION get_total_products_revenue(dateStart TIMESTAMP, dateEnd TIMESTAMP) RETURNS DECIMAL(13,2) UNSIGNED
 function_get_total_products_revenue:
 BEGIN
     return (SELECT SUM(`revenue`) FROM `view_transactions_products` WHERE `date`>=dateStart AND `date`<=dateEnd);
@@ -208,7 +217,7 @@ DELIMITER ;
 
 DROP FUNCTION IF EXISTS get_total_products_profit;
 DELIMITER $$
-CREATE FUNCTION get_total_products_profit(dateStart TIMESTAMP, dateEnd TIMESTAMP) RETURNS INT UNSIGNED
+CREATE FUNCTION get_total_products_profit(dateStart TIMESTAMP, dateEnd TIMESTAMP) RETURNS DECIMAL(13,2) UNSIGNED
 function_get_total_products_profit:
 BEGIN
     return (SELECT SUM(`profit`) FROM `view_transactions_products` WHERE `date`>=dateStart AND `date`<=dateEnd);
@@ -217,7 +226,7 @@ DELIMITER ;
 
 DROP FUNCTION IF EXISTS get_total_services_revenue;
 DELIMITER $$
-CREATE FUNCTION get_total_services_revenue(dateStart TIMESTAMP, dateEnd TIMESTAMP) RETURNS INT UNSIGNED
+CREATE FUNCTION get_total_services_revenue(dateStart TIMESTAMP, dateEnd TIMESTAMP) RETURNS DECIMAL(13,2) UNSIGNED
 function_get_total_services_revenue:
 BEGIN
     return (SELECT SUM(`revenue`) FROM `view_transactions_services` WHERE `date`>=dateStart AND `date`<=dateEnd);
@@ -318,3 +327,30 @@ DELIMITER ;
 
 -- CALL insert_items_transaction('{"transaction_id":"6","customer":"Harry Kunz","type":"SALE","items":[{"itemId":"221","amount":2},{"itemId":"181","amount":3},{"itemId":"32","amount":10}],"timestamp":"2019-11-23 20:46:52","sub_total":93,"discount":0,"cash":100,"grand_total":93,"payment":100}', @success);
 -- CALL insert_items_transaction('{"transaction_id":"6","customer":"","type":"SALE","items":[{"itemId":"221","amount":1}],"timestamp":"2019-11-24 15:27:40","sub_total":2.5,"service_charge":1,"discount":0,"payment":5,"grand_total":2.5}', @success);
+
+DROP PROCEDURE IF EXISTS create_new_item;
+DELIMITER $$
+CREATE PROCEDURE create_new_item(IN data JSON, OUT iid INT UNSIGNED, OUT success BOOLEAN)
+proc_create_new_item:
+BEGIN
+	DECLARE bar_code VARCHAR(13) DEFAULT json_unquote(json_extract(data, '$.bar_code'));
+	DECLARE unit VARCHAR(3) DEFAULT json_unquote(json_extract(data, '$.unit'));
+	DECLARE count SMALLINT UNSIGNED DEFAULT json_unquote(json_extract(data, '$.count'));
+	DECLARE item_description VARCHAR(100) DEFAULT json_unquote(json_extract(data, '$.item_description'));
+	DECLARE general_name VARCHAR(30) DEFAULT json_unquote(json_extract(data, '$.general_name'));
+	DECLARE brand_name VARCHAR(25) DEFAULT json_unquote(json_extract(data, '$.brand_name'));
+	DECLARE category VARCHAR(30) DEFAULT json_unquote(json_extract(data, '$.category'));
+    DECLARE supplier_name VARCHAR(20) DEFAULT json_unquote(json_extract(data, '$.supplier_name'));
+	DECLARE stock INT UNSIGNED DEFAULT json_unquote(json_extract(data, '$.stock'));
+	DECLARE unit_price DECIMAL(13,2) DEFAULT json_unquote(json_extract(data, '$.unit_price'));
+	DECLARE sell_price DECIMAL(13,2) DEFAULT json_unquote(json_extract(data, '$.sell_price'));
+	INSERT INTO items (`bar_code`,`unit`,`count`,`item_description`,`general_name`,`brand_name`,`category`,`supplier_name`)
+	VALUES (`bar_code`,`unit`,`count`,`item_description`,`general_name`,`brand_name`,`category`,`supplier_name`);
+	SET iid = (SELECT MAX(i.`item_id`) FROM `items` i);
+	INSERT INTO `items_stock` (`item_id`,`stock`) VALUES (`iid`,`stock`);
+	INSERT INTO `items_prices` (`item_id`,`unit_price`,`sell_price`) VALUES (`iid`,`unit_price`,`sell_price`);
+	SET success = true;
+END $$
+DELIMITER ;
+
+-- CALL call create_new_item('{"category":"Personal Accessory","supplier_name":"Hypermart","unit":"jar","item_description":"My item description here it is","bar_code":"","general_name":"My Gen Name","brand_name":"My Bran Name","count":2,"stock":33,"unit_price":4,"sell_price":6.7}', @a, @b);

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 01, 2019 at 05:24 PM
+-- Generation Time: Dec 04, 2019 at 10:57 PM
 -- Server version: 8.0.18
 -- PHP Version: 7.0.33-0ubuntu0.16.04.7
 
@@ -24,7 +24,27 @@ DELIMITER $$
 --
 -- Procedures
 --
-DROP PROCEDURE IF EXISTS `insert_items_transaction`$$
+CREATE DEFINER=`hkunz`@`localhost` PROCEDURE `create_new_item` (IN `data` JSON, OUT `iid` INT UNSIGNED, OUT `success` BOOLEAN)  proc_create_new_item:
+BEGIN
+	DECLARE bar_code VARCHAR(13) DEFAULT json_unquote(json_extract(data, '$.bar_code'));
+	DECLARE unit VARCHAR(3) DEFAULT json_unquote(json_extract(data, '$.unit'));
+	DECLARE count SMALLINT UNSIGNED DEFAULT json_unquote(json_extract(data, '$.count'));
+	DECLARE item_description VARCHAR(100) DEFAULT json_unquote(json_extract(data, '$.item_description'));
+	DECLARE general_name VARCHAR(30) DEFAULT json_unquote(json_extract(data, '$.general_name'));
+	DECLARE brand_name VARCHAR(25) DEFAULT json_unquote(json_extract(data, '$.brand_name'));
+	DECLARE category VARCHAR(30) DEFAULT json_unquote(json_extract(data, '$.category'));
+    DECLARE supplier_name VARCHAR(20) DEFAULT json_unquote(json_extract(data, '$.supplier_name'));
+	DECLARE stock INT UNSIGNED DEFAULT json_unquote(json_extract(data, '$.stock'));
+	DECLARE unit_price DECIMAL(13,2) DEFAULT json_unquote(json_extract(data, '$.unit_price'));
+	DECLARE sell_price DECIMAL(13,2) DEFAULT json_unquote(json_extract(data, '$.sell_price'));
+	INSERT INTO items (`bar_code`,`unit`,`count`,`item_description`,`general_name`,`brand_name`,`category`,`supplier_name`)
+	VALUES (`bar_code`,`unit`,`count`,`item_description`,`general_name`,`brand_name`,`category`,`supplier_name`);
+	SET iid = (SELECT MAX(i.`item_id`) FROM `items` i);
+	INSERT INTO `items_stock` (`item_id`,`stock`) VALUES (`iid`,`stock`);
+	INSERT INTO `items_prices` (`item_id`,`unit_price`,`sell_price`) VALUES (`iid`,`unit_price`,`sell_price`);
+	SET success = true;
+END$$
+
 CREATE DEFINER=`hkunz`@`localhost` PROCEDURE `insert_items_transaction` (IN `data` JSON, OUT `success` BOOLEAN)  proc_insert_items_transaction:
 BEGIN
     DECLARE id INT UNSIGNED DEFAULT 0;
@@ -56,7 +76,6 @@ BEGIN
     SET success = @success2;
 END$$
 
-DROP PROCEDURE IF EXISTS `insert_items_transaction_details`$$
 CREATE DEFINER=`hkunz`@`localhost` PROCEDURE `insert_items_transaction_details` (IN `transaction_id` INT UNSIGNED, IN `type` VARCHAR(10), IN `data` JSON, OUT `success` BOOLEAN)  proc_insert_items_transaction_details:
 BEGIN
     DECLARE json_len TINYINT UNSIGNED DEFAULT JSON_LENGTH(data);
@@ -80,7 +99,6 @@ BEGIN
     SET success = TRUE;
 END$$
 
-DROP PROCEDURE IF EXISTS `update_item_stock`$$
 CREATE DEFINER=`hkunz`@`localhost` PROCEDURE `update_item_stock` (IN `itemId` INT UNSIGNED, IN `delta` INT, OUT `success` BOOLEAN)  proc_update_item_stock:
 BEGIN
     DECLARE amount INT UNSIGNED DEFAULT 0;
@@ -110,7 +128,6 @@ END$$
 --
 -- Functions
 --
-DROP FUNCTION IF EXISTS `get_next_transaction_id`$$
 CREATE DEFINER=`hkunz`@`localhost` FUNCTION `get_next_transaction_id` () RETURNS INT(10) UNSIGNED function_get_next_transaction_id:
 BEGIN
     DECLARE id,next_id INT UNSIGNED DEFAULT 0;
@@ -121,35 +138,30 @@ BEGIN
     RETURN id + 1;
 END$$
 
-DROP FUNCTION IF EXISTS `get_total_prepaid_load_profit`$$
-CREATE DEFINER=`hkunz`@`localhost` FUNCTION `get_total_prepaid_load_profit` (`dateStart` TIMESTAMP, `dateEnd` TIMESTAMP) RETURNS INT(10) UNSIGNED function_get_total_prepaid_load_profit:
+CREATE DEFINER=`hkunz`@`localhost` FUNCTION `get_total_prepaid_load_profit` (`dateStart` TIMESTAMP, `dateEnd` TIMESTAMP) RETURNS DECIMAL(13,2) UNSIGNED function_get_total_prepaid_load_profit:
 BEGIN
-    DECLARE costs, revenue INT UNSIGNED DEFAULT 0;
+    DECLARE costs, revenue DECIMAL(13,2) UNSIGNED DEFAULT 0;
     SET costs = (SELECT SUM(`cost`) FROM `view_transactions_prepaid_load` WHERE `date`>=dateStart AND `date`<=dateEnd);
     SET revenue = get_total_prepaid_load_revenue(dateStart, dateEnd);
 	return revenue - costs;
 END$$
 
-DROP FUNCTION IF EXISTS `get_total_prepaid_load_revenue`$$
-CREATE DEFINER=`hkunz`@`localhost` FUNCTION `get_total_prepaid_load_revenue` (`dateStart` TIMESTAMP, `dateEnd` TIMESTAMP) RETURNS INT(10) UNSIGNED function_get_total_prepaid_load_revenue:
+CREATE DEFINER=`hkunz`@`localhost` FUNCTION `get_total_prepaid_load_revenue` (`dateStart` TIMESTAMP, `dateEnd` TIMESTAMP) RETURNS DECIMAL(13,2) UNSIGNED function_get_total_prepaid_load_revenue:
 BEGIN
     return (SELECT SUM(`revenue`) FROM `view_transactions_prepaid_load` WHERE `date`>=dateStart AND `date`<=dateEnd);
 END$$
 
-DROP FUNCTION IF EXISTS `get_total_products_profit`$$
-CREATE DEFINER=`hkunz`@`localhost` FUNCTION `get_total_products_profit` (`dateStart` TIMESTAMP, `dateEnd` TIMESTAMP) RETURNS INT(10) UNSIGNED function_get_total_products_profit:
+CREATE DEFINER=`hkunz`@`localhost` FUNCTION `get_total_products_profit` (`dateStart` TIMESTAMP, `dateEnd` TIMESTAMP) RETURNS DECIMAL(13,2) UNSIGNED function_get_total_products_profit:
 BEGIN
     return (SELECT SUM(`profit`) FROM `view_transactions_products` WHERE `date`>=dateStart AND `date`<=dateEnd);
 END$$
 
-DROP FUNCTION IF EXISTS `get_total_products_revenue`$$
-CREATE DEFINER=`hkunz`@`localhost` FUNCTION `get_total_products_revenue` (`dateStart` TIMESTAMP, `dateEnd` TIMESTAMP) RETURNS INT(10) UNSIGNED function_get_total_products_revenue:
+CREATE DEFINER=`hkunz`@`localhost` FUNCTION `get_total_products_revenue` (`dateStart` TIMESTAMP, `dateEnd` TIMESTAMP) RETURNS DECIMAL(13,2) UNSIGNED function_get_total_products_revenue:
 BEGIN
     return (SELECT SUM(`revenue`) FROM `view_transactions_products` WHERE `date`>=dateStart AND `date`<=dateEnd);
 END$$
 
-DROP FUNCTION IF EXISTS `get_total_services_revenue`$$
-CREATE DEFINER=`hkunz`@`localhost` FUNCTION `get_total_services_revenue` (`dateStart` TIMESTAMP, `dateEnd` TIMESTAMP) RETURNS INT(10) UNSIGNED function_get_total_services_revenue:
+CREATE DEFINER=`hkunz`@`localhost` FUNCTION `get_total_services_revenue` (`dateStart` TIMESTAMP, `dateEnd` TIMESTAMP) RETURNS DECIMAL(13,2) UNSIGNED function_get_total_services_revenue:
 BEGIN
     return (SELECT SUM(`revenue`) FROM `view_transactions_services` WHERE `date`>=dateStart AND `date`<=dateEnd);
 END$$
@@ -162,11 +174,10 @@ DELIMITER ;
 -- Table structure for table `items`
 --
 
-DROP TABLE IF EXISTS `items`;
 CREATE TABLE `items` (
   `item_id` int(10) UNSIGNED NOT NULL,
   `bar_code` varchar(13) NOT NULL,
-  `unit` enum('bar','bot','bx','crd','cut','dz','jar','ld','pad','pc','pd','pg','pk','rm','sbx','set','tie') NOT NULL,
+  `unit` enum('bar','bot','bx','crd','cut','dz','jar','ld','pad','pc','pd','pg','pk','rm','sbx','sc','set','tie') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `count` smallint(5) UNSIGNED NOT NULL,
   `item_description` varchar(100) NOT NULL,
   `general_name` varchar(30) NOT NULL,
@@ -426,7 +437,11 @@ INSERT INTO `items` (`item_id`, `bar_code`, `unit`, `count`, `item_description`,
 (248, '6944376800045', 'dz', 12, 'Crown Rubble Plant Shoe Glue High Density No:SJ118', 'Show Glue', 'Crown', 'Hardware', 'Chuyte'),
 (249, '6944376800045', 'pc', 1, 'Crown Rubble Plant Shoe Glue High Density No:SJ118', 'Show Glue', 'Crown', 'Hardware', 'Chuyte'),
 (250, '6944376800045', 'bx', 50, 'LCC 828-B Lighter', 'Show Glue', 'LCC', 'Hardware', 'Chuyte'),
-(251, '6944376800045', 'pc', 1, 'LCC 828-B Lighter', 'Show Glue', 'LCC', 'Hardware', 'Chuyte');
+(251, '6944376800045', 'pc', 1, 'LCC 828-B Lighter', 'Show Glue', 'LCC', 'Hardware', 'Chuyte'),
+(252, '', 'sc', 1, 'Service Charge for Prepaid Load (&#8369;0.01 Increment)', 'Prepaid Load Service', 'Klebbys', 'Service', 'Klebbys'),
+(253, '', 'sc', 1, 'Service Charge for Prepaid Load (&#8369;0.50 Increment)', 'Prepaid Load Service', 'Klebbys', 'Service', 'Klebbys'),
+(254, '', 'sc', 1, 'Service Charge for Prepaid Load (&#8369;1.00 Increment)', 'Prepaid Load Service', 'Klebbys', 'Service', 'Klebbys'),
+(255, '', 'sc', 1, 'Service Charge for Computer Services (&#8369;1.00 Increment)', 'Print Service', 'Klebbys', 'Service', 'Klebbys');
 
 -- --------------------------------------------------------
 
@@ -434,7 +449,6 @@ INSERT INTO `items` (`item_id`, `bar_code`, `unit`, `count`, `item_description`,
 -- Table structure for table `items_prices`
 --
 
-DROP TABLE IF EXISTS `items_prices`;
 CREATE TABLE `items_prices` (
   `row_id` int(10) UNSIGNED NOT NULL,
   `item_id` int(10) UNSIGNED NOT NULL,
@@ -485,7 +499,7 @@ INSERT INTO `items_prices` (`row_id`, `item_id`, `unit_price_asofdate`, `unit_pr
 (35, 38, '2019-08-31 16:00:00', '0.20', '2019-08-31 16:00:00', '0.50'),
 (36, 39, '2019-08-31 16:00:00', '10.00', '2019-08-31 16:00:00', '0.00'),
 (37, 40, '2019-08-31 16:00:00', '0.10', '2019-08-31 16:00:00', '0.25'),
-(38, 41, '2019-08-31 16:00:00', '30.00', '2019-08-31 16:00:00', '0.00'),
+(38, 41, '2019-08-31 16:00:00', '30.00', '2019-08-31 16:00:00', '35.00'),
 (39, 42, '2019-08-31 16:00:00', '222.00', '2019-08-31 16:00:00', '0.00'),
 (40, 43, '2019-08-31 16:00:00', '18.50', '2019-08-31 16:00:00', '22.00'),
 (41, 44, '2019-08-31 16:00:00', '222.00', '2019-08-31 16:00:00', '0.00'),
@@ -699,7 +713,22 @@ INSERT INTO `items_prices` (`row_id`, `item_id`, `unit_price_asofdate`, `unit_pr
 (259, 148, '2019-08-31 16:00:00', '11.67', '2019-11-27 16:00:00', '13.00'),
 (260, 148, '2019-08-31 16:00:00', '11.67', '2019-09-04 16:00:00', '14.00'),
 (261, 148, '2019-08-31 16:00:00', '11.67', '2019-11-27 16:00:00', '13.00'),
-(262, 148, '2019-11-23 01:00:01', '11.67', '2019-09-04 16:00:00', '14.00');
+(262, 148, '2019-11-23 01:00:01', '11.67', '2019-09-04 16:00:00', '14.00'),
+(264, 252, '2019-11-30 16:00:00', '0.00', '2019-11-30 16:00:00', '0.01'),
+(265, 253, '2019-11-30 16:00:00', '0.00', '2019-11-30 16:00:00', '0.50'),
+(266, 254, '2019-11-30 16:00:00', '0.00', '2019-11-30 16:00:00', '1.00'),
+(267, 255, '2019-11-30 16:00:00', '0.00', '2019-11-30 16:00:00', '1.00'),
+(268, 16, '2019-08-31 16:00:00', '27.00', '2019-12-02 09:00:00', '30.00'),
+(269, 12, '2019-08-31 16:00:00', '9.00', '2019-12-02 09:00:00', '10.00'),
+(270, 13, '2019-08-31 16:00:00', '9.50', '2019-12-02 09:00:00', '10.00'),
+(271, 14, '2019-08-31 16:00:00', '18.00', '2019-12-02 09:00:00', '20.00'),
+(273, 15, '2019-08-31 16:00:00', '19.00', '2019-12-02 09:00:00', '20.00'),
+(274, 17, '2019-08-31 16:00:00', '28.50', '2019-12-02 09:00:00', '30.00'),
+(275, 18, '2019-08-31 16:00:00', '45.00', '2019-12-02 09:00:00', '50.00'),
+(276, 19, '2019-08-31 16:00:00', '47.50', '2019-12-02 09:00:00', '50.00'),
+(277, 20, '2019-08-31 16:00:00', '90.00', '2019-12-02 09:00:00', '100.00'),
+(278, 21, '2019-08-31 16:00:00', '95.00', '2019-12-02 09:00:00', '100.00'),
+(279, 206, '2019-08-31 16:00:00', '20.70', '2019-12-01 16:00:00', '25.00');
 
 -- --------------------------------------------------------
 
@@ -707,7 +736,6 @@ INSERT INTO `items_prices` (`row_id`, `item_id`, `unit_price_asofdate`, `unit_pr
 -- Table structure for table `items_stock`
 --
 
-DROP TABLE IF EXISTS `items_stock`;
 CREATE TABLE `items_stock` (
   `item_id` int(10) UNSIGNED NOT NULL,
   `stock` int(10) UNSIGNED NOT NULL,
@@ -732,18 +760,18 @@ INSERT INTO `items_stock` (`item_id`, `stock`, `row_id`) VALUES
 (33, 0, 11),
 (34, 12, 12),
 (35, 0, 13),
-(36, 12, 14),
+(36, 11, 14),
 (37, 0, 15),
 (38, 100, 16),
 (39, 0, 17),
 (40, 82, 18),
-(41, 1, 19),
+(41, 0, 19),
 (42, 0, 20),
 (43, 10, 21),
 (44, 0, 22),
 (45, 12, 23),
 (46, 5, 24),
-(47, 7, 25),
+(47, 6, 25),
 (48, 0, 26),
 (49, 16, 27),
 (50, 0, 28),
@@ -764,12 +792,12 @@ INSERT INTO `items_stock` (`item_id`, `stock`, `row_id`) VALUES
 (65, 0, 43),
 (66, 11, 44),
 (67, 0, 45),
-(68, 6, 46),
+(68, 5, 46),
 (69, 0, 47),
 (70, 7, 48),
 (71, 3, 49),
 (72, 2, 50),
-(73, 3, 51),
+(73, 2, 51),
 (74, 0, 52),
 (75, 4, 53),
 (76, 0, 54),
@@ -786,7 +814,7 @@ INSERT INTO `items_stock` (`item_id`, `stock`, `row_id`) VALUES
 (87, 2, 65),
 (88, 1, 66),
 (89, 0, 67),
-(90, 9, 68),
+(90, 8, 68),
 (91, 0, 69),
 (92, 11, 70),
 (93, 0, 71),
@@ -795,7 +823,7 @@ INSERT INTO `items_stock` (`item_id`, `stock`, `row_id`) VALUES
 (96, 1, 74),
 (97, 3, 75),
 (98, 0, 76),
-(99, 11, 77),
+(99, 5, 77),
 (100, 0, 78),
 (101, 24, 79),
 (102, 0, 80),
@@ -817,7 +845,7 @@ INSERT INTO `items_stock` (`item_id`, `stock`, `row_id`) VALUES
 (118, 19, 96),
 (119, 2, 97),
 (120, 0, 98),
-(121, 10, 99),
+(121, 6, 99),
 (122, 6, 100),
 (123, 3, 101),
 (124, 6, 102),
@@ -838,42 +866,42 @@ INSERT INTO `items_stock` (`item_id`, `stock`, `row_id`) VALUES
 (139, 0, 117),
 (140, 8, 118),
 (141, 0, 119),
-(142, 8, 120),
+(142, 4, 120),
 (143, 6, 121),
 (144, 2, 122),
 (145, 0, 123),
 (146, 248, 124),
 (147, 0, 125),
-(148, 5, 126),
+(148, 4, 126),
 (149, 0, 127),
 (150, 4, 128),
 (151, 0, 129),
 (152, 6, 130),
 (153, 0, 131),
-(154, 11, 132),
+(154, 10, 132),
 (155, 0, 133),
 (156, 3, 134),
 (157, 0, 135),
-(158, 4, 136),
+(158, 3, 136),
 (159, 0, 137),
-(160, 4, 138),
+(160, 3, 138),
 (161, 0, 139),
-(162, 10, 140),
+(162, 8, 140),
 (163, 3, 141),
 (164, 6, 142),
 (165, 5, 143),
 (166, 2, 144),
 (167, 0, 145),
 (168, 10, 146),
-(169, 2, 147),
+(169, 1, 147),
 (170, 6, 148),
 (171, 0, 149),
 (172, 50, 150),
 (173, 1, 151),
 (174, 1, 152),
 (175, 8, 153),
-(176, 8, 154),
-(177, 3, 155),
+(176, 5, 154),
+(177, 0, 155),
 (178, 3, 156),
 (179, 4, 157),
 (180, 5, 158),
@@ -894,7 +922,7 @@ INSERT INTO `items_stock` (`item_id`, `stock`, `row_id`) VALUES
 (195, 0, 173),
 (196, 9, 174),
 (197, 0, 175),
-(198, 18, 176),
+(198, 16, 176),
 (199, 0, 177),
 (200, 100, 178),
 (201, 0, 179),
@@ -911,8 +939,8 @@ INSERT INTO `items_stock` (`item_id`, `stock`, `row_id`) VALUES
 (212, 1, 190),
 (213, 1, 191),
 (214, 0, 192),
-(215, 32, 193),
-(216, 4, 194),
+(215, 30, 193),
+(216, 2, 194),
 (217, 0, 195),
 (218, 0, 196),
 (219, 1, 197),
@@ -934,7 +962,7 @@ INSERT INTO `items_stock` (`item_id`, `stock`, `row_id`) VALUES
 (235, 0, 213),
 (236, 9, 214),
 (237, 2, 215),
-(238, 5, 216),
+(238, 4, 216),
 (239, 5, 217),
 (240, 19, 218),
 (241, 20, 219),
@@ -954,7 +982,6 @@ INSERT INTO `items_stock` (`item_id`, `stock`, `row_id`) VALUES
 -- Table structure for table `items_transactions`
 --
 
-DROP TABLE IF EXISTS `items_transactions`;
 CREATE TABLE `items_transactions` (
   `transaction_id` int(10) UNSIGNED NOT NULL,
   `customer` varchar(30) DEFAULT NULL,
@@ -1165,7 +1192,7 @@ INSERT INTO `items_transactions` (`transaction_id`, `customer`, `type`, `date`, 
 (191, 'Estella C.', 'SALE', '2019-11-01 16:00:00', '26.00', '0.00', '26.00', '0.00', '26.00'),
 (192, 'Estella C.', 'SALE', '2019-11-01 16:00:00', '7.00', '0.00', '7.00', '0.00', '7.00'),
 (193, 'Estella C.', 'SALE', '2019-11-01 16:00:00', '9.50', '0.00', '9.50', '0.00', '9.50'),
-(194, 'Mutya K.', 'SALE', '2019-11-01 16:00:00', '39.00', '0.00', '39.00', '0.00', '0.00'),
+(194, 'Mutya K.', 'SALE', '2019-11-01 16:00:00', '39.00', '0.00', '39.00', '0.00', '39.00'),
 (195, 'Denalie', 'SALE', '2019-11-01 16:00:00', '10.00', '0.00', '10.00', '0.00', '10.00'),
 (196, 'Nectarina C.', 'SALE', '2019-11-01 16:00:00', '7.00', '0.00', '7.00', '0.00', '7.00'),
 (197, 'Edelweiss', 'SALE', '2019-11-01 16:00:00', '7.00', '0.00', '7.00', '0.00', '7.00'),
@@ -1390,7 +1417,7 @@ INSERT INTO `items_transactions` (`transaction_id`, `customer`, `type`, `date`, 
 (416, 'Mutya K.', 'SALE', '2019-11-13 12:00:00', '20.00', '0.00', '20.00', '0.00', '20.00'),
 (417, 'Denalie C.', 'SALE', '2019-11-13 14:00:00', '47.50', '2.50', '50.00', '0.00', '50.00'),
 (418, '', 'SALE', '2019-11-14 00:00:00', '3.00', '0.00', '3.00', '0.00', '3.00'),
-(419, 'Harry K.', 'SALE', '2019-11-14 00:40:00', '20.00', '0.00', '20.00', '0.00', '0.00'),
+(419, 'Harry K.', 'SALE', '2019-11-14 00:40:00', '20.00', '0.00', '20.00', '0.00', '20.00'),
 (420, '', 'SALE', '2019-11-14 01:00:00', '47.50', '4.50', '52.00', '0.00', '52.00'),
 (421, '', 'SALE', '2019-11-14 02:10:00', '4.00', '0.00', '4.00', '0.00', '4.00'),
 (422, '', 'SALE', '2019-11-14 03:11:00', '19.00', '3.00', '22.00', '0.00', '22.00'),
@@ -1506,7 +1533,7 @@ INSERT INTO `items_transactions` (`transaction_id`, `customer`, `type`, `date`, 
 (532, 'Nectarina C.', 'SALE', '2019-11-23 01:00:00', '7.00', '0.00', '7.00', '0.00', '0.00'),
 (533, 'Nectarina C.', 'SALE', '2019-11-23 01:00:00', '7.00', '0.00', '7.00', '0.00', '0.00'),
 (534, 'Jhondrex', 'SALE', '2019-11-23 02:32:00', '47.50', '2.50', '50.00', '0.00', '50.00'),
-(535, 'Mutya K.', 'SALE', '2019-11-23 15:21:00', '47.50', '2.50', '50.00', '0.00', '0.00'),
+(535, 'Mutya K.', 'SALE', '2019-11-23 15:21:00', '47.50', '2.50', '50.00', '0.00', '50.00'),
 (536, 'Denalie C.', 'SALE', '2019-11-24 03:58:00', '45.00', '5.00', '50.00', '0.00', '50.00'),
 (537, 'Milarose K.', 'SALE', '2019-11-24 12:00:00', '3.00', '0.00', '3.00', '0.00', '3.00'),
 (538, 'Tita Jo', 'SALE', '2019-11-24 13:30:00', '90.00', '10.00', '100.00', '0.00', '100.00'),
@@ -1559,7 +1586,7 @@ INSERT INTO `items_transactions` (`transaction_id`, `customer`, `type`, `date`, 
 (585, '', 'SALE', '2019-11-27 09:34:25', '20.00', '0.00', '20.00', '0.00', '20.00');
 INSERT INTO `items_transactions` (`transaction_id`, `customer`, `type`, `date`, `sub_total`, `service_charge`, `grand_total`, `discount`, `payment`) VALUES
 (586, 'Roland V.', 'SALE', '2019-11-27 09:40:25', '47.50', '2.50', '50.00', '0.00', '50.00'),
-(587, 'Kleng2x', 'SALE', '2019-11-27 09:51:21', '16.00', '0.00', '16.00', '0.00', '0.00'),
+(587, 'Kleng2x', 'SALE', '2019-11-27 09:51:21', '16.00', '0.00', '16.00', '0.00', '16.00'),
 (588, '', 'SALE', '2019-11-27 10:14:01', '4.00', '0.00', '4.00', '0.00', '5.00'),
 (589, '', 'SALE', '2019-11-27 10:37:10', '95.00', '7.00', '102.00', '0.00', '102.00'),
 (590, '', 'SALE', '2019-11-28 03:11:59', '95.00', '7.00', '102.00', '0.00', '102.00'),
@@ -1582,8 +1609,55 @@ INSERT INTO `items_transactions` (`transaction_id`, `customer`, `type`, `date`, 
 (607, '', 'SALE', '2019-11-28 09:50:57', '1.00', '0.00', '1.00', '0.00', '1.00'),
 (608, '', 'RESTOCK', '2019-11-28 10:19:24', '36.00', '0.00', '36.00', '0.00', '21.00'),
 (609, '', 'SALE', '2019-11-28 10:39:00', '95.00', '7.00', '102.00', '0.00', '102.00'),
-(610, 'Jhondrex', 'SALE', '2019-11-30 05:27:52', '47.50', '2.50', '50.00', '0.00', '0.00'),
-(611, 'Tita Jo', 'SALE', '2019-12-01 02:30:00', '270.00', '30.00', '300.00', '0.00', '0.00');
+(610, 'Jhondrex', 'SALE', '2019-11-30 05:27:52', '47.50', '2.50', '50.00', '0.00', '50.00'),
+(611, 'Tita Jo', 'SALE', '2019-12-01 02:30:00', '270.00', '30.00', '300.00', '0.00', '0.00'),
+(612, 'Estella Collector', 'SALE', '2019-11-28 16:00:00', '21.00', '0.00', '21.00', '0.00', '21.00'),
+(613, 'Estella Collector', 'SALE', '2019-11-29 16:00:00', '48.00', '0.00', '48.00', '0.00', '48.00'),
+(614, 'Estella Collector', 'SALE', '2019-11-30 16:00:00', '55.00', '0.00', '55.00', '0.00', '55.00'),
+(615, '', 'SALE', '2019-12-02 00:30:39', '16.00', '0.00', '16.00', '0.00', '100.00'),
+(616, '', 'SALE', '2019-12-02 00:49:40', '30.00', '0.00', '30.00', '0.00', '30.00'),
+(617, 'Bernie C.', 'SALE', '2019-12-02 01:06:45', '13.00', '0.00', '13.00', '0.00', '13.00'),
+(618, '', 'SALE', '2019-12-02 01:19:28', '2.00', '0.00', '2.00', '0.00', '2.00'),
+(619, 'Jhondrex', 'SALE', '2019-12-02 01:22:54', '50.00', '0.00', '50.00', '0.00', '0.00'),
+(620, '', 'SALE', '2019-12-02 02:35:28', '35.00', '0.00', '35.00', '0.00', '500.00'),
+(621, 'Estella C.', 'SALE', '2019-12-02 02:36:22', '7.00', '0.00', '7.00', '0.00', '7.00'),
+(622, '', 'SALE', '2019-12-02 03:38:20', '160.00', '0.00', '160.00', '0.00', '200.00'),
+(623, 'Mutya K.', 'SALE', '2019-12-03 02:27:36', '46.00', '0.00', '46.00', '0.00', '50.00'),
+(624, 'Basusay to Student', 'SALE', '2019-12-03 02:34:30', '6.00', '0.00', '6.00', '0.00', '7.00'),
+(625, '', 'SALE', '2019-12-03 02:42:30', '22.00', '0.00', '22.00', '0.00', '25.00'),
+(626, 'Harry K.', 'SALE', '2019-12-02 23:50:00', '100.00', '0.00', '100.00', '0.00', '100.00'),
+(627, '', 'SALE', '2019-12-03 03:30:16', '16.00', '0.00', '16.00', '0.00', '16.00'),
+(628, 'Bossings Tindera', 'SALE', '2019-12-03 03:37:24', '17.00', '0.00', '17.00', '0.00', '20.00'),
+(629, '', 'SALE', '2019-12-03 04:45:12', '18.00', '0.00', '18.00', '0.00', '20.00'),
+(630, '', 'SALE', '2019-12-03 05:00:30', '3.00', '0.00', '3.00', '0.00', '20.00'),
+(631, '', 'SALE', '2019-12-03 05:15:46', '2.00', '0.00', '2.00', '0.00', '5.00'),
+(632, '', 'SALE', '2019-12-03 05:30:51', '12.00', '0.00', '12.00', '0.00', '50.00'),
+(633, '', 'SALE', '2019-12-03 05:48:38', '10.00', '0.00', '10.00', '0.00', '20.00'),
+(634, '', 'SALE', '2019-12-03 06:34:38', '34.00', '0.00', '34.00', '0.00', '34.00'),
+(635, '', 'SALE', '2019-12-03 06:34:58', '28.00', '0.00', '28.00', '0.00', '100.00'),
+(636, 'Estella C.', 'SALE', '2019-12-03 07:22:23', '7.00', '0.00', '7.00', '0.00', '7.00'),
+(637, '', 'SALE', '2019-12-03 08:48:28', '20.00', '0.00', '20.00', '0.00', '20.00'),
+(638, '', 'SALE', '2019-12-03 08:48:43', '12.00', '0.00', '12.00', '0.00', '12.00'),
+(639, '', 'SALE', '2019-12-03 08:50:10', '2.00', '0.00', '2.00', '0.00', '2.00'),
+(640, '', 'SALE', '2019-12-03 08:52:30', '22.00', '0.00', '22.00', '0.00', '22.00'),
+(641, 'Denalie Collector', 'SALE', '2019-11-19 07:00:00', '18.00', '0.00', '18.00', '0.00', '18.00'),
+(642, '', 'SALE', '2019-12-03 08:59:22', '6.00', '0.00', '6.00', '0.00', '10.00'),
+(643, 'Estella Collector', 'SALE', '2019-11-15 07:00:00', '7.00', '0.00', '7.00', '0.00', '7.00'),
+(644, '', 'RESTOCK', '2019-12-03 09:38:08', '25.00', '0.00', '25.00', '0.00', '20.70'),
+(645, 'Estella C.', 'SALE', '2019-12-03 09:38:38', '25.00', '0.00', '25.00', '0.00', '50.00'),
+(646, '', 'SALE', '2019-12-04 00:38:45', '20.00', '0.00', '20.00', '0.00', '20.00'),
+(647, '', 'SALE', '2019-12-04 00:39:04', '8.00', '0.00', '8.00', '0.00', '10.00'),
+(648, '', 'SALE', '2019-12-04 02:32:09', '2.00', '0.00', '2.00', '0.00', '2.00'),
+(649, '', 'SALE', '2019-12-04 02:32:21', '10.00', '0.00', '10.00', '0.00', '10.00'),
+(650, '', 'SALE', '2019-12-04 02:32:45', '10.00', '0.00', '10.00', '0.00', '20.00'),
+(651, '', 'SALE', '2019-12-04 03:20:48', '4.00', '0.00', '4.00', '0.00', '4.00'),
+(652, '', 'SALE', '2019-12-04 04:22:21', '9.00', '0.00', '9.00', '0.00', '10.00'),
+(653, '', 'SALE', '2019-12-04 04:25:48', '52.00', '0.00', '52.00', '0.00', '52.00'),
+(654, '', 'SALE', '2019-12-04 04:48:46', '15.00', '0.00', '15.00', '0.00', '15.00'),
+(655, '', 'SALE', '2019-12-04 04:53:50', '52.00', '0.00', '52.00', '0.00', '100.00'),
+(656, '', 'SALE', '2019-12-04 04:54:36', '4.00', '0.00', '4.00', '0.00', '5.00'),
+(657, '', 'SALE', '2019-12-04 05:28:54', '2.00', '0.00', '2.00', '0.00', '2.00'),
+(658, 'Denalie C.', 'SALE', '2019-12-04 09:43:38', '50.00', '0.00', '50.00', '0.00', '0.00');
 
 -- --------------------------------------------------------
 
@@ -1591,7 +1665,6 @@ INSERT INTO `items_transactions` (`transaction_id`, `customer`, `type`, `date`, 
 -- Table structure for table `items_transactions_details`
 --
 
-DROP TABLE IF EXISTS `items_transactions_details`;
 CREATE TABLE `items_transactions_details` (
   `transaction_id` int(10) UNSIGNED NOT NULL,
   `item_id` int(10) UNSIGNED NOT NULL,
@@ -2386,18 +2459,110 @@ INSERT INTO `items_transactions_details` (`transaction_id`, `item_id`, `amount`)
 (608, 181, 6),
 (609, 21, 1),
 (610, 19, 1),
-(611, 20, 3);
+(611, 20, 3),
+(612, 176, 2),
+(612, 216, 1),
+(613, 90, 1),
+(613, 99, 1),
+(613, 158, 1),
+(613, 160, 1),
+(613, 215, 2),
+(614, 68, 1),
+(614, 99, 4),
+(614, 169, 1),
+(614, 231, 2),
+(615, 1, 8),
+(616, 4, 15),
+(617, 148, 1),
+(618, 1, 1),
+(619, 18, 1),
+(619, 252, 500),
+(620, 41, 1),
+(621, 162, 1),
+(622, 1, 22),
+(622, 2, 22),
+(622, 99, 1),
+(623, 47, 1),
+(623, 73, 1),
+(624, 198, 1),
+(625, 13, 2),
+(625, 252, 200),
+(626, 21, 1),
+(627, 142, 4),
+(628, 238, 1),
+(629, 121, 1),
+(630, 176, 1),
+(631, 1, 1),
+(632, 13, 1),
+(632, 252, 200),
+(633, 177, 1),
+(634, 121, 1),
+(634, 177, 1),
+(634, 198, 1),
+(635, 121, 1),
+(635, 177, 1),
+(636, 162, 1),
+(637, 2, 4),
+(638, 13, 1),
+(638, 252, 200),
+(639, 1, 1),
+(640, 13, 2),
+(640, 252, 200),
+(641, 121, 1),
+(642, 1, 3),
+(643, 154, 1),
+(644, 206, 1),
+(645, 206, 1),
+(646, 2, 4),
+(647, 4, 4),
+(648, 1, 1),
+(649, 2, 2),
+(650, 1, 2),
+(650, 255, 6),
+(651, 1, 2),
+(652, 1, 3),
+(652, 36, 1),
+(653, 19, 1),
+(653, 252, 200),
+(654, 1, 1),
+(654, 3, 1),
+(654, 255, 3),
+(655, 19, 1),
+(655, 252, 200),
+(656, 1, 2),
+(657, 1, 1),
+(658, 19, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `operational_expenses`
+--
+
+CREATE TABLE `operational_expenses` (
+  `expense_transaction_id` int(10) UNSIGNED NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `type` enum('PRINTING_STOCKS','ELECTRICITY') NOT NULL,
+  `grand_total` decimal(13,2) NOT NULL,
+  `remarks` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `operational_expenses`
+--
+
+INSERT INTO `operational_expenses` (`expense_transaction_id`, `timestamp`, `type`, `grand_total`, `remarks`) VALUES
+(1, '2019-12-04 05:45:30', 'ELECTRICITY', '400.00', 'Paid electric bill to Estella C.');
 
 -- --------------------------------------------------------
 
 --
 -- Stand-in structure for view `view_items`
 --
-DROP VIEW IF EXISTS `view_items`;
 CREATE TABLE `view_items` (
 `item_id` int(10) unsigned
 ,`bar_code` varchar(13)
-,`unit` enum('bar','bot','bx','crd','cut','dz','jar','ld','pad','pc','pd','pg','pk','rm','sbx','set','tie')
+,`unit` enum('bar','bot','bx','crd','cut','dz','jar','ld','pad','pc','pd','pg','pk','rm','sbx','sc','set','tie')
 ,`count` smallint(5) unsigned
 ,`item_description` varchar(100)
 ,`general_name` varchar(30)
@@ -2414,7 +2579,6 @@ CREATE TABLE `view_items` (
 --
 -- Stand-in structure for view `view_items_prices_latest`
 --
-DROP VIEW IF EXISTS `view_items_prices_latest`;
 CREATE TABLE `view_items_prices_latest` (
 `item_id` int(10) unsigned
 ,`unit_price` decimal(13,2)
@@ -2428,7 +2592,6 @@ CREATE TABLE `view_items_prices_latest` (
 --
 -- Stand-in structure for view `view_items_transactions_prices`
 --
-DROP VIEW IF EXISTS `view_items_transactions_prices`;
 CREATE TABLE `view_items_transactions_prices` (
 `date` timestamp
 ,`item_id` int(10) unsigned
@@ -2442,7 +2605,6 @@ CREATE TABLE `view_items_transactions_prices` (
 --
 -- Stand-in structure for view `view_transactions_prepaid_load`
 --
-DROP VIEW IF EXISTS `view_transactions_prepaid_load`;
 CREATE TABLE `view_transactions_prepaid_load` (
 `date` timestamp
 ,`item_id` int(10) unsigned
@@ -2461,11 +2623,10 @@ CREATE TABLE `view_transactions_prepaid_load` (
 --
 -- Stand-in structure for view `view_transactions_products`
 --
-DROP VIEW IF EXISTS `view_transactions_products`;
 CREATE TABLE `view_transactions_products` (
 `date` timestamp
 ,`item_id` int(10) unsigned
-,`unit` enum('bar','bot','bx','crd','cut','dz','jar','ld','pad','pc','pd','pg','pk','rm','sbx','set','tie')
+,`unit` enum('bar','bot','bx','crd','cut','dz','jar','ld','pad','pc','pd','pg','pk','rm','sbx','sc','set','tie')
 ,`item_description` varchar(100)
 ,`unit_price` decimal(13,2)
 ,`sell_price` decimal(13,2)
@@ -2481,7 +2642,6 @@ CREATE TABLE `view_transactions_products` (
 --
 -- Stand-in structure for view `view_transactions_services`
 --
-DROP VIEW IF EXISTS `view_transactions_services`;
 CREATE TABLE `view_transactions_services` (
 `date` timestamp
 ,`item_id` int(10) unsigned
@@ -2584,6 +2744,12 @@ ALTER TABLE `items_transactions_details`
   ADD KEY `item_id` (`item_id`);
 
 --
+-- Indexes for table `operational_expenses`
+--
+ALTER TABLE `operational_expenses`
+  ADD PRIMARY KEY (`expense_transaction_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -2591,12 +2757,12 @@ ALTER TABLE `items_transactions_details`
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `item_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=252;
+  MODIFY `item_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=256;
 --
 -- AUTO_INCREMENT for table `items_prices`
 --
 ALTER TABLE `items_prices`
-  MODIFY `row_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=263;
+  MODIFY `row_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=280;
 --
 -- AUTO_INCREMENT for table `items_stock`
 --
@@ -2606,7 +2772,12 @@ ALTER TABLE `items_stock`
 -- AUTO_INCREMENT for table `items_transactions`
 --
 ALTER TABLE `items_transactions`
-  MODIFY `transaction_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=613;
+  MODIFY `transaction_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=659;
+--
+-- AUTO_INCREMENT for table `operational_expenses`
+--
+ALTER TABLE `operational_expenses`
+  MODIFY `expense_transaction_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- Constraints for dumped tables
 --

@@ -88,4 +88,8 @@ class Utils {
 	static getRandomUrlVar() {
 		return "?_=" + new Date().getTime();
 	}
+
+	static notE(e) {
+		return e.keyCode !== 69;
+	}
 }

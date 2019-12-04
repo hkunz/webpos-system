@@ -37,7 +37,7 @@
 	<label id="popup_item_category" style="color:#888888"></label><br/>
 	<label>===&gt;&nbsp;</label><label id="popup_item_price" style="color:#FF3333;font-weight:bold;text-shadow: 1px 1px #222222;"></label><label>&nbsp;&lt;===</label><br/>
 	<form>
-        	<input class="amount-input" style="margin-top:10px;margin-left:25px;" type="number" id="popup_amount_input" min="1" max="999"/>
+        	<input class="amount-input" style="margin-top:10px;margin-left:25px;" type="number" id="popup_amount_input" min="1" max="999" onkeydown="return Utils.notE(event);"/>
         	<label id="item_amount_unit"></label>
 	</form>
     </div>
@@ -97,7 +97,7 @@
       <tr class="totals-tr">
         <td><label class="label-text">Service Charge:</label></td>
         <td class="td-value">
-          <input class="cash-input" type="number" id="service_charge_input" disabled="true" min="0" placeholder="₱"/>
+          <input class="cash-input" type="number" id="service_charge_input" disabled="true" min="0" placeholder="₱" onkeydown="return Utils.notE(event);"/>
         </td>
       </tr>
       <tr class="totals-tr">
@@ -137,7 +137,7 @@
       <tr class="totals-tr">
         <td><label class="label-text">Cash:</label></td>
         <td class="td-value">
-          <input class="cash-input" type="number" id="cash_input" disabled="true" min="0" placeholder="₱"/>
+          <input class="cash-input" type="number" id="cash_input" disabled="true" min="0" placeholder="₱" onkeydown="return Utils.notE(event);"/>
         </td>
       </tr>
       <tr class="totals-tr">

@@ -83,6 +83,16 @@ select {
   box-shadow: 0 0 2px 2px #222222;
 }
 
+select.pick-option {
+    color: #888;
+}
+option.pick-option {
+    color: #000;
+}
+option.pick-option:first-child {
+    color: #888;
+}
+
 a:hover {
   cursor: pointer;
   background-color: yellow;

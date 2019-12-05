@@ -17,6 +17,7 @@
   <script type="text/javascript" src="js/constants.js"></script>
   <script type="text/javascript" src="js/ItemAmountInputPopupHandler.js"></script>
   <script type="text/javascript" src="js/ItemSearchInputHandler.js"></script>
+  <script type="text/javascript" src="js/CustomerSearchInputHandler.js"></script>
   <script type="text/javascript" src="js/ItemSelectionListHandler.js"></script>
   <script type="text/javascript" src="js/GrandTotalViewHandler.js"></script>
   <script type="text/javascript" src="js/SqlTransactionHandler.js"></script>

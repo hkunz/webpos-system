@@ -1,6 +1,7 @@
 const item_amount_input_handler = new ItemAmountInputPopupHandler();
 const item_search_input_handler = new ItemSearchInputHandler();
 const item_selects_list_handler = new ItemSelectionListHandler();
+const customer_search_handler = new CustomerSearchInputHandler();
 const sql_transaction_handler = new SqlTransactionHandler();
 
 let thiz = this;

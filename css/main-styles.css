@@ -29,8 +29,9 @@ input {
 }
 
 input:disabled {
-  background-color: #444444;
+  background-color: #777777;
   border: 1px solid #999;
+  color: #999999;
 }
 
 input.amount-input {

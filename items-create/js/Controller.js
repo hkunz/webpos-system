@@ -67,7 +67,7 @@ class Controller {
 			countElem.val("");
 		}
 		countElem.prop("disabled", disable);
-		countElem.prop("color", "#222");
+		document.getElementById("count_input").disabled = disable;
 	}
 
 	update() {

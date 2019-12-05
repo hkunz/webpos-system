@@ -48,9 +48,15 @@
     <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>                                                              | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
     <form>
     <br/>
-      Customer:&nbsp;&nbsp;&nbsp;
-      <input type="text" id="customer" style="margin-bottom:7px;" maxlength="30" placeholder="Customer Name ..." spellcheck="false"/>
-      <br>
+      <div style="margin-bottom:5px">
+        <table>
+          <tr><td valign="middle">
+            Customer:&nbsp;&nbsp;&nbsp;
+          </td><td valign="middle">
+            <input type="text" id="customer" maxlength="30" placeholder="Customer Name ..." spellcheck="false"/>
+          </td></td>
+        </table>
+      </div>
       Transaction:
       <select id="transaction_type">
         <option value="sale">SALE</option>

@@ -48,12 +48,12 @@
     <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>                                                              | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
     <form>
     <br/>
-      <div style="margin-bottom:5px">
+      <div style="margin-bottom:5px;margin-left:-2px">
         <table>
           <tr><td valign="middle">
             Customer:&nbsp;&nbsp;&nbsp;
           </td><td valign="middle">
-            <input type="text" id="customer" maxlength="30" placeholder="Customer Name ..." spellcheck="false"/>
+            <input type="text" id="customer" maxlength="30" style="margin-left:4px;" placeholder="Customer Name ..." spellcheck="false"/>
           </td></td>
         </table>
       </div>

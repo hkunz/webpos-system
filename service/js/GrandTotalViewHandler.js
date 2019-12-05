@@ -24,6 +24,9 @@ class GrandTotalViewHandler {
 				thiz.onChangeMouseUpKeyUp(thiz);
 				thiz.update();
                         });
+			$("#customer").keyup(function(e) {
+				thiz.update();
+			});
 			$('#' + thiz.getCommitButtonIdName()).click(function(e) {
 				thiz.onCommitButtonClick(thiz);
 			});
@@ -86,10 +89,11 @@ class GrandTotalViewHandler {
 	}
 
 	updateCommitButton(thiz) {
+		let customer = $('#customer').val().trim();
 		let requirePay = thiz.isRequirePaymentChecked();
 		let ready = thiz.isPaymentReady(thiz);
 		let commitButton = document.getElementById(thiz.getCommitButtonIdName());
-		let enableCommit = ready || (!requirePay && thiz.sub_total > 0);
+		let enableCommit = ready || (!requirePay && thiz.sub_total > 0 && customer != '');
 		commitButton.disabled = !enableCommit;
 	}
 

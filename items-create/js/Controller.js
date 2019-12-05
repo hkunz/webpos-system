@@ -59,7 +59,7 @@ class Controller {
 			return;
 		}
 		this.selected_unit = unit;
-		let arr = ["pc", "dz", "pg", "cut", "bot", "jar", "ld", "sc"];
+		let arr = ["pc", "dz", "pg", "cut", "bot", "ld", "sc"];
 		let disable = (arr.includes(unit));
 		if (disable) {
 			countElem.val(unit == "dz" ? 12 : 1);

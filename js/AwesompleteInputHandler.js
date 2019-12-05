@@ -27,7 +27,7 @@ class AwesompleteInputHandler {
 	}
 
 	onItemSearchInputChange(e, thiz) {
-		let name = $("#" + thiz.name).val();
+		let name = $("#" + thiz.name).val().trim();
 		if (name == "") {
 			//$("#items_dropdown").html("");
 		} else {

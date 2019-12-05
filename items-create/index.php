@@ -29,7 +29,7 @@
       <select id="unit_select" style="margin-right:10px;">
       </select>
       Count:
-      <input id="count_input" style="width:60px;" type="number" min="1" value="1" onkeydown="return Utils.notE(event);">
+      <input id="count_input" style="width:60px;" type="number" min="1" value="1" onkeydown="return Utils.notE(event);" disabled>
       <br>
       <input style="width:100%;" autocomplete="off" type="text" id="item_description" maxlength="100" placeholder="Item Description ..." spellcheck="false" autocomplete="false"/>
       <br><br>

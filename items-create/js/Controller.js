@@ -3,6 +3,7 @@
 class Controller {
 	constructor() {
 		let thiz = this;
+		this.selected_unit = "";
 		this.json = {};
 		$(document).ready(function() {
 			thiz.phpGetEnumSelectionList('unit_select', 'items', 'unit', thiz.populateUnitSelection, 'pc');
@@ -46,7 +47,27 @@ class Controller {
 	}
 
 	onFormChange(e) {
+		this.checkUnit();
 		this.update();
+	}
+
+	checkUnit() {
+		let countElem = $("#count_input");
+		let unitElem = $("#unit_select option:selected");
+		let unit = unitElem.text();
+		if (this.selected_unit == unit) {
+			return;
+		}
+		this.selected_unit = unit;
+		let arr = ["pc", "dz", "pg", "cut", "bot", "jar", "ld", "sc"];
+		let disable = (arr.includes(unit));
+		if (disable) {
+			countElem.val(unit == "dz" ? 12 : 1);
+		} else {
+			countElem.val("");
+		}
+		countElem.prop("disabled", disable);
+		countElem.prop("color", "#222");
 	}
 
 	update() {
@@ -64,6 +85,7 @@ class Controller {
 		const unitprice = this.getTextInputNumber("unit_price_input");
 		const sellprice = this.getTextInputNumber("sell_price_input");
 
+
 		let complete = true && ((!Number.isNaN(Number(barcode)) && barcode.length == 13) || barcode == '') &&
 			!Number.isNaN(count) && count > 0 &&
 			!Number.isNaN(stock) && stock >= 0 &&
@@ -73,7 +95,6 @@ class Controller {
 			categoryIndex > 0 &&
 			supplierIndex > 0 &&
 			generalname != '' &&
-			brandname != '' &&
 			true;
 
 		if (complete) {

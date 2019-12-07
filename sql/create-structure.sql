@@ -285,7 +285,7 @@ BEGIN
         SET `delta` = `_amount`;
         INSERT INTO `items_transactions_details` (`transaction_id`, `item_id`, `amount`)
         VALUES (`transaction_id`, `_item_id`, `_amount`);
-        IF `type`='SALE' THEN
+        IF `type` IN('SALE','LOSS') THEN
             SET `delta` = -`_amount`;
         END IF;
         CALL update_item_stock(`_item_id`, `delta`, @success2);

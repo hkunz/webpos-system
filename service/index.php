@@ -14,6 +14,7 @@
   <script type="text/javascript" src="../js/libs/awesomplete.js"></script>
   <script type="text/javascript" src="../js/AwesompleteInputHandler.js"></script>
   <script type="text/javascript" src="../js/Utils.js"></script>
+  <script type="text/javascript" src="js/Controller.js"></script>
   <script type="text/javascript" src="js/constants.js"></script>
   <script type="text/javascript" src="js/ItemAmountInputPopupHandler.js"></script>
   <script type="text/javascript" src="js/ItemSearchInputHandler.js"></script>
@@ -65,10 +66,24 @@
         <option value="loss">LOSS</option>
         <option value="surplus">SURPLUS</option>
       </select>
-      <br>
-      Timestamp:&nbsp;&nbsp;
-      <input type="datetime-local" id="transaction_timestamp" step="1">
-      <br>
+      <div style="margin-left:-2px;margin-top:-7px;">
+      <table cellpadding="0">
+        <tr>
+          <td valign="middle" width="111px">
+            Timestamp:
+          </td><td valign="top" width="135px">
+            <div class="checkbox-container" style="margin-right:10px">
+              <label class="checkbox-container">Today-Now
+                <input id="use_currentdate_checkbox" type="checkbox" checked>
+                <span class="checkmark"></span>
+              </label>
+            </div>
+          </td><td valign="middle">
+            <input type="datetime-local" id="transaction_timestamp" step="1" style="width:250px;margin-top:6px;" disabled>
+          </td>
+        </tr>
+      </table>
+      </div>
     </form>
     Item Search:
     <div class="search_item">
@@ -133,7 +148,7 @@
       </tr>
       <tr class="totals-tr">
         <td colspan="2">
-          <div class="require-payment">
+          <div class="checkbox-container">
             <label class="checkbox-container">Require payment
               <input id="require_payment_checkbox" type="checkbox" checked>
               <span class="checkmark"></span>

@@ -1,3 +1,4 @@
+const controller = new Controller();
 const item_amount_input_handler = new ItemAmountInputPopupHandler();
 const item_search_input_handler = new ItemSearchInputHandler();
 const item_selects_list_handler = new ItemSelectionListHandler();
@@ -42,7 +43,9 @@ function reset() {
 	document.getElementById('transaction_timestamp').value = '';
 	document.getElementById('customer').value = '';
 	document.getElementById('transaction_type').value = 'sale';
+	$('#use_currentdate_checkbox').prop('checked', true);
 	$('#require_payment_checkbox').prop('checked', true);
+	$("#transaction_timestamp").prop('disabled', true);
 	item_selects_list_handler.reset();
 }
 
@@ -87,7 +90,7 @@ $(document).ready(function() {
 		o['grand_total'] = grand_total;
 		let json = JSON.stringify(o);
 		console.log("commit transaction: " + json);
-		if (type == "SALE" || type == "RESTOCK") {
+		if (type == "SALE" || type == "RESTOCK" || type == "LOSS" || type == "RETURN") {
 			commitTransaction(thiz, json);
 		}
 	});

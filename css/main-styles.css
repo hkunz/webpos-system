@@ -60,6 +60,18 @@ input[type=datetime-local] {
   background-color: #222222;
 }
 
+input[type=datetime-local]:disabled {
+  background-color: #333333;
+  border: 1px solid #777;
+  color: #999999;
+  box-shadow: 0 0 2px 2px #333333
+}
+
+input[type=number]:disabled {
+  background-color: #333333;                                                                                                                                                  border: 1px solid #777;
+  color: #999999;
+  box-shadow: 0 0 2px 2px #333333                                                                                                                                           }
+
 input[list]
 {
   padding: 4px 6px 4px 6px;
@@ -221,13 +233,27 @@ button.home-button:hover:enabled {
   }
 }
 
+div.checkbox-container {
+  left:0px;
+  right:0px;
+  height:28px;
+  margin-bottom:5px;
+  margin-top:5px;
+  border:0px solid #222222;
+  background-color:#333333;
+  border-radius:5px;
+  padding-left:5px;
+  padding-top:7px;
+  text-shadow: 1px 1px #222222;
+}
+
 /* The checkbox-container */
-.checkbox-container {
+label.checkbox-container {
   display: block;
   position: relative;
   left: 2px;
   width: 85%;
-  padding-top: 0px;
+  padding-top: 1px;
   padding-left: 31px;
   margin-bottom: 12px;
   cursor: pointer;
@@ -241,7 +267,7 @@ button.home-button:hover:enabled {
 }
 
 /* Hide the browser's default checkbox */
-.checkbox-container input {
+div.checkbox-container input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
@@ -250,7 +276,7 @@ button.home-button:hover:enabled {
 }
 
 /* Create a custom checkbox */
-.checkmark {
+span.checkmark {
   position: absolute;
   top: 0;
   left: 0;
@@ -263,34 +289,36 @@ button.home-button:hover:enabled {
 }
 
 /* On mouse-over, add a grey background color */
-.checkbox-container:hover input ~ .checkmark {
+div.checkbox-container:hover input ~ .checkmark {
   background-color: #BBBBBB;
 }
 
 /* When the checkbox is checked, add a green background */
-.checkbox-container input:checked ~ .checkmark {
+div.checkbox-container input:checked ~ .checkmark {
   background-color: #4CAF50;
   border: 2px solid #006400;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
-.checkmark:after {
+span.checkmark:after {
   content: "";
   position: absolute;
   display: none;
 }
 
+
+
 /* Show the checkmark when checked */
-.checkbox-container input:checked ~ .checkmark:after {
+div.checkbox-container input:checked ~ .checkmark:after {
   display: block;
 }
 
-.checkbox-container input:focus {
+div.checkbox-container input:focus {
   border: 1px solid #FFFF99;
 }
 
 /* Style the checkmark/indicator */
-.checkbox-container .checkmark:after {
+div.checkbox-container span.checkmark:after {
   left: 5px;
   top: 1px;
   width: 4px;

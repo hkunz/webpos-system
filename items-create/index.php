@@ -1,3 +1,10 @@
+<?php
+session_start();
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: ../login.php");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html>
 <!-- Search Item code: https://www.cloudways.com/blog/live-search-php-mysql-ajax/ -->
@@ -22,6 +29,7 @@
   <div class="container-wrapper" style="width:50%;">
   <div class="container-left" style="width:100%;">
     <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>                                                              | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
+    <hr class="division">
     <form autocomplete="off">
       <br/>
       <input style="width:250px;margin-bottom:10px;margin-right:15px;" type="text" id="barcode" pattern="[^0-9]+" maxlength="13" placeholder="13-Digit Bar Code ..." spellcheck="false"/>

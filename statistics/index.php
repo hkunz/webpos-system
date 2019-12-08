@@ -1,3 +1,13 @@
+<?php
+// Initialize the session
+session_start();
+
+// Check if the user is logged in, if not then redirect to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: ../login.php");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +27,8 @@
   <div class="container-left">
     <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>
      | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
-    <br/><br/>
+    <hr class="division">
+    <br/>
     <label class='standard-label'>Total Revenue To Date:</label> 
     <label id='revenue_total' class='drop-shadow'></label><br/>
     <hr class='division'/>

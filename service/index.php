@@ -1,3 +1,10 @@
+<?php
+session_start();
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: ../login.php");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html>
 <!-- Search Item code: https://www.cloudways.com/blog/live-search-php-mysql-ajax/ -->
@@ -47,8 +54,8 @@
   <div class="container-wrapper">
   <div class="container-left">
     <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>                                                              | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
+    <hr class="division">
     <form>
-    <br/>
       <div style="margin-bottom:5px;margin-left:-2px">
         <table>
           <tr><td valign="middle">
@@ -64,7 +71,6 @@
         <option value="restock">RESTOCK</option>
         <option value="return">RETURN</option>
         <option value="loss">LOSS</option>
-        <option value="surplus">SURPLUS</option>
       </select>
       <div style="margin-left:-2px;margin-top:-7px;">
       <table cellpadding="0">

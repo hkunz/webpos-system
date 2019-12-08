@@ -7,6 +7,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: ../login.php");
     exit;
 }
+require '../php/navigation-bar.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -14,6 +15,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <meta charset="UTF-8">
   <title>Klebby's Statistics</title>
   <link type="text/css" rel="stylesheet" href="../css/main-styles.css">
+  <link type="text/css" rel="stylesheet" href="../css/navigation-bar.css">
   <link type="text/css" rel="stylesheet" href="../css/awesomplete.css">
   <script type="text/javascript" src="../js/libs/jquery-3.4.1.min.js"></script>
   <script type="text/javascript" src="../js/libs/awesomplete.js"></script>
@@ -23,6 +25,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 </head>
 
 <body class="body">
+  <?php echo $navbar_content; ?>
   <div class="container-wrapper">
   <div class="container-left">
     <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>

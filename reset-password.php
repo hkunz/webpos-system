@@ -1,15 +1,13 @@
 <?php
-// Initialize the session
 session_start();
- 
-// Check if the user is logged in, if not then redirect to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;
 }
- 
-// Include config file
+
+$rootpath = $_SESSION["root"];
 require_once "php/db.php";
+require "php/navigation-bar.php";
 
 $username = htmlspecialchars($_SESSION["username"]); 
 
@@ -84,8 +82,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   <script type="text/javascript" src="js/Utils.js"></script>
   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"> -->
   <link type="text/css" rel="stylesheet" href="css/main-styles.css">
+  <link type="text/css" rel="stylesheet" href="css/navigation-bar.css">
 </head>
 <body class="body">
+  <?php echo $navbar_content; ?>
   <div class="container-wrapper">
     <div class="container-left">
       <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label> | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>

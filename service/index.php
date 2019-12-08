@@ -4,6 +4,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: ../login.php");
     exit;
 }
+require '../php/navigation-bar.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -13,6 +14,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
   <title>Klebby's Store</title>
   <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
   <link type="text/css" rel="stylesheet" href="../css/main-styles.css">
+  <link type="text/css" rel="stylesheet" href="../css/navigation-bar.css">
   <link type="text/css" rel="stylesheet" href="css/item-amount-popup.css">
   <link type="text/css" rel="stylesheet" href="css/items-list-styles.css">
   <link type="text/css" rel="stylesheet" href="css/grand-total-view.css">
@@ -51,6 +53,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 	</form>
     </div>
   </div>
+  <?php echo $navbar_content; ?>
   <div class="container-wrapper">
   <div class="container-left">
     <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>                                                              | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
@@ -106,7 +109,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     <div class="items-list" id="items_list"/>
   </div>
   </div>
-  <div class="container-right">
+  <div class="container-right" style="">
     <div class="receipt">
       <label class="receipt">RECEIPT</label>
     </div>

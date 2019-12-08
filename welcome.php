@@ -4,34 +4,30 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;
 }
+require 'php/navigation-bar.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Welcome To Klebby's</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"> -->
   <link type="text/css" rel="stylesheet" href="css/main-styles.css">
   <link type="text/css" rel="stylesheet" href="css/awesomplete.css">
+  <link type="text/css" rel="stylesheet" href="css/navigation-bar.css">
   <script type="text/javascript" src="js/libs/jquery-3.4.1.min.js"></script>
   <script type="text/javascript" src="js/libs/awesomplete.js"></script>
   <script type="text/javascript" src="js/Utils.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
 </head>
 <body class="body">
-  <div class="page-header">
-    <h1>Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
-  </div>
-  <p>
-    <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
-    <a href="logout.php" class="btn btn-danger">Sign Out of Your Account</a>
-  </p>
-
-  <div class="container-wrapper" style="width:90%">
+  <?php echo $navbar_content; ?>
+  <div class="container-wrapper" style="width:600px;">
   <div class="container-left" style="width:100%;">
     <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>
      | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
-    <br/><br/>
+    <hr class="division">
+    <h1>Welcome <?php echo htmlspecialchars($_SESSION["username"]); ?></h1>
     <table cellpadding="8">
       <tr>
         <td>

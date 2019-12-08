@@ -6,6 +6,10 @@ class Utils {
                 return Number.parseFloat(value).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
 
+	static getHomePath() {
+		return "localhost/klebbys/";
+	}
+
 	static getTimestamp(date) {
 		const d = new Date(date);
 		const month = '' + (d.getMonth() + 1);

@@ -63,6 +63,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
                             $_SESSION["username"] = $username;                            
+                            $_SESSION["root"] = "//localhost/klebbys/";
                             
                             // Redirect user to welcome page
                             header("location: welcome.php");

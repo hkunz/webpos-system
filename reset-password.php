@@ -131,7 +131,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <div class="container-left">
       <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label> | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
       <hr class="division">
-      <label style="font-weight:bold;">RESET PASSWORD</label><label class="standard-label"> FOR USER: </label><label style="color:#ffff00;font-weight:bold;"><?php echo $username?></label>
+      <label style="font-weight:bold;">RESET PASSWORD</label><label class="standard-label"> FOR USER: </label><label style="color:cyan;font-weight:bold;"><?php echo $username?></label>
       <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post"> 
         <div class="form-group <?php echo (!empty($curr_password_err)) ? 'has-error' : ''; ?>" style="padding-bottom:7px;padding-top:20px;">
           <label class="standard-label">Current Password: </label>

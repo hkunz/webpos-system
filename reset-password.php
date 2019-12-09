@@ -12,24 +12,65 @@ require "php/navigation-bar.php";
 $username = htmlspecialchars($_SESSION["username"]); 
 
 // Define variables and initialize with empty values
+$curr_password = "";
+$curr_password_err = "";
 $new_password = $confirm_password = "";
 $new_password_err = $confirm_password_err = "";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
+    $curr_password = $_POST["curr_password"];
+    if(empty(trim($curr_password))) {
+        $curr_password_err = "Enter current password.";
+    } else {
+        $sql = "SELECT id, username, password FROM users WHERE username = ?";
+
+        if($stmt = mysqli_prepare($link, $sql)){
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "s", $param_username);
+
+            // Set parameters
+            $param_username = $username;
+
+            // Attempt to execute the prepared statement
+            if(mysqli_stmt_execute($stmt)){
+                // Store result
+                mysqli_stmt_store_result($stmt);
+
+                // Check if username exists, if yes then verify password
+                if(mysqli_stmt_num_rows($stmt) == 1){
+                    // Bind result variables
+                    mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
+                    if(mysqli_stmt_fetch($stmt)){
+                        if(!password_verify($curr_password, $hashed_password)){
+                            $curr_password_err = "Current password incorrect";
+			}
+                    } else {
+                        echo "Opps! Something went wrong.. Please try again later..";
+                    }
+                } else {
+                    echo "No account found with that username.";
+                }
+            } else {
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+        } else {
+            echo "Ohhh snap!";
+        }
+    }
  
     // Validate new password
     if(empty(trim($_POST["new_password"]))){
-        $new_password_err = "Please enter the new password.";     
+        $new_password_err = "Please enter new password.";     
     } elseif(strlen(trim($_POST["new_password"])) < 6){
-        $new_password_err = "Password must have atleast 6 characters.";
+        $new_password_err = "Password must have at least 6 characters.";
     } else{
         $new_password = trim($_POST["new_password"]);
     }
     
     // Validate confirm password
     if(empty(trim($_POST["confirm_password"]))){
-        $confirm_password_err = "Please confirm the password.";
+        $confirm_password_err = "Please confirm password.";
     } else{
         $confirm_password = trim($_POST["confirm_password"]);
         if(empty($new_password_err) && ($new_password != $confirm_password)){
@@ -38,7 +79,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
         
     // Check input errors before updating the database
-    if(empty($new_password_err) && empty($confirm_password_err)){
+    if(empty($curr_password_err) && empty($new_password_err) && empty($confirm_password_err)){
         // Prepare an update statement
         $sql = "UPDATE users SET password = ? WHERE id = ?";
         

@@ -1,3 +1,18 @@
+DROP TABLE IF EXISTS users_whitelist;
+CREATE TABLE users_whitelist (
+    username VARCHAR(30) NOT NULL PRIMARY KEY,
+    white_listed_on DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+DROP TABLE IF EXISTS users;
+CREATE TABLE users (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(30) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (username) REFERENCES users_whitelist(username)
+);
+
 DROP TABLE IF EXISTS items_transactions_details;
 DROP TABLE IF EXISTS items_transactions;
 DROP TABLE IF EXISTS items_stock;

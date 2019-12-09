@@ -14,11 +14,13 @@ $navbar_content = '
       </div>
     </div>
     <div class="dropdown">
-      <button class="dropbtn menu-btn">Edit
+      <button class="dropbtn menu-btn">Products
         <i class="fa fa-caret-down"></i>
       </button>
       <div class="dropdown-content">
         <a href="' . $rootpath . 'add-new-product/">Add New Product</a>
+        <a href="' . $rootpath . 'update-product-price/">Update Product Price</a>
+        <a href="' . $rootpath . 'view-product-details/">View Product Details</a>
       </div>
     </div>
     <div class="dropdown">

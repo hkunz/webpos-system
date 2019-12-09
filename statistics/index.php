@@ -74,9 +74,6 @@ require '../php/navigation-bar.php';
     <hr class='division'/>
   </div>
   </div>
-  <div class="container-right">
-    <button id="commit_transaction_button" class="commit-transaction-button" disabled="true">COMMIT TRANSACTION</button>
-  </div>
   </div>
   <div id="eventdispatcher" style="display:none;" />
 </body>

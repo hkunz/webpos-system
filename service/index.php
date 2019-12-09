@@ -94,9 +94,9 @@ require '../php/navigation-bar.php';
       </table>
       </div>
     </form>
-    Item Search:
+    Product Search:
     <div class="search_item">
-      <input type="text" class="awesomplete" id="search_item_input" placeholder="Type here to search item ..." spellcheck="false" />
+      <input type="text" class="awesomplete" id="search_item_input" placeholder="Type here to search product ..." spellcheck="false" />
     </div>
     <div class="items-list-header">
       <div style="float:left;width:30px;height:100%;background-color:#111111">

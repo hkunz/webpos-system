@@ -100,4 +100,5 @@ $(document).ready(function() {
 	});
 
 	updateNextTransactionId();
+	$("#search_item_input").focus();
 });

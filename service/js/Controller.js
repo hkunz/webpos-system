@@ -13,7 +13,7 @@ class Controller {
 		$('#use_currentdate_checkbox').change(function(e) {
 			thiz.onCurrentDateCheckboxChange(e);
 		});
-		
+		//$("#search_item_input").focus();
 	}
 
 	onCurrentDateCheckboxChange(e) {

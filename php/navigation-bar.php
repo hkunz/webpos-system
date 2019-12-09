@@ -18,7 +18,7 @@ $navbar_content = '
         <i class="fa fa-caret-down"></i>
       </button>
       <div class="dropdown-content">
-        <a href="' . $rootpath . 'items-create/">Add New Product</a>
+        <a href="' . $rootpath . 'add-new-product/">Add New Product</a>
       </div>
     </div>
     <div class="dropdown">

@@ -1,14 +1,25 @@
 html *
 {
-   font-size: 1em;
-   color: #FFF;
-   font-family: Consolas;
+  font-size: 1em;
+  color: #FFF;
+  font-family: Consolas;
+}
+
+html {
+  overflow-y: scroll; 
 }
 
 body.body {
   /*background-color: #555555;/*#454545*/;
   /*background: linear-gradient(#555555, #999999);*/
-  background: radial-gradient(circle, #555555, #777777);
+  /*background: radial-gradient(circle, #555555, #777777);*/
+  background-image:
+    linear-gradient(45deg, #888888 25%, transparent 25%),
+    linear-gradient(-45deg, #777777 25%, transparent 25%),
+    linear-gradient(45deg, #777777 75%, #808080 75%),
+    linear-gradient(-45deg, #888888 75%, #808080 75%);
+  background-size: 10px 10px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
   margin:0px;
 }
 
@@ -113,30 +124,34 @@ div.container-wrapper {
   left: 0px;
   right: 0px;
   height: 100%;
-  margin: 0px;
+  margin: 3px;
   padding: 8px;
 }
 
 div.container-left {
   padding: 15px 15px 15px 15px;
-  border: 3px solid #EEEEEE;
+  border: 3px double #EEEEEE;
   border-radius: 8px;
   width: 830px;
   min-height: 420px;
   float:left;
   display:block;
-  margin-right:9px;
-  background-color: #454545;
+  margin-right:12px;
+  margin-bottom: 12px;
+  /*background-color: #454545;*/
+  background: radial-gradient(circle at top left, #353535, #454545);
+  box-shadow: 0 0 2px 2px #444444;
 }
 
 div.container-right {
   padding: 10px 10px 10px 10px;
-  border: 3px solid #EEEEEE;
+  border: 3px double #EEEEEE;
   border-radius: 8px;
   float:left;
   display:block;
   width:330px;
   background-color: #454545;
+  box-shadow: 0 0 2px 2px #444444;
 }
 
 .button {

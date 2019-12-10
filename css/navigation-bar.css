@@ -1,7 +1,9 @@
 /* Navbar container */
 .navbar {
   overflow: hidden;
-  background-color: #222;
+  background: linear-gradient(#111111, #333333);
+  border-bottom: 4px double #CCCCCC;
+  border-top: 4px double #CCCCCC;
 }
 
 /* Links inside the navbar */

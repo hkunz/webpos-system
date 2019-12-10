@@ -104,7 +104,7 @@ require '../php/navigation-bar.php';
       </div>
       <label class="items-list-header" style="width:15px;"></label>
       <label class="items-list-header" style="width:66px;">Qty</label>
-      <label class="items-list-header" style="width:300px;">Description</label>
+      <label class="items-list-header" style="width:300px;">Product Description</label>
     </div>
     <div class="items-list" id="items_list"/>
   </div>
@@ -122,10 +122,10 @@ require '../php/navigation-bar.php';
         <td><label class="label-text">Sub-Total:</label></td>
         <td class="td-value"><label id="sub_total_value" class="calc-amount-value">0.00</label></td>
       </tr>
-      <tr class="totals-tr">
+      <tr class="totals-tr" style="display:none;">
         <td colspan="2"><hr class="division"/></td>
       </tr>
-      <tr class="totals-tr">
+      <tr class="totals-tr" style="display:none;">
         <td><label class="label-text">Service Charge:</label></td>
         <td class="td-value">
           <input class="cash-input" type="number" id="service_charge_input" disabled="true" min="0" placeholder="₱" onkeydown="return Utils.notE(event);"/>
@@ -180,7 +180,7 @@ require '../php/navigation-bar.php';
       </tr>
     </table>
     <br />
-    <button id="commit_transaction_button" class="commit-transaction-button" disabled="true">COMMIT TRANSACTION</button>
+    <button id="commit_transaction_button" class="commit-transaction-button" style="margin-top:10px;" disabled="true">COMMIT TRANSACTION</button>
   </div>
   </div>
   <div id="eventdispatcher" style="display:none;" />

@@ -1,11 +1,12 @@
 div.item-number-box {
   vertical-align:middle;
-  width:30px;
+  width:25px;
   height:32px;
   margin-right:10px;
   background-color:#6bba62;
   display:table-cell;
   float:left;
+  border-left: 5px solid #6cca62;
 }
 
 label.list-number {
@@ -93,7 +94,7 @@ div.items-list {
 }
 
 div.items-list-header {
-  background-color: #333333;
+  background-color: #222222;
   vertical-align: middle;
   height: 25px;
   width: 100%;

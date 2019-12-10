@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 07, 2019 at 09:42 PM
+-- Generation Time: Dec 10, 2019 at 09:16 PM
 -- Server version: 8.0.18
 -- PHP Version: 7.0.33-0ubuntu0.16.04.7
 
@@ -464,7 +464,7 @@ INSERT INTO `items` (`item_id`, `bar_code`, `unit`, `count`, `item_description`,
 (275, '', 'rm', 500, 'Hardcopy 20 Ultra White Copier Paper A4 (8&frac14;x11&frac34;")', 'Bond Paper', 'Hardcopy', 'School & Office', 'Chuyte'),
 (276, '', 'pc', 1, 'Hardcopy 20 Ultra White Copier Paper A4 (8&frac14;x11&frac34;")', 'Bond Paper', 'Hardcopy', 'School & Office', 'Chuyte'),
 (277, '8935196509315', 'bx', 20, 'Salonpas Medicated Patch (6.5 x 4.2cm)', 'Medicated Patch', 'Salonpas', 'Pharmaceutical', 'Chuyte'),
-(278, '8935196509315', 'pc', 1, 'Salonpas Medicated Patch (6.5 x 4.2cm)', 'Medicated Patch', 'Salonpas', 'Pharmaceutical', 'Chuyte'),
+(278, '8935196509315', 'pc', 1, 'Salonpas Medicated Patch (6.5x4.2cm)', 'Medicated Patch', 'Salonpas', 'Pharmaceutical', 'Chuyte'),
 (279, '4806506152399', 'pc', 1, 'Toily 2-Ply Bathroom Tissue (300 Sheets)', 'Toilet Paper', 'Toily', 'Toiletry', 'Chuyte'),
 (280, '4562291031799', 'bx', 50, 'Japanese Disposable Face Mask (2.8&micro;m)', 'Face Mask', '', 'Personal Hygiene', 'Chuyte'),
 (281, '4562291031799', 'pc', 1, 'Japanese Disposable Face Mask (2.8&micro;m)', 'Face Mask', '', 'Personal Hygiene', 'Chuyte'),
@@ -478,7 +478,8 @@ INSERT INTO `items` (`item_id`, `bar_code`, `unit`, `count`, `item_description`,
 (289, '', 'pc', 1, 'MGK Plastic Sharpener 2 Hole TS-826', 'Sharpener', 'MGK', 'School & Office', 'Chuyte'),
 (290, '4902430344876', 'tie', 12, 'Downy Safeguard AntiBac Fabric Conditioner (25mL)', 'Fabric Conditioner', 'Downy', 'Household', 'Chuyte'),
 (291, '4902430344876', 'pc', 1, 'Downy Safeguard AntiBac Fabric Conditioner (25mL)', 'Fabric Conditioner', 'Downy', 'Household', 'Chuyte'),
-(292, '4801010503224', 'bot', 1, 'Johnson\'s Lite Baby Oil (50mL)', 'Baby Oil', 'Johnson\'s', 'Personal Hygiene', 'Chuyte');
+(292, '4801010503224', 'bot', 1, 'Johnson\'s Lite Baby Oil (50mL)', 'Baby Oil', 'Johnson\'s', 'Personal Hygiene', 'Chuyte'),
+(293, '', 'pc', 1, 'Ponytail Hair Tie K188 Assorted Colors', 'Hair Tie', '', 'Personal Accessory', 'Chuyte');
 
 -- --------------------------------------------------------
 
@@ -806,7 +807,10 @@ INSERT INTO `items_prices` (`row_id`, `item_id`, `unit_price_asofdate`, `unit_pr
 (317, 289, '2019-12-07 12:59:40', '1.67', '2019-12-07 12:59:40', '3.00'),
 (318, 290, '2019-12-07 13:04:13', '58.00', '2019-12-07 13:04:13', '0.00'),
 (319, 291, '2019-12-07 13:05:46', '4.83', '2019-12-07 13:05:46', '6.00'),
-(320, 292, '2019-12-07 13:09:10', '42.00', '2019-12-07 13:09:10', '49.00');
+(320, 292, '2019-12-07 13:09:10', '42.00', '2019-12-07 13:09:10', '49.00'),
+(321, 293, '2019-12-10 05:42:30', '1.80', '2019-12-10 05:42:30', '3.00'),
+(322, 147, '2019-12-10 05:48:14', '132.00', '2019-08-31 16:00:00', '0.00'),
+(323, 148, '2019-12-10 05:49:17', '9.43', '2019-11-27 16:00:00', '13.00');
 
 -- --------------------------------------------------------
 
@@ -849,11 +853,11 @@ INSERT INTO `items_stock` (`item_id`, `stock`, `row_id`) VALUES
 (44, 0, 22),
 (45, 12, 23),
 (46, 5, 24),
-(47, 6, 25),
+(47, 5, 25),
 (48, 0, 26),
 (49, 16, 27),
 (50, 0, 28),
-(51, 6, 29),
+(51, 4, 29),
 (52, 0, 30),
 (53, 7, 31),
 (54, 0, 32),
@@ -870,10 +874,10 @@ INSERT INTO `items_stock` (`item_id`, `stock`, `row_id`) VALUES
 (65, 0, 43),
 (66, 11, 44),
 (67, 0, 45),
-(68, 5, 46),
+(68, 4, 46),
 (69, 0, 47),
 (70, 7, 48),
-(71, 1, 49),
+(71, 25, 49),
 (72, 2, 50),
 (73, 2, 51),
 (74, 0, 52),
@@ -903,7 +907,7 @@ INSERT INTO `items_stock` (`item_id`, `stock`, `row_id`) VALUES
 (98, 0, 76),
 (99, 5, 77),
 (100, 0, 78),
-(101, 24, 79),
+(101, 22, 79),
 (102, 0, 80),
 (103, 100, 81),
 (104, 0, 82),
@@ -945,12 +949,12 @@ INSERT INTO `items_stock` (`item_id`, `stock`, `row_id`) VALUES
 (140, 12, 118),
 (141, 0, 119),
 (142, 8, 120),
-(143, 6, 121),
+(143, 4, 121),
 (144, 2, 122),
 (145, 0, 123),
 (146, 243, 124),
 (147, 0, 125),
-(148, 2, 126),
+(148, 16, 126),
 (149, 0, 127),
 (150, 4, 128),
 (151, 0, 129),
@@ -958,9 +962,9 @@ INSERT INTO `items_stock` (`item_id`, `stock`, `row_id`) VALUES
 (153, 0, 131),
 (154, 10, 132),
 (155, 0, 133),
-(156, 3, 134),
+(156, 15, 134),
 (157, 0, 135),
-(158, 3, 136),
+(158, 15, 136),
 (159, 0, 137),
 (160, 3, 138),
 (161, 0, 139),
@@ -1000,7 +1004,7 @@ INSERT INTO `items_stock` (`item_id`, `stock`, `row_id`) VALUES
 (195, 0, 173),
 (196, 9, 174),
 (197, 0, 175),
-(198, 15, 176),
+(198, 14, 176),
 (199, 0, 177),
 (200, 100, 178),
 (201, 0, 179),
@@ -1017,7 +1021,7 @@ INSERT INTO `items_stock` (`item_id`, `stock`, `row_id`) VALUES
 (212, 1, 190),
 (213, 1, 191),
 (214, 0, 192),
-(215, 30, 193),
+(215, 26, 193),
 (216, 2, 194),
 (217, 0, 195),
 (218, 0, 196),
@@ -1089,7 +1093,8 @@ INSERT INTO `items_stock` (`item_id`, `stock`, `row_id`) VALUES
 (289, 24, 262),
 (290, 0, 263),
 (291, 12, 264),
-(292, 3, 265);
+(292, 3, 265),
+(293, 30, 266);
 
 -- --------------------------------------------------------
 
@@ -1733,7 +1738,7 @@ INSERT INTO `items_transactions` (`transaction_id`, `customer`, `type`, `date`, 
 (616, '', 'SALE', '2019-12-02 00:49:40', '30.00', '0.00', '30.00', '0.00', '30.00'),
 (617, 'Bernie C.', 'SALE', '2019-12-02 01:06:45', '13.00', '0.00', '13.00', '0.00', '13.00'),
 (618, '', 'SALE', '2019-12-02 01:19:28', '2.00', '0.00', '2.00', '0.00', '2.00'),
-(619, 'Jhondrex', 'SALE', '2019-12-02 01:22:54', '50.00', '0.00', '50.00', '0.00', '0.00'),
+(619, 'Jhondrex', 'SALE', '2019-12-02 01:22:54', '50.00', '0.00', '50.00', '0.00', '50.00'),
 (620, '', 'SALE', '2019-12-02 02:35:28', '35.00', '0.00', '35.00', '0.00', '500.00'),
 (621, 'Estella C.', 'SALE', '2019-12-02 02:36:22', '7.00', '0.00', '7.00', '0.00', '7.00'),
 (622, '', 'SALE', '2019-12-02 03:38:20', '160.00', '0.00', '160.00', '0.00', '200.00'),
@@ -1820,7 +1825,28 @@ INSERT INTO `items_transactions` (`transaction_id`, `customer`, `type`, `date`, 
 (703, 'Milarose K.', 'RESTOCK', '2019-12-07 11:56:44', '1461.00', '0.00', '1461.00', '0.00', '0.00'),
 (704, 'Harry K.', 'LOSS', '2019-12-07 13:27:16', '7.00', '0.00', '7.00', '0.00', '0.00'),
 (705, 'Hans K.', 'LOSS', '2019-12-07 13:38:18', '80.00', '0.00', '80.00', '0.00', '0.00'),
-(706, 'Estella C.', 'SALE', '2019-12-07 06:00:00', '10.00', '0.00', '10.00', '0.00', '0.00');
+(706, 'Estella C.', 'SALE', '2019-12-07 06:00:00', '10.00', '0.00', '10.00', '0.00', '11.00'),
+(707, 'Tita Jo', 'SALE', '2019-12-08 03:08:03', '300.00', '0.00', '300.00', '0.00', '0.00'),
+(708, 'Jhondrex', 'SALE', '2019-12-09 00:00:00', '50.00', '0.00', '50.00', '0.00', '50.00'),
+(709, 'Edelweiss', 'SALE', '2019-12-08 23:00:00', '18.00', '0.00', '18.00', '0.00', '18.00'),
+(710, '', 'SALE', '2019-12-09 01:15:28', '32.00', '0.00', '32.00', '0.00', '40.00'),
+(711, '', 'SALE', '2019-12-09 01:21:53', '2.00', '0.00', '2.00', '0.00', '2.00'),
+(712, '', 'SALE', '2019-12-09 03:19:46', '32.00', '0.00', '32.00', '0.00', '50.00'),
+(713, '', 'SALE', '2019-12-09 03:20:02', '20.00', '0.00', '20.00', '0.00', '20.00'),
+(714, 'Edelweiss', 'SALE', '2019-12-09 23:30:00', '7.00', '0.00', '7.00', '0.00', '7.00'),
+(715, '', 'SALE', '2019-12-10 00:36:12', '10.00', '0.00', '10.00', '0.00', '10.00'),
+(716, 'Nectarina C.', 'SALE', '2019-12-10 00:41:30', '6.00', '0.00', '6.00', '0.00', '6.00'),
+(717, '', 'SALE', '2019-12-10 01:08:03', '40.00', '0.00', '40.00', '0.00', '50.00'),
+(718, '', 'SALE', '2019-12-10 01:30:00', '4.00', '0.00', '4.00', '0.00', '5.00'),
+(719, '', 'SALE', '2019-12-10 02:56:47', '70.00', '0.00', '70.00', '0.00', '70.00'),
+(720, '', 'SALE', '2019-12-10 03:30:23', '2.00', '0.00', '2.00', '0.00', '2.00'),
+(721, '', 'SALE', '2019-12-10 03:34:20', '14.00', '0.00', '14.00', '0.00', '20.00'),
+(722, 'Nectarina Collector', 'SALE', '2019-12-10 05:34:04', '46.00', '0.00', '46.00', '0.00', '46.00'),
+(723, 'Harry K.', 'RESTOCK', '2019-12-10 05:38:12', '336.00', '0.00', '336.00', '0.00', '0.00'),
+(724, 'Harry K.', 'RESTOCK', '2019-12-10 05:52:07', '182.00', '0.00', '182.00', '0.00', '0.00'),
+(725, '', 'SALE', '2019-12-10 06:17:01', '22.00', '0.00', '22.00', '0.00', '22.00'),
+(726, '', 'SALE', '2019-12-10 06:26:59', '20.00', '0.00', '20.00', '0.00', '20.00'),
+(727, '', 'SALE', '2019-12-10 09:14:00', '8.00', '0.00', '8.00', '0.00', '8.00');
 
 -- --------------------------------------------------------
 
@@ -2766,7 +2792,37 @@ INSERT INTO `items_transactions_details` (`transaction_id`, `item_id`, `amount`)
 (703, 177, 25),
 (704, 162, 1),
 (705, 187, 80),
-(706, 13, 1);
+(706, 13, 1),
+(707, 20, 3),
+(708, 18, 1),
+(709, 215, 3),
+(710, 12, 1),
+(710, 14, 1),
+(710, 252, 200),
+(711, 1, 1),
+(712, 12, 1),
+(712, 14, 1),
+(712, 252, 200),
+(713, 1, 10),
+(714, 68, 1),
+(715, 47, 1),
+(716, 198, 1),
+(717, 4, 20),
+(718, 1, 2),
+(719, 2, 14),
+(720, 1, 1),
+(721, 101, 2),
+(722, 51, 2),
+(722, 143, 2),
+(722, 215, 1),
+(723, 71, 24),
+(723, 156, 12),
+(723, 158, 12),
+(724, 148, 14),
+(725, 15, 1),
+(725, 252, 200),
+(726, 4, 10),
+(727, 22, 2);
 
 -- --------------------------------------------------------
 
@@ -2788,6 +2844,46 @@ CREATE TABLE `operational_expenses` (
 
 INSERT INTO `operational_expenses` (`expense_transaction_id`, `timestamp`, `type`, `grand_total`, `remarks`) VALUES
 (1, '2019-12-04 05:45:30', 'ELECTRICITY', '400.00', 'Paid electric bill to Estella C.');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `username` varchar(30) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`, `created_at`) VALUES
+(2, 'hkunz', '$2y$10$WFOtNwsGYnxaUAlQDpFrLeHn8KSmVS/8vwYXteO5KvdGr7W5fv1DG', '2019-12-09 20:22:50'),
+(12, 'mkunz', '$2y$10$N6l7pAIFPxmqi32CF2ovUO8u4wH87i6lTeRifb9ks5PA68S/OXNmu', '2019-12-10 17:18:49');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users_whitelist`
+--
+
+CREATE TABLE `users_whitelist` (
+  `username` varchar(30) NOT NULL,
+  `white_listed_on` datetime DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `users_whitelist`
+--
+
+INSERT INTO `users_whitelist` (`username`, `white_listed_on`) VALUES
+('hkunz', '2019-12-09 20:22:03'),
+('mkunz', '2019-12-10 17:18:14');
 
 -- --------------------------------------------------------
 
@@ -2985,6 +3081,19 @@ ALTER TABLE `operational_expenses`
   ADD PRIMARY KEY (`expense_transaction_id`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`);
+
+--
+-- Indexes for table `users_whitelist`
+--
+ALTER TABLE `users_whitelist`
+  ADD PRIMARY KEY (`username`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -2992,27 +3101,32 @@ ALTER TABLE `operational_expenses`
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `item_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=293;
+  MODIFY `item_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=294;
 --
 -- AUTO_INCREMENT for table `items_prices`
 --
 ALTER TABLE `items_prices`
-  MODIFY `row_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=321;
+  MODIFY `row_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=324;
 --
 -- AUTO_INCREMENT for table `items_stock`
 --
 ALTER TABLE `items_stock`
-  MODIFY `row_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=266;
+  MODIFY `row_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=267;
 --
 -- AUTO_INCREMENT for table `items_transactions`
 --
 ALTER TABLE `items_transactions`
-  MODIFY `transaction_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=707;
+  MODIFY `transaction_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=728;
 --
 -- AUTO_INCREMENT for table `operational_expenses`
 --
 ALTER TABLE `operational_expenses`
   MODIFY `expense_transaction_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- Constraints for dumped tables
 --
@@ -3035,6 +3149,12 @@ ALTER TABLE `items_stock`
 ALTER TABLE `items_transactions_details`
   ADD CONSTRAINT `items_transactions_details_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `items_transactions_details_ibfk_2` FOREIGN KEY (`transaction_id`) REFERENCES `items_transactions` (`transaction_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Constraints for table `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`username`) REFERENCES `users_whitelist` (`username`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

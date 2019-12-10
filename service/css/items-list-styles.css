@@ -101,6 +101,8 @@ div.items-list-header {
   border-top-right-radius: 7px;
   border-top-left-radius: 7px;
   overflow:hidden;
+  border-top: 1px solid #111111;
+  border-right: 1px solid #111111;
 }
 
 label.items-list-header {

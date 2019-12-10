@@ -144,13 +144,15 @@ div.container-left {
 }
 
 div.container-right {
-  padding: 10px 10px 10px 10px;
+  padding: 12px 12px 12px 12px;
   border: 3px double #EEEEEE;
   border-radius: 8px;
   float:left;
   display:block;
   width:330px;
-  background-color: #454545;
+  /*background-color: #454545;*/
+  /*background: linear-gradient(#333333, #454545);*/
+  background: radial-gradient(circle at top left, #333333, #555555);
   box-shadow: 0 0 2px 2px #444444;
 }
 
@@ -177,7 +179,7 @@ div.container-right {
 .button-black {background-color: #222222;} /* Black */
 
 button.commit-transaction-button {
-  background-color: #06C258; /* Green */
+  background-color: #4CAF50; /* Green */
   border: 2px solid #0;
   color: white;
   text-shadow: 1px 1px #666666;
@@ -191,6 +193,7 @@ button.commit-transaction-button {
   border-radius: 10px;
   width: 100%;
   height: 45px;
+  box-shadow: 0 0 2px 3px #333333;
 }
 
 button.commit-transaction-button:disabled {
@@ -201,7 +204,8 @@ button.commit-transaction-button:disabled {
 }
 
 button.commit-transaction-button:hover:enabled {
-  background-color: #4CAF50;
+  background-color: #06D258; /*#4CAF50;*/
+  
 }
 
 button.home-button {

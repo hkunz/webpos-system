@@ -180,7 +180,7 @@ require '../php/navigation-bar.php';
       </tr>
     </table>
     <br />
-    <button id="commit_transaction_button" class="commit-transaction-button" style="margin-top:10px;" disabled="true">COMMIT TRANSACTION</button>
+    <button id="commit_transaction_button" class="commit-transaction-button" style="margin-top:6px;" disabled="true">COMMIT TRANSACTION</button>
   </div>
   </div>
   <div id="eventdispatcher" style="display:none;" />

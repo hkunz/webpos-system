@@ -31,11 +31,13 @@
   background-color: inherit;
   font-family: inherit; /* Important for vertical align on mobile phones */
   margin: 0; /* Important for vertical align on mobile phones */
+  border-right: 2px ridge #333333;
 }
 
 .navbar .menu-btn {
   font-weight: bold;
   color: #FFFFFF;
+  border-right: 2px ridge #333333;
 }
 
 /* Add a red background color to navbar links on hover */

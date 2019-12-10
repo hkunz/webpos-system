@@ -11,6 +11,7 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
  
 // Include config file
 require_once "php/db.php";
+require "php/navigation-bar.php";
  
 // Define variables and initialize with empty values
 $username = $password = "";
@@ -101,10 +102,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"> -->
   <script type="text/javascript" src="js/Utils.js"></script>
   <link type="text/css" rel="stylesheet" href="css/main-styles.css">
+  <link type="text/css" rel="stylesheet" href="css/navigation-bar.css">
   <style>.form-group {margin-bottom:9px;}
   </style>
 </head>
 <body class="body">
+  <?php echo $navbar_content; ?>
   <div class="container-wrapper">
     <div class="container-left" style="width:700px;">
       <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label> | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>

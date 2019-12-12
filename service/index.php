@@ -81,14 +81,14 @@ require '../php/navigation-bar.php';
           <td valign="middle" width="111px">
             Timestamp:
           </td><td valign="top" width="135px">
-            <div class="checkbox-container" style="margin-right:10px">
+            <div class="checkbox-container" style="margin-right:10px;box-shadow: inset 0px 0px 1px 1px #555555;">
               <label class="checkbox-container">Today-Now
                 <input id="use_currentdate_checkbox" type="checkbox" checked>
                 <span class="checkmark"></span>
               </label>
             </div>
           </td><td valign="middle">
-            <input type="datetime-local" id="transaction_timestamp" step="1" style="width:250px;margin-top:6px;" disabled>
+            <input type="datetime-local" id="transaction_timestamp" step="1" style="width:250px;margin-top:6px;height:33px;" disabled>
           </td>
         </tr>
       </table>
@@ -98,15 +98,19 @@ require '../php/navigation-bar.php';
     <div class="search_item">
       <input type="text" class="awesomplete" id="search_item_input" placeholder="Type here to search product ..." spellcheck="false" />
     </div>
-    <div class="items-list-header">
-      <div style="float:left;width:30px;height:100%;background-color:#111111">
-        <label class="items-list-header">&nbsp;#</label>
+    <div class="items-list-wrapper">
+      <div class="items-list-header">
+        <div style="float:left;width:30px;height:100%;background-color:#111111">
+          <label class="items-list-header" style="padding-left:11px;padding-top:2px;">#</label>
+        </div>
+        <label class="items-list-header" style="width:15px;"></label>
+        <label class="items-list-header" style="width:66px;padding-top:2px;">Qty</label>
+        <label class="items-list-header" style="width:300px;padding-top:2px;">Product Description</label>
       </div>
-      <label class="items-list-header" style="width:15px;"></label>
-      <label class="items-list-header" style="width:66px;">Qty</label>
-      <label class="items-list-header" style="width:300px;">Product Description</label>
+      <div class="items-list-container">
+        <div class="items-list" id="items_list"/>
+      </div>
     </div>
-    <div class="items-list" id="items_list"/>
   </div>
   </div>
   <div class="container-right" style="">

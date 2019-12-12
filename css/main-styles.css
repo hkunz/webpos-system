@@ -10,17 +10,33 @@ html {
 }
 
 body.body {
-  /*background-color: #555555;/*#454545*/;
-  /*background: linear-gradient(#555555, #999999);*/
-  /*background: radial-gradient(circle, #555555, #777777);*/
   background-image:
-    linear-gradient(45deg, #888888 25%, transparent 25%),
-    linear-gradient(-45deg, #777777 25%, transparent 25%),
-    linear-gradient(45deg, #777777 75%, #808080 75%),
-    linear-gradient(-45deg, #888888 75%, #808080 75%);
-  background-size: 10px 10px;
+    linear-gradient(45deg, #AAAAAA 25%, transparent 25%),
+    linear-gradient(-45deg, #999999 25%, transparent 25%),
+    linear-gradient(45deg, #999999 75%, #A0A0A0 75%),
+    linear-gradient(-45deg, #AAAAAA 75%, #A0A0A0 75%);
+
+  background-size: 12px 12px;
   background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+
+  /*background: #eacda3;  
+background: -webkit-linear-gradient(to right, #d6ae7b, #eacda3);
+background: linear-gradient(to right, #d6ae7b, #eacda3);*/
+
+  /*background: radial-gradient(1.5em 6.28571em at 1.95em, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0.25) 55%, rgba(255, 255, 255, 0) 55%) 0 0, radial-gradient(1.5em 6.28571em at -0.45em, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0.25) 55%, rgba(255, 255, 255, 0) 55%) 1.5em 5.5em, radial-gradient(2.3em 4.57143em at 2.99em, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.3) 55%, rgba(255, 255, 255, 0) 55%) 0 0, radial-gradient(2.3em 4.57143em at -0.69em, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.3) 55%, rgba(255, 255, 255, 0) 55%) 2.3em 4em, radial-gradient(3.5em 6.28571em at 4.55em, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0.25) 55%, rgba(255, 255, 255, 0) 55%) 0 0, radial-gradient(3.5em 6.28571em at -1.05em, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0.25) 55%, rgba(255, 255, 255, 0) 55%) 3.5em 5.5em, radial-gradient(#888888, #AAAAAA);
+  /*(#15ffa5, #00ced1);*/
+  /*background-color: mediumspringgreen;
+  background-size: 1.5em 11em, 1.5em 11em, 2.3em 8em, 2.3em 8em, 3.5em 11em, 3.5em 11em, 100% 100%;
+  background-repeat: repeat;*/
   margin:0px;
+}
+
+img.welcome-image {
+  border: 4px ridge #FFFFFF;
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 4px;
+  background-color: #222222;
 }
 
 .heading {
@@ -40,6 +56,7 @@ input {
   border-radius: 4px;
   background-color: #222222;
   box-shadow: 0 0 2px 2px #222222;
+  caret-color: #DDDDDD;
 }
 
 input:disabled {
@@ -124,23 +141,24 @@ div.container-wrapper {
   left: 0px;
   right: 0px;
   height: 100%;
-  margin: 3px;
-  padding: 8px;
+  margin: 10px;
+  padding: 6px;
 }
 
 div.container-left {
   padding: 15px 15px 15px 15px;
   border: 3px double #EEEEEE;
   border-radius: 8px;
-  width: 830px;
+  width: 810px;
   min-height: 420px;
   float:left;
   display:block;
-  margin-right:12px;
-  margin-bottom: 12px;
-  /*background-color: #454545;*/
-  background: radial-gradient(circle at top left, #353535, #454545);
-  box-shadow: 0 0 2px 2px #444444;
+  margin-right:18px;
+  margin-bottom: 15px;
+  background: radial-gradient(circle at top left, #353535, #555555);
+  /*background: radial-gradient(circle at top, #2b2b28, #4a4842);*/
+  /*background: linear-gradient(120deg, #3B3B3B 60%, #454545 60%);*/
+  box-shadow: 0px 0px 4px 3px #333333;
 }
 
 div.container-right {
@@ -149,11 +167,11 @@ div.container-right {
   border-radius: 8px;
   float:left;
   display:block;
-  width:330px;
+  width:300px;
   /*background-color: #454545;*/
   /*background: linear-gradient(#333333, #454545);*/
   background: radial-gradient(circle at top left, #333333, #555555);
-  box-shadow: 0 0 2px 2px #444444;
+  box-shadow: 0px 0px 4px 3px #333333;
 }
 
 .button {
@@ -180,14 +198,17 @@ div.container-right {
 
 button.commit-transaction-button {
   background-color: #4CAF50; /* Green */
+  background-image: linear-gradient(#4CAF50,darkgreen);
   border: 2px solid #0;
-  color: white;
-  text-shadow: 1px 1px #666666;
+  text-shadow: 0px 0px 2px #fff, 1px 2px 2px #000;
+  font-family: Calibri;
+  color: #DDDDDD;
+  letter-spacing: 0px;
   padding: 0px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: bold;
   cursor: pointer;
   border-radius: 10px;
@@ -196,16 +217,27 @@ button.commit-transaction-button {
   box-shadow: 0 0 2px 3px #333333;
 }
 
+button.commit-transaction-button::after {
+  content: '';
+  /*position: absolute;*/
+  top: 2px;
+  left: 2px;
+  width: calc(100% - 4px);
+  height: 50%;
+  background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.2));
+}
+
 button.commit-transaction-button:disabled {
   background-color: #333333;
+  background-image: linear-gradient(#333333,#444444);
   color: #555555;
   text-shadow: 1px 1px #222222;
   cursor: default;
 }
 
 button.commit-transaction-button:hover:enabled {
-  background-color: #06D258; /*#4CAF50;*/
-  
+  /*background-color: #06D258; /*#4CAF50;*/
+  background: linear-gradient(#5DBF61,green);
 }
 
 button.home-button {

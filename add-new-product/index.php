@@ -11,7 +11,7 @@ require '../php/navigation-bar.php';
 <!-- Search Item code: https://www.cloudways.com/blog/live-search-php-mysql-ajax/ -->
 <head>
 <meta charset="UTF-8">
-  <title>Klebby's Create Item</title>
+  <title>Klebby's Add New Product</title>
   <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
   <link type="text/css" rel="stylesheet" href="../css/main-styles.css">
   <link type="text/css" rel="stylesheet" href="../css/navigation-bar.css">
@@ -70,7 +70,7 @@ require '../php/navigation-bar.php';
       Stock:
       <input id="stock_input" style="width:68px;" type="number" min="0" onkeydown="return Utils.notE(event)">
       <br><br>
-      <button id="create_item_button" class="commit-transaction-button" disabled="true">CREATE NEW ITEM</button>
+      <button id="create_item_button" class="commit-transaction-button" disabled="true">ADD NEW PRODUCT</button>
     </form>
   </div>
   </div>

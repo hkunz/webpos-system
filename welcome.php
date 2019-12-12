@@ -28,30 +28,9 @@ require 'php/navigation-bar.php';
      | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
     <hr class="division">
     <h1>Welcome <?php echo htmlspecialchars($_SESSION["username"]); ?></h1>
-    <table cellpadding="8">
-      <tr>
-        <td>
-          <form action="/klebbys/service/" method="get">
-            <button id="button_service" class="home-button" type="submit"><i class="icon-service"></i>Service</button>
-          </form>
-        </td>
-        <td>
-          <form action="/klebbys/statistics/" method="get">
-            <button id="button_stats" class="home-button"><i class="icon-service"></i>Statistic</button>
-          </form>
-        </td>
-        <td>
-          <form action="/klebbys/items-create/" method="get">
-            <button id="button_newitem" class="home-button"><i class="icon-service"></i>New Item</button>
-          </form>
-        </td>
-        <td>
-          <form action="/phpmyadmin" method="get" target="_blank">
-            <button id="button_database" class="home-button"><i class="icon-service"></i>Database</button>
-          </form>
-        </td>
-      </tr>
-    </table>
+    <div>
+      <img class="welcome-image" src="imgs/makoy.jpg" width="300px">
+    </div>
   </div>
   </div>
   <div id="eventdispatcher" style="display:none;" />

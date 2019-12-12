@@ -134,8 +134,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
           <span class="help-block"><?php echo $confirm_password_err; ?></span>
         </div>
         <div class="form-group" style="margin-top:15px;margin-bottom:15px;">
-          <input type="submit" class="button button-green" value="REGISTER">
-          <input type="reset" class="button button-gray" value="RESET">
+          <button type="submit" class="standard-button" style="width:160px;">REGISTER</button>
+          <button type="reset" class="standard-button standard-button-gray" style="width:118px;">RESET</button>
         </div>
         <label class="standard-label">Already have an account?</label>&nbsp;<a href="login.php">Login Here</a>
       </form>

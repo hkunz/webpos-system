@@ -49,10 +49,14 @@
   border-right: 2px ridge #333333;
 }
 
-/* Add a red background color to navbar links on hover */
-.navbar a:hover, .dropdown:hover .dropbtn {
+.navbar a:hover, .dropbtn:hover {
   color: #FFFFFF;
-  background-color: #4CAF50;
+  background: linear-gradient(#4CAF50, darkgreen);
+}
+
+.dropdown:hover {
+  color: #FFFFFF;
+  background: linear-gradient(#666,#222);
 }
 
 /* Dropdown content (hidden by default) */

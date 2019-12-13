@@ -27,6 +27,7 @@
     padding: 0;
     margin: 0;
     background: #222;
+    overflow: hidden;
 }
 
 .awesomplete > ul:empty {

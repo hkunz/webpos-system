@@ -63,10 +63,20 @@
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f9f9f9;
+  opacity: 0.97;
+  filter: alpha(opacity=97); /* For IE8 and earlier */ 
+  background: linear-gradient(#111111, #333333);
+  background: linear-gradient(#ffffed, #ccc);
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 4px 8px 20px 0px #000;
   z-index: 1;
+  border: 0px double white;
+  border-bottom-width: 2px;
+  border-right-width: 2px;
+  border-left-width: 2px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  overflow: hidden;
 }
 
 /* Links inside the dropdown */

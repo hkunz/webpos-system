@@ -24,8 +24,7 @@ if (isset($_POST['search'])) {
 			ii.item_description LIKE '%$Name%' OR
 			ii.bar_code LIKE '%$Name%' OR
 			ii.general_name LIKE '%$Name%' OR
-			ii.brand_name LIKE '%$Name%' OR
-			ii.category LIKE '%$Name%'
+			ii.brand_name LIKE '%$Name%'
 		)
 		ORDER BY ii.item_description DESC
 		LIMIT 20;"

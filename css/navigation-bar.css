@@ -65,8 +65,7 @@
   position: absolute;
   opacity: 0.97;
   filter: alpha(opacity=97); /* For IE8 and earlier */ 
-  background: linear-gradient(#111111, #333333);
-  background: linear-gradient(#ffffed, #ccc);
+  background: linear-gradient(#ddd, #999);
   min-width: 160px;
   box-shadow: 4px 8px 20px 0px #000;
   z-index: 1;

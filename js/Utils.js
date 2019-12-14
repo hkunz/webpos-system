@@ -6,8 +6,12 @@ class Utils {
                 return Number.parseFloat(value).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
 
-	static getHomePath() {
-		return "localhost/klebbys/";
+	static getServerName() {
+		return "localhost";
+	}
+
+	static getRootPath() {
+		return "//" + Utils.getServerName() + "/klebbys/";
 	}
 
 	static getTimestamp(date) {

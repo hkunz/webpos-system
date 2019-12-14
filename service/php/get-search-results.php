@@ -13,6 +13,7 @@ if (isset($_POST['search'])) {
 			ii.brand_name,
 			ii.category,
 			ii.supplier_name,
+			pp.unit_price,
 			pp.sell_price,
 			ss.stock
 		FROM items ii
@@ -34,30 +35,31 @@ if (isset($_POST['search'])) {
 
 	while ($Result = MySQLi_fetch_array($ExecQuery)) {
 		$code = $Result['bar_code'];
-		$code = (empty($code) ? "≡≡≡≡≡≡≡≡≡≡≡≡≡" : $code);
-		$unit = $Result['unit'];
+		$code = (empty($code) ? "≡≡≡≡≡≡≡≡≡≡≡≡≡" : str_pad($code, 13, '0', STR_PAD_LEFT));
+		$unit = str_pad($Result['unit'], 2, ' ', STR_PAD_LEFT);
 		$description = $Result['item_description'];
-		$price = $Result['sell_price'];
-		$id = $Result['item_id'];
+		$sell_price = $Result['sell_price'];
+		$unit_price = $Result['unit_price'];
+		$item_id = $Result['item_id'];
 		$category = $Result['category'];
 		$general_name = $Result['general_name'];
 		$brand_name = $Result['brand_name'];
 		$supplier = $Result['supplier_name'];
 		$stock = $Result['stock'];
 
-		echo
-			"{{id}}$id{{id}}" .
-			"{{code}}$code{{code}}" .
-			"{{unit}}$unit{{unit}}" .
-			"{{description}}$description{{description}}" .
-			"{{category}}$category{{category}}" .
-			"{{general_name}}$general_name{{general_name}}" .
-			"{{brand_name}}$brand_name{{brand_name}}" .
-			"{{supplier}}$supplier{{supplier}}" .
-			"{{price}}$price{{price}}" .
-			"{{stock}}$stock{{stock}}" .
-			"||"
-		;
+		echo '{' .
+			'"item_id":' . $item_id . ',' .
+			'"code":"' . $code . '",' .
+			'"unit":"' . $unit . '",' .
+			'"description":"{{description}}' . $description . '{{description}}",' .
+			'"category":"' . $category . '",' .
+			'"general_name":"' . $general_name . '",' .
+			'"brand_name":"' . $brand_name . '",' .
+			'"supplier":"' . $supplier . '",' .
+			'"price":"' . $sell_price . '",' .
+			'"unit_price":"' . $unit_price . '",' .
+			'"stock":' . ($stock ? $stock : '0') .
+		'}||';
 	}
 }
 ?>

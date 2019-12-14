@@ -17,11 +17,11 @@ class ItemAmountInputPopupHandler {
 		$(document).ready(function() {
 			$("#search_item_input").on('awesomplete-selectcomplete', function(e) {
 				//let v = this.value;
-				const value = e.originalEvent.text.value;
-				const item = JSON.parse(value);
+				const json = e.originalEvent.text.value;
+				const item = json;
 				thiz.code = item.code;
 				thiz.unit = item.unit;
-				thiz.itemId = item.itemId;
+				thiz.itemId = item.item_id;
 				thiz.description = item.description;
 				thiz.price = item.price;
 				thiz.brand_name = item.brand_name;

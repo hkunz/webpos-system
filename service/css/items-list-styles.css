@@ -4,7 +4,7 @@ div.items-list-container {
 div.items-list-wrapper {
   border-radius: 4px;
   border-top: 1px solid #888888;
-  box-shadow: 0px 1px 6px 0px #000000;
+  box-shadow: 0px 1px 7px 1px #000000;
   overflow: hidden;
 }
 
@@ -105,18 +105,19 @@ div.items-list {
 }
 
 div.items-list-header {
-  background-color: #222222;
+  background: linear-gradient(to bottom, #333333, #222222);
+  background-color: #333333;
   vertical-align: middle;
   height: 25px;
   width: 100%;
 }
 
 label.items-list-header {
-  color: #FFFF66;
+  color: #dddded;
   font-size: 11pt;
   float: left;
   margin-top: 3px;
-  text-shadow: 1px 1px #111111;
+  text-shadow: 1px 1px 1px #000;
 }
 
 div.divtr {

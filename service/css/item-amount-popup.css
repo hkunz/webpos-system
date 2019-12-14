@@ -15,7 +15,8 @@
     vertical-align:middle;
 }
 .hover_bkgr_fricc > div {
-    background-color: #333;
+    opacity: 0.90;
+    background-color: #111;
     border: 2px solid white;
     box-shadow: 10px 10px 60px #555;
     display: inline-block;

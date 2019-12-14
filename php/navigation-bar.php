@@ -1,13 +1,12 @@
 <?php
 $ready = (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true);
-$rootpath = ($ready ? $_SESSION["root"] : '#');
-
+$rootpath = ($ready ? $_SESSION["href_root"] : '#');
 
 $company_list = '
 <div class="dropdown-content">
 	<a href="' . $rootpath . 'service/">Service</a>
 	<a href="' . $rootpath . 'statistics/">Statistics</a>
-	<a href="//localhost/phpmyadmin/" target="_blank">Database</a>
+	<a href="' . $_SESSION['href_host'] . 'phpmyadmin/" target="_blank">Database</a>
 </div>';
 
 $products_list = '

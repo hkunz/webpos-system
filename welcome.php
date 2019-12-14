@@ -13,10 +13,8 @@ require 'php/navigation-bar.php';
   <title>Welcome To Klebby's</title>
   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"> -->
   <link type="text/css" rel="stylesheet" href="css/main-styles.css">
-  <link type="text/css" rel="stylesheet" href="css/awesomplete.css">
   <link type="text/css" rel="stylesheet" href="css/navigation-bar.css">
   <script type="text/javascript" src="js/libs/jquery-3.4.1.min.js"></script>
-  <script type="text/javascript" src="js/libs/awesomplete.js"></script>
   <script type="text/javascript" src="js/Utils.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
 </head>

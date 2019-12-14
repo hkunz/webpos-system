@@ -85,10 +85,6 @@ input[type=number] {
 input[type=datetime-local] {
   padding: 3px 6px 3px 6px;
   margin: 3px 0px 8px 0px;
-  box-sizing: border-box;
-  border: 1px solid #DDD;
-  border-radius: 4px;
-  background-color: #222222;
 }
 
 input[type=datetime-local]:disabled {

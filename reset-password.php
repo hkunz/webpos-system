@@ -5,9 +5,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     exit;
 }
 
-$rootpath = $_SESSION["root"];
-require_once "php/db.php";
-require "php/navigation-bar.php";
+require_once($_SESSION['root'] . 'php/db.php');
+require $_SESSION['root'] . 'php/navigation-bar.php';
 
 $username = htmlspecialchars($_SESSION["username"]); 
 

@@ -1,4 +1,7 @@
 <?php
+$SERVER_NAME = "localhost";
+$ROOT_DIRECTORY = "klebbys/";
+
 // SOURCE: https://www.tutorialrepublic.com/php-tutorial/php-mysql-login-system.php
 // Initialize the session
 session_start();
@@ -59,13 +62,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         if(password_verify($password, $hashed_password)){
                             // Password is correct, so start a new session
                             session_start();
-                            
                             // Store data in session variables
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
-                            $_SESSION["username"] = $username;                            
-                            $_SESSION["root"] = "//localhost/klebbys/";
-                            
+                            $_SESSION["username"] = $username;
+                            $_SESSION["href_host"] = "//$SERVER_NAME/";
+                            $_SESSION["href_root"] = "//$SERVER_NAME/" . $ROOT_DIRECTORY;
+                            $_SESSION["root"] = $_SERVER['DOCUMENT_ROOT'] . "/" . $ROOT_DIRECTORY;
                             // Redirect user to welcome page
                             header("location: welcome.php");
                         } else{

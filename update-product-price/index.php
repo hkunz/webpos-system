@@ -4,7 +4,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: ../login.php");
     exit;
 }
-require '../php/navigation-bar.php';
+require $_SESSION['root'] . 'php/navigation-bar.php';
 ?>
 <!DOCTYPE html>
 <html>

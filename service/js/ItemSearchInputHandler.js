@@ -2,7 +2,7 @@
 
 class ItemSearchInputHandler extends AwesompleteInputHandler {
 	constructor() {
-		super("search_item_input", "php/get-search-results.php");
+		super("search_item_input", Utils.getRootPath() + "service/php/get-search-results.php");
 	}
 
 	onAjaxSuccess(data, thiz) {
@@ -17,7 +17,7 @@ class ItemSearchInputHandler extends AwesompleteInputHandler {
 			//console.log(i + " == '" + json_str + "'");
 			let json = JSON.parse(json_str);
 			json.description = description;
-			const label = json.code + " [" + json.unit + "] " + description + " [₱" + json.price + "]";
+			const label = json.code + " [" + json.unit + "] " + description + " [₱" + json.sell_price + "]";
 			list.push({label:label, value:json, itemId:json.item_id});
 		}
 		thiz.input_element.list = list;

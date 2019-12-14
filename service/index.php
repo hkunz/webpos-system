@@ -4,6 +4,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: ../login.php");
     exit;
 }
+$href_root = $_SESSION['href_root'];
 require $_SESSION["root"] . 'php/navigation-bar.php';
 ?>
 <!DOCTYPE html>
@@ -13,16 +14,17 @@ require $_SESSION["root"] . 'php/navigation-bar.php';
 <meta charset="UTF-8">
   <title>Klebby's Store</title>
   <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
-  <link type="text/css" rel="stylesheet" href="../css/main-styles.css">
-  <link type="text/css" rel="stylesheet" href="../css/navigation-bar.css">
+  <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/main-styles.css">
+  <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/navigation-bar.css">
+  <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/awesomplete.css">
   <link type="text/css" rel="stylesheet" href="css/item-amount-popup.css">
   <link type="text/css" rel="stylesheet" href="css/items-list-styles.css">
   <link type="text/css" rel="stylesheet" href="css/grand-total-view.css">
-  <link type="text/css" rel="stylesheet" href="../css/awesomplete.css">
-  <script type="text/javascript" src="../js/libs/jquery-3.4.1.min.js"></script>
-  <script type="text/javascript" src="../js/libs/awesomplete.js"></script>
-  <script type="text/javascript" src="../js/AwesompleteInputHandler.js"></script>
-  <script type="text/javascript" src="../js/Utils.js"></script>
+  <script type="text/javascript" src="<?php echo $href_root; ?>js/libs/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="<?php echo $href_root; ?>js/libs/awesomplete.js"></script>
+  <script type="text/javascript" src="<?php echo $href_root; ?>js/AwesompleteInputHandler.js"></script>
+  <script type="text/javascript" src="<?php echo $href_root; ?>js/Utils.js"></script>
+  <script type="text/javascript" src="<?php echo $href_root; ?>js/sound-effects.js"></script>
   <script type="text/javascript" src="js/Controller.js"></script>
   <script type="text/javascript" src="js/constants.js"></script>
   <script type="text/javascript" src="js/ItemAmountInputPopupHandler.js"></script>
@@ -31,7 +33,6 @@ require $_SESSION["root"] . 'php/navigation-bar.php';
   <script type="text/javascript" src="js/ItemSelectionListHandler.js"></script>
   <script type="text/javascript" src="js/GrandTotalViewHandler.js"></script>
   <script type="text/javascript" src="js/SqlTransactionHandler.js"></script>
-  <script type="text/javascript" src="../js/sound-effects.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
 </head>
 
@@ -62,13 +63,13 @@ require $_SESSION["root"] . 'php/navigation-bar.php';
       <div style="margin-bottom:5px;margin-left:-2px">
         <table>
           <tr><td valign="middle">
-            Customer:&nbsp;&nbsp;&nbsp;
+            <label class="drop-shadow">Customer:&nbsp;&nbsp;&nbsp;</label>
           </td><td valign="middle">
             <input type="text" id="customer" maxlength="30" style="margin-left:4px;" placeholder="Customer Name ..." spellcheck="false"/>
           </td></td>
         </table>
       </div>
-      Transaction:
+      <label class="drop-shadow">Transaction:</label>
       <select id="transaction_type">
         <option value="sale">SALE</option>
         <option value="restock">RESTOCK</option>
@@ -79,7 +80,7 @@ require $_SESSION["root"] . 'php/navigation-bar.php';
       <table cellpadding="0">
         <tr>
           <td valign="middle" width="111px">
-            Timestamp:
+          <label class="drop-shadow">Timestamp:</label>
           </td><td valign="top" width="135px">
             <div class="checkbox-container" style="margin-right:10px;box-shadow: inset 0px 0px 1px 1px #555555;">
               <label class="checkbox-container">Today-Now
@@ -94,7 +95,7 @@ require $_SESSION["root"] . 'php/navigation-bar.php';
       </table>
       </div>
     </form>
-    Product Search:
+    <label class="drop-shadow">Product Search:</label>
     <div class="search_item">
       <input type="text" class="awesomplete" id="search_item_input" placeholder="Type here to search product ..." spellcheck="false" />
     </div>

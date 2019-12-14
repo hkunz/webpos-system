@@ -97,6 +97,10 @@ class Utils {
 		return "?_=" + new Date().getTime();
 	}
 
+	static getCurrencySymbol() {
+		return "₱";
+	}
+
 	static notE(e) {
 		return e.keyCode !== 69;
 	}

@@ -57,7 +57,7 @@ $(document).ready(function() {
 			amount:e.detail.amount,
 			code:e.detail.code,
 			unit:e.detail.unit,
-			price:e.detail.price,
+			sell_price:e.detail.sell_price,
 			supplier:e.detail.supplier,
 			category:e.detail.category,
 			brand_name:e.detail.brand_name

@@ -45,7 +45,7 @@ class GrandTotalViewHandler {
 		let total = 0;
 		for (let i = 0; i < len; ++i) {
 			let item = this.list[i];
-			total = total + (item.amount * item.price);
+			total = total + (item.amount * item.sell_price);
 		}
 		$('#sub_total_value').text(GrandTotalViewHandler.getAmountText(total));
 		this.sub_total = total;

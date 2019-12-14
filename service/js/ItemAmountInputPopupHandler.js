@@ -23,7 +23,7 @@ class ItemAmountInputPopupHandler {
 				thiz.unit = item.unit;
 				thiz.itemId = item.item_id;
 				thiz.description = item.description;
-				thiz.price = item.price;
+				thiz.sell_price = item.sell_price;
 				thiz.brand_name = item.brand_name;
 				thiz.supplier = item.supplier;
 				thiz.general_name = item.general_name;
@@ -34,7 +34,7 @@ class ItemAmountInputPopupHandler {
 				document.getElementById('popup_item_description').innerHTML = $('<textarea />').html(thiz.description).text() + id_text;
 				document.getElementById('popup_item_category').innerHTML = thiz.category;
 				document.getElementById('popup_item_stock').innerHTML = (thiz.category.toLowerCase() == 'service' ? '' : '[X' + thiz.stock + ']');
-				document.getElementById('popup_item_price').innerHTML = "₱" + thiz.price;
+				document.getElementById('popup_item_price').innerHTML = "₱" + thiz.sell_price;
 				document.getElementById('item_amount_unit').innerHTML = item.unit;
 				thiz.showPopup(true);
 			});
@@ -79,7 +79,7 @@ class ItemAmountInputPopupHandler {
 				itemId:this.itemId,
 				description:this.description,
 				amount:(amount > 0 ? amount : 1),
-				price:this.price,
+				sell_price:this.sell_price,
 			}
 		});
 		this.showPopup(false);

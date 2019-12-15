@@ -19,11 +19,16 @@ class Utils {
 		const month = '' + (d.getMonth() + 1);
 		const day = '' + d.getDate();
 		const year = d.getFullYear();
-		const h = addZero(d.getHours());
-		const m = addZero(d.getMinutes());
-		const s = addZero(d.getSeconds());
+		const h = Utils.addZero(d.getHours());
+		const m = Utils.addZero(d.getMinutes());
+		const s = Utils.addZero(d.getSeconds());
 		const time = h + ":" + m + ":" + s;
 		return year + '-' + month + '-' + day + ' ' + (h + ":" + m + ":" + s);
+	}
+
+	static addZero(i) {
+		if (i < 10) i = "0" + i;
+		return i;
 	}
 
 	static getAmountPesoText(value) {

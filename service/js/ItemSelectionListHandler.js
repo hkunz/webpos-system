@@ -2,7 +2,6 @@
 
 class ItemSelectionListHandler {
 	constructor() {
-		$(document).on("change, mouseup, keyup", "#quantity", this.onChangeMouseUpKeyUp);
 		this.list = [];
 		this.grand_total_handler = new GrandTotalViewHandler();
 		this.grand_total_handler.setList(this.list);
@@ -14,7 +13,7 @@ class ItemSelectionListHandler {
 		this.grand_total_handler.setList(this.list);
 		let div = document.getElementById(this.getItemsListIdName());
 		div.innerHTML = '';
-		this.updateTotalPrice(this);
+		this.updateTotalPrice();
 	}
 
 	addItem(item) {
@@ -30,7 +29,7 @@ class ItemSelectionListHandler {
 			let input = $('#' + this.getRowItemAmountInputIdName(item.itemId));
 			itm.amount = Number(input.val()) + item.amount;
 			input.val(itm.amount);
-			this.updatePrice(this, item.itemId);
+			this.updatePrice(item.itemId);
 			isnew = false;
 		}
 		if (isnew) {
@@ -54,7 +53,6 @@ class ItemSelectionListHandler {
 	}
 
 	addListRowItem(item) {
-		let thiz = this;
 		this.list.push(item);
 		const id = item.itemId;
 		const description = $('<textarea />').html(item.description).text();
@@ -66,61 +64,63 @@ class ItemSelectionListHandler {
 		newdiv.innerHTML = '<div style="width:100%;border-top: 0px dotted ' + this.getRowItemDivBackgroundColor(len + 1) + ';"><div id="' + this.getRowItemNumberBoxIdName(id) + '" class="item-number-box" style="background-color:' + this.getRowItemNumberBoxColor(len) + '"><label id="list_number" class="list-number">' + len + '</label></div><input id="' + this.getRowItemAmountInputIdName(id)  + '" class="amount-input-small item-amount-input-no-border" value="' + item.amount + '" type="number" min="1" max="999"/><div class="descriptions"><label class="description" id="line1">' + '[' + item.code + '] ' + description  + '</label><label id="line2" class="sub-description">' + '[' + item.unit + '] ' + '[₱' + item.sell_price + '] ' + description + '</label></div><div class="divtd" style="float:right;vertical-align:middle;"><label id="' + this.getItemPriceIdName(id)  + '" class="item-price" style="display:block;float:left;">' + this.getTotalPrice(item) + '</label><button id="' + this.getItemRemoveButtonIdName(id) + '" class="delete-button" style="display:block;float:right;">x</button></div></div>'
 		document.getElementById(this.getItemsListIdName()).appendChild(newdiv);
 		let button = document.getElementById(this.getItemRemoveButtonIdName(id));
+		let thiz = this;
 		button.addEventListener('click', function(e) {
-			thiz.onRemoveListRowItemClick(thiz, id);
+			thiz.onRemoveListRowItemClick(id);
 		});
 		$(document).on("change, mouseup, keyup", "#" + this.getRowItemAmountInputIdName(id), function(e) {
-			thiz.onChangeMouseUpKeyUp(thiz, id);
+			thiz.onChangeMouseUpKeyUp(id);
 		});
 		$(document).on("click", "#" + this.getRowItemAmountInputIdName(id), function(e) {
-                        thiz.onChangeMouseUpKeyUp(thiz, id);
+                        thiz.onChangeMouseUpKeyUp(id);
                 });
-		thiz.updateItemsList();
-		thiz.updatePrice(this, id);
+		this.updateItemsList();
+		this.updatePrice(id);
 	}		
 
-	onChangeMouseUpKeyUp(thiz, itemId) {
-		let input = $('#' + thiz.getRowItemAmountInputIdName(itemId));
+	onChangeMouseUpKeyUp(itemId) {
+		let input = $('#' + this.getRowItemAmountInputIdName(itemId));
 		let value = input.val();
 		if (value == '') value = 1;
-		thiz.updatePrice(thiz, itemId);
+		this.updatePrice(itemId);
 	}
 
-	updatePrice(thiz, itemId) {
-		let input = $('#' + thiz.getRowItemAmountInputIdName(itemId));                                                                                                              let value = input.val();
+	updatePrice(itemId) {
+		let input = $('#' + this.getRowItemAmountInputIdName(itemId));
+		let value = input.val();
 		if (value == '') value = 1;
-		let item = thiz.getItemById(itemId);
+		let item = this.getItemById(itemId);
 		item.amount = Number(value);
-		let label = $('#' + thiz.getItemPriceIdName(itemId));
-		label.text(thiz.getTotalPrice(item));
-		thiz.updateTotalPrice(thiz);
+		let label = $('#' + this.getItemPriceIdName(itemId));
+		label.text(this.getTotalPrice(item));
+		this.updateTotalPrice();
 	}
 
-	updateTotalPrice(thiz) {
-		thiz.grand_total_handler.update(thiz.list);
+	updateTotalPrice() {
+		this.grand_total_handler.update(this.list);
 	}
 
 	getItemRemoveButtonIdName(itemId) {
 		return 'item_remove_button_' + itemId;
 	}
 
-	onRemoveListRowItemClick(thiz, itemId) {
+	onRemoveListRowItemClick(itemId) {
 		sfx_delete.play();
-		const len = thiz.list.length;
+		const len = this.list.length;
 		for (let i = 0; i < len; ++i) {
-			let item = thiz.list[i];
+			let item = this.list[i];
 			if (item.itemId != itemId) {
 				continue;
 			}
-			const removed = thiz.list.splice(i,1);
+			const removed = this.list.splice(i,1);
 			console.log("removed ==== " + removed[0] + ": " + removed[0].itemId);
 			//alert("removed === " + removed[0] + ": " + removed[0].itemId);
 			break;
 		
 		}
-		thiz.removeListRowItem(itemId);
-		thiz.updateItemsList();
-		thiz.updateTotalPrice(thiz);
+		this.removeListRowItem(itemId);
+		this.updateItemsList();
+		this.updateTotalPrice();
 	}
 
 	getItemById(itemId) {
@@ -143,7 +143,7 @@ class ItemSelectionListHandler {
 	updateItemsList() {
 		let thiz = this;
 		let i = 0;
-		$('#' + thiz.getItemsListIdName() + ' > div').each(function () {
+		$('#' + this.getItemsListIdName() + ' > div').each(function () {
 			let item = thiz.list[i];
 			let div = document.getElementById(thiz.getRowItemNumberBoxIdName(item.itemId));
 			div.style["background-color"] = thiz.getRowItemNumberBoxColor(i);

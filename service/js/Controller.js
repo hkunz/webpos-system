@@ -1,19 +1,18 @@
-"use strict"
+"use strict";
 
 class Controller {
 	constructor() {
 		let thiz = this;
 		$(document).ready(function() {
-			thiz.init();
+			thiz.onDocumentReady();
 		});
 	}
 
-	init() {
+	onDocumentReady() {
 		let thiz = this;
 		$('#use_currentdate_checkbox').change(function(e) {
 			thiz.onCurrentDateCheckboxChange(e);
 		});
-		//$("#search_item_input").focus();
 	}
 
 	onCurrentDateCheckboxChange(e) {

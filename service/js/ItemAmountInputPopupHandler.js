@@ -2,7 +2,6 @@
 
 class ItemAmountInputPopupHandler {
 	constructor() {
-		let thiz = this;
 		this.description = null;
 		this.itemId = 0;
 		this.code = null;
@@ -14,60 +13,68 @@ class ItemAmountInputPopupHandler {
 		this.price = 0;
 		this.stock = 0;
 
+		let thiz = this;
 		$(document).ready(function() {
-			$("#search_item_input").on('awesomplete-selectcomplete', function(e) {
-				//let v = this.value;
-				const json = e.originalEvent.text.value;
-				const item = json;
-				thiz.code = item.code;
-				thiz.unit = item.unit;
-				thiz.itemId = item.item_id;
-				thiz.description = item.description;
-				thiz.sell_price = item.sell_price;
-				thiz.brand_name = item.brand_name;
-				thiz.supplier = item.supplier;
-				thiz.general_name = item.general_name;
-				thiz.category = item.category;
-				thiz.stock = item.stock;
-				let id_text = ' <span style="color:#999999">[ID-' + thiz.itemId + ']</span>';
-				document.getElementById('popup_item_code').innerHTML = "[" + thiz.code + "]";
-				document.getElementById('popup_item_description').innerHTML = $('<textarea />').html(thiz.description).text() + id_text;
-				document.getElementById('popup_item_category').innerHTML = thiz.category;
-				document.getElementById('popup_item_stock').innerHTML = (thiz.category.toLowerCase() == 'service' ? '' : '[X' + thiz.stock + ']');
-				document.getElementById('popup_item_price').innerHTML = "₱" + thiz.sell_price;
-				document.getElementById('item_amount_unit').innerHTML = item.unit;
-				thiz.showPopup(true);
-			});
-
-			$("#popup_amount_input").on('keydown', (function(e) {
-				if (e.keyCode == 13 && thiz.item_amount_popup_visible == true) {
-					e.stopImmediatePropagation();
-					thiz.onPopupEnter();
-					return false;
-				}
-				if (e.keyCode == 27 && thiz.item_amount_popup_visible == true) {
-					e.stopImmediatePropagation();
-                                        thiz.showPopup(false);
-                                        return false;
-				}
-			}));
-
-			$("#amount_popup_box").click(function(e) {
-				e.stopImmediatePropagation();
-			});
-	
-			$('.hover_bkgr_fricc').click(function(e) {
-				e.stopImmediatePropagation();
-				thiz.showPopup(false);
-			});
-
-			$('.popupCloseButton').click(function(e) {
-				e.stopImmediatePropagation();
-				thiz.showPopup(false);
-			});
-
-			thiz.item_amount_popup_visible = false;
+			thiz.onDocumentReady();
 		});
+	}
+
+	onDocumentReady() {
+		let thiz = this;
+		$("#search_item_input").on('awesomplete-selectcomplete', function(e) {
+			thiz.onAwesompleteSelectionComplete(e.originalEvent.text.value);
+		});
+		$("#popup_amount_input").on('keydown', (function(e) {
+			return thiz.onPopupKeydown(e);
+		}));
+		$("#amount_popup_box").click(function(e) {
+			e.stopImmediatePropagation();
+		});
+		$('.hover_bkgr_fricc').click(function(e) {
+			e.stopImmediatePropagation();
+			thiz.showPopup(false);
+		});
+		$('.popupCloseButton').click(function(e) {
+			e.stopImmediatePropagation();
+			thiz.showPopup(false);
+		});
+		this.item_amount_popup_visible = false;
+	}
+
+	onAwesompleteSelectionComplete(json) {
+		const item = json;
+		this.code = item.code;
+		this.unit = item.unit;
+		this.itemId = item.item_id;
+		this.description = item.description;
+		this.sell_price = item.sell_price;
+		this.brand_name = item.brand_name;
+		this.supplier = item.supplier;
+		this.general_name = item.general_name;
+		this.category = item.category;
+		this.stock = item.stock;
+		let id_text = ' <span style="color:#999999">[ID-' + this.itemId + ']</span>';
+		document.getElementById('popup_item_code').innerHTML = "[" + this.code + "]";
+		document.getElementById('popup_item_description').innerHTML = $('<textarea />').html(this.description).text() + id_text;
+		document.getElementById('popup_item_category').innerHTML = this.category;
+		document.getElementById('popup_item_stock').innerHTML = (this.category.toLowerCase() == 'service' ? '' : '[X' + this.stock + ']');
+		document.getElementById('popup_item_price').innerHTML = "₱" + this.sell_price;
+		document.getElementById('item_amount_unit').innerHTML = item.unit;
+		this.showPopup(true);
+	}
+
+	onPopupKeydown(e) {
+		if (e.keyCode == 13 && this.item_amount_popup_visible == true) {
+			e.stopImmediatePropagation();
+			this.onPopupEnter();
+			return false;
+		}
+		if (e.keyCode == 27 && this.item_amount_popup_visible == true) {
+			e.stopImmediatePropagation();
+			this.showPopup(false);
+			return false;
+		}
+		return true;
 	}
 
 	onPopupEnter() {

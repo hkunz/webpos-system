@@ -13,14 +13,14 @@ class SqlTransactionHandler {
 			type: "POST",
 			url: "php/get-next-transaction-id.php?_=" + new Date().getTime(),
 			success: function(data) {
-				thiz.onAjaxSuccess(data, thiz);
+				thiz.onAjaxSuccess(data);
 			}
 		});
 	}
 
-	onAjaxSuccess(data, thiz) {
-		thiz.transactionId = data;
-		const transactionId = thiz.getNextTransactionId();
+	onAjaxSuccess(data) {
+		this.transactionId = data;
+		const transactionId = this.getNextTransactionId();
 		const e = new CustomEvent(EVENT_NEXT_TRANSACTION_ID_LOADED, {
                         detail: {
                                 transactionId:transactionId

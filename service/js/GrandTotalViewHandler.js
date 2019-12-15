@@ -10,29 +10,34 @@ class GrandTotalViewHandler {
 		this.discount = 0;
 		this.service_charge = 0;
 		$(document).ready(function() {
-			$(document).on("change, mouseup, keyup", "#" + thiz.getCashInputIdName(), function(e) {
-				thiz.onChangeMouseUpKeyUp(thiz);
-			});
-			$(document).on("click", "#" + thiz.getCashInputIdName(), function(e) {
-				thiz.onChangeMouseUpKeyUp(thiz);
-			});
-			$(document).on("change, mouseup, keyup", "#" + thiz.getServiceChargeIdName(), function(e) {
-				thiz.onChangeMouseUpKeyUp(thiz);
-				thiz.update();
-                        });
-			$(document).on("click", "#" + thiz.getServiceChargeIdName(), function(e) {
-				thiz.onChangeMouseUpKeyUp(thiz);
-				thiz.update();
-                        });
-			$("#customer").keyup(function(e) {
-				thiz.update();
-			});
-			$('#' + thiz.getCommitButtonIdName()).click(function(e) {
-				thiz.onCommitButtonClick(thiz);
-			});
-			$('#require_payment_checkbox').change(function(e) {
-				thiz.onRequirePaymentCheckChange(e, thiz);
-			});
+			thiz.onDocumentReady();
+		});
+	}
+
+	onDocumentReady() {
+		let thiz = this;
+		$(document).on("change, mouseup, keyup", "#" + this.getCashInputIdName(), function(e) {
+			thiz.onChangeMouseUpKeyUp();
+		});
+		$(document).on("click", "#" + this.getCashInputIdName(), function(e) {
+			thiz.onChangeMouseUpKeyUp();
+		});
+		$(document).on("change, mouseup, keyup", "#" + this.getServiceChargeIdName(), function(e) {
+			thiz.onChangeMouseUpKeyUp();
+			thiz.update();
+		});
+		$(document).on("click", "#" + this.getServiceChargeIdName(), function(e) {
+			thiz.onChangeMouseUpKeyUp();
+			thiz.update();
+		});
+		$("#customer").keyup(function(e) {
+			thiz.update();
+		});
+		$('#' + thiz.getCommitButtonIdName()).click(function(e) {
+			thiz.onCommitButtonClick();
+		});
+		$('#require_payment_checkbox').change(function(e) {
+			thiz.onRequirePaymentCheckChange(e);
 		});
 	}
 
@@ -50,7 +55,7 @@ class GrandTotalViewHandler {
 		$('#sub_total_value').text(GrandTotalViewHandler.getAmountText(total));
 		this.sub_total = total;
 		this.discount = 0; //TODO: implement discount
-		this.service_charge = this.getServiceChargeAmount(this);
+		this.service_charge = this.getServiceChargeAmount();
 		this.grand_total = len > 0 ? total + this.service_charge - this.discount : 0;
 		$('#discount_value').text(GrandTotalViewHandler.getAmountText(this.discount));
 		$('#grand_total_value').text(GrandTotalViewHandler.getAmountText(this.grand_total));
@@ -64,40 +69,40 @@ class GrandTotalViewHandler {
 			cashInput.value = '';
 			$('#' + this.getCashChangeIdName()).text('');
 		}
-		this.updateChangeAmount(this);
+		this.updateChangeAmount();
 	}
 
-	onChangeMouseUpKeyUp(thiz) {
-		thiz.updateChangeAmount(thiz);
+	onChangeMouseUpKeyUp() {
+		this.updateChangeAmount();
 	}
 
-	updateChangeAmount(thiz) {
+	updateChangeAmount() {
 		let cashInput = document.getElementById(this.getCashInputIdName());
 		let cash = cashInput.value == '' ? 0 : Number(cashInput.value);
 		let change = cash - this.grand_total;
 		let changeText = '₱ ' + GrandTotalViewHandler.getAmountText(change);
-		let ready = thiz.isPaymentReady(thiz);
-		thiz.cash = cash;
+		let ready = this.isPaymentReady(this);
+		this.cash = cash;
 		$('#' + this.getCashChangeIdName()).text(ready ? changeText : '');
-		thiz.updateCommitButton(thiz);
+		this.updateCommitButton();
 	}
 
-	getServiceChargeAmount(thiz) {
-		let amount_text = $('#' + thiz.getServiceChargeIdName()).val();
+	getServiceChargeAmount() {
+		let amount_text = $('#' + this.getServiceChargeIdName()).val();
 		let amount = (amount_text == '' ? 0 : Number(amount_text));
 		return amount;
 	}
 
-	updateCommitButton(thiz) {
+	updateCommitButton() {
 		let customer = $('#customer').val().trim();
-		let requirePay = thiz.isRequirePaymentChecked();
-		let ready = thiz.isPaymentReady(thiz);
-		let commitButton = document.getElementById(thiz.getCommitButtonIdName());
-		let enableCommit = ready || (!requirePay && thiz.sub_total > 0 && customer != '');
+		let requirePay = this.isRequirePaymentChecked();
+		let ready = this.isPaymentReady();
+		let commitButton = document.getElementById(this.getCommitButtonIdName());
+		let enableCommit = ready || (!requirePay && this.sub_total > 0 && customer != '');
 		commitButton.disabled = !enableCommit;
 	}
 
-	isPaymentReady(thiz) {
+	isPaymentReady() {
 		let cashInput = document.getElementById(this.getCashInputIdName());
 		let cash = (cashInput.value == '' ? 0 : Number(cashInput.value));
 		let change = cash - this.grand_total;
@@ -105,25 +110,25 @@ class GrandTotalViewHandler {
 		return ready;
 	}
 
-	onCommitButtonClick(thiz) {
+	onCommitButtonClick() {
 		let commitButton = document.getElementById(this.getCommitButtonIdName());                                                                                                   commitButton.disabled = true;
 		sfx_commit_transaction.currentTime = 0;
 		sfx_commit_transaction.play();
 
 		const e = new CustomEvent(EVENT_COMMIT_TRANSACTION, {
                         detail: {
-				sub_total:thiz.sub_total,
-				service_charge:thiz.service_charge,
-				discount:thiz.discount,
-                                grand_total:thiz.grand_total,
-				cash:thiz.cash
+				sub_total:this.sub_total,
+				service_charge:this.service_charge,
+				discount:this.discount,
+                                grand_total:this.grand_total,
+				cash:this.cash
                         }
                 });
                 document.getElementById("eventdispatcher").dispatchEvent(e);
 	}
 
-	onRequirePaymentCheckChange(e, thiz) {
-		thiz.updateCommitButton(thiz);
+	onRequirePaymentCheckChange(e) {
+		this.updateCommitButton();
 	}
 
 	isRequirePaymentChecked() {

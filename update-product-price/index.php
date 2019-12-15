@@ -4,6 +4,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: ../login.php");
     exit;
 }
+$href_root = $_SESSION['href_root'];
 require $_SESSION['root'] . 'php/navigation-bar.php';
 ?>
 <!DOCTYPE html>
@@ -13,16 +14,18 @@ require $_SESSION['root'] . 'php/navigation-bar.php';
 <meta charset="UTF-8">
   <title>Klebby's Store</title>
   <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
-  <link type="text/css" rel="stylesheet" href="../css/main-styles.css">
-  <link type="text/css" rel="stylesheet" href="../css/navigation-bar.css">
-  <link type="text/css" rel="stylesheet" href="../css/awesomplete.css">
-  <script type="text/javascript" src="../js/libs/jquery-3.4.1.min.js"></script>
-  <script type="text/javascript" src="../js/libs/awesomplete.js"></script>
-  <script type="text/javascript" src="../js/AwesompleteInputHandler.js"></script>
-  <script type="text/javascript" src="../js/Utils.js"></script>
+  <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/main-styles.css">
+  <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/navigation-bar.css">
+  <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/awesomplete.css">
+  <link type="text/css" rel="stylesheet" href="css/view-products-table.css">
+  <script type="text/javascript" src="<?php echo $href_root; ?>js/libs/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="<?php echo $href_root; ?>js/libs/awesomplete.js"></script>
+  <script type="text/javascript" src="<?php echo $href_root; ?>js/AwesompleteInputHandler.js"></script>
+  <script type="text/javascript" src="<?php echo $href_root; ?>js/Utils.js"></script>
+  <script type="text/javascript" src="<?php echo $href_root; ?>service/js/ItemSearchInputHandler.js"></script>
+  <script type="text/javascript" src="<?php echo $href_root; ?>js/sound-effects.js"></script>
+  <script type="text/javascript" src="js/ProductSelectionHandler.js"></script>
   <script type="text/javascript" src="js/Controller.js"></script>
-  <script type="text/javascript" src="js/ItemSearchInputHandler.js"></script>
-  <script type="text/javascript" src="../js/sound-effects.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
 </head>
 
@@ -32,7 +35,9 @@ require $_SESSION['root'] . 'php/navigation-bar.php';
     <div class="container-left">
       <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>                                                              | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
       <hr class="division">
-      Product Search:
+      <div style="margin-left:2px;margin-bottom:3px;">
+        <label class="drop-shadow" style="font-weight:bold;">UPDATE PRODUCT PRICE</label>
+      </div>
       <div class="search_item">
         <input type="text" class="awesomplete" id="search_item_input" placeholder="Type here to search product ..." spellcheck="false" />
       </div>

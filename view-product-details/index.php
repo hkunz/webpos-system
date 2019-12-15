@@ -35,6 +35,9 @@ require $_SESSION['root'] . 'php/navigation-bar.php';
     <div class="container-left">
       <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>                                                              | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
       <hr class="division">
+      <div style="margin-left:2px;margin-bottom:3px;">
+        <label class="drop-shadow" style="font-weight:bold;">VIEW PRODUCT DETAILS</label>
+      </div>
       <div class="search_item">
         <input type="text" class="awesomplete" id="search_item_input" placeholder="Type here to search product ..." spellcheck="false" />
       </div>

@@ -33,8 +33,10 @@ require $_SESSION['root'] . 'php/navigation-bar.php';
   <div class="container-left" style="width:100%;">
     <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>                                                              | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
     <hr class="division">
+    <div style="margin-left:2px;margin-bottom:1px;">
+      <label class="drop-shadow" style="font-weight:bold;">ADD NEW PRODUCT</label>
+    </div>
     <form autocomplete="off">
-      <br/>
       <input style="width:250px;margin-bottom:10px;margin-right:15px;" type="text" id="barcode" pattern="[^0-9]+" maxlength="13" placeholder="13-Digit Bar Code ..." spellcheck="false"/>
       Unit:
       <select id="unit_select" style="margin-right:10px;">

@@ -8,7 +8,7 @@ class CustomerSearchInputHandler extends AwesompleteInputHandler {
 		this.autoFirst = false;
 	}
 
-	onAjaxSuccess(data, thiz) {
+	onAjaxSuccess(data) {
 		const adata = data.split(',');
 		const len = adata ? adata.length : 0;
 		let list = [];
@@ -18,7 +18,7 @@ class CustomerSearchInputHandler extends AwesompleteInputHandler {
 			const json = '{}';
 			list.push({label:label, value:json});
 		}
-		thiz.input_element.list = list;
-		thiz.input_element.evaluate();
+		this.input_element.list = list;
+		this.input_element.evaluate();
 	}
 }

@@ -8,45 +8,49 @@ class AwesompleteInputHandler {
 		this.postvar1 = null;
 		this.postvar2 = null;
 		this.autoFirst = true;
-		thiz.input_element = null;
+		this.input_element = null;
 		$(document).ready(function() {
-			thiz.onInitialise(thiz);
+			thiz.onDocumentReady();
 		});
 	}
 
-	onInitialise(thiz) {
-		thiz.input_element = new Awesomplete(document.getElementById(thiz.name), {
+	onDocumentReady() {
+		this.input_element = new Awesomplete(document.getElementById(this.name), {
 			minChars:2,
 			maxItems:20,
-			autoFirst:thiz.autoFirst,
+			autoFirst:this.autoFirst,
 			replace: function(suggestion) {
 				this.input.value = suggestion.label;
 			}
 		});
-		$("#" + thiz.name).keyup(function(e) {thiz.onItemSearchInputChange(e, thiz)});
+		let thiz = this;
+		$("#" + this.name).keyup(function(e) {
+			thiz.onItemSearchInputChange(e);
+		});
 	}
 
-	onItemSearchInputChange(e, thiz) {
-		let name = $("#" + thiz.name).val().trim();
+	onItemSearchInputChange(e) {
+		let name = $("#" + this.name).val().trim();
 		if (name == "") {
 			//$("#items_dropdown").html("");
 		} else {
+			let thiz = this;
 			$.ajax({
 				type: "POST",
-				url: thiz.url + Utils.getRandomUrlVar(),
+				url: this.url + Utils.getRandomUrlVar(),
 				data: {
 					search: name,
-					postvar1: thiz.postvar1,
-					postvar2: thiz.postvar2
+					postvar1: this.postvar1,
+					postvar2: this.postvar2
 				},
 				success: function(data) {
-					thiz.onAjaxSuccess(data, thiz);
+					thiz.onAjaxSuccess(data);
 				}
 			});
 		}
 	}
 
-	onAjaxSuccess(data, thiz) {
+	onAjaxSuccess(data) {
 		//https://github.com/LeaVerou/awesomplete/issues/17207
 	}
 }

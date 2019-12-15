@@ -5,7 +5,7 @@ class ItemSearchInputHandler extends AwesompleteInputHandler {
 		super("search_item_input", Utils.getRootPath() + "service/php/get-search-results.php");
 	}
 
-	onAjaxSuccess(data, thiz) {
+	onAjaxSuccess(data) {
 		const adata = data.split('||');
 		const len = adata ? adata.length : 0;
 		let list = [];
@@ -20,8 +20,8 @@ class ItemSearchInputHandler extends AwesompleteInputHandler {
 			const label = json.code + " [" + json.unit + "] " + description + " [₱" + json.sell_price + "]";
 			list.push({label:label, value:json, itemId:json.item_id});
 		}
-		thiz.input_element.list = list;
-		thiz.input_element.evaluate();
+		this.input_element.list = list;
+		this.input_element.evaluate();
 	}
 
 	getValue(item, value) {

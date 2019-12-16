@@ -4,6 +4,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: ../login.php");
     exit;
 }
+$href_root = $_SESSION['href_root'];
 require $_SESSION['root'] . 'php/navigation-bar.php';
 ?>
 <!DOCTYPE html>
@@ -13,14 +14,14 @@ require $_SESSION['root'] . 'php/navigation-bar.php';
 <meta charset="UTF-8">
   <title>Klebby's Add New Product</title>
   <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
-  <link type="text/css" rel="stylesheet" href="../css/main-styles.css">
-  <link type="text/css" rel="stylesheet" href="../css/navigation-bar.css">
-  <link type="text/css" rel="stylesheet" href="../css/awesomplete.css">
-  <script type="text/javascript" src="../js/libs/jquery-3.4.1.min.js"></script>
-  <script type="text/javascript" src="../js/libs/awesomplete.js"></script>
-  <script type="text/javascript" src="../js/Utils.js"></script>
-  <script type="text/javascript" src="../js/sound-effects.js"></script>
-  <script type="text/javascript" src="../js/AwesompleteInputHandler.js"></script>
+  <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/main-styles.css">
+  <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/navigation-bar.css">
+  <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/awesomplete.css">
+  <script type="text/javascript" src="<?php echo $href_root; ?>js/libs/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="<?php echo $href_root; ?>js/libs/awesomplete.js"></script>
+  <script type="text/javascript" src="<?php echo $href_root; ?>js/Utils.js"></script>
+  <script type="text/javascript" src="<?php echo $href_root; ?>js/sound-effects.js"></script>
+  <script type="text/javascript" src="<?php echo $href_root; ?>js/AwesompleteInputHandler.js"></script>
   <script type="text/javascript" src="js/Controller.js"></script>
   <script type="text/javascript" src="js/GeneralNameInputHandler.js"></script>
   <script type="text/javascript" src="js/BrandNameInputHandler.js"></script>

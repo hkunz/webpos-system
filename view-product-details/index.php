@@ -17,7 +17,7 @@ require $_SESSION['root'] . 'php/navigation-bar.php';
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/main-styles.css">
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/navigation-bar.css">
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/awesomplete.css">
-  <link type="text/css" rel="stylesheet" href="css/view-products-table.css">
+  <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/common-table.css">
   <script type="text/javascript" src="<?php echo $href_root; ?>js/libs/jquery-3.4.1.min.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>js/libs/awesomplete.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>js/AwesompleteInputHandler.js"></script>
@@ -41,8 +41,12 @@ require $_SESSION['root'] . 'php/navigation-bar.php';
       <div class="search_item">
         <input type="text" class="awesomplete" id="search_item_input" placeholder="Type here to search product ..." spellcheck="false" />
       </div>
-      <br>
-      <div class="products-wrapper"><table id="products-table" cellspacing="0" cellpadding="0">
+      <div class="common-table-wrapper">
+      <table class="common-table" cellspacing="0" cellpadding="0">
+        <tr>
+          <th>Property</th>
+          <th>Value</th>
+        </tr>
         <tr>
           <td width="150px"><label class="standard-label">Product ID</label></td>
           <td><label id="product_id" class="drop-shadow"></label>
@@ -95,9 +99,10 @@ require $_SESSION['root'] . 'php/navigation-bar.php';
           <td><label class="standard-label">Manufacturer</label></td>
           <td><label id="product_manufacturer" class="drop-shadow"></label>
         </tr>
-      </table></div>
+        </table>
+        </div>
+      </div>
     </div>
-  </div>
   <div id="eventdispatcher" style="display:none;" />
 </body>
 </html>

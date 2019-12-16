@@ -1,0 +1,37 @@
+div.common-table-wrapper {
+  border: 3px ridge #CCCCCC;
+  border-radius: 6px;
+  box-shadow: 0px 1px 7px 1px #000000;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+table.common-table {
+  border-collapse: separate;
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+}
+
+table.common-table td, table.common-table th {
+  padding: 5px;
+  padding-left: 15px;
+}
+
+table.common-table tr:nth-child(even) {
+  background-color: #333333;
+}
+
+table.common-table tr:hover {
+  background-color: #bbb;
+}
+
+table.common-table th {
+  font-family: Calibri;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  text-align: left;
+  /*background-color: #4CAF50;*/
+  background: linear-gradient(to bottom, #333333, #222222);
+  color: #ffffaa;
+}

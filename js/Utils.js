@@ -109,4 +109,8 @@ class Utils {
 	static notE(e) {
 		return e.keyCode !== 69;
 	}
+
+	static resolveHtmlEntities(text) {
+		return $('<textarea />').html(text).text();
+	}
 }

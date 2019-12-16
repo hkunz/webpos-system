@@ -17,6 +17,7 @@ require $_SESSION['root'] . 'php/navigation-bar.php';
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/main-styles.css">
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/navigation-bar.css">
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/awesomplete.css">
+  <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/common-table.css">
   <script type="text/javascript" src="<?php echo $href_root; ?>js/libs/jquery-3.4.1.min.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>js/libs/awesomplete.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>js/AwesompleteInputHandler.js"></script>
@@ -39,6 +40,16 @@ require $_SESSION['root'] . 'php/navigation-bar.php';
       </div>
       <div class="search_item">
         <input type="text" class="awesomplete" id="search_item_input" placeholder="Type here to search product ..." spellcheck="false" />
+      </div>
+      <div style="margin-top:5px;">
+        <label id="product_code" class="standard-label drop-shadow" style="display:block"></label>
+        <label id="product_name" class="standard-label drop-shadow" style=""></label>
+      </div>
+      <div id="table_container" class="common-table-wrapper">
+        <table class='common-table' cellspacing="0" cellpadding="0">
+          <tr><th>Unit Price History</label></th><th>Unit Price</th><th>Sell Price History</th><th>Sell Price</th></tr>
+          <tr><td>&nbsp;</td><td></td><td></td><td></td></tr>
+        </table>
       </div>
       <br>
       <button id="update_price_button" class="commit-transaction-button" disabled="true">UPDATE PRICE</button>

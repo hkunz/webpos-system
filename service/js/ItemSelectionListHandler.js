@@ -55,7 +55,7 @@ class ItemSelectionListHandler {
 	addListRowItem(item) {
 		this.list.push(item);
 		const id = item.itemId;
-		const description = $('<textarea />').html(item.description).text();
+		const description = Utils.resolveHtmlEntities(item.description);
 		const len = this.list.length;
 		let newdiv = document.createElement('div');
 

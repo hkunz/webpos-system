@@ -55,7 +55,7 @@ class ItemAmountInputPopupHandler {
 		this.stock = item.stock;
 		let id_text = ' <span style="color:#999999">[ID-' + this.itemId + ']</span>';
 		document.getElementById('popup_item_code').innerHTML = "[" + this.code + "]";
-		document.getElementById('popup_item_description').innerHTML = $('<textarea />').html(this.description).text() + id_text;
+		document.getElementById('popup_item_description').innerHTML = Utils.resolveHtmlEntities(this.description) + id_text;
 		document.getElementById('popup_item_category').innerHTML = this.category;
 		document.getElementById('popup_item_stock').innerHTML = (this.category.toLowerCase() == 'service' ? '' : '[X' + this.stock + ']');
 		document.getElementById('popup_item_price').innerHTML = "₱" + this.sell_price;

@@ -16,17 +16,10 @@ class GrandTotalViewHandler {
 
 	onDocumentReady() {
 		let thiz = this;
-		$(document).on("change, mouseup, keyup", "#" + this.getCashInputIdName(), function(e) {
+		$('#' + this.getCashInputIdName()).bind('input', function(e) {
 			thiz.onChangeMouseUpKeyUp();
 		});
-		$(document).on("click", "#" + this.getCashInputIdName(), function(e) {
-			thiz.onChangeMouseUpKeyUp();
-		});
-		$(document).on("change, mouseup, keyup", "#" + this.getServiceChargeIdName(), function(e) {
-			thiz.onChangeMouseUpKeyUp();
-			thiz.update();
-		});
-		$(document).on("click", "#" + this.getServiceChargeIdName(), function(e) {
+		$('#' + this.getServiceChargeIdName()).bind('input', function(e) {
 			thiz.onChangeMouseUpKeyUp();
 			thiz.update();
 		});

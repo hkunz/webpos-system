@@ -48,6 +48,6 @@ for ($i = 0; $i < $len; ++$i) {
         $table .= "</td></tr>";
 }
 $table .= "</table></div></td></tr></table>\"";
-echo ',"table":' . $table . '}';
+echo ',"table":' . $table . ',"curr_unit_price_asofdate":"' . $unit_prices[0][0] . '","curr_sell_price_asofdate":"' . $sell_prices[0][0] . '"}';
 ?>
 

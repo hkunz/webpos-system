@@ -473,3 +473,10 @@ a:active {
 ::-ms-input-placeholder { /* Microsoft Edge */
   color: #555;
 }
+
+label.product-caption {
+  font-family: Calibri;
+  color: #FFFFAA;
+  font-weight: bold;
+  text-shadow: 1px 1px #222222;
+}

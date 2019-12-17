@@ -44,7 +44,7 @@ require $_SESSION['root'] . 'php/navigation-bar.php';
       <div id="product_name_container" class='common-table-wrapper' style='margin-top:13px;margin-bottom:5px;display:none;padding:15px;background: linear-gradient(to bottom, #333, #444)'>
       <div>
         <label id="product_code" class="standard-label drop-shadow" style="display:block"></label>
-        <label id="product_name" class="standard-label drop-shadow" style="color:#ffffff;font-weight:bold;"></label>
+        <label id="product_name" class="product-caption"></label>
       </div>
       <div id="price_editor_container" style='width:100%;margin:0px;margin-top:10px;margin-bottom:10px;'>
         <table width='100%' cellpadding='0' cellspacing='0'>

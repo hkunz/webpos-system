@@ -60,9 +60,8 @@ class ProductSelectionHandler {
 		this.curr_item = item;
 		$('#table_container').html(json.table);
 		$('#product_name_container').css('display','block');
-		$('#price_editor_container').css('display','block');
-		$('#product_code').text('Bar Code: ' + (item.barcode ? item.barcode : "None"));
-		$('#product_name').text(Utils.resolveHtmlEntities(item.description) + ' {ID-' + item.item_id + '}');
+		$('#product_code').text('Bar Code: ' + (item.barcode ? item.barcode : "None") + ' {ID-' + item.item_id + '}');
+		$('#product_name').text(Utils.resolveHtmlEntities(item.description));
 		$('#sell_price_input').attr("placeholder", this.curr_item.sell_price);
 		$('#unit_price_input').attr("placeholder", this.curr_item.unit_price);
 		$('#sell_price_input').val(item.sell_price);

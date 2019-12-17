@@ -38,14 +38,18 @@ $len = max(count($unit_prices), count($sell_prices));
 $table = "\"<table cellspacing='0' cellpadding='0' width='100%'><tr><td valign='top'><div class='common-table-wrapper' style='margin-right:8px;'>";
 $table .= "<table class='common-table' cellspacing='0' cellpadding='0'><tr><th>Unit Price History</th><th>Unit Price</th></tr>";
 for ($i = 0; $i < $len; ++$i) {
+	$date = $unit_prices[$i][0];
+	if ($date == null) continue;
 	$table .= "<tr><td>";
-	$table .= $unit_prices[$i][0] . "</td><td><span style='margin-right:2px;'>" . $currency . "</span>" . $unit_prices[$i][1];
+	$table .= $date . "</td><td><span style='margin-right:2px;'>" . $currency . "</span>" . $unit_prices[$i][1];
 	$table .= "</td></tr>";
 }
 $table .= "</table></div></td><td valign='top'><div class='common-table-wrapper' style='margin-left:8px;'><table class='common-table' cellspacing='0' cellpadding='0'><tr><th>Sell Price History</th><th>Sell Price</th></tr>";
 for ($i = 0; $i < $len; ++$i) {
+        $date = $sell_prices[$i][0];
+	if ($date == null) continue;
         $table .= "<tr><td>";
-        $table .= $sell_prices[$i][0] . "</td><td><span style='margin-right:2px;'>" . $currency . "</span>" . $sell_prices[$i][1];
+        $table .= $date . "</td><td><span style='margin-right:2px;'>" . $currency . "</span>" . $sell_prices[$i][1];
         $table .= "</td></tr>";
 }
 $table .= "</table></div></td></tr></table>\"";

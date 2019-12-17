@@ -16,6 +16,12 @@ $products_list = '
   <a href="' . $rootpath . 'view-product-details/">View Product Details</a>
 </div>';
 
+$accounts_list = '
+<div class="dropdown-content">
+  <a href="' . $rootpath . 'view-accounts-receivable/">Accounts Receivable</a>
+  <a href="' . $rootpath . 'view-accounts-payable/">Accounts Payable</a>
+</div>';
+
 $user_list = '
 <div class="dropdown-content">
   <a id="menu_settings" href="#">Settings</a>
@@ -42,6 +48,11 @@ $navbar_content = '
       <button class="dropbtn menu-btn">Products
         <i class="fa fa-caret-down"></i>
       </button>' . ($ready ? $products_list : '') . '
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn menu-btn">Accounts
+        <i class="fa fa-caret-down"></i>
+      </button>' . ($ready ? $accounts_list : '') . '
     </div>' . 
     ($ready ? $user_menu : '') . '
 </div>';

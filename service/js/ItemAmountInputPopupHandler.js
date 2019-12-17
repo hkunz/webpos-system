@@ -95,7 +95,7 @@ class ItemAmountInputPopupHandler {
 
 	showPopup(show) {
 		if (show) {
-			sfx_popup.play();
+			Utils.play(sfx_popup);
 			let input = document.getElementById('popup_amount_input');
 			$('.hover_bkgr_fricc').show();
                 	input.value = '1';

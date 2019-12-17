@@ -25,8 +25,7 @@ class Controller {
 		let thiz = this;
 		let json_str = JSON.stringify(this.json);
 		button.disabled = true;
-                sfx_commit_transaction.currentTime = 0;
-                sfx_commit_transaction.play();
+                Utils.play(sfx_commit_transaction);
 		const url = "php/create-new-item.php";
 
 		console.log("Create item: " + json_str);

@@ -132,4 +132,9 @@ class Utils {
 		const places = 2;
 		return Number(Number(text).toFixed(places));
 	}
+
+	static play(sound) {
+		sound.currentTime = 0;
+		sound.play();
+	}
 }

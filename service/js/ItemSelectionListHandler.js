@@ -8,7 +8,7 @@ class ItemSelectionListHandler {
 	}
 
 	reset() {
-		sfx_delete.play();
+		Utils.play(sfx_delete);
 		this.list = [];
 		this.grand_total_handler.setList(this.list);
 		let div = document.getElementById(this.getItemsListIdName());
@@ -35,7 +35,7 @@ class ItemSelectionListHandler {
 		if (isnew) {
 			this.addListRowItem(item);
 		}
-		sfx_click.play();
+		Utils.play(sfx_click);
 		this.debug_dump();
 	}
 
@@ -105,7 +105,7 @@ class ItemSelectionListHandler {
 	}
 
 	onRemoveListRowItemClick(itemId) {
-		sfx_delete.play();
+		Utils.play(sfx_delete);
 		const len = this.list.length;
 		for (let i = 0; i < len; ++i) {
 			let item = this.list[i];

@@ -105,8 +105,7 @@ class GrandTotalViewHandler {
 
 	onCommitButtonClick() {
 		let commitButton = document.getElementById(this.getCommitButtonIdName());                                                                                                   commitButton.disabled = true;
-		sfx_commit_transaction.currentTime = 0;
-		sfx_commit_transaction.play();
+		Utils.play(sfx_commit_transaction);
 
 		const e = new CustomEvent(EVENT_COMMIT_TRANSACTION, {
                         detail: {

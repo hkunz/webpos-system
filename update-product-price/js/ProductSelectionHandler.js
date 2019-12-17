@@ -49,6 +49,7 @@ class ProductSelectionHandler {
 			type: "POST",
 			url: "php/get-prices-history.php" + Utils.getRandomUrlVar(),
 			data: {
+				currency: Utils.getCurrencySymbol(),
 				item_id: thiz.curr_item.item_id
 			},
 			success: function(data) {

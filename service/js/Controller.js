@@ -18,6 +18,7 @@ class Controller {
 	updateNextTransactionId() {
 		const id = ('0000000' + this.sql_transaction_handler.getNextTransactionId()).slice(-7);
 		$('#transaction_id').text(id);
+		$('#transaction_container').css('opacity', 1.0);
 	}
 
 	commitTransaction(json) {
@@ -55,6 +56,7 @@ class Controller {
 
 	onDocumentReady() {
 		let thiz = this;
+		$('#cash_input').attr('placeholder', Utils.getCurrencySymbol());
                 $('#use_currentdate_checkbox').change(function(e) {
                         thiz.onCurrentDateCheckboxChange(e);
                 });
@@ -108,7 +110,6 @@ class Controller {
 			thiz.updateNextTransactionId();
 		});
 
-		this.updateNextTransactionId();
 		$("#search_item_input").focus();
 	}
 

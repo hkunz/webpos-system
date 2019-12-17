@@ -3,7 +3,14 @@
 class SqlTransactionHandler {
 
 	constructor() {
+		let thiz = this;
 		this.transactionId = -1;
+		$(document).ready(function(e) {
+			thiz.onDocumentReady();
+		});
+	}
+
+	onDocumentReady() {
 		this.phpGetNextTransactionId();
 	}
 

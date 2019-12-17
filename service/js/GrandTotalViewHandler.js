@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 class GrandTotalViewHandler {
 	constructor() {
@@ -73,7 +73,7 @@ class GrandTotalViewHandler {
 		let cashInput = document.getElementById(this.getCashInputIdName());
 		let cash = cashInput.value == '' ? 0 : Number(cashInput.value);
 		let change = cash - this.grand_total;
-		let changeText = '₱ ' + GrandTotalViewHandler.getAmountText(change);
+		let changeText = Utils.getCurrencySymbol() + ' ' + GrandTotalViewHandler.getAmountText(change);
 		let ready = this.isPaymentReady(this);
 		this.cash = cash;
 		$('#' + this.getCashChangeIdName()).text(ready ? changeText : '');

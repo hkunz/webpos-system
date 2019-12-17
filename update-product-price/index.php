@@ -48,9 +48,9 @@ require $_SESSION['root'] . 'php/navigation-bar.php';
       </div>
       <div id="price_editor_container" style='width:100%;margin:0px;margin-top:10px;margin-bottom:10px;'>
         <table width='100%' cellpadding='0' cellspacing='0'>
-          <tr><td width='300px;'>
-            <label class='standard-label'>Current Unit Price: </label><input id='unit_price_input' type="number" min='0' placeholder='' onkeydown="return Utils.not(event);" style='color:#ffffaa;width:100px;margin-bottom:5px;'><br>
-            <label class='standard-label'>Current Sell Price: </label><input id='sell_price_input' type="number" min='0' placeholder='' onkeydown="return Utils.not(event);" style='color:#ffffaa;width:100px;'>
+          <tr><td width='320px;'>
+            <label class='standard-label'>Current Unit Price: <script type="text/javascript">document.write(Utils.getCurrencySymbol());</script>&nbsp;</label><input id='unit_price_input' type="number" min='0' placeholder='' onkeydown="return Utils.not(event);" style='color:#ffffaa;width:100px;margin-bottom:5px;'><br>
+            <label class='standard-label'>Current Sell Price: <script type="text/javascript">document.write(Utils.getCurrencySymbol());</script>&nbsp;</label><input id='sell_price_input' type="number" min='0' placeholder='' onkeydown="return Utils.not(event);" style='color:#ffffaa;width:100px;'>
           </td><td>
             <button id="update_price_button" class="commit-transaction-button" style='width:210px;' disabled="true">UPDATE PRODUCT PRICE</button>
           </td></tr>

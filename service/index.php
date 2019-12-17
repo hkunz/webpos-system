@@ -118,7 +118,7 @@ require $_SESSION["root"] . 'php/navigation-bar.php';
     <div class="receipt">
       <label class="receipt">RECEIPT</label>
     </div>
-    <div class="transaction-text-div">
+    <div id='transaction_container' class="transaction-text-div" style='opacity:0.0;'>
       Transaction ID: <label id="transaction_id" style="color:#ffff00;font-weight:bold;">&nbsp;</label>
     </div>
     <br/>
@@ -133,7 +133,7 @@ require $_SESSION["root"] . 'php/navigation-bar.php';
       <tr class="totals-tr" style="display:none;">
         <td><label class="label-text">Service Charge:</label></td>
         <td class="td-value">
-          <input class="cash-input" type="number" id="service_charge_input" disabled="true" min="0" placeholder="₱" onkeydown="return Utils.not(event);"/>
+          <input class="cash-input" type="number" id="service_charge_input" disabled="true" min="0" placeholder="P" onkeydown="return Utils.not(event);"/>
         </td>
       </tr>
       <tr class="totals-tr">
@@ -156,7 +156,7 @@ require $_SESSION["root"] . 'php/navigation-bar.php';
       <tr class="totals-tr">
         <td class="td-value" colspan="2">
           <div class="grand-total-value">
-            <label class="grand-total-value" style="padding-right:5px;">₱</label><label id="grand_total_value" class="grand-total-value">0.00</label>
+            <label class="grand-total-value" style="padding-right:5px;"><script type="text/javascript">document.write(Utils.getCurrencySymbol());</script></label><label id="grand_total_value" class="grand-total-value">0.00</label>
           </div>
         </td>
       </tr>
@@ -173,7 +173,7 @@ require $_SESSION["root"] . 'php/navigation-bar.php';
       <tr class="totals-tr">
         <td><label class="label-text">Cash:</label></td>
         <td class="td-value">
-          <input class="cash-input" type="number" id="cash_input" disabled="true" min="0" placeholder="₱" onkeydown="return Utils.not(event);"/>
+          <input class="cash-input" type="number" id="cash_input" disabled="true" min="0" onkeydown="return Utils.not(event);"/>
         </td>
       </tr>
       <tr class="totals-tr">

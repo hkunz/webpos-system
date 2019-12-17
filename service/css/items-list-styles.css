@@ -87,15 +87,17 @@ label.description {
 }
 
 label.sub-description {
+  font-family: Calibri;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   display:block;
-  margin-top:-2px;
+  margin-top:-3px;
   font-size:10pt;
   color:#999999;
   text-shadow: #555555;
   width:100%;
+  padding-left: 2px;
 }
 
 div.items-list {

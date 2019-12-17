@@ -34,14 +34,20 @@ $sell_prices = echoPricesHistory($sql_con, $item_id, "sell");
 
 $len = max(count($unit_prices), count($sell_prices));
 
-$table = "\"<table class='common-table' cellspacing='0' cellpadding='0'><tr><th>Unit Price History</th><th>Unit Price</th><th>Sell Price History</th><th>Sell Price</th></tr>";
+$table = "\"<table cellspacing='0' cellpadding='0' width='100%'><tr><td valign='top'><div class='common-table-wrapper' style='margin-right:8px;'>";
+$table .= "<table class='common-table' cellspacing='0' cellpadding='0'><tr><th>Unit Price History</th><th>Unit Price</th></tr>";
 for ($i = 0; $i < $len; ++$i) {
 	$table .= "<tr><td>";
-	$table .= $unit_prices[$i][0] . "</td><td>" . $unit_prices[$i][1] . "</td><td>";
-	$table .= $sell_prices[$i][0] . "</td><td>" . $sell_prices[$i][1];
+	$table .= $unit_prices[$i][0] . "</td><td>" . $unit_prices[$i][1];
 	$table .= "</td></tr>";
 }
-$table .= "</table>\"";
+$table .= "</table></div></td><td valign='top'><div class='common-table-wrapper' style='margin-left:8px;'><table class='common-table' cellspacing='0' cellpadding='0'><tr><th>Sell Price History</th><th>Sell Price</th></tr>";
+for ($i = 0; $i < $len; ++$i) {
+        $table .= "<tr><td>";
+        $table .= $sell_prices[$i][0] . "</td><td>" . $sell_prices[$i][1];
+        $table .= "</td></tr>";
+}
+$table .= "</table></div></td></tr></table>\"";
 echo ',"table":' . $table . '}';
 ?>
 

@@ -43,7 +43,7 @@ require $_SESSION['root'] . 'php/navigation-bar.php';
       <select id="unit_select" style="margin-right:10px;">
       </select>
       Count:
-      <input id="count_input" style="width:60px;" type="number" min="1" value="1" onkeydown="return Utils.notE(event);" disabled>
+      <input id="count_input" style="width:60px;" type="number" min="1" value="1" onkeydown="return Utils.not_i(event);" disabled>
       <br>
       <input style="width:100%;" autocomplete="off" type="text" id="item_description" maxlength="100" placeholder="Product Description ..." spellcheck="false" autocomplete="false"/>
       <br><br>
@@ -66,12 +66,12 @@ require $_SESSION['root'] . 'php/navigation-bar.php';
         </select>
       </div>
       Unit Price:
-      <input id="unit_price_input" style="width:90px;margin-bottom:10px;" type="number" min="0" onkeydown="return Utils.notE(event)">
+      <input id="unit_price_input" style="width:90px;margin-bottom:10px;" type="number" min="0" onkeydown="return Utils.not(event)">
       <br>
       Sell Price:
-      <input id="sell_price_input" style="width:90px;margin-bottom:10px;margin-right:8px;" type="number" min="0" onkeydown="return Utils.notE(event)">
+      <input id="sell_price_input" style="width:90px;margin-bottom:10px;margin-right:8px;" type="number" min="0" onkeydown="return Utils.not(event)">
       Stock:
-      <input id="stock_input" style="width:68px;" type="number" min="0" onkeydown="return Utils.notE(event)">
+      <input id="stock_input" style="width:68px;" type="number" min="0" onkeydown="return Utils.not_i(event)">
       <br><br>
       <button id="create_item_button" class="commit-transaction-button" disabled="true">ADD NEW PRODUCT</button>
     </form>

@@ -3,13 +3,13 @@
 class Controller {
 	constructor() {
 		let thiz = this;
-		$(document).ready(function() {
-			thiz.init();
+		$(document).ready(function(e) {
+			thiz.onDocumentReady();
 		});
 	}
 
-	init() {
+	onDocumentReady() {
 		let thiz = this;
-		
+		$("#search_item_input").focus();
 	}
 }

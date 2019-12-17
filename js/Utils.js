@@ -1,11 +1,6 @@
 "use strict";
 
 class Utils {
-	constructor() {}
-	static getAmountText(value) {
-                return Number.parseFloat(value).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        }
-
 	static getServerName() {
 		return "localhost";
 	}
@@ -32,7 +27,7 @@ class Utils {
 	}
 
 	static getAmountPesoText(value) {
-		return '₱' + Utils.getAmountText(value);
+		return Utils.getCurrencySymbol() + Utils.getAmountText(value);
 	}
 
 	static getStoreHeading() {
@@ -106,11 +101,35 @@ class Utils {
 		return "₱";
 	}
 
-	static notE(e) {
-		return e.keyCode !== 69;
+	//Utils.not(event, 'e+-.'); //not exponent(e), plus(+), minus(-), or dot(.)
+	static not(e, characters) {
+		if (characters == null) characters = 'e+-';
+		const input_element = e.target;
+		const text = input_element.value;
+		const k = e.key.toLowerCase();
+		let r = true;
+		let len = characters.length;
+		for (let i = 0; i < len; ++i) {
+			r = r && k !== characters.charAt(i);
+		}
+		return r;
+	}
+
+	static not_i(e) {
+		return Utils.not(e, 'e+-.');
 	}
 
 	static resolveHtmlEntities(text) {
 		return $('<textarea />').html(text).text();
+	}
+
+	//returns comma separated amount i.e. 1,000,000.00
+	static getAmountText(value) {
+		return Number.parseFloat(value).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+
+	static getCurrencyValue(text) {
+		const places = 2;
+		return Number(Number(text).toFixed(places));
 	}
 }

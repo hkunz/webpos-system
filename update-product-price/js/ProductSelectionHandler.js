@@ -88,7 +88,7 @@ class ProductSelectionHandler {
 		$('#table_container').html(json.table);
 		$('#product_name_container').css('display','block');
 		$('#product_code').text('Bar Code: ' + (item.barcode ? item.barcode : "None") + ' {ID-' + item.item_id + '}');
-		$('#product_name').text(Utils.resolveHtmlEntities(item.description));
+		$('#product_name').text('[' + item.unit + '] ' + Utils.resolveHtmlEntities(item.description));
 		$('#sell_price_input').attr("placeholder", sell_price);
 		$('#unit_price_input').attr("placeholder", unit_price);
 		$('#sell_price_input').val(sell_price);

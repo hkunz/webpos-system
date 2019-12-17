@@ -20,8 +20,7 @@ class ProductSelectionHandler {
 		$('#search_item_input').val('');
 		$('#product_id').text(item.item_id);
 		$('#product_barcode').text(item.barcode ? item.barcode : "None");
-		$('#product_description').html(Utils.resolveHtmlEntities(item.description));
-		$('#unit').text(item.unit);
+		$('#product_description').html('[' + item.unit + '] ' + Utils.resolveHtmlEntities(item.description));
 		$('#product_category').text(item.category);
 		$('#stock').text(item.stock);
 		$('#brand_name').text(item.brand_name);

@@ -55,10 +55,6 @@ require $_SESSION['root'] . 'php/navigation-bar.php';
           <td><label id="product_barcode" class="drop-shadow"></label>
         </tr>
         <tr>
-          <td><label class="standard-label">Unit</label></td>
-          <td><label id="unit" class="drop-shadow"></label>
-        </tr>
-        <tr>
           <td><label class="standard-label">Content Count</label></td>
           <td><label id="content_count" class="drop-shadow"></label>
         </tr>

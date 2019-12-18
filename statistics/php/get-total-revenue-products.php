@@ -10,6 +10,7 @@ $query = "SELECT get_total_products_revenue('" . $dateStart . "','" . $dateEnd .
 $result = $sql_con->query($query);
 $row = $result->fetch_array();
 $revenue_products = $row[0];
+$sql_con->close();
 
 echo $revenue_products;
 ?>

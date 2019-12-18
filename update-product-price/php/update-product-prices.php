@@ -27,5 +27,7 @@ if ($sql_con->query($query) === TRUE) {
 } else {
 	echo '{"success":0,"message":"' . $sql_con->error . '","query":"' . $query . '"}';
 }
+
+$sql_con->close();
 ?>
 

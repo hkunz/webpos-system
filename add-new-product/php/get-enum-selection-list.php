@@ -12,5 +12,6 @@ $str_values = str_replace("'", '"', $rows[1]);
 preg_match('/^enum\((\".*\")\)$/', $str_values, $values);
 echo $values[1];
 echo "]";
+$sql_con->close();
 ?>
 

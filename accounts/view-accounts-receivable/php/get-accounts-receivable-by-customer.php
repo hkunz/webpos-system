@@ -10,5 +10,7 @@ $query = "SELECT `customer` `Customer`,MAX(`date`) `Last Update Date`,SUM(`grand
 
 $table = create_scrollable_table($sql_con, $query, array('100%', '210px', '110px', '100px'), array(0, 0, 1, 1));
 echo '{"content":"' . $table . '","root":"' . $root . '"}';
+
+$sql_con->close();
 ?>
 

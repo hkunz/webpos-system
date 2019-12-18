@@ -21,6 +21,6 @@ if (isset($_POST['json'])) {
 	
 	echo '{"success":' . $success . ',"item_id":' . $iid . '}';
 }
-
+$sql_con->close();
 ?>
 

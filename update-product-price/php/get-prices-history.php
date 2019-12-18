@@ -33,6 +33,7 @@ function echoPricesHistory($con, $item_id, $type) {
 $unit_prices = echoPricesHistory($sql_con, $item_id, "unit");
 echo ',';
 $sell_prices = echoPricesHistory($sql_con, $item_id, "sell");
+$sql_con->close();
 
 $len = max(count($unit_prices), count($sell_prices));
 

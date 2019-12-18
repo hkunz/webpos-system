@@ -16,6 +16,6 @@ if (isset($_POST['json'])) {
 	$success = $result['@success'];
 	echo '{"success":' . $success . ',"transaction_id":' . $transaction_id . '}';
 }
-
+$sql_con->close();
 ?>
 

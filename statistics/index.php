@@ -20,8 +20,8 @@ require $_SESSION['root'] . 'php/navigation-bar.php';
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/awesomplete.css">
   <script type="text/javascript" src="<?php echo $href_root; ?>js/libs/jquery-3.4.1.min.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>js/libs/awesomplete.js"></script>
-  <script type="text/javascript" src="<?php echo $href_root; ?>js/sound-effects.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>js/Utils.js"></script>
+  <script type="text/javascript" src="<?php echo $href_root; ?>js/sound-effects.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
 </head>
 

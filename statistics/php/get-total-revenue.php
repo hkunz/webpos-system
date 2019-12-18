@@ -21,5 +21,7 @@ $result = $sql_con->query($query);
 $row = $result->fetch_array();
 $revenue_services = $row[0];
 
+$sql_con->close();
+
 echo $revenue_prepaid + $revenue_services + $revenue_products;
 ?>

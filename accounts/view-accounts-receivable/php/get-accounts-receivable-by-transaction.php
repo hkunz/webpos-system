@@ -10,5 +10,7 @@ $query = "SELECT `transaction_id` `OR#`,`date` `Date`,`grand_total` `Grand Total
 
 $table = create_scrollable_table($sql_con, $query, array('100px', '100%', '150px', '100px'), array(0, 0, 1, 1));
 echo '{"customer":"' . $customer . '","content":"' . $table . '"}';
+
+$sql_con->close();
 ?>
 

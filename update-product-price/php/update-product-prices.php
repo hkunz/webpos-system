@@ -1,6 +1,7 @@
 <?php
+session_start();
 $root = $_SESSION['root'];
-require "../../php/db.php";
+require_once("${root}php/db.php");
 
 $item_id = $_POST['item_id'];
 $unit_price = $_POST['new_unit_price'];

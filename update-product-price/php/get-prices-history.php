@@ -1,9 +1,10 @@
 <?php
+session_start();
 $root = $_SESSION['root'];
-require "../../php/db.php";
+require "${root}php/db.php";
 
 $item_id = $_POST['item_id'];
-$currency = $_POST['currency'];
+$currency = $_SESSION['currency'];
 echo '{
 "item_id":' . $item_id . ',
 ';

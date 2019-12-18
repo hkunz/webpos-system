@@ -137,4 +137,9 @@ class Utils {
 		sound.currentTime = 0;
 		sound.play();
 	}
+
+	static getScrollWidth() {
+		//return $('tbody::-webkit-scrollbar').css('width'); //not working
+		return 12;
+	}
 }

@@ -1,5 +1,7 @@
 <?php
-include "db.php";
+session_start();
+$root = $_SESSION['root'];
+require_once("${root}php/db.php");
 
 if (isset($_POST['search'])) {
 	$field = $_POST['postvar1'];

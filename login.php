@@ -66,6 +66,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
                             $_SESSION["username"] = $username;
+                            $_SESSION["currency"] = '₱';
                             $_SESSION["href_host"] = "//$SERVER_NAME/";
                             $_SESSION["href_root"] = "//$SERVER_NAME/" . $ROOT_DIRECTORY;
                             $_SESSION["root"] = $_SERVER['DOCUMENT_ROOT'] . "/" . $ROOT_DIRECTORY;

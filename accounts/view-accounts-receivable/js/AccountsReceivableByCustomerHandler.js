@@ -20,6 +20,7 @@ class AccountsReceivableByCustomerHandler {
 	}
 
 	onCustomerSelection() {
+		Utils.play(sfx_click);
 		this.customer = $("#search_customer_input").val();
 		$("#search_customer_input").val('');
 		this.phpGetAccountsReceivable(this.customer);
@@ -32,7 +33,6 @@ class AccountsReceivableByCustomerHandler {
 			type: "POST",
 			url: "php/" + url + Utils.getRandomUrlVar(),
 			data: {
-				currency: Utils.getCurrencySymbol(),
 				customer: thiz.customer
 			},
 			success: function(data) {
@@ -42,7 +42,7 @@ class AccountsReceivableByCustomerHandler {
 	}
 
 	onShowAccountsReceivable(json) {
-		//console.log("json: " + JSON.stringify(json));
+		console.log("json: " + JSON.stringify(json));
 		$('#table_container').html(json.content);
 		$('#table_container').css('display','block');
 	}

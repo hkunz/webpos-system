@@ -1,5 +1,7 @@
 <?php
-include "../../php/db.php";
+session_start();
+$root = $_SESSION['root'];
+require_once("${root}php/db.php");
 
 $dateStart = $_POST['dateStart'];
 $dateEnd = $_POST['dateEnd'];

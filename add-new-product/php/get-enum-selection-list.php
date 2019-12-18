@@ -1,5 +1,7 @@
 <?php
-include "../../php/db.php";
+session_start();
+$root = $_SESSION['root'];
+require_once("${root}php/db.php");
 
 $table = $_POST['table'];
 $field = $_POST['field'];

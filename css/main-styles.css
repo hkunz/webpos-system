@@ -48,6 +48,12 @@ img.welcome-image {
   color: #CCCCCC;
 }
 
+div.header {
+  background: linear-gradient(to bottom, #333333, #222222);
+  box-shadow: 0px 0px 10px 2px #222222;
+  border-bottom: 2px ridge #333333;
+}
+
 input {
   padding: 4px 6px 4px 6px;
   /*margin: 4px 0px 8px 0px;*/

@@ -42,7 +42,7 @@ require $_SESSION['root'] . 'php/navigation-bar.php';
       <div id="search_customer">
         <input type="text" class="awesomplete" id="search_customer_input" placeholder="Type here to search customer ..." spellcheck="false" />
       </div>
-      <div id="table_container" class='common-table-wrapper' style='display:none;height:250px;'>
+      <div id="table_container" class='common-table-wrapper' style='display:none;height:150px;'>
         <table id='customer_table' class='common-table' cellspacing="0" cellpadding="0">
           <tr><th>Customer</label></th><th width='150px' nowrap>Last Update</th><th nowrap>Grand Total</th><th nowrap>Payment</th></tr>
           <tr><td width='100%'>&nbsp;</td><td></td><td></td><td></td></tr>

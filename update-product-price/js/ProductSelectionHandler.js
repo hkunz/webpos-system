@@ -27,6 +27,7 @@ class ProductSelectionHandler {
 			thiz.onCurrentPriceChange();
 		});
 		$('#update_price_button').click(function() {
+			//return window.confirm("Are you sure?");
 			thiz.onUpdatePriceButtonClick();
 		});
 	}

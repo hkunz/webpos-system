@@ -41,34 +41,36 @@ require $_SESSION['root'] . 'php/navigation-bar.php';
       <div class="search_item">
         <input type="text" class="awesomplete" id="search_item_input" placeholder="Type here to search product ..." spellcheck="false" />
       </div>
-      <div id="product_name_container" class='common-table-wrapper' style='margin-top:13px;margin-bottom:5px;display:none;padding:15px;background: linear-gradient(to bottom, #333, #444)'>
-      <div>
-        <label id="product_code" class="standard-label drop-shadow" style="display:block"></label>
-        <label id="product_name" class="product-caption"></label>
-      </div>
-      <div id="price_editor_container" style='width:100%;margin:0px;margin-top:10px;margin-bottom:10px;'>
-        <table width='100%' cellpadding='0' cellspacing='0'>
-          <tr><td width='320px;'>
-            <label class='standard-label'>Current Unit Price: <script type="text/javascript">document.write(Utils.getCurrencySymbol());</script>&nbsp;</label><input id='unit_price_input' type="number" min='0' placeholder='' onkeydown="return Utils.not(event);" style='color:#ffffaa;width:100px;margin-bottom:5px;'><br>
-            <label class='standard-label'>Current Sell Price: <script type="text/javascript">document.write(Utils.getCurrencySymbol());</script>&nbsp;</label><input id='sell_price_input' type="number" min='0' placeholder='' onkeydown="return Utils.not(event);" style='color:#ffffaa;width:100px;'>
-          </td><td>
-            <button id="update_price_button" class="commit-transaction-button" style='width:210px;' disabled="true">UPDATE PRODUCT PRICE</button>
-          </td></tr>
-        </table>
-      </div>
+      <div id="product_name_container" class='common-table-wrapper' style='margin-top:13px;margin-bottom:5px;display:none;padding:0px;background: linear-gradient(to bottom, #333, #444)'>
+        <div class='header'>
+          <div style='padding:8px;padding-left:15px;'>
+            <label id="product_code" class="standard-label drop-shadow" style="display:block"></label>
+            <label id="product_name" class="product-caption"></label>
+          </div>
+        </div>
+        <div id="price_editor_container" style='width:100%;margin:0px;margin-top:10px;margin-bottom:10px;padding-left:15px;'>
+          <table width='100%' cellpadding='0' cellspacing='0'>
+            <tr><td width='320px;'>
+              <label class='standard-label'>Current Unit Price: <script type="text/javascript">document.write(Utils.getCurrencySymbol());</script>&nbsp;</label><input id='unit_price_input' type="number" min='0' placeholder='' onkeydown="return Utils.not(event);" style='color:#ffffaa;width:100px;margin-bottom:5px;'><br>
+              <label class='standard-label'>Current Sell Price: <script type="text/javascript">document.write(Utils.getCurrencySymbol());</script>&nbsp;</label><input id='sell_price_input' type="number" min='0' placeholder='' onkeydown="return Utils.not(event);" style='color:#ffffaa;width:100px;'>
+            </td><td>
+              <button id="update_price_button" class="commit-transaction-button" style='width:210px;' disabled="true">UPDATE PRODUCT PRICE</button>
+            </td></tr>
+          </table>
+        </div>
       </div>
       <div id="table_container" style="width:100%;margin:0px;">
         <table cellspacing="0" cellpadding="0" width="100%"><tr><td>
           <div class="common-table-wrapper" style='margin-right:8px;'>
             <table class='common-table' cellspacing="0" cellpadding="0">
-              <tr><th>Unit Price History</label></th><th>Unit Price</th></tr>
-              <tr><td>&nbsp;</td><td></td></tr>
+              <thead><tr><th>Unit Price History</th><th align='right' nowrap></th></tr></thead>
+              <tbody><tr><td>&nbsp;</td><td></td></tr></tbody>
             </table>
           </div></td><td>
           <div class="common-table-wrapper" style='margin-left:8px;'> 
             <table class='common-table' cellspacing="0" cellpadding="0">
-              <tr><th>Sell Price History</th><th>Sell Price</th></tr>
-              <tr><td>&nbsp;</td><td></td></tr>
+              <thead><tr><th>Sell Price History</th><th align='right' nowrap></th></tr></thead>
+              <tbody><tr><td>&nbsp;</td><td></td></tr></tbody>
             </table>
           </div></td></tr>
         </table>

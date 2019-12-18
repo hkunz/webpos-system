@@ -13,7 +13,6 @@ table.common-table {
   display: table;
   border-collapse: separate;
   width: 100%;
-  border: none;
   border-radius: 10px;
 }
 
@@ -24,6 +23,7 @@ table.common-table thead, table.common-table tbody {
 table.common-table thead {
   position: sticky;
   top: 0;
+  border-bottom: 2px ridge #333333;
 }
 
 table.common-table tbody {

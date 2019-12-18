@@ -36,23 +36,23 @@ $sell_prices = echoPricesHistory($sql_con, $item_id, "sell");
 $len = max(count($unit_prices), count($sell_prices));
 
 $table = "\"<table cellspacing='0' cellpadding='0' width='100%'><tr><td valign='top'><div class='common-table-wrapper' style='margin-right:8px;'>";
-$table .= "<table class='common-table' cellspacing='0' cellpadding='0'><tr><th>Unit Price History</th><th>Unit Price</th></tr>";
+$table .= "<table class='common-table' cellspacing='0' cellpadding='0'><thead><tr><th>Unit Price History</th><th style='text-align:right;' nowrap>Unit Price</th></tr></thead><tbody>";
 for ($i = 0; $i < $len; ++$i) {
 	$date = $unit_prices[$i][0];
 	if ($date == null) continue;
 	$table .= "<tr><td>";
-	$table .= $date . "</td><td><span style='margin-right:2px;'>" . $currency . "</span>" . $unit_prices[$i][1];
+	$table .= $date . "</td><td style='text-align:right;'><span style='margin-right:2px;'>" . $currency . "</span>" . $unit_prices[$i][1];
 	$table .= "</td></tr>";
 }
-$table .= "</table></div></td><td valign='top'><div class='common-table-wrapper' style='margin-left:8px;'><table class='common-table' cellspacing='0' cellpadding='0'><tr><th>Sell Price History</th><th>Sell Price</th></tr>";
+$table .= "</tbody></table></div></td><td valign='top'><div class='common-table-wrapper' style='margin-left:8px;'><table class='common-table' cellspacing='0' cellpadding='0'><thead><tr><th>Sell Price History</th><th style='text-align:right;' nowrap>Sell Price</th></tr></thead></tbody>";
 for ($i = 0; $i < $len; ++$i) {
         $date = $sell_prices[$i][0];
 	if ($date == null) continue;
         $table .= "<tr><td>";
-        $table .= $date . "</td><td><span style='margin-right:2px;'>" . $currency . "</span>" . $sell_prices[$i][1];
+        $table .= $date . "</td><td style='text-align:right;'><span style='margin-right:2px;'>" . $currency . "</span>" . $sell_prices[$i][1];
         $table .= "</td></tr>";
 }
-$table .= "</table></div></td></tr></table>\"";
+$table .= "</tbody></table></div></td></tr></table>\"";
 echo ',"table":' . $table . ',"curr_unit_price_asofdate":"' . $unit_prices[0][0] . '","curr_sell_price_asofdate":"' . $sell_prices[0][0] . '"}';
 ?>
 

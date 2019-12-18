@@ -10,6 +10,6 @@ class Controller {
 
 	onDocumentReady() {
 		let thiz = this;
-		$("#search_item_input").focus();
+		$("#search_customer_input").focus();
 	}
 }

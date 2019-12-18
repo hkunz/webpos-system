@@ -2,22 +2,49 @@ div.common-table-wrapper {
   border: 3px ridge #CCCCCC;
   border-radius: 6px;
   box-shadow: 0px 1px 7px 1px #000000;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   margin: 0px;
   margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 table.common-table {
+  display: table;
   border-collapse: separate;
   width: 100%;
   border: none;
   border-radius: 10px;
 }
 
+table.common-table thead, table.common-table tbody {
+  width: 100%;
+}
+
+table.common-table thead {
+  position: sticky;
+  top: 0;
+}
+
+table.common-table tbody {
+  height: 100%;
+  /*display: block;*/
+}
+
 table.common-table td, table.common-table th {
   padding: 5px;
   padding-left: 15px;
   padding-right: 15px;
+}
+
+table.common-table th {
+  position: sticky;
+  top: 0;
+}
+
+table.common-table tr {
+  /*display: table;*/
+  table-layout: fixed;
 }
 
 table.common-table tr:nth-child(even) {

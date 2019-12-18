@@ -1,8 +1,8 @@
 "use strict";
 
 class CustomerSearchInputHandler extends AwesompleteInputHandler {
-	constructor() {
-		super("customer", "../php/get-general-search-results.php");
+	constructor(elementId, url) {
+		super(elementId ? elementId : "customer", url ? url : "../php/get-general-search-results.php");
 		this.postvar1 = "customer";
 		this.postvar2 = "items_transactions";
 		this.autoFirst = false;

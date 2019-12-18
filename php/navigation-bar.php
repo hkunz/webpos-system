@@ -18,8 +18,8 @@ $products_list = '
 
 $accounts_list = '
 <div class="dropdown-content">
-  <a href="' . $rootpath . 'view-accounts-receivable/">Accounts Receivable</a>
-  <a href="' . $rootpath . 'view-accounts-payable/">Accounts Payable</a>
+  <a href="' . $rootpath . 'accounts/view-accounts-receivable/">Accounts Receivable</a>
+  <a href="' . $rootpath . 'accounts/view-accounts-payable/">Accounts Payable</a>
 </div>';
 
 $user_list = '

@@ -19,13 +19,13 @@ table.common-table {
 /* TABLE SCROLL: <table class='common-table common-table-scroll'> to implement scrolling */
 table.common-table-scroll {
   height: 100%;
-  padding-bottom: 38px;
-  overflow: auto;
+  padding-bottom: 37px;
 }
 
 /* TABLE SCROLL: <thead class='scroll'> & <tbody class='scrol' to implement scrolling with header in place */
 table.common-table thead.scroll, table.common-table tbody.scroll {
   display: block;
+  width: 100%;
 }
 
 table.common-table thead, table.common-table tbody {
@@ -36,11 +36,12 @@ table.common-table thead {
   /*position: sticky;*/
   /*top: 0;*/
   border-bottom: 2px ridge #333333;
+  box-shadow: 0px 0px 10px 2px #222222;
 }
 
 table.common-table tbody {
   height: 100%;
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 
 table.common-table td, table.common-table th {

@@ -486,3 +486,25 @@ label.product-caption {
   font-weight: bold;
   text-shadow: 1px 1px #222222;
 }
+
+tbody, body {
+  --scrollbarBG: #888888;
+  --thumbBG: #555555;
+  scrollbar-width: thin;
+  scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+}
+
+tbody::-webkit-scrollbar, body::-webkit-scrollbar {
+  width: 12px;
+}
+
+tbody::-webkit-scrollbar-track, body::-webkit-scrollbar-track {
+  background: var(--scrollbarBG);
+}
+
+tbody::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb {
+  background-color: var(--thumbBG) ;
+  border-radius: 6px;
+  border: 3px solid var(--scrollbarBG);
+}
+

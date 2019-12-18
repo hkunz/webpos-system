@@ -24,7 +24,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else {
         $sql = "SELECT id, username, password FROM users WHERE username = ?";
 
-        if($stmt = mysqli_prepare($link, $sql)){
+        if($stmt = $sql_con->prepare($sql)){
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "s", $param_username);
 
@@ -82,7 +82,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // Prepare an update statement
         $sql = "UPDATE users SET password = ? WHERE id = ?";
         
-        if($stmt = mysqli_prepare($link, $sql)){
+        if($stmt = $sql_con->prepare($sql)){
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "si", $param_password, $param_id);
             
@@ -108,9 +108,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if ($curr_password_err) $curr_password_err = "&nbsp;" . $curr_password_err . "&nbsp;";
     if ($new_password_err) $new_password_err = "&nbsp;" . $new_password_err . "&nbsp;";
     if ($confirm_password_err) $confirm_password_err = "&nbsp;" . $confirm_password_err . "&nbsp;";
- 
-    // Close connection
-    mysqli_close($link);
+
+    $sql_con->close();
 }
 ?>
  

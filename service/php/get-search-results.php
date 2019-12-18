@@ -4,8 +4,8 @@ $root = $_SESSION['root'];
 require_once("${root}php/db.php");
 
 if (isset($_POST['search'])) {
-	$Name = str_replace(" ", "%", $_POST['search']);
-   	$Query = "
+	$name = str_replace(" ", "%", $_POST['search']);
+	$query = "
 		SELECT
 			ii.item_id,
 			ii.bar_code,
@@ -25,32 +25,32 @@ if (isset($_POST['search'])) {
 		LEFT JOIN view_items_prices_latest pp
 			ON pp.item_id=ii.item_id
 		WHERE pp.sell_price > 0 AND (
-			ii.item_description LIKE '%$Name%' OR
-			ii.bar_code LIKE '%$Name%' OR
-			ii.general_name LIKE '%$Name%' OR
-			ii.brand_name LIKE '%$Name%'
+			ii.item_description LIKE '%$name%' OR
+			ii.bar_code LIKE '%$name%' OR
+			ii.general_name LIKE '%$name%' OR
+			ii.brand_name LIKE '%$name%'
 		)
 		ORDER BY ii.item_description DESC
 		LIMIT 20;"
 	;
 
-	$ExecQuery = MySQLi_query($con, $Query);
+	$result = $sql_con->query($query);
 
-	while ($Result = MySQLi_fetch_array($ExecQuery)) {
-		$code = $Result['bar_code'];
+	while ($row = $result->fetch_assoc()) {
+		$code = $row['bar_code'];
 		$barcode = $code;
 		$code = (empty($code) ? "≡≡≡≡≡≡≡≡≡≡≡≡≡" : str_pad($code, 13, '0', STR_PAD_LEFT));
-		$unit = str_pad($Result['unit'], 2, ' ', STR_PAD_LEFT);
-		$count = $Result['count'];
-		$description = $Result['item_description'];
-		$sell_price = $Result['sell_price'];
-		$unit_price = $Result['unit_price'];
-		$item_id = $Result['item_id'];
-		$category = $Result['category'];
-		$general_name = $Result['general_name'];
-		$brand_name = $Result['brand_name'];
-		$supplier = $Result['supplier_name'];
-		$stock = $Result['stock'];
+		$unit = str_pad($row['unit'], 2, ' ', STR_PAD_LEFT);
+		$count = $row['count'];
+		$description = $row['item_description'];
+		$sell_price = $row['sell_price'];
+		$unit_price = $row['unit_price'];
+		$item_id = $row['item_id'];
+		$category = $row['category'];
+		$general_name = $row['general_name'];
+		$brand_name = $row['brand_name'];
+		$supplier = $row['supplier_name'];
+		$stock = $row['stock'];
 		$manufacturer = "";
 
 		echo '{' .

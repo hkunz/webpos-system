@@ -12,7 +12,7 @@ function customers_table_content($con) {
 	$total_field = 'grand_total';
 	$query = "SELECT `$customer_field`,MAX(`date`) `$date_field`,SUM(`payment`) `$payment_field`,SUM(`grand_total`) `$total_field` FROM `items_transactions` WHERE `type`='SALE' AND `payment` < `grand_total` GROUP BY `customer` ORDER BY `customer` ASC;";
 	$result = $con->query($query);
-	$table = "<table id='customer_table' class='common-table common-table-scroll' cellspacing='0' cellpadding='0'><thead><tr><th>Customer</label></th><th width='150px' nowrap>Last Update</th><th nowrap>Grand Total</th><th nowrap>Payment</th></tr></thead><tbody>";
+	$table = "<table id='customer_table' class='common-table common-table-scroll' cellspacing='0' cellpadding='0'><thead class='scroll'><tr><th>Customer</th><th width='150px' nowrap>Last Update</th><th nowrap>Grand Total</th><th nowrap>Payment</th></tr></thead><tbody class='scroll'>";
 	while($row = $result->fetch_array()) {
 		$customer = $row[$customer_field];
 		$date = $row[$date_field];

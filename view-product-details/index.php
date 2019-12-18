@@ -43,9 +43,11 @@ require $_SESSION['root'] . 'php/navigation-bar.php';
       </div>
       <div class="common-table-wrapper">
       <table class="common-table" cellspacing="0" cellpadding="0">
+        <thead>
         <tr>
           <th id="product_description" colspan='2'>Description</th>
         </tr>
+        </thead><tbody>
         <tr>
           <td width="150px"><label class="standard-label">Product ID</label></td>
           <td><label id="product_id" class="drop-shadow"></label>
@@ -90,6 +92,7 @@ require $_SESSION['root'] . 'php/navigation-bar.php';
           <td><label class="standard-label">Manufacturer</label></td>
           <td><label id="product_manufacturer" class="drop-shadow"></label>
         </tr>
+        </tbody>
         </table>
         </div>
       </div>

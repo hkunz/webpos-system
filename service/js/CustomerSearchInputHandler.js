@@ -2,7 +2,7 @@
 
 class CustomerSearchInputHandler extends AwesompleteInputHandler {
 	constructor(elementId, url) {
-		super(elementId ? elementId : "customer", url ? url : "../php/get-general-search-results.php");
+		super(elementId ? elementId : "customer", url ? url : Utils.getRootPath() + "php/get-general-search-results.php");
 		this.postvar1 = "customer";
 		this.postvar2 = "items_transactions";
 		this.autoFirst = false;

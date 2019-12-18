@@ -5,30 +5,43 @@ require "../../../php/db.php";
 $currency = $_POST['currency'];
 $customer = $_POST['customer'];
 
-function customers_table_content($con) {
-	$customer_w = "350px";
-	$date_w = "195px";
-	$total_w = "100px";
-	$payment_w = "100px";
-	$vscroll_w2 = "6px";
-	$customer_field = 'customer';
-	$date_field = 'last_update';
-	$payment_field = 'payment';
-	$total_field = 'grand_total';
-	$query = "SELECT `$customer_field`,MAX(`date`) `$date_field`,SUM(`payment`) `$payment_field`,SUM(`grand_total`) `$total_field` FROM `items_transactions` WHERE `type`='SALE' AND `payment` < `grand_total` GROUP BY `customer` ORDER BY `customer` ASC;";
+function create_scroll_table_content($con, $query, $column_widths, $currency_checks) {
+	$currency = $_POST['currency'];
+	$vscroll_w = 12;
+	$cols = count($column_widths);
 	$result = $con->query($query);
-	$table = "<table id='customer_table' class='common-table common-table-scroll' cellspacing='0' cellpadding='0'><thead class='scroll'><tr><th style='width:$customer_w;'>Customer</th><th style='width:$date_w;' nowrap>Last Transaction Date</th><th style='width:$total_w;text-align:right;' nowrap>Receivable</th><th style='width:$payment_w;text-align:right;' nowrap>Payment</th><th style='padding-left:$vscroll_w2;padding-right:$vscroll_w2;'></th></tr></thead><tbody class='scroll'>";
+	$tbody = '';
+	$thead = '<tr>';
+	$thead_complete = false;
 	while($row = $result->fetch_array()) {
-		$customer = $row[$customer_field];
-		$date = $row[$date_field];
-		$payment = $row[$payment_field];
-		$total = $row[$total_field];
-		$table .= "<tr><td style='width:$customer_w;'>$customer</td><td style='width:$date_w;' nowrap>$date</td><td style='width:$total_w;text-align:right;' nowrap><span style='margin-right:2px;'>$currency</span>$total</td><td style='width:$payment_w;text-align:right;' nowrap><span style='margin-right:2px;'$currency</span>$payment</td></tr>";
+		$tbody .= '<tr>';
+		$i = 0;
+		foreach ($row as $key => $value) {
+			if (is_numeric($key)) continue;
+			$isccy = $currency_checks[$i];
+			$ccyspan = $isccy ? "<span style='margin-right:2px;'>$currency</span>" : '';
+			$width = $column_widths[$i];
+			$tbody .= "<td style='width:$width;text-align:" . ($isccy ? 'right' : 'left') . "' nowrap>$ccyspan${row[$i]}</td>";
+			++$i;
+			if ($thead_complete) {
+				continue;
+			}
+			$header = $key;
+			$thead .= "<th style='width:$width;text-align:" . ($isccy ? 'right' : 'left') . "' nowrap>$header</th>";
+		}
+		if ($thead_complete === false) {
+			$w = ($vscroll_w / 2);
+			$thead .= "<th style='padding-left:${w}px;padding-right:${w}px;'></th></tr>";	
+			$thead_complete = true;
+		}
+		$tbody .= '</tr>';
 	}
-	$table .= "</tbody></table>";
-	return $table;
+	return "<table id='customer_table' class='common-table common-table-scroll' cellspacing='0' cellpadding='0'><thead class='scroll'>$thead</thead><tbody class='scroll'>$tbody</tbody></table>";
 }
-$table_content = customers_table_content($sql_con);
+
+$query = "SELECT `customer` `Customer`,MAX(`date`) `Last Update Date`,SUM(`grand_total`) `Receivable`,SUM(`payment`) `Payment` FROM `items_transactions` WHERE `type`='SALE' AND `payment` < `grand_total` GROUP BY `customer` ORDER BY `customer` ASC;";
+
+$table_content = create_scroll_table_content($sql_con, $query, array('350px', '195px', '100px', '100px'), array(0, 0, 1, 1));
 echo '{"content":"' . $table_content . '"}';
 ?>
 

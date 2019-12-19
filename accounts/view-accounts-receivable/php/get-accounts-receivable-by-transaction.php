@@ -4,7 +4,7 @@ $root = $_SESSION['root'];
 require_once("${root}php/db.php");
 require_once("${root}php/common/scrollable-table.php");
 
-$customer = $_POST['customer'];
+$customer = $_POST['value'];
 $table_id = $_POST['table_id'];
 
 $query = "SELECT `transaction_id` `Transaction-ID`,`date` `$customer`,`grand_total` `Grand Total`,`payment` `Payment` FROM `items_transactions` WHERE customer='$customer' AND type='SALE' AND payment < grand_total ORDER BY `date` DESC";

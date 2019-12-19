@@ -13,16 +13,19 @@ function create_scrollable_table($id, $con, $query, $column_widths, $currency_ch
 		$i = 0;
 		foreach ($row as $key => $value) {
 			if (is_numeric($key)) continue;
-			$isccy = $currency_checks[$i];
+			$type = $currency_checks[$i];
+			$isccy = ($type === 1);
+			$align_right = ($isccy || $type === 3);
 			$ccyspan = $isccy ? "<span style='margin-right:2px;'>$ccy</span>" : '';
 			$width = $column_widths[$i];
-			$tbody .= "<td style='width:$width;text-align:" . ($isccy ? 'right' : 'left') . "' nowrap>$ccyspan${row[$i]}</td>";
+			$css_max = $width === '100%' ? "max-width:300px;overflow:hidden;text-overflow:ellipsis;" : '';
+			$tbody .= "<td style='width:$width;text-align:" . ($align_right ? 'right' : 'left') . ";$css_max' nowrap>$ccyspan${row[$i]}</td>";
 			++$i;
 			if ($thead_complete) {
 				continue;
 			}
 			$header = $key;
-			$thead .= "<th style='width:$width;text-align:" . ($isccy ? 'right' : 'left') . "' nowrap>$header</th>";
+			$thead .= "<th style='width:$width;text-align:" . ($align_right ? 'right' : 'left') . "' nowrap>$header</th>";
 		}
 		if ($thead_complete === false) {
 			$w = ($vscroll_w / 2);

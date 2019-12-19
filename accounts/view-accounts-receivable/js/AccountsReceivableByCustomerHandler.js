@@ -36,7 +36,7 @@ class AccountsReceivableByCustomerHandler {
 		this.phpGetAccountsReceivable(this.customer, ViewState.TRANSACTIONS_LIST);
 	}
 
-	phpGetAccountsReceivable(customer, request_state) {
+	phpGetAccountsReceivable(value, request_state) {
 		let url = this.getRequestForState(request_state);
 		let thiz = this;
 		if (url == null) {
@@ -46,7 +46,7 @@ class AccountsReceivableByCustomerHandler {
 			type: "POST",
 			url: "php/" + url + Utils.getRandomUrlVar(),
 			data: {
-				customer: customer,
+				value: value,
 				table_id: 'scroll_table'
 			},
 			success: function(data) {
@@ -60,7 +60,10 @@ class AccountsReceivableByCustomerHandler {
 			return "get-accounts-receivable-by-customer.php";
 		} if (state == ViewState.TRANSACTIONS_LIST) {
 			return "get-accounts-receivable-by-transaction.php";
+		} if (state == ViewState.TRANSACTIONS_DETAILS_LIST) {
+			return "get-accounts-receivable-by-transaction-details.php";
 		}
+		return '';
 	}
 
 	onShowAccountsReceivable(json) {
@@ -77,8 +80,10 @@ class AccountsReceivableByCustomerHandler {
 	}
 
 	onRowTableClick(value) {
-		if (this.current_state == ViewState.CUSTOMERS_LIST) {
+		if (this.current_state === ViewState.CUSTOMERS_LIST) {
 			this.phpGetAccountsReceivable(value, ViewState.TRANSACTIONS_LIST);
+		} if (this.current_state === ViewState.TRANSACTIONS_LIST) {
+			this.phpGetAccountsReceivable(value, ViewState.TRANSACTIONS_DETAILS_LIST);
 		}
 	}
 }

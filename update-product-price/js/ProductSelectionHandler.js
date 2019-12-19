@@ -44,7 +44,7 @@ class ProductSelectionHandler {
 
 	onProductSelection() {
 		let thiz = this;
-		Utils.play(sfx_click);
+		Utils.play(sfx_display);
 		$('#search_item_input').val('');
 		$.ajax({
 			type: "POST",

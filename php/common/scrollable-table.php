@@ -1,6 +1,6 @@
 <?php
 
-function create_scrollable_table($con, $query, $column_widths, $currency_checks) {
+function create_scrollable_table($id, $con, $query, $column_widths, $currency_checks) {
 	$vscroll_w = 12;
 	$ccy = $_SESSION['currency'];
 	$cols = count($column_widths);
@@ -31,7 +31,7 @@ function create_scrollable_table($con, $query, $column_widths, $currency_checks)
 		}
 		$tbody .= '</tr>';
 	}
-	return "<table id='customer_table' class='common-table common-table-scroll' cellspacing='0' cellpadding='0'><thead class='scroll'>$thead</thead><tbody class='scroll'>$tbody</tbody></table>";
+	return "<table id='" . (isset($id) ? $id : 'scroll_table') . "' class='common-table common-table-scroll' cellspacing='0' cellpadding='0'><thead class='scroll'>$thead</thead><tbody class='scroll'>$tbody</tbody></table>";
 }
 ?>
 

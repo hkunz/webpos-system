@@ -16,7 +16,7 @@ class ProductSelectionHandler {
 	}
 
 	onProductSelection(item) {
-		Utils.play(sfx_click);
+		Utils.play(sfx_display);
 		$('#search_item_input').val('');
 		$('#product_id').text(item.item_id);
 		$('#product_barcode').text(item.barcode ? item.barcode : "None");

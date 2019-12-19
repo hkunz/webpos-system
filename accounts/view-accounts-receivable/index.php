@@ -24,7 +24,7 @@ require $_SESSION['root'] . 'php/navigation-bar.php';
   <script type="text/javascript" src="<?php echo $href_root; ?>js/Utils.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>js/sound-effects.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>service/js/CustomerSearchInputHandler.js"></script>
-  <script type="text/javascript" src="js/CustomerSelectionHandler.js"></script>
+  <script type="text/javascript" src="<?php echo $href_root; ?>js/common/TableRowHandler.js"></script>
   <script type="text/javascript" src="js/AccountsReceivableByCustomerHandler.js"></script>
   <script type="text/javascript" src="js/Controller.js"></script>
   <script type="text/javascript" src="js/main.js"></script>

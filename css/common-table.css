@@ -23,12 +23,12 @@ table.common-table-scroll {
 }
 
 /* TABLE SCROLL: <thead class='scroll'> & <tbody class='scrol' to implement scrolling with header in place */
-table.common-table thead.scroll, table.common-table tbody.scroll {
+table.common-table thead.scroll, table.common-table tfoot.scroll, table.common-table tbody.scroll {
   display: block;
   width: 100%;
 }
 
-table.common-table thead, table.common-table tbody {
+table.common-table thead, table.common-table tfoot, table.common-table tbody {
   width: 100%;
 }
 
@@ -36,6 +36,11 @@ table.common-table thead {
   /*position: sticky;*/
   /*top: 0;*/
   border-bottom: 2px ridge #333333;
+  box-shadow: 0px 0px 10px 2px #222222;
+}
+
+table.common-table tfoot {
+  border-top: 2px ridge #333333;
   box-shadow: 0px 0px 10px 2px #222222;
 }
 

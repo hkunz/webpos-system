@@ -7,6 +7,7 @@ function create_scrollable_table($id, $con, $query, $column_widths, $currency_ch
 	$result = $con->query($query);
 	$tbody = '';
 	$thead = '<tr>';
+	$tfoot = '<tr>';
 	$thead_complete = false;
 	while($row = $result->fetch_array()) {
 		$tbody .= '<tr>';
@@ -26,15 +27,17 @@ function create_scrollable_table($id, $con, $query, $column_widths, $currency_ch
 			}
 			$header = $key;
 			$thead .= "<th style='width:$width;text-align:" . ($align_right ? 'right' : 'left') . "' nowrap>$header</th>";
+			$tfoot .= "<td style='width:$width;text-align:" . ($align_right ? 'right' : 'left') . "' nowrap>A</td>";
 		}
 		if ($thead_complete === false) {
 			$w = ($vscroll_w / 2);
 			$thead .= "<th style='padding-left:${w}px;padding-right:${w}px;'></th></tr>";	
+			$tfoot .= "<td style='padding-left:${w}px;padding-right:${w}px;'></td></tr>";
 			$thead_complete = true;
 		}
 		$tbody .= '</tr>';
 	}
-	return "<table id='" . (isset($id) ? $id : 'scroll_table') . "' class='common-table common-table-scroll' cellspacing='0' cellpadding='0'><thead class='scroll'>$thead</thead><tbody class='scroll'>$tbody</tbody></table>";
+	return "<table id='" . (isset($id) ? $id : 'scroll_table') . "' class='common-table common-table-scroll' cellspacing='0' cellpadding='0'><thead class='scroll'>$thead</thead><tbody class='scroll'>$tbody</tbody></table>"; //<tfoot class='scroll' style='display:none;'>$tfoot</tfoot></table>";
 }
 ?>
 

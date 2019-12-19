@@ -38,10 +38,34 @@ require $_SESSION['root'] . 'php/navigation-bar.php';
       <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>                                                              | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
       <hr class="division">
       <div style="margin-left:2px;margin-bottom:3px;">
-        <label class="drop-shadow" style="font-weight:bold;">ACCOUNTS RECEIVABLE</label>
+	<table id='header_table' cellpadding='0' cellspacing='0' style=''>
+          <tr>
+            <td nowrap>
+              <label class="drop-shadow" style="font-weight:bold;">ACCOUNTS RECEIVABLE</label><label id='colon_label' class="drop-shadow" style="display:none;font-weight:bold;">:&nbsp;</label>
+            </td>
+            <td nowrap>
+              <div id='customer_div' style='display:none;margin:0px;padding:0px;'>
+                <label class="drop-shadow" style=""></label><label id='customer_label' class="drop-shadow" style="font-weight:bold;color:#00ff00;"></label><label class="drop-shadow" style=""></label>
+              </div>
+            </td>
+            <td nowrap>
+	      <div id='transaction_td' style='margin:0px;padding:0px;'>
+                <label style='color:#fff;'>&nbsp;&#61;&gt;&nbsp;</label><label id='transaction_label' class='drop-shadow' style=''></label>
+              </div>
+            </td>
+            <td style='text-align:right;width:100%;'>
+              <label id='back_button' class='drop-shadow' style='display:none;background-color:#ff3333;text-align:right;'>&lt;&#61;&nbsp;BACK&nbsp;&lt;&#61;</label>
+            </td>
+          </tr>
+        </table>
       </div>
       <div id="search_customer">
         <input type="text" class="awesomplete" id="search_customer_input" placeholder="Type here to search customer ..." spellcheck="false" />
+      </div>
+      <div id="customer_container" style='display:none;border:2px ridge #bbb;border-radius:5px;margin-top:10px;margin-bottom:8px;background: linear-gradient(to bottom, #333, #111)'>
+        <div style='padding:5px;padding-left:15px;'>
+          <label>Customer</label>
+        </div>
       </div>
       <div id="table_container" class='common-table-wrapper' style='display:none;height:290px;'>
         <table id='customer_table' class='common-table' cellspacing="0" cellpadding="0">

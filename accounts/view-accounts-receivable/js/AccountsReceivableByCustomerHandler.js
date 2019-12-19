@@ -4,6 +4,7 @@ class AccountsReceivableByCustomerHandler {
 
 	constructor() {
 		this.customer = null;
+		this.transaction_id = null;
 		this.current_state = ViewState.INIT;
 		this.table_handler = new TableRowHandler();
 
@@ -27,12 +28,17 @@ class AccountsReceivableByCustomerHandler {
 			thiz.customer = e.originalEvent.text;
 			thiz.onCustomerSelection();
 		});
+		$('#back_button').click(function(e) {
+			thiz.onBackButtonClick();
+		});
 		this.phpGetAccountsReceivable(null, ViewState.CUSTOMERS_LIST);
 	}
 
 	onCustomerSelection() {
 		this.customer = $("#search_customer_input").val();
 		$("#search_customer_input").val('');
+		this.transaction_id = null;
+		this.updateHeader();
 		this.phpGetAccountsReceivable(this.customer, ViewState.TRANSACTIONS_LIST);
 	}
 
@@ -77,13 +83,42 @@ class AccountsReceivableByCustomerHandler {
 		this.table_handler.init(table, function(id) {
 			thiz.onRowTableClick(id);
 		});
+		$("#search_customer_input").focus();
+		this.updateHeader();
 	}
 
 	onRowTableClick(value) {
-		if (this.current_state === ViewState.CUSTOMERS_LIST) {
+		let s = this.current_state;
+		if (s === ViewState.CUSTOMERS_LIST) {
+			this.customer = value;
+			this.transaction_id = null;
 			this.phpGetAccountsReceivable(value, ViewState.TRANSACTIONS_LIST);
-		} if (this.current_state === ViewState.TRANSACTIONS_LIST) {
+		} else if (s === ViewState.TRANSACTIONS_LIST) {
+			this.transaction_id = value;
 			this.phpGetAccountsReceivable(value, ViewState.TRANSACTIONS_DETAILS_LIST);
+		}
+		this.updateHeader();
+	}
+
+	updateHeader() {
+		let c = this.customer;
+		let t = this.transaction_id;
+		$('#colon_label').css('display', c ? 'inline' : 'none');
+		$('#customer_div').css('display', c ? 'inline' : 'none');
+		$('#customer_label').text(c ? c : '');
+		$('#transaction_td').css('display', t ? 'inline' : 'none');
+		$('#transaction_label').text('TRX-' + t);
+		$('#back_button').css('display', c ? 'inline' : 'none');
+	}
+
+	onBackButtonClick() {
+		let s = this.current_state;
+		if (s === ViewState.TRANSACTIONS_DETAILS_LIST) {
+			this.transaction_id = null;
+			this.phpGetAccountsReceivable(this.customer, ViewState.TRANSACTIONS_LIST);
+		} else if (s === ViewState.TRANSACTIONS_LIST) {
+			this.customer = null;
+			this.phpGetAccountsReceivable(null, ViewState.CUSTOMERS_LIST);
 		}
 	}
 }

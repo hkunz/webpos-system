@@ -1,6 +1,6 @@
 "use strict";
 
-const customer_input_handler = new CustomerSearchInputHandler("search_customer_input", "php/get-debtors-search-results.php");
+const customer_input_handler = new CustomerSearchInputHandler("search_customer_input", "php/get-debtors-search-results.php", true);
 const accounts_receivable_handler = new AccountsReceivableByCustomerHandler();
 const controller = new Controller();
 

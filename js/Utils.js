@@ -26,7 +26,7 @@ class Utils {
 		return i;
 	}
 
-	static getAmountPesoText(value) {
+	static getAmountCurrencyText(value) {
 		return Utils.getCurrencySymbol() + Utils.getAmountText(value);
 	}
 

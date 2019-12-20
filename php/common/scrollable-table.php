@@ -30,7 +30,8 @@ function create_scrollable_table($id, $con, $query, $column_widths, $column_chec
 			$ccyspan = $isccy ? "<span style='margin-right:2px;'>$ccy</span>" : '';
 			$width = $column_widths ? $column_widths[$i] : 'auto';
 			$css_max = $width === '100%' ? "max-width:300px;overflow:hidden;text-overflow:ellipsis;" : '';
-			$tbody .= "<td style='width:$width;text-align:" . ($align_right ? 'right' : 'left') . ";$css_max' nowrap>$ccyspan${row[$key]}</td>";
+			$cellvalue = $isccy ? number_format($row[$key], 2) : $row[$key];
+			$tbody .= "<td style='width:$width;text-align:" . ($align_right ? 'right' : 'left') . ";$css_max' nowrap>$ccyspan$cellvalue</td>";
 			++$i;
 			if ($thead_complete) {
 				continue;

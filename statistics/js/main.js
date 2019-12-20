@@ -11,7 +11,7 @@ function phpGetTotalRevenue(url, dateStart, dateEnd, callback, id) {
 			dateEnd: dateEnd
 		},
                 success: function(data) {
-			let value = Utils.getAmountPesoText(data ? data : 0);
+			let value = Utils.getAmountCurrencyText(data ? data : 0);
                         console.log(url + ": " + value);
 			callback(value, id);
                 }

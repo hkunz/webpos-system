@@ -123,9 +123,9 @@ class AccountsReceivableByCustomerHandler {
 	updateHeader() {
 		let c = this.customer;
 		let t = this.transaction_id;
-		let total = this.grand_total;
+		let total = this.grand_total ? Utils.getAmountCurrencyText(this.grand_total) : null;
 		$('#customer_label').text(c ? c : '');
-		$('#customer_total').text(c && total ? Utils.getCurrencySymbol() + total : '');
+		$('#customer_total').text(c && total ? total : '');
 		$('#transaction_label').text('TRX-' + t);
 		$('#back_button').css('display', c ? 'inline' : 'none');
 		$('#colon_label').css('display', c ? 'inline' : 'none');

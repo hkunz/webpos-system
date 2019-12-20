@@ -44,7 +44,9 @@ require $_SESSION['root'] . 'php/navigation-bar.php';
               <label class="drop-shadow" style="font-weight:bold;">ACCOUNTS RECEIVABLE: </label><label id='colon_label' class="drop-shadow" style="display:none;font-weight:bold;"></label>
             </td>
             <td nowrap>
-              <label class="drop-shadow">&nbsp;(</label><label id='customer_total' class="drop-shadow" style="color:#44ff44;font-weight:bold;"></label><label class="drop-shadow">)&nbsp;</label>
+              <div id='customer_total_div' style='display:none;'>
+                <label class="drop-shadow">&nbsp;(</label><label id='customer_total' class="drop-shadow" style="color:#44ff44;font-weight:bold;"></label><label class="drop-shadow">)&nbsp;</label>
+              </div>
             </td>
             <td nowrap>
               <div id='customer_div' style='display:none;margin:0px;padding:0px;'>
@@ -52,8 +54,8 @@ require $_SESSION['root'] . 'php/navigation-bar.php';
               </div>
             </td>
             <td nowrap>
-	      <div id='transaction_td' style='margin:0px;padding:0px;'>
-                <label style='color:#fff;'>&nbsp;&#61;&gt;&nbsp;</label><label id='transaction_label' class='drop-shadow' style='color:#aaa;'></label>
+	      <div id='transaction_td' style='display:none;margin:0px;padding:0px;'>
+                <div style='margin-left:8px;display:inline;background-color:#000;border-radius:20px;padding-left:10px;padding-right:13px;'><label id='transaction_label' class='drop-shadow' style='color:#eee;'></label></div>
               </div>
             </td>
             <td style='text-align:right;width:100%;'>

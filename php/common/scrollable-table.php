@@ -6,6 +6,7 @@
 // 0 => no formatting align left
 // 1 => currency format and align right
 // 2 => just align right
+// 3 => button
 
 function create_scrollable_table($id, $con, $query, $column_widths, $column_formats, & $in_data) {
 	$vscroll_w = 12;
@@ -30,13 +31,17 @@ function create_scrollable_table($id, $con, $query, $column_widths, $column_form
 				$row[$newkey] = $value;
 				continue;
 			}
-			$type = $column_formats ? $column_formats[$i] : 0;
-			$isccy = ($type === 1);
-			$align_right = ($isccy || $type === 2);
+			$fmt = $column_formats ? $column_formats[$i] : 0;
+			$isccy = ($fmt === 1);
+			$align_right = ($isccy || $fmt === 2);
 			$ccyspan = $isccy ? "<span style='margin-right:2px;'>$ccy</span>" : '';
 			$width = $column_widths ? $column_widths[$i] : 'auto';
 			$css_max = $width === '100%' ? "max-width:300px;overflow:hidden;text-overflow:ellipsis;" : '';
-			$cellvalue = $isccy ? number_format($row[$key], 2) : $row[$key];
+			if ($fmt === 3) {
+				$cellvalue = "<label id='button_$i' style='cursor:pointer;box-shadow: 0px 0px 0px 0px #000;font-size:14px;background-color:#33AA33;border:1px solid #fff;border-radius:5px;margin-bottom:2px;'>&nbsp;<b>${row[$key]}</b>&nbsp;</label>";
+			} else {
+				$cellvalue = $isccy ? number_format($row[$key], 2) : $row[$key];
+			}
 			$tbody .= "<td style='width:$width;text-align:" . ($align_right ? 'right' : 'left') . ";$css_max' nowrap>$ccyspan$cellvalue</td>";
 			++$i;
 			if ($thead_complete) {

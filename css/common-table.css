@@ -60,9 +60,10 @@ table.common-table th {
   top: 0;*/
 }
 
-table.common-table tr {
+table.common-table tr:has(> td) {
   /*display: table;*/
   table-layout: fixed;
+  box-shadow: 0px 0px 10px 1px #555;
 }
 
 table.common-table tr:nth-child(even) {

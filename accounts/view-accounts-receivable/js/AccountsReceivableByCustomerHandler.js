@@ -126,6 +126,7 @@ class AccountsReceivableByCustomerHandler {
 		$('#customer_total').text(total ? total : '');
 		$('#transaction_label').text('TRX-' + t);
 		$('#back_button').css('display', c ? 'inline' : 'none');
+		$('#customer_total_div').css('display', total == null ? 'none' : 'inline');
 		$('#customer_div').css('display', c ? 'inline' : 'none');
 		$('#transaction_td').css('display', t ? 'inline' : 'none');
 	}

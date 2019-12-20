@@ -12,9 +12,9 @@ $result = $sql_con->query($query);
 $rows = $result->fetch_array();
 $sum = $rows[0];
 
-$query = "SELECT LPAD(`transaction_id`, 7, '0') `TRX-ID`,`date` `Date Time`,`grand_total` `Receivable`,`payment` `Payment` FROM `items_transactions` WHERE customer='$customer' AND type='SALE' AND payment < grand_total ORDER BY `date` DESC";
+$query = "SELECT LPAD(`transaction_id`, 7, '0') `TRX-ID`,`date` `Date Time`,`grand_total` `Receivable`,`payment` `Payment`, 'PAY' as '' FROM `items_transactions` WHERE customer='$customer' AND type='SALE' AND payment < grand_total ORDER BY `date` DESC";
 
-$table = create_scrollable_table($table_id, $sql_con, $query, array('130px', '100%', '180px', '180px'), array(0, 0, 1, 1));
+$table = create_scrollable_table($table_id, $sql_con, $query, array('130px', '100%', '180px', '180px', '70px'), array(0, 0, 1, 1, 3));
 echo '{"customer":"' . $customer . '","content":"' . $table . '","view":"view_transactions","total_receivable":"' . $sum . '"}';
 
 $sql_con->close();

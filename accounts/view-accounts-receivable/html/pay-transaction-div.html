@@ -1,0 +1,14 @@
+<div class="header">
+  <div id="pay_transaction_div" style='padding-left:15px;padding-top:8px;margin-bottom:12px;'>
+    <label id="transaction_id" class="header-caption"></label>
+  </div>
+  <div id="payment_container" style='width:100%;margin:0px;padding-top:10px;margin-bottom:10px;padding-left:15px;'>
+    <table width='100%' cellpadding='0' cellspacing='0'>
+      <tr><td width='350px;'>
+        <label class='standard-label'>Current Payment:&nbsp;</label><input id='payment_input' type="number" min='0' placeholder='' onkeydown="return Utils.not(event);" style='color:#ffffaa;width:100px;margin-bottom:5px;'><label class='drop-shadow'>&nbsp;/&nbsp;</label><label id='total_amount_label' class='drop-shadow' style='font-weight:bold'></label>
+      </td><td>
+        <button id="update_price_button" class="commit-transaction-button" style='width:210px;' disabled="true">UPDATE PAYMENT</button>
+      </td></tr>
+    </table>
+  </div>
+</div>

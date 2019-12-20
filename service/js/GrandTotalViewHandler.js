@@ -108,7 +108,7 @@ class GrandTotalViewHandler {
 		Utils.play(sfx_commit_transaction);
 
 		const e = new CustomEvent(EVENT_COMMIT_TRANSACTION, {
-                        detail: {
+			detail: {
 				sub_total:this.sub_total,
 				service_charge:this.service_charge,
 				discount:this.discount,

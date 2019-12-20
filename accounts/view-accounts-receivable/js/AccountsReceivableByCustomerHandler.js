@@ -6,8 +6,11 @@ class AccountsReceivableByCustomerHandler {
 		this.customer = null;
 		this.grand_total = null;
 		this.transaction_id = null;
+		this.transaction_total = null;
 		this.current_state = ViewState.INIT;
 		this.table_handler = new TableRowHandler();
+		this.current_data = null;
+		this.pay_trx_handler = new PayTransactionHandler();
 
 		let thiz = this;
 		$(document).ready(function(e) {
@@ -31,6 +34,9 @@ class AccountsReceivableByCustomerHandler {
 		});
 		$('#back_button').click(function(e) {
 			thiz.onBackButtonClick();
+		});
+		$("#eventdispatcher").on('table-button-click', function(e) {
+			thiz.onTableButtonClick(e.detail);
 		});
 		this.phpGetAccountsReceivable(null, ViewState.CUSTOMERS_LIST);
 	}
@@ -73,11 +79,11 @@ class AccountsReceivableByCustomerHandler {
 	}
 
 	onShowAccountsReceivable(json) {
-		this.current_state = ViewState.getStateValue(json.view);
+		this.current_data = json.data;
+		this.setCurrentState(ViewState.getStateValue(json.view));
 		if (json.total_receivable) {
 			this.grand_total = json.total_receivable;
 		}
-		Utils.play(sfx_display);
 		//console.log("json: " + JSON.stringify(json));
 		$('#table_container').html(json.content);
 		$('#table_container').css('display','block');
@@ -87,8 +93,17 @@ class AccountsReceivableByCustomerHandler {
 			let row = thiz.getRowByCellContent(id, json.data);
 			thiz.onRowTableClick(id, row);
 		});
-		$("#search_customer_input").focus();
+		this.setSearchFocus();
 		this.updateHeader();
+	}
+
+	setCurrentState(value) {
+		Utils.play(sfx_display);
+		this.current_state = value;
+	}
+
+	setSearchFocus() {
+		$("#search_customer_input").focus();
 	}
 
 	getRowByCellContent(id, rows) {
@@ -112,10 +127,35 @@ class AccountsReceivableByCustomerHandler {
 			this.phpGetAccountsReceivable(value, ViewState.TRANSACTIONS_LIST);
 		} else if (s === ViewState.TRANSACTIONS_LIST) {
 			this.transaction_id = Utils.getPaddedTransactionId(value);
+			this.transaction_total = row["Receivable"];
 			this.phpGetAccountsReceivable(value, ViewState.TRANSACTIONS_DETAILS_LIST);
 		} else if (s === ViewState.TRANSACTIONS_DETAILS_LIST) {
 			console.log(row['item_id'] + ": " + row['Product Description']);
+			this.setSearchFocus();
 		}
+	}
+
+	onTableButtonClick(detail) {
+		let thiz = this;
+		let s = this.current_state;
+		if (s === ViewState.TRANSACTIONS_LIST) {
+			this.setCurrentState(ViewState.TRANSACTION_PAY);
+			this.setSearchFocus();
+			let transaction_id = Number(detail.first_cellvalue);
+			$('#table_container').html('');
+			$('#table_container').load('html/pay-transaction-div.html', function(e) {
+				thiz.onPayTransactionViewLoad(detail);
+			});
+		}
+	}
+
+	onPayTransactionViewLoad(detail) {
+		this.transaction_id = detail.first_cellvalue;
+		let row = this.getRowByCellContent(this.transaction_id, this.current_data);
+		this.transaction_total = row["Receivable"];
+		let payment = row["Payment"];
+		this.updateHeader();
+		$('#transaction_id').text($('#transaction_label').text());
 	}
 
 	updateHeader() {
@@ -124,7 +164,7 @@ class AccountsReceivableByCustomerHandler {
 		let total = this.grand_total ? Utils.getAmountCurrencyText(this.grand_total) : null;
 		$('#customer_label').text(c ? c : '');
 		$('#customer_total').text(total ? total : '');
-		$('#transaction_label').text('TRX-' + t);
+		$('#transaction_label').html('TRX-' + t + ' <b style="color:#33FF33">' + Utils.getAmountCurrencyText(this.transaction_total) + "</b>");
 		$('#back_button').css('display', c ? 'inline' : 'none');
 		$('#customer_total_div').css('display', total == null ? 'none' : 'inline');
 		$('#customer_div').css('display', c ? 'inline' : 'none');
@@ -133,12 +173,14 @@ class AccountsReceivableByCustomerHandler {
 
 	onBackButtonClick() {
 		let s = this.current_state;
-		if (s === ViewState.TRANSACTIONS_DETAILS_LIST) {
+		if (s === ViewState.TRANSACTIONS_DETAILS_LIST || s === ViewState.TRANSACTION_PAY) {
 			this.transaction_id = null;
 			this.phpGetAccountsReceivable(this.customer, ViewState.TRANSACTIONS_LIST);
 		} else if (s === ViewState.TRANSACTIONS_LIST) {
 			this.customer = null;
 			this.phpGetAccountsReceivable(null, ViewState.CUSTOMERS_LIST);
+		} else {
+			console.log("unhandled state: " + s);
 		}
 	}
 }

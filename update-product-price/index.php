@@ -42,7 +42,7 @@ require $_SESSION['root'] . 'php/navigation-bar.php';
         <input type="text" class="awesomplete" id="search_item_input" placeholder="Type here to search product ..." spellcheck="false" />
       </div>
       <div id="product_name_container" class='common-table-wrapper' style='margin-top:13px;margin-bottom:5px;display:none;padding:0px;background: linear-gradient(to bottom, #333, #444)'>
-        <div class='header'>
+        <div class='header' style='height:55px;'>
           <div style='padding:8px;padding-left:15px;'>
             <label id="product_code" class="standard-label drop-shadow" style="display:block"></label>
             <label id="product_name" class="product-caption"></label>

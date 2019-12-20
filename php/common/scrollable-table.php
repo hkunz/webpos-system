@@ -17,9 +17,11 @@ function create_scrollable_table($id, $con, $query, $column_widths, $column_form
 	$thead = '<tr>';
 	$tfoot = '<tr>';
 	$thead_complete = false;
+	$row_id = 0;
 	while($row = $result->fetch_array()) {
-		$tbody .= '<tr>';
+		$tbody .= '<tr id=\"row_' . ++$row_id . '\">';
 		$i = 0;
+		$first_cellvalue = null;
 		foreach ($row as $key => $value) {
 			if (is_numeric($key)) {
 				unset($row[$key]);
@@ -37,8 +39,12 @@ function create_scrollable_table($id, $con, $query, $column_widths, $column_form
 			$ccyspan = $isccy ? "<span style='margin-right:2px;'>$ccy</span>" : '';
 			$width = $column_widths ? $column_widths[$i] : 'auto';
 			$css_max = $width === '100%' ? "max-width:300px;overflow:hidden;text-overflow:ellipsis;" : '';
+			if ($first_cellvalue === null) {
+				$first_cellvalue = $row[$key];
+			}
 			if ($fmt === 3) {
-				$cellvalue = "<label id='button_$i' style='cursor:pointer;box-shadow: 0px 0px 0px 0px #000;font-size:14px;background-color:#33AA33;border:1px solid #fff;border-radius:5px;margin-bottom:2px;'>&nbsp;<b>${row[$key]}</b>&nbsp;</label>";
+				$event = 'document.getElementById(\"eventdispatcher\").dispatchEvent(new CustomEvent(\"table-button-click\", {\"detail\":{\"button_id\":\"button_' . $i . '\",\"first_cellvalue\":\"' . $first_cellvalue . '\",\"row_id\":\"row_' . $row_id . '\",\"row_number\":\"' . $row_id . '\"}}))';
+				$cellvalue = "<label id='button_$i' onclick='event.stopImmediatePropagation();$event' style='cursor:pointer;box-shadow: 0px 0px 0px 0px #000;font-size:14px;background-color:#33AA33;border:1px solid #fff;border-radius:5px;margin-bottom:2px;'>&nbsp;<b>${row[$key]}</b>&nbsp;</label>";
 			} else {
 				$cellvalue = $isccy ? number_format($row[$key], 2) : $row[$key];
 			}

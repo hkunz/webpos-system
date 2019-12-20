@@ -21,6 +21,10 @@ class ViewState {
 		return 3;
 	}
 
+	static get TRANSACTION_PAY() {
+		return 4;
+	}
+
 	static getStateValue(view) {
 		if (view === "view_customers") {
 			return ViewState.CUSTOMERS_LIST;

@@ -122,6 +122,7 @@ class ItemSelectionListHandler {
 		this.removeListRowItem(itemId);
 		this.updateItemsList();
 		this.updateTotalPrice();
+		$('#search_item_input').focus();
 	}
 
 	getItemById(itemId) {

@@ -96,7 +96,7 @@ require $_SESSION["root"] . 'php/navigation-bar.php';
       </table>
       </div>
     </form>
-    <label class="drop-shadow">Product Search:</label>
+    <label class="drop-shadow" style='display:none;'>Product Search:</label>
     <div class="search_item">
       <input type="text" class="awesomplete" id="search_item_input" placeholder="Type here to search product ..." spellcheck="false" />
     </div>

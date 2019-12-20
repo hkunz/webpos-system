@@ -45,7 +45,7 @@ require $_SESSION['root'] . 'php/navigation-bar.php';
             </td>
             <td nowrap>
               <div id='customer_div' style='display:none;margin:0px;padding:0px;'>
-                <label class="drop-shadow">(</label><label id='customer_total' class="drop-shadow" style="color:#ff4444;font-weight:bold;"></label><label class="drop-shadow">)</label>&nbsp;<label class="drop-shadow" style=""></label><label id='customer_label' class="product-caption drop-shadow" style="font-weight:bold;color:white;"></label><label class="drop-shadow" style=""></label>
+                <label class="drop-shadow">(</label><label id='customer_total' class="drop-shadow" style="color:#ff4444;font-weight:bold;"></label><label class="drop-shadow">)</label>&nbsp;<label class="drop-shadow" style=""></label><label id='customer_label' class="drop-shadow" style="font-weight:bold;color:white;"></label><label class="drop-shadow" style=""></label>
               </div>
             </td>
             <td nowrap>

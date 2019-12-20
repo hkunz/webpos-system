@@ -56,6 +56,7 @@ class AccountsReceivableByCustomerHandler {
 				table_id: 'scroll_table'
 			},
 			success: function(data) {
+				console.log("data: " + data);
 				thiz.onShowAccountsReceivable(JSON.parse(data));
 			}
 		});
@@ -96,6 +97,8 @@ class AccountsReceivableByCustomerHandler {
 		} else if (s === ViewState.TRANSACTIONS_LIST) {
 			this.transaction_id = value;
 			this.phpGetAccountsReceivable(value, ViewState.TRANSACTIONS_DETAILS_LIST);
+		} else if (s === ViewState.TRANSACTIONS_DETAILS_LIST) {
+			alert("nothing");
 		}
 		this.updateHeader();
 	}

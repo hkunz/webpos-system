@@ -1,6 +1,7 @@
 <?php
 
-function create_scrollable_table($id, $con, $query, $column_widths, $currency_checks) {
+//Enclose selected query fields with {{ }} to exclude them from table layout if it's needed for in_data only
+function create_scrollable_table($id, $con, $query, $column_widths, $column_checks, & $in_data) {
 	$vscroll_w = 12;
 	$ccy = $_SESSION['currency'];
 	$cols = count($column_widths);
@@ -13,14 +14,23 @@ function create_scrollable_table($id, $con, $query, $column_widths, $currency_ch
 		$tbody .= '<tr>';
 		$i = 0;
 		foreach ($row as $key => $value) {
-			if (is_numeric($key)) continue;
-			$type = $currency_checks[$i];
+			if (is_numeric($key)) {
+				unset($row[$key]);
+				continue;
+			}
+			if (is_numeric(strpos($key, '{{'))) {
+				$newkey = str_replace('}}','',str_replace('{{','',$key));
+				unset($row[$key]);
+				$row[$newkey] = $value;
+				continue;
+			}
+			$type = $column_checks ? $column_checks[$i] : 0;
 			$isccy = ($type === 1);
 			$align_right = ($isccy || $type === 3);
 			$ccyspan = $isccy ? "<span style='margin-right:2px;'>$ccy</span>" : '';
-			$width = $column_widths[$i];
+			$width = $column_widths ? $column_widths[$i] : 'auto';
 			$css_max = $width === '100%' ? "max-width:300px;overflow:hidden;text-overflow:ellipsis;" : '';
-			$tbody .= "<td style='width:$width;text-align:" . ($align_right ? 'right' : 'left') . ";$css_max' nowrap>$ccyspan${row[$i]}</td>";
+			$tbody .= "<td style='width:$width;text-align:" . ($align_right ? 'right' : 'left') . ";$css_max' nowrap>$ccyspan${row[$key]}</td>";
 			++$i;
 			if ($thead_complete) {
 				continue;
@@ -28,6 +38,9 @@ function create_scrollable_table($id, $con, $query, $column_widths, $currency_ch
 			$header = $key;
 			$thead .= "<th style='width:$width;text-align:" . ($align_right ? 'right' : 'left') . "' nowrap>$header</th>";
 			$tfoot .= "<td style='width:$width;text-align:" . ($align_right ? 'right' : 'left') . "' nowrap>A</td>";
+		}
+		if (isset($in_data)) {
+			array_push($in_data, $row);
 		}
 		if ($thead_complete === false) {
 			$w = ($vscroll_w / 2);

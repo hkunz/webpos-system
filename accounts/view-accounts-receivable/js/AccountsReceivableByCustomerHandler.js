@@ -139,7 +139,6 @@ class AccountsReceivableByCustomerHandler {
 			this.transaction_id = null;
 			this.phpGetAccountsReceivable(this.customer, ViewState.TRANSACTIONS_LIST);
 		} else if (s === ViewState.TRANSACTIONS_LIST) {
-			this.grand_total = null;
 			this.customer = null;
 			this.phpGetAccountsReceivable(null, ViewState.CUSTOMERS_LIST);
 		}

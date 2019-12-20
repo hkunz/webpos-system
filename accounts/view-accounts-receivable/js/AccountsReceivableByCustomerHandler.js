@@ -56,7 +56,6 @@ class AccountsReceivableByCustomerHandler {
 				table_id: 'scroll_table'
 			},
 			success: function(data) {
-				console.log("data: " + data);
 				thiz.onShowAccountsReceivable(JSON.parse(data));
 			}
 		});
@@ -82,13 +81,27 @@ class AccountsReceivableByCustomerHandler {
 		let table = document.getElementById('scroll_table');
 		let thiz = this;
 		this.table_handler.init(table, function(id) {
-			thiz.onRowTableClick(id);
+			let row = thiz.getRowByCellContent(id, json.data);
+			thiz.onRowTableClick(id, row);
 		});
 		$("#search_customer_input").focus();
 		this.updateHeader();
 	}
 
-	onRowTableClick(value) {
+	getRowByCellContent(id, rows) {
+		let len = rows ? rows.length : 0;
+		for (let i = 0; i < len; ++i) {
+			let row = rows[i];
+			for (let key in row) {
+				if (row.hasOwnProperty(key) && row[key] === id) {
+					return row;
+				}
+			}
+		}
+		return null;
+	}
+
+	onRowTableClick(value, row) {
 		let s = this.current_state;
 		if (s === ViewState.CUSTOMERS_LIST) {
 			this.customer = value;
@@ -98,7 +111,7 @@ class AccountsReceivableByCustomerHandler {
 			this.transaction_id = value;
 			this.phpGetAccountsReceivable(value, ViewState.TRANSACTIONS_DETAILS_LIST);
 		} else if (s === ViewState.TRANSACTIONS_DETAILS_LIST) {
-			alert("nothing");
+			console.log(row['item_id'] + ": " + row['Product Description']);
 		}
 		this.updateHeader();
 	}

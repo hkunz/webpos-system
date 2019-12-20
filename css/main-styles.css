@@ -480,7 +480,7 @@ a:active {
   color: #555;
 }
 
-label.product-caption {
+label.product-caption, label.header-caption {
   font-family: Calibri;
   color: #FFFFAA;
   font-weight: bold;

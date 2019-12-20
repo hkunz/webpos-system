@@ -17,6 +17,7 @@ require $_SESSION["root"] . 'php/navigation-bar.php';
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/main-styles.css">
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/navigation-bar.css">
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/awesomplete.css">
+  <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/common-table.css">
   <link type="text/css" rel="stylesheet" href="css/item-amount-popup.css">
   <link type="text/css" rel="stylesheet" href="css/items-list-styles.css">
   <link type="text/css" rel="stylesheet" href="css/grand-total-view.css">
@@ -99,8 +100,8 @@ require $_SESSION["root"] . 'php/navigation-bar.php';
     <div class="search_item">
       <input type="text" class="awesomplete" id="search_item_input" placeholder="Type here to search product ..." spellcheck="false" />
     </div>
-    <div class="items-list-wrapper">
-      <div class="items-list-header">
+    <div id='items_selection_div' class="common-table-wrapper" style='border-color:#aaa;padding-bottom:32px;'>
+      <div class="items-list-header" style='border-bottom: 2px ridge #333333;'>
         <div style="float:left;width:30px;height:100%;background-color:#111111">
           <label class="items-list-header" style="padding-left:11px;padding-top:2px;">#</label>
         </div>

@@ -5,6 +5,7 @@ class ItemSelectionListHandler {
 		this.list = [];
 		this.grand_total_handler = new GrandTotalViewHandler();
 		this.grand_total_handler.setList(this.list);
+		let thiz = this;
 	}
 
 	reset() {
@@ -150,6 +151,7 @@ class ItemSelectionListHandler {
 			this.style["background-color"] = thiz.getRowItemDivBackgroundColor(++i);
 			div.firstChild.innerHTML = i;
 		});
+		$('#items_selection_div').css('padding-bottom', this.list.length > 0 ? 0 : 32);
 	}
 
 	get simpleList() {

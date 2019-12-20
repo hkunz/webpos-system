@@ -4,6 +4,7 @@ class AccountsReceivableByCustomerHandler {
 
 	constructor() {
 		this.customer = null;
+		this.grand_total = null;
 		this.transaction_id = null;
 		this.current_state = ViewState.INIT;
 		this.table_handler = new TableRowHandler();
@@ -35,10 +36,10 @@ class AccountsReceivableByCustomerHandler {
 	}
 
 	onCustomerSelection() {
-		this.customer = $("#search_customer_input").val();
-		$("#search_customer_input").val('');
 		this.transaction_id = null;
 		this.updateHeader();
+		this.customer = $("#search_customer_input").val();
+		$("#search_customer_input").val('');
 		this.phpGetAccountsReceivable(this.customer, ViewState.TRANSACTIONS_LIST);
 	}
 
@@ -74,6 +75,9 @@ class AccountsReceivableByCustomerHandler {
 
 	onShowAccountsReceivable(json) {
 		this.current_state = ViewState.getStateValue(json.view);
+		if (json.customer_total) {
+			this.grand_total = json.customer_total;
+		}
 		Utils.play(sfx_display);
 		//console.log("json: " + JSON.stringify(json));
 		$('#table_container').html(json.content);
@@ -119,12 +123,14 @@ class AccountsReceivableByCustomerHandler {
 	updateHeader() {
 		let c = this.customer;
 		let t = this.transaction_id;
-		$('#colon_label').css('display', c ? 'inline' : 'none');
-		$('#customer_div').css('display', c ? 'inline' : 'none');
+		let total = this.grand_total;
 		$('#customer_label').text(c ? c : '');
-		$('#transaction_td').css('display', t ? 'inline' : 'none');
+		$('#customer_total').text(c && total ? Utils.getCurrencySymbol() + total : '');
 		$('#transaction_label').text('TRX-' + t);
 		$('#back_button').css('display', c ? 'inline' : 'none');
+		$('#colon_label').css('display', c ? 'inline' : 'none');
+		$('#customer_div').css('display', c ? 'inline' : 'none');
+		$('#transaction_td').css('display', t ? 'inline' : 'none');
 	}
 
 	onBackButtonClick() {
@@ -133,8 +139,10 @@ class AccountsReceivableByCustomerHandler {
 			this.transaction_id = null;
 			this.phpGetAccountsReceivable(this.customer, ViewState.TRANSACTIONS_LIST);
 		} else if (s === ViewState.TRANSACTIONS_LIST) {
+			this.grand_total = null;
 			this.customer = null;
 			this.phpGetAccountsReceivable(null, ViewState.CUSTOMERS_LIST);
 		}
+		this.updateHeader();
 	}
 }

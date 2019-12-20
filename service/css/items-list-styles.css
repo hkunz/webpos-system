@@ -115,10 +115,12 @@ div.items-list-header {
 }
 
 label.items-list-header {
-  color: #dddded;
-  font-size: 11pt;
+  font-family: Calibri;
+  color: #ffff99;
+  font-size: 15px;
+  font-weight: bold;
   float: left;
-  margin-top: 3px;
+  margin-top: 2px;
   text-shadow: 1px 1px 1px #000;
 }
 

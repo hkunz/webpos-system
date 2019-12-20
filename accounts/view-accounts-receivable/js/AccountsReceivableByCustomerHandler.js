@@ -37,7 +37,6 @@ class AccountsReceivableByCustomerHandler {
 
 	onCustomerSelection() {
 		this.transaction_id = null;
-		this.updateHeader();
 		this.customer = $("#search_customer_input").val();
 		$("#search_customer_input").val('');
 		this.phpGetAccountsReceivable(this.customer, ViewState.TRANSACTIONS_LIST);
@@ -117,7 +116,6 @@ class AccountsReceivableByCustomerHandler {
 		} else if (s === ViewState.TRANSACTIONS_DETAILS_LIST) {
 			console.log(row['item_id'] + ": " + row['Product Description']);
 		}
-		this.updateHeader();
 	}
 
 	updateHeader() {
@@ -128,7 +126,6 @@ class AccountsReceivableByCustomerHandler {
 		$('#customer_total').text(total ? total : '');
 		$('#transaction_label').text('TRX-' + t);
 		$('#back_button').css('display', c ? 'inline' : 'none');
-		$('#colon_label').css('display', c ? 'inline' : 'none');
 		$('#customer_div').css('display', c ? 'inline' : 'none');
 		$('#transaction_td').css('display', t ? 'inline' : 'none');
 	}
@@ -142,6 +139,5 @@ class AccountsReceivableByCustomerHandler {
 			this.customer = null;
 			this.phpGetAccountsReceivable(null, ViewState.CUSTOMERS_LIST);
 		}
-		this.updateHeader();
 	}
 }

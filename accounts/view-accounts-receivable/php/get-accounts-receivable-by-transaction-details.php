@@ -32,7 +32,7 @@ WHERE t.transaction_id=$transaction_id;
 ";
 
 $data = array();
-$table = create_scrollable_table($table_id, $sql_con, $query, array('25px', '100%', '100px', '90px', '180px'), array(0, 0, 1, 3, 1), $data);
+$table = create_scrollable_table($table_id, $sql_con, $query, array('25px', '100%', '100px', '90px', '180px'), array(0, 0, 1, 2, 1), $data);
 echo '{"transaction_id":"' . $transaction_id . '","content":"' . $table . '","view":"view_transactions_details","data":' . json_encode($data) . '}';
 
 $sql_con->close();

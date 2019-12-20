@@ -1,7 +1,13 @@
 <?php
 
-//Enclose selected query fields with {{ }} to exclude them from table layout if it's needed for in_data only
-function create_scrollable_table($id, $con, $query, $column_widths, $column_checks, & $in_data) {
+// Enclose selected query fields with {{ }} to exclude them from table layout if it's needed for in_data only
+
+// @column_formats values:
+// 0 => no formatting align left
+// 1 => currency format and align right
+// 2 => just align right
+
+function create_scrollable_table($id, $con, $query, $column_widths, $column_formats, & $in_data) {
 	$vscroll_w = 12;
 	$ccy = $_SESSION['currency'];
 	$cols = count($column_widths);
@@ -24,9 +30,9 @@ function create_scrollable_table($id, $con, $query, $column_widths, $column_chec
 				$row[$newkey] = $value;
 				continue;
 			}
-			$type = $column_checks ? $column_checks[$i] : 0;
+			$type = $column_formats ? $column_formats[$i] : 0;
 			$isccy = ($type === 1);
-			$align_right = ($isccy || $type === 3);
+			$align_right = ($isccy || $type === 2);
 			$ccyspan = $isccy ? "<span style='margin-right:2px;'>$ccy</span>" : '';
 			$width = $column_widths ? $column_widths[$i] : 'auto';
 			$css_max = $width === '100%' ? "max-width:300px;overflow:hidden;text-overflow:ellipsis;" : '';

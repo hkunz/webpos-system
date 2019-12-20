@@ -14,16 +14,19 @@ class Utils {
 		const month = '' + (d.getMonth() + 1);
 		const day = '' + d.getDate();
 		const year = d.getFullYear();
-		const h = Utils.addZero(d.getHours());
-		const m = Utils.addZero(d.getMinutes());
-		const s = Utils.addZero(d.getSeconds());
+		const h = Utils.lpad(d.getHours(), '0', 2);
+		const m = Utils.lpad(d.getMinutes(), '0', 2);
+		const s = Utils.lpad(d.getSeconds(), '0', 2);
 		const time = h + ":" + m + ":" + s;
 		return year + '-' + month + '-' + day + ' ' + (h + ":" + m + ":" + s);
 	}
 
-	static addZero(i) {
-		if (i < 10) i = "0" + i;
-		return i;
+	static lpad(text, pad, length) {
+		let str = '';
+		for (let i = 0; i < length; ++i) {
+			str += pad;
+		}
+		return (str + text).slice(-length);
 	}
 
 	static getAmountCurrencyText(value) {
@@ -141,5 +144,9 @@ class Utils {
 	static getScrollWidth() {
 		//return $('tbody::-webkit-scrollbar').css('width'); //not working
 		return 12;
+	}
+
+	static getPaddedTransactionId(id) {
+		return Utils.lpad(id, '0', 7);
 	}
 }

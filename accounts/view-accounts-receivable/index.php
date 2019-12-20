@@ -57,7 +57,7 @@ require $_SESSION['root'] . 'php/navigation-bar.php';
               </div>
             </td>
             <td style='text-align:right;width:100%;'>
-              <label id='back_button' class='drop-shadow' style='display:none;cursor:Pointer;text-decoration:overline;background-color:#ff3333;text-align:right;'>&lt;&#61;&nbsp;BACK&nbsp;&lt;&#61;</label>
+              <label id='back_button' class='drop-shadow' style='display:none;cursor:Pointer;text-decoration:overline;background-color:#ff3333;text-align:right;'>&lt;&#61;&nbsp;<b>BACK</b>&nbsp;&lt;&#61;</label>
             </td>
           </tr>
         </table>

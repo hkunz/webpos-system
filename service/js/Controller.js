@@ -16,7 +16,7 @@ class Controller {
 	}
 
 	updateNextTransactionId() {
-		const id = ('0000000' + this.sql_transaction_handler.getNextTransactionId()).slice(-7);
+		const id = Utils.getPaddedTransactionId(this.sql_transaction_handler.getNextTransactionId());
 		$('#transaction_id').text(id);
 		$('#transaction_container').css('opacity', 1.0);
 	}

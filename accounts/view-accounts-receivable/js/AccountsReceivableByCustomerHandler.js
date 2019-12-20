@@ -111,7 +111,7 @@ class AccountsReceivableByCustomerHandler {
 			this.transaction_id = null;
 			this.phpGetAccountsReceivable(value, ViewState.TRANSACTIONS_LIST);
 		} else if (s === ViewState.TRANSACTIONS_LIST) {
-			this.transaction_id = value;
+			this.transaction_id = Utils.getPaddedTransactionId(value);
 			this.phpGetAccountsReceivable(value, ViewState.TRANSACTIONS_DETAILS_LIST);
 		} else if (s === ViewState.TRANSACTIONS_DETAILS_LIST) {
 			console.log(row['item_id'] + ": " + row['Product Description']);

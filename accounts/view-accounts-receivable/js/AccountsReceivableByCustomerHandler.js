@@ -75,8 +75,8 @@ class AccountsReceivableByCustomerHandler {
 
 	onShowAccountsReceivable(json) {
 		this.current_state = ViewState.getStateValue(json.view);
-		if (json.customer_total) {
-			this.grand_total = json.customer_total;
+		if (json.total_receivable) {
+			this.grand_total = json.total_receivable;
 		}
 		Utils.play(sfx_display);
 		//console.log("json: " + JSON.stringify(json));
@@ -125,7 +125,7 @@ class AccountsReceivableByCustomerHandler {
 		let t = this.transaction_id;
 		let total = this.grand_total ? Utils.getAmountCurrencyText(this.grand_total) : null;
 		$('#customer_label').text(c ? c : '');
-		$('#customer_total').text(c && total ? total : '');
+		$('#customer_total').text(total ? total : '');
 		$('#transaction_label').text('TRX-' + t);
 		$('#back_button').css('display', c ? 'inline' : 'none');
 		$('#colon_label').css('display', c ? 'inline' : 'none');

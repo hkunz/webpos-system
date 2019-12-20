@@ -15,6 +15,7 @@ class ItemSelectionListHandler {
 		let div = document.getElementById(this.getItemsListIdName());
 		div.innerHTML = '';
 		this.updateTotalPrice();
+		this.updateItemsList();
 	}
 
 	addItem(item) {

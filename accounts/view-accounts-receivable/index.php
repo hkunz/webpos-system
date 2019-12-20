@@ -41,11 +41,14 @@ require $_SESSION['root'] . 'php/navigation-bar.php';
 	<table id='header_table' cellpadding='0' cellspacing='0' style=''>
           <tr>
             <td nowrap>
-              <label class="drop-shadow" style="font-weight:bold;">ACCOUNTS RECEIVABLE</label><label id='colon_label' class="drop-shadow" style="display:none;font-weight:bold;">:&nbsp;</label>
+              <label class="drop-shadow" style="font-weight:bold;">ACCOUNTS RECEIVABLE: </label><label id='colon_label' class="drop-shadow" style="display:none;font-weight:bold;"></label>
+            </td>
+            <td nowrap>
+              <label class="drop-shadow">&nbsp;(</label><label id='customer_total' class="drop-shadow" style="color:#44ff44;font-weight:bold;"></label><label class="drop-shadow">)&nbsp;</label>
             </td>
             <td nowrap>
               <div id='customer_div' style='display:none;margin:0px;padding:0px;'>
-                <label class="drop-shadow">(</label><label id='customer_total' class="drop-shadow" style="color:#44ff44;font-weight:bold;"></label><label class="drop-shadow">)</label>&nbsp;<label class="drop-shadow" style=""></label><label id='customer_label' class="drop-shadow" style="font-weight:bold;color:white;"></label><label class="drop-shadow" style=""></label>
+                <label class="drop-shadow" style=""></label><label id='customer_label' class="drop-shadow" style="font-weight:bold;color:white;"></label><label class="drop-shadow" style=""></label>
               </div>
             </td>
             <td nowrap>

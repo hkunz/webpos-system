@@ -343,6 +343,7 @@ div.checkbox-container {
   padding-left:5px;
   padding-top:7px;
   text-shadow: 1px 1px #222222;
+  box-sizing: content-box;
 }
 
 /* The checkbox-container */
@@ -362,6 +363,7 @@ label.checkbox-container {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  box-sizing: content-box;
 }
 
 /* Hide the browser's default checkbox */
@@ -371,6 +373,7 @@ div.checkbox-container input {
   cursor: pointer;
   height: 0;
   width: 0;
+  box-sizing: content-box;
 }
 
 /* Create a custom checkbox */
@@ -384,6 +387,7 @@ span.checkmark {
   border: 2px solid #006400;
   border-radius:3px;
   box-shadow: 0 0 1px 2px #CCCCCC;
+  box-sizing: content-box;
 }
 
 /* On mouse-over, add a grey background color */
@@ -409,6 +413,7 @@ span.checkmark:after {
 /* Show the checkmark when checked */
 div.checkbox-container input:checked ~ .checkmark:after {
   display: block;
+  box-sizing: content-box;
 }
 
 div.checkbox-container input:focus {
@@ -426,6 +431,7 @@ div.checkbox-container span.checkmark:after {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+  box-sizing: content-box;
 }
 
 button:focus {

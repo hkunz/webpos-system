@@ -48,6 +48,7 @@ class Controller {
 		document.getElementById('transaction_timestamp').value = '';
 		document.getElementById('customer').value = '';
 		document.getElementById('transaction_type').value = 'sale';
+		$('#timestamp_input').css('display','none');
 		$('#use_currentdate_checkbox').prop('checked', true);
 		$('#require_payment_checkbox').prop('checked', true);
 		$("#transaction_timestamp").prop('disabled', true);
@@ -117,6 +118,7 @@ class Controller {
 		let checked = $('#use_currentdate_checkbox').is(":checked");
 		console.log("check: " + checked);
 		$("#transaction_timestamp").prop("disabled", checked);
+		$('#timestamp_input').css('display', checked ? 'none' : 'block');
 		if (checked) {
 			document.getElementById('transaction_timestamp').value = '';
 		} else {

@@ -18,6 +18,7 @@ require $_SESSION["root"] . 'php/navigation-bar.php';
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/navigation-bar.css">
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/awesomplete.css">
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/common-table.css">
+  <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/responsive-web-page.css">
   <link type="text/css" rel="stylesheet" href="css/item-amount-popup.css">
   <link type="text/css" rel="stylesheet" href="css/items-list-styles.css">
   <link type="text/css" rel="stylesheet" href="css/grand-total-view.css">
@@ -56,43 +57,37 @@ require $_SESSION["root"] . 'php/navigation-bar.php';
   </div>
   <?php echo $navbar_content; ?>
   <div class="container-wrapper">
-  <div class="container-left" style='max-width:700px;margin-right:20px;'>
+  <div class="container-left" style='max-width:750px;margin-right:20px;'>
     <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>                                                              | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
     <hr class="division">
     <form>
-      <div style="margin-bottom:5px;margin-left:-2px">
-        <table>
-          <tr><td valign="middle">
-            <label class="drop-shadow">Customer:&nbsp;&nbsp;&nbsp;</label>
-          </td><td valign="middle">
-            <input type="text" id="customer" maxlength="30" style="margin-left:4px;" placeholder="Customer Name ..." spellcheck="false"/>
-          </td></td>
-        </table>
+      <div style="margin-bottom:5px;">
+        <input type="text" id="customer" maxlength="30" style="max-width:250px;" placeholder="Customer Name ..." spellcheck="false"/>
       </div>
-      <label class="drop-shadow">Transaction:</label>
-      <select id="transaction_type">
-        <option value="sale">SALE</option>
-        <option value="restock">RESTOCK</option>
-        <option value="return">RETURN</option>
-        <option value="loss">LOSS</option>
-      </select>
-      <div style="margin-left:-2px;margin-top:-7px;">
-      <table cellpadding="0">
+      <table cellspacing='0' cellpadding='0' style='width:100%;max-width:275px;'>
         <tr>
-          <td valign="middle" style='max-width:111px'>
-          <label class="drop-shadow">Timestamp:</label>
-          </td><td valign="top" style='width:100%;min-width:135px;max-width:135px'>
-            <div class="checkbox-container" style="margin-right:10px;box-shadow: inset 0px 0px 1px 1px #555555;">
-              <label class="checkbox-container">Today-Now
+          <td>
+            <div style='width:100%;max-width:140px;padding-right:10px;height:35px;'>
+              <select id="transaction_type" style='width:100%'>
+                <option value="sale">SALE</option>
+                <option value="restock">RESTOCK</option>
+                <option value="return">RETURN</option>
+                <option value="loss">LOSS</option>
+              </select>
+            </div>
+          </td>
+          <td>
+            <div class="checkbox-container" style="width:100%;min-width:120px;max-width:120px;box-shadow: inset 0px 0px 1px 1px #555555;">
+              <label class="checkbox-container" style='width:100%;max-width:120px;'>Today-Now
                 <input id="use_currentdate_checkbox" type="checkbox" checked>
                 <span class="checkmark"></span>
               </label>
             </div>
-          </td><td valign="middle">
-            <input type="datetime-local" id="transaction_timestamp" step="1" style="max-width:250px;margin-top:6px;height:33px;" disabled>
           </td>
         </tr>
       </table>
+      <div id="timestamp_input" style='display:none;'>
+        <input type="datetime-local" id="transaction_timestamp" step="1" style="max-width:250px;height:33px;" disabled>
       </div>
     </form>
     <label class="drop-shadow" style='display:none;'>Product Search:</label>
@@ -114,11 +109,11 @@ require $_SESSION["root"] . 'php/navigation-bar.php';
     </div>
   </div>
   </div>
-  <div class="container-right" style="margin-bottom:20px;">
+  <div class="container-right" style="max-width:300px;width:100%;margin-bottom:20px;">
     <div class="receipt">
       <label class="receipt">RECEIPT</label>
     </div>
-    <div id='transaction_container' class="transaction-text-div" style='opacity:0.0;'>
+    <div id='transaction_container' class="transaction-text-div" style='opacity:0.0;width:100%;'>
       Transaction ID: <label id="transaction_id" style="color:#ffff00;font-weight:bold;">&nbsp;</label>
     </div>
     <br/>

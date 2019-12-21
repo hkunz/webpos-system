@@ -57,7 +57,7 @@ require $_SESSION["root"] . 'php/navigation-bar.php';
   </div>
   <?php echo $navbar_content; ?>
   <div class="container-wrapper">
-  <div class="container-left" style='max-width:750px;margin-right:20px;'>
+  <div class="container-left" style='overflow-x:hidden;max-width:800px;margin-right:20px;'>
     <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>                                                              | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
     <hr class="division">
     <form>
@@ -67,7 +67,7 @@ require $_SESSION["root"] . 'php/navigation-bar.php';
       <table cellspacing='0' cellpadding='0' style='width:100%;max-width:275px;'>
         <tr>
           <td>
-            <div style='width:100%;max-width:140px;padding-right:10px;height:35px;'>
+            <div style='width:100%;max-width:140px;padding-right:10px;'>
               <select id="transaction_type" style='width:100%'>
                 <option value="sale">SALE</option>
                 <option value="restock">RESTOCK</option>
@@ -76,8 +76,8 @@ require $_SESSION["root"] . 'php/navigation-bar.php';
               </select>
             </div>
           </td>
-          <td>
-            <div class="checkbox-container" style="width:100%;min-width:120px;max-width:120px;box-shadow: inset 0px 0px 1px 1px #555555;">
+          <td valign='top'>
+            <div class="checkbox-container" style="margin:0px;width:100%;min-width:120px;max-width:120px;">
               <label class="checkbox-container" style='width:100%;max-width:120px;'>Today-Now
                 <input id="use_currentdate_checkbox" type="checkbox" checked>
                 <span class="checkmark"></span>
@@ -91,9 +91,7 @@ require $_SESSION["root"] . 'php/navigation-bar.php';
       </div>
     </form>
     <label class="drop-shadow" style='display:none;'>Product Search:</label>
-    <div class="search_item">
-      <input type="text" class="awesomplete" id="search_item_input" placeholder="Type here to search product ..." spellcheck="false" />
-    </div>
+    <input type="text" class="awesomplete" style='width:100%;' id="search_item_input" placeholder="Search product ..." spellcheck="false" />
     <div id='items_selection_div' class="common-table-wrapper" style='border-color:#aaa;padding-bottom:32px;'>
       <div class="items-list-header" style='border-bottom: 2px ridge #333333;'>
         <div style="float:left;width:30px;height:100%;background-color:#111111">
@@ -101,7 +99,7 @@ require $_SESSION["root"] . 'php/navigation-bar.php';
         </div>
         <label class="items-list-header" style="width:15px;"></label>
         <label class="items-list-header" style="width:66px;padding-top:2px;">Qty</label>
-        <label class="items-list-header" style="width:300px;padding-top:2px;">Product Description</label>
+        <label class="items-list-header" style="white-space:nowrap;max-width:130px;width:100%px;padding-top:2px;" nowrap>Description</label>
       </div>
       <div class="items-list-container">
         <div class="items-list" id="items_list"/>
@@ -157,7 +155,7 @@ require $_SESSION["root"] . 'php/navigation-bar.php';
       </tr>
       <tr class="totals-tr">
         <td colspan="2">
-          <div class="checkbox-container">
+          <div class="checkbox-container checkbox-container-bg">
             <label class="checkbox-container">Require payment
               <input id="require_payment_checkbox" type="checkbox" checked>
               <span class="checkmark"></span>

@@ -338,12 +338,15 @@ div.checkbox-container {
   margin-bottom:5px;
   margin-top:5px;
   border:0px solid #222222;
-  background-color:#333333;
   border-radius:5px;
   padding-left:5px;
   padding-top:7px;
   text-shadow: 1px 1px #222222;
   box-sizing: content-box;
+}
+
+div.checkbox-container-bg {
+  background-color:#333333;
 }
 
 /* The checkbox-container */
@@ -501,22 +504,22 @@ label.product-caption, label.header-caption {
   text-shadow: 1px 1px #222222;
 }
 
-tbody, body {
+tbody, body, div {
   --scrollbarBG: #888888;
   --thumbBG: #555555;
   scrollbar-width: thin;
   scrollbar-color: var(--thumbBG) var(--scrollbarBG);
 }
 
-tbody::-webkit-scrollbar, body::-webkit-scrollbar {
+tbody::-webkit-scrollbar, body::-webkit-scrollbar, div::-webkit-scrollbar {
   width: 12px;
 }
 
-tbody::-webkit-scrollbar-track, body::-webkit-scrollbar-track {
+tbody::-webkit-scrollbar-track, body::-webkit-scrollbar-track, div::-webkit-scrollbar-track {
   background: var(--scrollbarBG);
 }
 
-tbody::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb {
+tbody::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, div::-webkit-scrollbar-thumb {
   background-color: var(--thumbBG) ;
   border-radius: 6px;
   border: 3px solid var(--scrollbarBG);

@@ -8,10 +8,10 @@ $href_root = $_SESSION['href_root'];
 require $_SESSION["root"] . 'php/navigation-bar.php';
 ?>
 <!DOCTYPE html>
-<html>
-<!-- Search Item code: https://www.cloudways.com/blog/live-search-php-mysql-ajax/ -->
-<head>
-<meta charset="UTF-8">
+<html lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Search Item code: https://www.cloudways.com/blog/live-search-php-mysql-ajax/ -->
   <title>Klebby's Store</title>
   <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/main-styles.css">
@@ -36,7 +36,6 @@ require $_SESSION["root"] . 'php/navigation-bar.php';
   <script type="text/javascript" src="js/SqlTransactionHandler.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
 </head>
-
 <body class="body">
   <div class="hover_bkgr_fricc" id="amount_popup_box">
     <span class="helper"></span>
@@ -57,7 +56,7 @@ require $_SESSION["root"] . 'php/navigation-bar.php';
   </div>
   <?php echo $navbar_content; ?>
   <div class="container-wrapper">
-  <div class="container-left">
+  <div class="container-left" style='max-width:700px;margin-right:20px;'>
     <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>                                                              | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
     <hr class="division">
     <form>
@@ -80,9 +79,9 @@ require $_SESSION["root"] . 'php/navigation-bar.php';
       <div style="margin-left:-2px;margin-top:-7px;">
       <table cellpadding="0">
         <tr>
-          <td valign="middle" width="111px">
+          <td valign="middle" style='max-width:111px'>
           <label class="drop-shadow">Timestamp:</label>
-          </td><td valign="top" width="135px">
+          </td><td valign="top" style='width:100%;min-width:135px;max-width:135px'>
             <div class="checkbox-container" style="margin-right:10px;box-shadow: inset 0px 0px 1px 1px #555555;">
               <label class="checkbox-container">Today-Now
                 <input id="use_currentdate_checkbox" type="checkbox" checked>
@@ -90,7 +89,7 @@ require $_SESSION["root"] . 'php/navigation-bar.php';
               </label>
             </div>
           </td><td valign="middle">
-            <input type="datetime-local" id="transaction_timestamp" step="1" style="width:250px;margin-top:6px;height:33px;" disabled>
+            <input type="datetime-local" id="transaction_timestamp" step="1" style="max-width:250px;margin-top:6px;height:33px;" disabled>
           </td>
         </tr>
       </table>
@@ -115,7 +114,7 @@ require $_SESSION["root"] . 'php/navigation-bar.php';
     </div>
   </div>
   </div>
-  <div class="container-right" style="">
+  <div class="container-right" style="margin-bottom:20px;">
     <div class="receipt">
       <label class="receipt">RECEIPT</label>
     </div>

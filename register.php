@@ -95,14 +95,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $sql_con->close();
 }
 ?>
- 
 <!DOCTYPE html>
 <html lang="en">
-<head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Klebby's Sign Up</title>
   <script type="text/javascript" src="js/Utils.js"></script>
-  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"> -->
+  <link type="text/css" rel="stylesheet" href="css/responsive-web-page.css">
   <link type="text/css" rel="stylesheet" href="css/main-styles.css">
   <link type="text/css" rel="stylesheet" href="css/navigation-bar.css">
   <style>.form-group {margin-bottom:9px;}
@@ -111,30 +110,28 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <body class="body">
   <?php echo $navbar_content ?>
   <div class="container-wrapper">
-    <div class="container-left">
+    <div class="container-left" style='max-width:700px;'>
       <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label> | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
       <hr class="division">
       <h4><u>REGISTRATION FORM</u></h4>
       <form autocomplete="off" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
           <label class="standard-label">Username:</label>
-          <input type="text" name="username" class="form-control" value="<?php echo $username; ?>" style="width:200px;padding:6px;" spellcheck="false">
+          <input type="text" name="username" class="form-control" value="<?php echo $username; ?>" style="max-width:200px;padding:6px;" spellcheck="false">
           <span class="help-block"><?php echo $username_err; ?></span>
         </div>    
         <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
           <label class="standard-label">Password:</label>
-          <input type="password" name="password" class="form-control" value="<?php echo $password; ?>" style="width:200px;padding:6px;" spellcheck="false">
+          <input type="password" name="password" class="form-control" value="<?php echo $password; ?>" style="max-width:200px;padding:6px;" spellcheck="false">
           <span class="help-block"><?php echo $password_err; ?></span>
         </div>
         <div class="form-group <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
           <label class="standard-label">Confirm:&nbsp;</label>
-          <input type="password" name="confirm_password" class="form-control" value="<?php echo $confirm_password; ?>" style="width:200px;padding:6px;" spellcheck="false">
+          <input type="password" name="confirm_password" class="form-control" value="<?php echo $confirm_password; ?>" style="max-width:200px;padding:6px;" spellcheck="false">
           <span class="help-block"><?php echo $confirm_password_err; ?></span>
         </div>
-        <div class="form-group" style="margin-top:15px;margin-bottom:15px;">
-          <button type="submit" class="standard-button" style="width:160px;">REGISTER</button>
-          <button type="reset" class="standard-button standard-button-gray" style="width:118px;">RESET</button>
-        </div>
+        <button type="submit" class="standard-button" style="max-width:160px;">REGISTER</button>
+        <button type="reset" class="standard-button standard-button-gray" style="max-width:118px;">RESET</button><br><br>
         <label class="standard-label">Already have an account?</label>&nbsp;<a href="login.php">Login Here</a>
       </form>
     </div>

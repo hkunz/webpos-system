@@ -8,12 +8,10 @@ $href_root = $_SESSION['href_root'];
 require $_SESSION['root'] . 'php/navigation-bar.php';
 ?>
 <!DOCTYPE html>
-<html>
-<!-- Search Item code: https://www.cloudways.com/blog/live-search-php-mysql-ajax/ -->
-<head>
-<meta charset="UTF-8">
+<html lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Klebby's Store</title>
-  <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/main-styles.css">
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/navigation-bar.css">
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/awesomplete.css">

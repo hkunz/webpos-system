@@ -37,7 +37,8 @@ $user_menu = '
 </div>';
 
 $navbar_content = '
-<div class="navbar">
+<div class="row">
+  <div class="col-12 navbar">
     <a class="menu-btn" href="' . $rootpath . 'welcome.php">Home</a>
     <div class="dropdown">
       <button class="dropbtn menu-btn">Company
@@ -55,5 +56,6 @@ $navbar_content = '
       </button>' . ($ready ? $accounts_list : '') . '
     </div>' . 
     ($ready ? $user_menu : '') . '
+  </div>
 </div>';
 ?>

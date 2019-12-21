@@ -8,10 +8,10 @@ require 'php/navigation-bar.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Welcome To Klebby's</title>
-  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"> -->
+  <link type="text/css" rel="stylesheet" href="css/responsive-web-page.css">
   <link type="text/css" rel="stylesheet" href="css/main-styles.css">
   <link type="text/css" rel="stylesheet" href="css/navigation-bar.css">
   <script type="text/javascript" src="js/libs/jquery-3.4.1.min.js"></script>
@@ -20,14 +20,14 @@ require 'php/navigation-bar.php';
 </head>
 <body class="body">
   <?php echo $navbar_content; ?>
-  <div class="container-wrapper" style="width:600px;">
-  <div class="container-left" style="width:100%;">
+  <div class="container-wrapper">
+  <div class="container-left" style='width:100%;'>
     <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>
      | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
     <hr class="division">
     <h1>Welcome <?php echo htmlspecialchars($_SESSION["username"]); ?></h1>
     <div>
-      <img class="welcome-image" src="imgs/makoy.jpg" width="300px">
+      <img class="welcome-image" src="imgs/makoy.jpg" style='min-width:100px;max-width:300px;width:100%;'>
     </div>
   </div>
   </div>

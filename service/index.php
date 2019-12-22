@@ -4,8 +4,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: ../login.php");
     exit;
 }
+$root = $_SESSION['root'];
 $href_root = $_SESSION['href_root'];
-require $_SESSION["root"] . 'php/navigation-bar.php';
+require $root . 'php/navigation-bar.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,6 +20,7 @@ require $_SESSION["root"] . 'php/navigation-bar.php';
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/awesomplete.css">
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/common-table.css">
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/responsive-web-page.css">
+  <link type="text/css" rel="stylesheet" href="<?php echo (1==1) ? $href_root . 'css/main-styles-mobile.css' : '';?>">
   <link type="text/css" rel="stylesheet" href="css/item-amount-popup.css">
   <link type="text/css" rel="stylesheet" href="css/items-list-styles.css">
   <link type="text/css" rel="stylesheet" href="css/grand-total-view.css">
@@ -56,8 +58,8 @@ require $_SESSION["root"] . 'php/navigation-bar.php';
     </div>
   </div>
   <?php echo $navbar_content; ?>
-  <div class="container-wrapper">
-  <div class="container-left" style='overflow-x:hidden;max-width:800px;margin-right:20px;'>
+  <div class="container-wrapper" style='padding-bottom:15px;'>
+  <div class="container-left" style='max-width:800px;margin-right:20px;'>
     <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>                                                              | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
     <hr class="division">
     <form>
@@ -109,12 +111,8 @@ require $_SESSION["root"] . 'php/navigation-bar.php';
   </div>
   <div class="container-right" style="max-width:350px;width:100%;margin-bottom:20px;">
     <div class="receipt">
-      <label class="receipt">RECEIPT</label>
+      <label class="receipt">TXN ID:&nbsp;</label><label class="receipt" style='color:white' id="transaction_id">&nbsp;</label>
     </div>
-    <div id='transaction_container' class="transaction-text-div" style='opacity:0.0;width:100%;'>
-      Transaction ID: <label id="transaction_id" style="color:#ffff00;font-weight:bold;">&nbsp;</label>
-    </div>
-    <br/>
     <table class="totals-grid">
       <tr class="totals-tr">
         <td><label class="label-text">Sub-Total:</label></td>
@@ -169,16 +167,13 @@ require $_SESSION["root"] . 'php/navigation-bar.php';
           <input class="cash-input" type="number" id="cash_input" disabled="true" min="0" onkeydown="return Utils.not(event);"/>
         </td>
       </tr>
-      <tr class="totals-tr">
-        <td colspan="2"><hr class="division"/></td>
-      </tr>
-      <tr class="totals-tr">
+      <tr id='cash_change_tr' class="totals-tr" style='display:none;'>
         <td><label class="label-text">Change:</label></td>
-        <td class="td-value"><label id="cash_change" class="cash-change"></label></td>
+        <td class="td-value"><label id="cash_change" class="cash-change" style="line-height:30px"></label></td>
       </tr>
     </table>
     <br />
-    <button id="commit_transaction_button" class="commit-transaction-button" style="margin-top:6px;" disabled="true">COMMIT TRANSACTION</button>
+    <button id="commit_transaction_button" class="commit-transaction-button" style="margin-top:0px;" disabled="true">COMMIT TRANSACTION</button>
   </div>
   </div>
   <div id="eventdispatcher" style="display:none;" />

@@ -17,10 +17,8 @@ label.receipt {
 
 div.transaction-text-div {
   width:100%;
-  background-color:#333333;
+  /*background-color:#333333;*/
   text-align: center;
-  font-family: courier;
-  height:20px;
 }
 
 table.totals-grid {

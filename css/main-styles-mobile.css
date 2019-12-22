@@ -1,0 +1,32 @@
+body.body {
+  background: radial-gradient(circle at top left, #353535, #555555);
+}
+
+div.container-wrapper {
+  padding: 0px;
+  padding-top: 4px;
+}
+
+div.container-left {
+  width:100%;
+  padding: 12px;
+  border: 0;
+  border-radius: 0px;
+  box-shadow: none; 
+  min-height: 10px;
+  margin-bottom: 0px;
+  background: none;
+  border-bottom: 4px double #ddd;
+}
+
+div.container-right {
+  padding: 12px;
+  padding-top: 18px;
+  border: 0;
+  min-width: 100%;
+  border-radius: 0px;
+  box-shadow: none;
+  background: none;
+  background-color: none;
+  margin-bottom: 0px;
+}

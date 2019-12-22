@@ -24,6 +24,7 @@ $accounts_list = '
 
 $user_list = '
 <div class="dropdown-content">
+  <a id="menu_home" href="' . $rootpath . 'welcome.php">Home</a>
   <a id="menu_settings" href="#">Settings</a>
   <a id="menu_resetpass" href="' . $rootpath . 'reset-password.php">Reset Password</a>
   <a id="menu_logout" href="' . $rootpath . 'logout.php">Logout</a>
@@ -38,24 +39,24 @@ $user_menu = '
 
 $navbar_content = '
 <div class="row">
-  <div class="col-12 navbar">
-    <a class="menu-btn" href="' . $rootpath . 'welcome.php">Home</a>
+  <div class="col-12 navbar">' . 
+    ($ready ? $user_menu : '') . '
+    <!-- <a class="menu-btn" href="' . $rootpath . 'welcome.php">Home</a> -->
     <div class="dropdown">
       <button class="dropbtn menu-btn">Company
         <i class="fa fa-caret-down"></i>
       </button>' . ($ready ? $company_list : '') . '
     </div>
     <div class="dropdown">
-      <button class="dropbtn menu-btn">Products
+      <button class="dropbtn menu-btn">Product
         <i class="fa fa-caret-down"></i>
       </button>' . ($ready ? $products_list : '') . '
     </div>
     <div class="dropdown">
-      <button class="dropbtn menu-btn">Accounts
+      <button class="dropbtn menu-btn">Account
         <i class="fa fa-caret-down"></i>
       </button>' . ($ready ? $accounts_list : '') . '
-    </div>' . 
-    ($ready ? $user_menu : '') . '
+    </div> 
   </div>
 </div>';
 ?>

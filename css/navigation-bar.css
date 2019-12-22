@@ -40,6 +40,7 @@
   font-family: inherit; /* Important for vertical align on mobile phones */
   margin: 0; /* Important for vertical align on mobile phones */
   border-right: 2px ridge #333333;
+  border-bottom: 2px ridge #333333;
 }
 
 .navbar .menu-btn {
@@ -47,6 +48,7 @@
   color: #FFFFFF;
   text-shadow: 1px 1px 1px #000000;
   border-right: 2px ridge #333333;
+  border-bottom: 2px ridge #333333;
 }
 
 .navbar a:hover, .dropbtn:hover {

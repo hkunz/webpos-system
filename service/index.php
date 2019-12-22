@@ -107,7 +107,7 @@ require $_SESSION["root"] . 'php/navigation-bar.php';
     </div>
   </div>
   </div>
-  <div class="container-right" style="max-width:300px;width:100%;margin-bottom:20px;">
+  <div class="container-right" style="max-width:350px;width:100%;margin-bottom:20px;">
     <div class="receipt">
       <label class="receipt">RECEIPT</label>
     </div>

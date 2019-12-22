@@ -1,5 +1,11 @@
 <?php
 session_start();
+/*
+foreach ($_SERVER as $key => $value) {
+	echo "$key : $value<br>";
+}
+exit;
+//*/
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;

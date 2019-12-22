@@ -1,6 +1,6 @@
 "use strict";
 
-const sfx_path = Utils.getRootPath() + "sound-effects/";
+const sfx_path = "/" + Utils.getRootName() + "/sound-effects/";
 const sfx_click = new Audio(sfx_path + "b8qpsz_ui-49.wav");
 const sfx_display = new Audio(sfx_path + "3e74c5_ui-86.wav");
 const sfx_add = new Audio(sfx_path + "dheses_ui-94.wav");

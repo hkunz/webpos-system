@@ -2,7 +2,7 @@
 
 class ItemSearchInputHandler extends AwesompleteInputHandler {
 	constructor() {
-		super("search_item_input", Utils.getRootPath() + "service/php/get-search-results.php");
+		super("search_item_input", "/" + Utils.getRootName() + "/service/php/get-search-results.php");
 	}
 
 	onAjaxSuccess(data) {

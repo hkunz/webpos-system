@@ -1,12 +1,8 @@
 "use strict";
 
 class Utils {
-	static getServerName() {
-		return "localhost";
-	}
-
-	static getRootPath() {
-		return "//" + Utils.getServerName() + "/klebbys/";
+	static getRootName() {
+		return "klebbys";
 	}
 
 	static getTimestamp(date) {
@@ -150,3 +146,11 @@ class Utils {
 		return Utils.lpad(id, '0', 7);
 	}
 }
+
+$.ajax({
+	type: "POST",
+	url: "/" + Utils.getRootName() + "/php/get-root-path.php" + Utils.getRandomUrlVar(),
+	success: function(data) {
+		//window.rootpath = data; not working
+	}
+});

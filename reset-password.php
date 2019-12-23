@@ -8,6 +8,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 require_once($_SESSION['root'] . 'php/db.php');
 require $_SESSION['root'] . 'php/navigation-bar.php';
 
+ob_start();
+require_once('php/check-detect-mobile-device.php');
+$is_mobile = ob_get_clean() === '1';
+
 $username = htmlspecialchars($_SESSION["username"]); 
 
 // Define variables and initialize with empty values
@@ -113,7 +117,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style='height:100%;overflow:hidden;'>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reset Password</title>
@@ -121,35 +125,44 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   <link type="text/css" rel="stylesheet" href="css/main-styles.css">
   <link type="text/css" rel="stylesheet" href="css/navigation-bar.css">
 </head>
-<body class="body">
+<body class="body" style='overflow:none;'>
   <?php echo $navbar_content; ?>
   <div class="container-wrapper">
-    <div class="container-left">
-      <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label> | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
-      <hr class="division">
+    <div class="container-left" style='max-width:500px;overflow:hidden;padding-bottom:30px;margin-bottom:50px;'>
+      <div class='store-heading' <?php echo $is_mobile ? "style='display:none;'" : '' ?>>
+        <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label> | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
+        <hr class="division">
+      </div>
       <label style="font-weight:bold;">RESET PASSWORD</label><label class="standard-label"> FOR USER: </label><label style="color:cyan;font-weight:bold;"><?php echo $username?></label>
       <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post"> 
         <div class="form-group <?php echo (!empty($curr_password_err)) ? 'has-error' : ''; ?>" style="padding-bottom:7px;padding-top:20px;">
           <label class="standard-label">Current Password: </label>
-          <input type="password" name="curr_password" class="form-control" style="width:200px;padding:6px;">
+          <div style='width:100%;'>
+            <input type="password" name="curr_password" class="form-control" style="max-width:200px;padding:6px;">
+          </div>
           <span class="help-block"><?php echo $curr_password_err; ?></span>
         </div>
         <div class="form-group <?php echo (!empty($new_password_err)) ? 'has-error' : ''; ?>" style="padding-bottom:7px;">
           <label class="standard-label">New Password:&nbsp;&nbsp;&nbsp;&nbsp;</label>
-          <input type="password" name="new_password" class="form-control" value="<?php echo $new_password; ?>" style="width:200px;padding:6px;">
+          <div style='width:100%;'>
+            <input type="password" name="new_password" class="form-control" value="<?php echo $new_password; ?>" style="max-width:200px;padding:6px;">
+          </div>
           <span class="help-block"><?php echo $new_password_err; ?></span>
         </div>
         <div class="form-group <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
           <label class="standard-label">Confirm Password: </label>
-          <input type="password" name="confirm_password" class="form-control" style="width:200px;padding:6px;">
+          <div style='width:100%;'>
+            <input type="password" name="confirm_password" class="form-control" style="max-width:200px;padding:6px;">
+          </div>
           <span class="help-block"><?php echo $confirm_password_err; ?></span>
         </div>
         <div class="form-group" style="margin-top:15px">
-          <button type="submit" class="standard-button" style="width:200px;">RESET PASSWORD</button>
-          <button type="button" class="standard-button standard-button-gray" onclick="window.location.href = 'welcome.php';" style="width:149px;">CANCEL</button>
+          <button type="submit" class="standard-button" style="max-width:200px;">RESET PASSWORD</button>
+          <button type="button" class="standard-button standard-button-gray" onclick="window.location.href = 'welcome.php';" style="width:149px;display:none;">CANCEL</button>
         </div>
       </form>
     </div>
-  </div>    
+  </div>
+  <div class='navbar' style='height:400px;'></div>
 </body>
 </html>

@@ -116,7 +116,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <body class="body" style='overflow:hidden;'>
   <div class='navbar' style='padding:12px;padding-left:16px;'><label class="header-caption"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label></div>
   <div class="container-wrapper" style='height:100%;padding-bottom:90px;'>
-    <div class="container-left" style="max-width:700px;height:100%;padding-top:0px;">
+    <div class="container-left" style="max-width:500px;height:100%;padding-top:0px;">
       <h4><u>SYSTEM LOGIN</u></h4>
       <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" autocomplete="off">
          <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">

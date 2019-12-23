@@ -31,8 +31,8 @@ $username = htmlspecialchars($_SESSION["username"]);
 <body class="body" style='overflow:hidden'>
   <?php echo $is_mobile ? "<div class='navbar' style='padding:12px;padding-left:16px;'><label class='header-caption'><script type='text/javascript'>document.write(Utils.getStoreHeading());</script></label></div>
   " : $navbar_content ?>
-  <div class="container-wrapper" style='padding-bottom:0px;margin-bottom:50px;'>
-  <div class="container-left" style='width:100%;max-width:500px;margin-bottom:0px;'>
+  <div class="container-wrapper" style='padding-bottom:0px;margin-bottom:30px;'>
+  <div class="container-left" style='width:100%;max-width:500px;margin-bottom:10px;'>
     <div class='store-heading' <?php echo $is_mobile ? "style='display:none'" : ""; ?>>
       <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>                                                              | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
       <hr class="division">

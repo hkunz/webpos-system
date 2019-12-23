@@ -6,6 +6,9 @@ html *
 }
 
 html {
+  overflow: hidden;
+  height: 100%;
+  padding-bottom: 45px;
 }
 
 body.body {
@@ -28,7 +31,8 @@ background: linear-gradient(to right, #d6ae7b, #eacda3);*/
   /*background-color: mediumspringgreen;
   background-size: 1.5em 11em, 1.5em 11em, 2.3em 8em, 2.3em 8em, 3.5em 11em, 3.5em 11em, 100% 100%;
   background-repeat: repeat;*/
-  margin:0px;
+  margin: 0px;
+  height: 100%;
 }
 
 div.store-heading {
@@ -148,10 +152,12 @@ option.pick-option:first-child {
 }
 
 div.container-wrapper {
+  height: 100%;
   width: 100%;
   padding: 15px;
   box-sizing: border-box;
   overflow-x: hidden;
+  overflow-y: auto;
 }
 
 div.container-left {

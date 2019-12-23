@@ -39,7 +39,7 @@ if (isset($_POST['search'])) {
 	while ($row = $result->fetch_assoc()) {
 		$code = $row['bar_code'];
 		$barcode = $code;
-		$code = (empty($code) ? "≡≡≡≡≡≡≡≡≡≡≡≡≡" : str_pad($code, 13, '0', STR_PAD_LEFT));
+		$code = (empty($code) ? " " : str_pad($code, 13, '0', STR_PAD_LEFT));
 		$unit = str_pad($row['unit'], 2, ' ', STR_PAD_LEFT);
 		$count = $row['count'];
 		$description = $row['item_description'];

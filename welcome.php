@@ -20,6 +20,7 @@ require 'php/navigation-bar.php';
   <link type="text/css" rel="stylesheet" href="css/responsive-web-page.css">
   <link type="text/css" rel="stylesheet" href="css/main-styles.css">
   <link type="text/css" rel="stylesheet" href="css/navigation-bar.css">
+  <link type="text/css" rel="stylesheet" href="<?php require_once("php/detect-mobile-device.php"); ?>">
   <script type="text/javascript" src="js/libs/jquery-3.4.1.min.js"></script>
   <script type="text/javascript" src="js/Utils.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
@@ -27,10 +28,12 @@ require 'php/navigation-bar.php';
 <body class="body">
   <?php echo $navbar_content; ?>
   <div class="container-wrapper">
-  <div class="container-left" style='width:100%;'>
-    <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>
+  <div class="container-left" style='width:100%;max-width:500px;'>
+    <div class='store-heading'>
+      <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>
      | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
-    <hr class="division">
+      <hr class="division">
+    </div>
     <h1>Welcome <?php echo htmlspecialchars($_SESSION["username"]); ?></h1>
     <div>
       <img class="welcome-image" src="imgs/makoy.jpg" style='min-width:100px;max-width:300px;width:100%;'>

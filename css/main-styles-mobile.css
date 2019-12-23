@@ -2,6 +2,10 @@ body.body {
   background: radial-gradient(circle at top left, #353535, #555555);
 }
 
+div.store-heading {
+  display: none;
+}
+
 div.container-wrapper {
   padding: 0px;
   padding-top: 4px;
@@ -16,15 +20,15 @@ div.container-left {
   min-height: 10px;
   margin-bottom: 0px;
   background: none;
-  border-bottom: 4px double #ddd;
+  background-color: none;
 }
 
 div.container-right {
   padding: 12px;
-  padding-top: 18px;
+  padding-top: 5px;
   border: 0;
-  min-width: 100%;
   border-radius: 0px;
+  max-width: 380px;
   box-shadow: none;
   background: none;
   background-color: none;

@@ -20,7 +20,7 @@ require $root . 'php/navigation-bar.php';
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/awesomplete.css">
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/common-table.css">
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/responsive-web-page.css">
-  <link type="text/css" rel="stylesheet" href="<?php echo (1==1) ? $href_root . 'css/main-styles-mobile.css' : '';?>">
+  <link type="text/css" rel="stylesheet" href="<?php require_once("${root}/php/detect-mobile-device.php"); ?>">
   <link type="text/css" rel="stylesheet" href="css/item-amount-popup.css">
   <link type="text/css" rel="stylesheet" href="css/items-list-styles.css">
   <link type="text/css" rel="stylesheet" href="css/grand-total-view.css">
@@ -60,8 +60,10 @@ require $root . 'php/navigation-bar.php';
   <?php echo $navbar_content; ?>
   <div class="container-wrapper" style='padding-bottom:15px;'>
   <div class="container-left" style='max-width:800px;margin-right:20px;'>
-    <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>                                                              | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
-    <hr class="division">
+    <div class='store-heading'>
+      <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>                                                              | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
+      <hr class="division">
+    </div>
     <form>
       <div style="margin-bottom:5px;">
         <input type="text" id="customer" maxlength="30" style="max-width:250px;" placeholder="Customer Name ..." spellcheck="false"/>
@@ -109,7 +111,7 @@ require $root . 'php/navigation-bar.php';
     </div>
   </div>
   </div>
-  <div class="container-right" style="max-width:350px;width:100%;margin-bottom:20px;">
+  <div class="container-right">
     <div class="receipt">
       <label class="receipt">TXN ID:&nbsp;</label><label class="receipt" style='color:white' id="transaction_id">&nbsp;</label>
     </div>

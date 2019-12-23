@@ -6,7 +6,6 @@ html *
 }
 
 html {
-  overflow-y: scroll; 
 }
 
 body.body {
@@ -30,6 +29,10 @@ background: linear-gradient(to right, #d6ae7b, #eacda3);*/
   background-size: 1.5em 11em, 1.5em 11em, 2.3em 8em, 2.3em 8em, 3.5em 11em, 3.5em 11em, 100% 100%;
   background-repeat: repeat;*/
   margin:0px;
+}
+
+div.store-heading {
+  margin: 0px;
 }
 
 img.welcome-image {
@@ -160,11 +163,8 @@ div.container-left {
   display:block;
   margin-bottom: 15px;
   background: radial-gradient(circle at top left, #353535, #555555);
-  /*background: radial-gradient(circle at top, #2b2b28, #4a4842);*/
-  /*background: linear-gradient(120deg, #3B3B3B 60%, #454545 60%);*/
   box-shadow: 0px 0px 4px 3px #333333;
   box-sizing: border-box;
-  overflow-x: hidden;
 }
 
 div.container-right {
@@ -173,13 +173,12 @@ div.container-right {
   border-radius: 8px;
   float:left;
   display:block;
-  max-width: 300px;
+  max-width: 350px;
   width:100%;
-  /*background-color: #454545;*/
-  /*background: linear-gradient(#333333, #454545);*/
   background: radial-gradient(circle at top left, #333333, #555555);
   box-sizing: border-box;
   box-shadow: 0px 0px 4px 3px #333333;
+  margin-bottom: 20px;
 }
 
 button {

@@ -20,7 +20,7 @@ require $root . 'php/navigation-bar.php';
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/awesomplete.css">
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/common-table.css">
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/responsive-web-page.css">
-  <link type="text/css" rel="stylesheet" href="<?php require_once("${root}/php/detect-mobile-device.php"); ?>">
+  <link type="text/css" rel="stylesheet" href="<?php require_once("${root}php/detect-mobile-device.php"); ?>">
   <link type="text/css" rel="stylesheet" href="css/item-amount-popup.css">
   <link type="text/css" rel="stylesheet" href="css/items-list-styles.css">
   <link type="text/css" rel="stylesheet" href="css/grand-total-view.css">

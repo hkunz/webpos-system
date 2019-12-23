@@ -10,6 +10,11 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;
 }
+#ob_start();
+#require_once('php/check-detect-mobile-device.php');
+#$is_mobile = ob_get_clean();
+#echo "'" . $is_mobile . "'";
+#exit;
 require_once('php/navigation-bar.php');
 $username = htmlspecialchars($_SESSION["username"]);
 ?>
@@ -26,7 +31,9 @@ $username = htmlspecialchars($_SESSION["username"]);
   <script type="text/javascript" src="js/main.js"></script>
 </head>
 <body class="body" style='overflow:hidden'>
-  <div class='navbar' style='padding:12px;padding-left:16px;'><label class="header-caption"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label></div>
+  <?php echo " 
+  <div class='navbar' style='padding:12px;padding-left:16px;'><label class='header-caption'><script type='text/javascript'>document.write(Utils.getStoreHeading());</script></label></div>
+  "; ?>
   <div class="container-wrapper" style='padding-bottom:0px;margin-bottom:50px;'>
   <div class="container-left" style='width:100%;max-width:500px;margin-bottom:0px;'>
     <h1>Welcome <?php echo $username; ?></h1>

@@ -96,10 +96,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style='height:100%;'>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Klebby's Sign Up</title>
+  <title>System Registration</title>
+  <script type="text/javascript" src="js/libs/jquery-3.4.1.min.js"></script>
   <script type="text/javascript" src="js/Utils.js"></script>
   <link type="text/css" rel="stylesheet" href="css/responsive-web-page.css">
   <link type="text/css" rel="stylesheet" href="css/main-styles.css">
@@ -107,34 +108,47 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   <style>.form-group {margin-bottom:9px;}
   </style>
 </head>
-<body class="body">
-  <?php echo $navbar_content ?>
+<body class="body" style='overflow:hidden;'>
+  <div class='navbar' style='padding:12px;padding-left:16px;'><label class="header-caption"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label></div>
   <div class="container-wrapper">
-    <div class="container-left" style='max-width:700px;'>
-      <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label> | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
-      <hr class="division">
-      <h4><u>REGISTRATION FORM</u></h4>
+    <div class="container-left" style='max-width:700px;padding-top:0px;'>
+      <h4><u>SYSTEM REGISTRATION</u></h4>
       <form autocomplete="off" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
-          <label class="standard-label">Username:</label>
-          <input type="text" name="username" class="form-control" value="<?php echo $username; ?>" style="max-width:200px;padding:6px;" spellcheck="false">
+          <div style='width:100%;'>
+            <label class="standard-label">Username:</label>
+          </div>
+          <div style='width:100%;'>
+            <input type="text" name="username" class="form-control" value="<?php echo $username; ?>" style="max-width:200px;padding:6px;" spellcheck="false">
+          </div>
           <span class="help-block"><?php echo $username_err; ?></span>
         </div>    
         <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
-          <label class="standard-label">Password:</label>
-          <input type="password" name="password" class="form-control" value="<?php echo $password; ?>" style="max-width:200px;padding:6px;" spellcheck="false">
+          <div style='width:100%;'>
+            <label class="standard-label">Password:</label>
+          </div>
+          <div style='width:100%;'>
+            <input type="password" name="password" class="form-control" value="<?php echo $password; ?>" style="max-width:200px;padding:6px;" spellcheck="false">
+          </div>
           <span class="help-block"><?php echo $password_err; ?></span>
         </div>
         <div class="form-group <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
-          <label class="standard-label">Confirm:&nbsp;</label>
-          <input type="password" name="confirm_password" class="form-control" value="<?php echo $confirm_password; ?>" style="max-width:200px;padding:6px;" spellcheck="false">
+          <div style='width:100%;'>
+            <label class="standard-label">Confirm:&nbsp;</label>
+          </div>
+          <div style='width:100%;'>
+            <input type="password" name="confirm_password" class="form-control" value="<?php echo $confirm_password; ?>" style="max-width:200px;padding:6px;" spellcheck="false">
+          </div>
           <span class="help-block"><?php echo $confirm_password_err; ?></span>
         </div>
-        <button type="submit" class="standard-button" style="max-width:160px;">REGISTER</button>
-        <button type="reset" class="standard-button standard-button-gray" style="max-width:118px;">RESET</button><br><br>
+        <br>
+        <button type="submit" class="standard-button" style="max-width:200px;">REGISTER</button>
+        <button type="reset" class="standard-button standard-button-gray" style="max-width:118px;display:none">RESET</button><br><br>
+        <br>
         <label class="standard-label">Already have an account?</label>&nbsp;<a href="login.php">Login Here</a>
       </form>
     </div>
   </div>    
+  <div class='navbar' style='height:400px;'></div>
 </body>
 </html>

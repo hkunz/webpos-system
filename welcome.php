@@ -17,7 +17,7 @@ require_once('php/navigation-bar.php');
 $username = htmlspecialchars($_SESSION["username"]);
 ?>
 <!DOCTYPE html>
-<html lang="en" style='height:100%;'>
+<html lang="en" style='border-top:0;'>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Welcome <?php echo $username; ?></title>
@@ -44,7 +44,7 @@ $username = htmlspecialchars($_SESSION["username"]);
   </div>
   </div>
   <div id="eventdispatcher" style="display:none;"></div>
-  <div class='navbar' style='height:400px;'></div>
+  <div class='navbar' style='width:100%;position:fixed:bottom:0;height:400px;'></div>
 </body>
 </html>
 

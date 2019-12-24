@@ -10,7 +10,12 @@ $href_root = $_SESSION['href_root'];
 ob_start();
 require_once("${root}php/check-detect-mobile-device.php");
 $ismobile = ob_get_clean() === '1';
-require_once("${root}php/navigation-bar.php");
+require_once("${root}php/" . ($ismobile ? "mini-navigation-bar" : "navigation-bar") . ".php");
+
+function getTransactionContainer() {
+return "<div class='receipt'><label class='receipt'>TXN:&nbsp;</label><label class='receipt' style='color:white' id='transaction_id'>&nbsp;</label></div>";
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -68,9 +73,10 @@ require_once("${root}php/navigation-bar.php");
       <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>                                                              | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
       <hr class="division">
     </div>
+    <?php if ($ismobile) echo getTransactionContainer(); ?>
     <form>
-      <div style="margin-bottom:5px;">
-        <input type="text" id="customer" maxlength="30" style="max-width:250px;" placeholder="Customer Name ..." spellcheck="false"/>
+      <div style="margin-bottom:5px;<?php if ($ismobile) echo "margin-top:20px;"?>">
+        <input type="text" id="customer" maxlength="30" style="max-width:380px;" placeholder="Customer Name ..." spellcheck="false"/>
       </div>
       <table cellspacing='0' cellpadding='0' style='width:100%;max-width:275px;'>
         <tr>
@@ -95,7 +101,7 @@ require_once("${root}php/navigation-bar.php");
         </tr>
       </table>
       <div id="timestamp_input" style='display:none;'>
-        <input type="datetime-local" id="transaction_timestamp" step="1" style="max-width:250px;height:33px;" disabled>
+        <input type="datetime-local" id="transaction_timestamp" step="1" style="max-width:240px;height:33px;" disabled>
       </div>
     </form>
     <label class="drop-shadow" style='display:none;'>Product Search:</label>
@@ -116,12 +122,10 @@ require_once("${root}php/navigation-bar.php");
   </div>
   </div>
   <div class="container-right">
-    <div class="receipt">
-      <label class="receipt">TXN ID:&nbsp;</label><label class="receipt" style='color:white' id="transaction_id">&nbsp;</label>
-    </div>
-    <table class="totals-grid">
+    <?php if (!$ismobile) echo getTransactionContainer(); ?>
+    <table class="totals-grid" cellspacing='0' cellpadding='0'>
       <tr class="totals-tr">
-        <td><label class="label-text">Sub-Total:</label></td>
+        <td><label class="label-text">Subtotal:</label></td>
         <td class="td-value"><label id="sub_total_value" class="calc-amount-value">0.00</label></td>
       </tr>
       <tr class="totals-tr" style="display:none;">
@@ -133,26 +137,26 @@ require_once("${root}php/navigation-bar.php");
           <input class="cash-input" type="number" id="service_charge_input" disabled="true" min="0" placeholder="P" onkeydown="return Utils.not(event);"/>
         </td>
       </tr>
-      <tr class="totals-tr">
-        <td colspan="2"><hr class="division"/></td>
+      <tr class='totals-tr'>
+        <!-- <td colspan='2'><hr class='division'/></td> -->
       </tr>
       <tr class="totals-tr">
         <td><label class="label-text">Discount:</label></td>
         <td class="td-value"><label id="discount_value" class="calc-amount-value">0.00</label></td>
       </tr>
-      <tr class="totals-tr">
-        <td colspan="2"><hr class="division"/></td>
+      <tr class='totals-tr'>
+        <td colspan='2'><hr class='division'/></td>
       </tr>
       <tr class="totals-tr">
         <td>
-          <label class="grand-total">GRAND TOTAL:</label> 
+          <label class="grand-total" style='line-height:30px;'>GRAND TOTAL:</label> 
         </td>
       </tr>
       <tr class="totals-tr">
       </tr>
       <tr class="totals-tr">
         <td class="td-value" colspan="2">
-          <div class="grand-total-value">
+          <div class="grand-total-value" style='margin-bottom:2px;'>
             <label class="grand-total-value" style="padding-right:5px;"><script type="text/javascript">document.write(Utils.getCurrencySymbol());</script></label><label id="grand_total_value" class="grand-total-value">0.00</label>
           </div>
         </td>

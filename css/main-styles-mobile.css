@@ -1,5 +1,9 @@
+html {
+  /*border-top: 5px double #CCCCCC;*/
+}
+
 body.body {
-  background: radial-gradient(circle at top left, #353535, #555555);
+  background: radial-gradient(circle at top left, #444, #555);
 }
 
 div.store-heading {

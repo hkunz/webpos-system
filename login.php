@@ -101,7 +101,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 ?>
 <!DOCTYPE html>
-<html lang="en" style='height:100%;'>
+<html lang="en" style='border-top:0;'>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>System Login</title>
@@ -113,10 +113,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   <style>.form-group {margin-bottom:9px;}
   </style>
 </head>
-<body class="body" style='overflow:hidden;'>
+<body class="body">
   <div class='navbar' style='padding:12px;padding-left:16px;'><label class="header-caption"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label></div>
-  <div class="container-wrapper" style='height:100%;padding-bottom:90px;'>
-    <div class="container-left" style="max-width:500px;height:100%;padding-top:0px;">
+  <div class="container-wrapper" style='padding-bottom:10px;'>
+    <div class="container-left" style="max-width:500px;padding-top:0px;">
       <h4><u>SYSTEM LOGIN</u></h4>
       <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" autocomplete="off">
          <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">

@@ -96,7 +96,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 ?>
 <!DOCTYPE html>
-<html lang="en" style='height:100%;'>
+<html lang="en" style='border-top:0;'>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>System Registration</title>
@@ -108,7 +108,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   <style>.form-group {margin-bottom:9px;}
   </style>
 </head>
-<body class="body" style='overflow:hidden;'>
+<body class="body">
   <div class='navbar' style='padding:12px;padding-left:16px;'><label class="header-caption"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label></div>
   <div class="container-wrapper" style='padding-bottom:70px;'>
     <div class="container-left" style='max-width:500px;padding-top:0px;'>

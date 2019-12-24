@@ -68,7 +68,7 @@ return "<div class='receipt'><label class='receipt'>TXN:&nbsp;</label><label cla
   </div>
   <?php echo $navbar_content; ?>
   <div class="container-wrapper" style='padding-bottom:15px;'>
-  <div class="container-left" style='max-width:800px;margin-right:20px;'>
+  <div class="container-left" style='max-width:100%;margin-right:20px;'>
     <div class='store-heading'>
       <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>                                                              | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
       <hr class="division">

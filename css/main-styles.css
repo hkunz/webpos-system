@@ -8,6 +8,8 @@ html *
 html {
   overflow: hidden;
   height: 100%;
+  padding-bottom: 0px;
+  margin: 0px;
 }
 
 body.body {
@@ -152,6 +154,7 @@ option.pick-option:first-child {
 }
 
 div.container-wrapper {
+  display: flex;
   height: 100%;
   width: 100%;
   padding: 15px;

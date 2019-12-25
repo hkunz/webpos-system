@@ -156,7 +156,7 @@ option.pick-option:first-child {
 div.container-wrapper {
   display: flex;
   /*align-items:flex-start; - this will not work with vertical scroll of wrapper*/
-  max-height: calc(100% - 50px);
+  height: calc(100% - 50px);
   width: 100%;
   padding: 15px;
   box-sizing: border-box;
@@ -167,6 +167,8 @@ div.container-wrapper {
 
 div.container-left {
   width: 100%;
+  height: auto;
+  min-height: 100px;
   max-height: 100%;
   overflow-x: hidden;
   overflow-y: auto;

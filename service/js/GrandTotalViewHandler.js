@@ -77,7 +77,7 @@ class GrandTotalViewHandler {
 		let ready = this.isPaymentReady(this);
 		this.cash = cash;
 		$('#' + this.getCashChangeIdName()).text(ready ? changeText : '');
-		$('#cash_change_tr').css('display', ready ? 'table-row' : 'none');
+		//$('#cash_change_tr').css('display', ready ? 'table-row' : 'none');
 		this.updateCommitButton();
 	}
 

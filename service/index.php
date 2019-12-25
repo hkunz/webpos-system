@@ -121,7 +121,7 @@ return "<div class='receipt'><label class='receipt'>TXN:&nbsp;</label><label cla
     </div>
   </div>
   </div>
-  <div class="container-right" style='max-height:328px;'>
+  <div class="container-right" style='max-height:360px;'>
     <?php if (!$ismobile) echo getTransactionContainer(); ?>
     <table class="totals-grid" cellspacing='0' cellpadding='0'>
       <tr class="totals-tr">
@@ -177,8 +177,8 @@ return "<div class='receipt'><label class='receipt'>TXN:&nbsp;</label><label cla
           <input class="cash-input" type="number" id="cash_input" disabled="true" min="0" onkeydown="return Utils.not(event);"/>
         </td>
       </tr>
-      <tr id='cash_change_tr' class="totals-tr" style='display:none;'>
-        <td><label class="label-text">Change:</label></td>
+      <tr id='cash_change_tr' class="totals-tr">
+        <td><label class="label-text" style='line-height:30px;'>Change:</label></td>
         <td class="td-value"><label id="cash_change" class="cash-change" style="line-height:30px"></label></td>
       </tr>
     </table>

@@ -71,8 +71,8 @@ require $_SESSION['root'] . 'php/navigation-bar.php';
           <label>Customer</label>
         </div>
       </div>
-      <div id="table_container" class='common-table-wrapper' style='display:none;height:290px;'>
-        <table id='customer_table' class='common-table' cellspacing="0" cellpadding="0">
+      <div id="table_container" class='common-table-wrapper' style='display:none;min-height:200px;height:100%;max-height:290px;'>
+        <table id='customer_table' class='common-table' cellspacing="0" cellpadding="0" style='height:100%;'>
         </table>
       </div>
     </div>

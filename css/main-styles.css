@@ -1,5 +1,4 @@
-html *
-{
+html * {
   font-size: 1.00em;
   color: #FFF;
   font-family: Consolas;
@@ -194,7 +193,7 @@ div.container-right {
   background: radial-gradient(circle at top left, #333333, #555555);
   box-sizing: border-box;
   box-shadow: 0px 0px 4px 3px #333333;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
@@ -213,7 +212,6 @@ button {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
   font-weight: normal;
   margin: 0px;
   cursor: pointer;
@@ -240,7 +238,6 @@ button.standard-button {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 15px;
   font-weight: bold;
   cursor: pointer;
   box-shadow: 0 0 2px 3px #333333;
@@ -269,7 +266,6 @@ button.commit-transaction-button {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 15px;
   font-weight: bold;
   cursor: pointer;
   border-radius: 10px;
@@ -309,7 +305,6 @@ button.home-button {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
   font-weight: bold;
   cursor: pointer;
   border-radius: 10px;
@@ -330,24 +325,6 @@ button.home-button:hover:enabled {
 
 .icon-service {
   background-image: url("../imgs/icon-service.png");
-}
-
-.glow {
-  font-size: 80px;
-  color: #fff;
-  text-align: center;
-  -webkit-animation: glow 1s ease-in-out infinite alternate;
-  -moz-animation: glow 1s ease-in-out infinite alternate;
-  animation: glow 1s ease-in-out infinite alternate;
-}
-
-@-webkit-keyframes glow {
-  from {
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
-  }
-  to {
-    text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
-  }
 }
 
 div.checkbox-container {
@@ -378,7 +355,6 @@ label.checkbox-container {
   padding-left: 31px;
   margin-bottom: 12px;
   cursor: pointer;
-  font-size: 15px;
   font-weight: bold;
   color: #CCCCCC;
   -webkit-user-select: none;

@@ -15,21 +15,28 @@ div.container-wrapper {
   max-height: none;
   display: block;
   padding: 0px;
-  padding-top: 4px;
+  margin: 0px;
+  overflow-x: hidden;
   overflow-y: auto;
 }
 
 div.container-left {
   max-height: none;
-  overflow-y: visible !important;
+  overflow-x: hidden;
+  overflow-y: visible;
   padding: 12px;
+  margin: 0px;
   border: 0;
   border-radius: 0px;
   box-shadow: none; 
   min-height: 10px;
-  margin-bottom: 0px;
   background: none;
   background-color: none;
+}
+
+div.container-left-mobile {
+  overflow-y: visible;
+  padding: 12px;
 }
 
 div.container-right {

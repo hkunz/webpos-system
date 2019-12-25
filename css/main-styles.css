@@ -155,24 +155,26 @@ option.pick-option:first-child {
 
 div.container-wrapper {
   display: flex;
-  align-items:flex-start;
-  height: 100%;
+  /*align-items:flex-start; - this will not work with vertical scroll of wrapper*/
+  max-height: calc(100% - 50px);
   width: 100%;
   padding: 15px;
   box-sizing: border-box;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: hidden;
   position: relative;
 }
 
 div.container-left {
   width: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
   padding: 15px 15px 15px 15px;
   border: 3px double #EEEEEE;
   border-radius: 8px;
   float:left;
   display:block;
-  margin-bottom: 15px;
   background: radial-gradient(circle at top left, #353535, #555555);
   box-shadow: 0px 0px 4px 3px #333333;
   box-sizing: border-box;
@@ -180,18 +182,21 @@ div.container-left {
 }
 
 div.container-right {
+  width: 100%;
+  max-height: 100%;
   padding: 12px 12px 12px 12px;
   border: 3px double #EEEEEE;
   border-radius: 8px;
   float:left;
   display:block;
   max-width: 350px;
-  width:100%;
   background: radial-gradient(circle at top left, #333333, #555555);
   box-sizing: border-box;
   box-shadow: 0px 0px 4px 3px #333333;
   margin-bottom: 20px;
   position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 button {

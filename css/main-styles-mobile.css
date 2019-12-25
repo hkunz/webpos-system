@@ -11,13 +11,17 @@ div.store-heading {
 }
 
 div.container-wrapper {
+  height: calc(100% - 6px);
+  max-height: none;
   display: block;
   padding: 0px;
   padding-top: 4px;
+  overflow-y: auto;
 }
 
 div.container-left {
-  width:100%;
+  max-height: none;
+  overflow-y: visible !important;
   padding: 12px;
   border: 0;
   border-radius: 0px;
@@ -29,6 +33,7 @@ div.container-left {
 }
 
 div.container-right {
+  max-height: none;
   padding: 12px;
   padding-top: 5px;
   border: 0;
@@ -38,4 +43,5 @@ div.container-right {
   background: none;
   background-color: none;
   margin-bottom: 0px;
+  overflow-y: visible !important;
 }

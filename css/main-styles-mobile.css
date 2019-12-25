@@ -1,3 +1,7 @@
+html * {
+  font-size: 1.02em;
+}
+
 html {
   /*border-top: 5px double #CCCCCC;*/
 }
@@ -8,6 +12,10 @@ body.body {
 
 div.store-heading {
   display: none;
+}
+
+input {
+  height: 37px;
 }
 
 div.container-wrapper {
@@ -51,4 +59,10 @@ div.container-right {
   background-color: none;
   margin-bottom: 0px;
   overflow-y: visible !important;
+}
+
+label.checkbox-container {
+  margin-top:1px;
+  font-size: 18px;
+  padding-top: 0px;
 }

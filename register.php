@@ -2,6 +2,10 @@
 
 require_once 'php/db.php';
 require 'php/navigation-bar.php';
+
+ob_start();
+require_once("${root}php/check-detect-mobile-device.php");
+$ismobile = ob_get_clean() === '1';
  
 // Define variables and initialize with empty values
 $username = $password = $confirm_password = "";
@@ -105,13 +109,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   <link type="text/css" rel="stylesheet" href="css/responsive-web-page.css">
   <link type="text/css" rel="stylesheet" href="css/main-styles.css">
   <link type="text/css" rel="stylesheet" href="css/navigation-bar.css">
-  <style>.form-group {margin-bottom:9px;}
+  <?php if ($ismobile) echo '<link type="text/css" rel="stylesheet" href="css/login.css">'; ?>
   </style>
 </head>
 <body class="body">
   <div class='navbar' style='padding:12px;padding-left:16px;'><label class="header-caption"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label></div>
-  <div class="container-wrapper" style='padding-bottom:70px;'>
-    <div class="container-left" style='max-width:500px;padding-top:0px;'>
+  <div class="container-wrapper" style='padding-bottom:15px;'>
+    <div class="container-left" style='max-height:450px;max-width:<?php echo ($ismobile) ? "100%" : "500px" ?>px;padding-top:0px;'>
       <h4><u>SYSTEM REGISTRATION</u></h4>
       <form autocomplete="off" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
@@ -145,7 +149,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <button type="submit" class="standard-button" style="max-width:200px;">REGISTER</button>
         <button type="reset" class="standard-button standard-button-gray" style="max-width:118px;display:none">RESET</button><br><br>
         <br>
-        <label class="standard-label">Already have an account?</label>&nbsp;<a href="login.php">Login Here</a>
+        <div>
+          <label class="standard-label">Do you have an account?</label>&nbsp;<a href="login.php">Login Here</a>
+        </div>
       </form>
     </div>
   </div>    

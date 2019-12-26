@@ -520,3 +520,7 @@ tbody::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, div::-webkit-scro
   border: 3px solid var(--scrollbarBG);
 }
 
+.form-group {
+  margin-bottom:9px;
+}
+

@@ -12,7 +12,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 }
 ob_start();
 require_once('php/check-detect-mobile-device.php');
-$is_mobile = ob_get_clean() === '1';
+$ismobile = ob_get_clean() === '1';
 require_once('php/navigation-bar.php');
 $username = htmlspecialchars($_SESSION["username"]);
 ?>
@@ -29,11 +29,11 @@ $username = htmlspecialchars($_SESSION["username"]);
   <script type="text/javascript" src="js/main.js"></script>
 </head>
 <body class="body" style='overflow:hidden'>
-  <?php echo $is_mobile ? "<div class='navbar' style='padding:12px;padding-left:16px;'><label class='header-caption'><script type='text/javascript'>document.write(Utils.getStoreHeading());</script></label></div>
+  <?php echo $ismobile ? "<div class='navbar' style='padding:12px;padding-left:16px;'><label class='header-caption'><script type='text/javascript'>document.write(Utils.getStoreHeading());</script></label></div>
   " : $navbar_content ?>
   <div class="container-wrapper" style='padding-bottom:0px;margin-bottom:30px;'>
-  <div class="container-left" style='width:100%;max-width:500px;margin-bottom:10px;'>
-    <div class='store-heading' <?php echo $is_mobile ? "style='display:none'" : ""; ?>>
+  <div class="container-left" style='max-height:<?php echo ($ismobile) ? "100%" : "450px" ?>px;max-width:<?php echo ($ismobile) ? "100%" : "500px" ?>;margin-bottom:15px;'>
+    <div class='store-heading' <?php echo $ismobile ? "style='display:none'" : ""; ?>>
       <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>                                                              | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
       <hr class="division">
     </div>

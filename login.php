@@ -11,9 +11,12 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
     exit;
 }
  
-// Include config file
 require_once "php/db.php";
 require "php/navigation-bar.php";
+
+ob_start();
+require_once("${root}php/check-detect-mobile-device.php");
+$ismobile = ob_get_clean() === '1';
  
 // Define variables and initialize with empty values
 $username = $password = "";
@@ -110,13 +113,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   <link type="text/css" rel="stylesheet" href="css/responsive-web-page.css">
   <link type="text/css" rel="stylesheet" href="css/main-styles.css">
   <link type="text/css" rel="stylesheet" href="css/navigation-bar.css">
-  <style>.form-group {margin-bottom:9px;}
+  <?php if ($ismobile) echo '<link type="text/css" rel="stylesheet" href="css/login.css">'; ?>
   </style>
 </head>
 <body class="body">
   <div class='navbar' style='padding:12px;padding-left:16px;'><label class="header-caption"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label></div>
-  <div class="container-wrapper" style='padding-bottom:10px;'>
-    <div class="container-left" style="max-width:500px;padding-top:0px;">
+  <div class="container-wrapper" style='padding-bottom:15px;'>
+    <div class="container-left" style="max-height:410px;max-width:<?php echo ($ismobile) ? "100%" : "500px" ?>;padding-top:0px;">
       <h4><u>SYSTEM LOGIN</u></h4>
       <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" autocomplete="off">
          <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
@@ -140,8 +143,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
          <div class="form-group" style="margin-top:20px;padding-bottom:10px;">
            <button type="submit" class="standard-button" style='max-width:200px;'>LOGIN</button>
          </div>
-         <br><br><br>
-         <label class="standard-label">Don't have an account?&nbsp;</label><a href="register.php">Sign Up</a>
+         <br>
+         <div>
+           <label class="standard-label">Don't have an account?&nbsp;</label><a href="register.php">Sign Up</a>
+         </div>
        </form>
     </div>
   </div>

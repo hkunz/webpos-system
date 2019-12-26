@@ -69,60 +69,59 @@ return "<div class='receipt'><label class='receipt'>TXN:&nbsp;</label><label cla
   </div>
   <?php echo $navbar_content; ?>
   <div class="container-wrapper hide-scroll" <?php if ($ismobile) echo "style='overflow-y:scroll;'"; ?>>
-  <div class="container-left<?php if ($ismobile) echo '-mobile'; ?> hide-scroll" <?php if (!$ismobile) echo 'style="margin-right:20px;overflow-y:scroll;"'; ?>>
-    <div class='store-heading'>
-      <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>                                                              | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
-      <hr class="division">
-    </div>
-    <?php if ($ismobile) echo getTransactionContainer(); ?>
-    <form>
-      <div style="margin-bottom:5px;<?php if ($ismobile) echo "margin-top:20px;"?>">
-        <input type="text" id="customer" maxlength="30" style="max-width:380px;" placeholder="Customer Name ..." spellcheck="false"/>
+    <div class="container-left<?php if ($ismobile) echo '-mobile'; ?> hide-scroll" <?php if (!$ismobile) echo 'style="margin-right:20px;overflow-y:scroll;"'; ?>>
+      <div class='store-heading'>
+        <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>                                                              | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
+        <hr class="division">
       </div>
-      <table cellspacing='0' cellpadding='0' style='width:100%;max-width:275px;'>
-        <tr>
-          <td>
-            <div style='width:100%;max-width:140px;padding-right:10px;'>
-              <select id="transaction_type" style='width:100%'>
-                <option value="sale">SALE</option>
-                <option value="restock">RESTOCK</option>
-                <option value="return">RETURN</option>
-                <option value="loss">LOSS</option>
-              </select>
-            </div>
-          </td>
-          <td valign='top'>
-            <div class="checkbox-container" style="margin:0px;width:100%;min-width:120px;max-width:120px;">
-              <label class="checkbox-container" style='width:100%;max-width:120px;'>Today-Now
-                <input id="use_currentdate_checkbox" type="checkbox" checked>
-                <span class="checkmark"></span>
-              </label>
-            </div>
-          </td>
-        </tr>
-      </table>
-      <div id="timestamp_input" style='display:none;'>
-        <input type="datetime-local" id="transaction_timestamp" step="1" style="max-width:240px;height:33px;" disabled>
-      </div>
-    </form>
-    <label class="drop-shadow" style='display:none;'>Product Search:</label>
-    <input type="text" class="awesomplete" style='width:100%;' id="search_item_input" placeholder="Search product ..." spellcheck="false" />
-    <div id='items_selection_div' class="common-table-wrapper" style='border-color:#aaa;padding-bottom:32px;'>
-      <div class="items-list-header" style='border-bottom: 2px ridge #333333;'>
-        <div style="float:left;width:26px;height:100%;background-color:#111111">
-          <label class="items-list-header" style="padding-left:9px;padding-top:2px;">#</label>
+      <?php if ($ismobile) echo getTransactionContainer(); ?>
+      <form>
+        <div style="margin-bottom:5px;<?php if ($ismobile) echo "margin-top:20px;"?>">
+          <input type="text" id="customer" maxlength="30" style="max-width:380px;" placeholder="Customer Name ..." spellcheck="false"/>
         </div>
-        <label class="items-list-header" style="width:<?php echo $ismobile ? "10" : "15"; ?>px;"></label>
-        <label class="items-list-header" style="width:<?php echo $ismobile ? "42" : "66"; ?>px;padding-top:2px;">Qty</label>
-        <label class="items-list-header" style="white-space:nowrap;max-width:130px;width:100%;padding-top:2px;" nowrap>Description</label>
-      </div>
-      <div class="items-list-container">
-        <div class="items-list" id="items_list"/>
+        <table cellspacing='0' cellpadding='0' style='width:100%;max-width:275px;'>
+          <tr>
+            <td>
+              <div style='width:100%;max-width:140px;padding-right:10px;'>
+                <select id="transaction_type" style='width:100%'>
+                  <option value="sale">SALE</option>
+                  <option value="restock">RESTOCK</option>
+                  <option value="return">RETURN</option>
+                  <option value="loss">LOSS</option>
+                </select>
+              </div>
+            </td>
+            <td valign='top'>
+              <div class="checkbox-container" style="margin:0px;width:100%;min-width:120px;max-width:120px;">
+                <label class="checkbox-container" style='width:100%;max-width:120px;'>Today-Now
+                  <input id="use_currentdate_checkbox" type="checkbox" checked>
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+            </td>
+          </tr>
+        </table>
+        <div id="timestamp_input" style='display:none;'>
+          <input type="datetime-local" id="transaction_timestamp" step="1" style="max-width:240px;height:33px;" disabled>
+        </div>
+      </form>
+      <label class="drop-shadow" style='display:none;'>Product Search:</label>
+      <input type="text" class="awesomplete" style='width:100%;' id="search_item_input" placeholder="Search product ..." spellcheck="false" />
+      <div id='items_selection_div' class="common-table-wrapper" style='width:100%;overflow-x:hidden;border-color:#aaa;padding-bottom:32px;'>
+        <div class="items-list-header" style='border-bottom: 2px ridge #333333;'>
+          <div style="float:left;width:26px;height:100%;background-color:#111111">
+            <label class="items-list-header" style="padding-left:9px;padding-top:2px;">#</label>
+          </div>
+          <label class="items-list-header" style="width:<?php echo $ismobile ? "10" : "15"; ?>px;"></label>
+          <label class="items-list-header" style="width:<?php echo $ismobile ? "42" : "66"; ?>px;padding-top:2px;">Qty</label>
+          <label class="items-list-header" style="white-space:nowrap;max-width:130px;width:100%;padding-top:2px;" nowrap>Description</label>
+        </div>
+        <div class="items-list-container">
+          <div class="items-list" id="items_list" <?php if ($ismobile) echo "style='display:block;overflow-x:auto;'"; ?>></div>
+        </div>
       </div>
     </div>
-  </div>
-  </div>
-  <div class="container-right" style='max-height:360px;'>
+    <div class="container-right" style='max-height:360px;'>
     <?php if (!$ismobile) echo getTransactionContainer(); ?>
     <table class="totals-grid" cellspacing='0' cellpadding='0'>
       <tr class="totals-tr">

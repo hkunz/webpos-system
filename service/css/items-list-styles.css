@@ -1,4 +1,5 @@
 div.items-list-container {
+  width: 100%;
 }
 
 div.items-list-wrapper {
@@ -127,7 +128,6 @@ label.items-list-header {
 div.divtr {
   display: table-row !important;
   vertical-align:middle !important;
-  height:32px;
 }
 
 div.divtr:hover {

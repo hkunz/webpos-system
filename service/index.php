@@ -44,6 +44,7 @@ return "<div class='receipt'><label class='receipt'>TXN:&nbsp;</label><label cla
   <script type="text/javascript" src="js/ItemSearchInputHandler.js"></script>
   <script type="text/javascript" src="js/CustomerSearchInputHandler.js"></script>
   <script type="text/javascript" src="js/ItemSelectionListHandler.js"></script>
+  <?php if ($ismobile) echo '  <script type="text/javascript" src="js/ItemSelectionListHandlerMobile.js"></script>'; ?>
   <script type="text/javascript" src="js/GrandTotalViewHandler.js"></script>
   <script type="text/javascript" src="js/SqlTransactionHandler.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
@@ -108,12 +109,12 @@ return "<div class='receipt'><label class='receipt'>TXN:&nbsp;</label><label cla
     <input type="text" class="awesomplete" style='width:100%;' id="search_item_input" placeholder="Search product ..." spellcheck="false" />
     <div id='items_selection_div' class="common-table-wrapper" style='border-color:#aaa;padding-bottom:32px;'>
       <div class="items-list-header" style='border-bottom: 2px ridge #333333;'>
-        <div style="float:left;width:30px;height:100%;background-color:#111111">
-          <label class="items-list-header" style="padding-left:11px;padding-top:2px;">#</label>
+        <div style="float:left;width:26px;height:100%;background-color:#111111">
+          <label class="items-list-header" style="padding-left:9px;padding-top:2px;">#</label>
         </div>
-        <label class="items-list-header" style="width:15px;"></label>
-        <label class="items-list-header" style="width:66px;padding-top:2px;">Qty</label>
-        <label class="items-list-header" style="white-space:nowrap;max-width:130px;width:100%px;padding-top:2px;" nowrap>Description</label>
+        <label class="items-list-header" style="width:<?php echo $ismobile ? "10" : "15"; ?>px;"></label>
+        <label class="items-list-header" style="width:<?php echo $ismobile ? "42" : "66"; ?>px;padding-top:2px;">Qty</label>
+        <label class="items-list-header" style="white-space:nowrap;max-width:130px;width:100%;padding-top:2px;" nowrap>Description</label>
       </div>
       <div class="items-list-container">
         <div class="items-list" id="items_list"/>

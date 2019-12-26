@@ -524,3 +524,8 @@ tbody::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, div::-webkit-scro
   margin-bottom:9px;
 }
 
+.hide-scroll::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome, Safari and Opera */
+  -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+}
+

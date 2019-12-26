@@ -67,7 +67,7 @@ return "<div class='receipt'><label class='receipt'>TXN:&nbsp;</label><label cla
     </div>
   </div>
   <?php echo $navbar_content; ?>
-  <div class="container-wrapper" <?php if ($ismobile) echo "style='overflow-y:scroll;'"; ?>>
+  <div class="container-wrapper hide-scroll" <?php if ($ismobile) echo "style='overflow-y:scroll;'"; ?>>
   <div class="container-left<?php if ($ismobile) echo '-mobile'; ?>" <?php if (!$ismobile) echo 'style="margin-right:20px;overflow-y:scroll;"'; ?>>
     <div class='store-heading'>
       <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>                                                              | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>

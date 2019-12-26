@@ -70,12 +70,9 @@ class ItemSelectionListHandler {
 		button.addEventListener('click', function(e) {
 			thiz.onRemoveListRowItemClick(id);
 		});
-		$(document).on("change, mouseup, keyup", "#" + this.getRowItemAmountInputIdName(id), function(e) {
+		$('#' + this.getRowItemAmountInputIdName(id)).bind('input', function(e) {
 			thiz.onChangeMouseUpKeyUp(id);
 		});
-		$(document).on("click", "#" + this.getRowItemAmountInputIdName(id), function(e) {
-                        thiz.onChangeMouseUpKeyUp(id);
-                });
 		this.updateItemsList();
 		this.updatePrice(id);
 	}		

@@ -8,7 +8,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     exit;
 }
 $href_root = $_SESSION['href_root'];
-require $_SESSION['root'] . 'php/navigation-bar.php';
+$root = $_SESSION['root'];
+require_once("${root}php/navigation-bar.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,6 +25,7 @@ require $_SESSION['root'] . 'php/navigation-bar.php';
   <script type="text/javascript" src="<?php echo $href_root; ?>js/Utils.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>js/sound-effects.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
+  <?php require_once("${root}php/favicon.php"); ?>
 </head>
 
 <body class="body">

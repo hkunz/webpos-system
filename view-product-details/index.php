@@ -5,7 +5,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     exit;
 }
 $href_root = $_SESSION['href_root'];
-require $_SESSION['root'] . 'php/navigation-bar.php';
+$root = $_SESSION['root'];
+require_once("${root}php/navigation-bar.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,6 +26,7 @@ require $_SESSION['root'] . 'php/navigation-bar.php';
   <script type="text/javascript" src="js/ProductSelectionHandler.js"></script>
   <script type="text/javascript" src="js/Controller.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
+  <?php require_once("${root}php/favicon.php"); ?>
 </head>
 
 <body class="body">

@@ -5,12 +5,13 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     exit;
 }
 
-require_once($_SESSION['root'] . 'php/db.php');
-require $_SESSION['root'] . 'php/navigation-bar.php';
+$root = $_SESSION['root'];
+require_once("${root}php/db.php");
+require_once("${root}php/navigation-bar.php");
 
 ob_start();
-require_once('php/check-detect-mobile-device.php');
-$is_mobile = ob_get_clean() === '1';
+require_once("${root}php/check-detect-mobile-device.php");
+$ismobile = ob_get_clean() === '1';
 
 $username = htmlspecialchars($_SESSION["username"]); 
 
@@ -121,15 +122,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reset Password</title>
+  <script type="text/javascript" src="js/libs/jquery-3.4.1.min.js"></script>
   <script type="text/javascript" src="js/Utils.js"></script>
   <link type="text/css" rel="stylesheet" href="css/main-styles.css">
   <link type="text/css" rel="stylesheet" href="css/navigation-bar.css">
+  <?php require_once("${root}php/favicon.php"); ?>
 </head>
 <body class="body" style='overflow:none;'>
   <?php echo $navbar_content; ?>
   <div class="container-wrapper">
     <div class="container-left" style='max-width:500px;overflow:hidden;padding-bottom:30px;margin-bottom:50px;'>
-      <div class='store-heading' <?php echo $is_mobile ? "style='display:none;'" : '' ?>>
+      <div class='store-heading' <?php echo $ismobile ? "style='display:none;'" : '' ?>>
         <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label> | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
         <hr class="division">
       </div>

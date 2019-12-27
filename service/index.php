@@ -48,6 +48,7 @@ return "<div class='receipt'><label class='receipt'>TXN:&nbsp;</label><label cla
   <script type="text/javascript" src="js/GrandTotalViewHandler.js"></script>
   <script type="text/javascript" src="js/SqlTransactionHandler.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
+  <?php require_once("${root}php/favicon.php"); ?>
 </head>
 <body class="body">
   <div class="hover_bkgr_fricc" id="amount_popup_box">

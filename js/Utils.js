@@ -145,6 +145,15 @@ class Utils {
 	static getPaddedTransactionId(id) {
 		return Utils.lpad(id, '0', 7);
 	}
+
+	static disableCutCopyPaste(input_id) {
+		$(input_id).bind("cut copy paste", function(e) {
+			e.preventDefault();
+		});
+		$(input_id).bind("contextmenu", function(e) {
+			return false;
+		});
+	}
 }
 
 $.ajax({

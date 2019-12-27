@@ -24,6 +24,7 @@ class ItemAmountInputPopupHandler {
 		$("#search_item_input").on('awesomplete-selectcomplete', function(e) {
 			thiz.onAwesompleteSelectionComplete(e.originalEvent.text.value);
 		});
+		Utils.disableCutCopyPaste('#popup_amount_input');
 		$("#popup_amount_input").on('keydown', (function(e) {
 			return thiz.onPopupKeydown(e);
 		}));

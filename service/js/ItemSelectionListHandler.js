@@ -56,26 +56,34 @@ class ItemSelectionListHandler {
 
 	addListRowItem(item) {
 		this.list.push(item);
+		let thiz = this;
 		const id = item.itemId;
-		const description = Utils.resolveHtmlEntities(item.description);
-		const len = this.list.length;
 		let newdiv = document.createElement('div');
-
 		newdiv.setAttribute('id', this.getItemIdName(id));
 		newdiv.className = "divtr";
-		newdiv.innerHTML = '<div style="width:100%;border-top: 0px dotted ' + this.getRowItemDivBackgroundColor(len + 1) + ';"><div id="' + this.getRowItemNumberBoxIdName(id) + '" class="item-number-box" style="background-color:' + this.getRowItemNumberBoxColor(len) + '"><label id="list_number" class="list-number">' + len + '</label></div><input id="' + this.getRowItemAmountInputIdName(id)  + '" class="amount-input-small item-amount-input-no-border" value="' + item.amount + '" type="number" min="1" max="999"/><div class="descriptions"><label class="description" id="line1">' + '[' + item.code + '] ' + description  + '</label><label id="line2" class="sub-description">(₱' + item.sell_price + '/' + item.unit + ') ' + description + '</label></div><div class="divtd" style="float:right;vertical-align:middle;"><label id="' + this.getItemPriceIdName(id)  + '" class="item-price" style="display:block;float:left;">' + this.getTotalPrice(item) + '</label><button id="' + this.getItemRemoveButtonIdName(id) + '" class="delete-button" style="display:block;float:right;">x</button></div></div>'
+		newdiv.innerHTML = this.getListRowItemInnerHtml(item);
 		document.getElementById(this.getItemsListIdName()).appendChild(newdiv);
 		let button = document.getElementById(this.getItemRemoveButtonIdName(id));
-		let thiz = this;
 		button.addEventListener('click', function(e) {
 			thiz.onRemoveListRowItemClick(id);
 		});
-		$('#' + this.getRowItemAmountInputIdName(id)).bind('input', function(e) {
+		let amtId = '#' + this.getRowItemAmountInputIdName(id);
+		$(amtId).focusin(function(e) {
+			this.select();
+		});
+		$(amtId).bind('input', function(e) {
 			thiz.onChangeMouseUpKeyUp(id);
 		});
 		this.updateItemsList();
 		this.updatePrice(id);
-	}		
+	}
+
+	getListRowItemInnerHtml(item) {
+		const description = Utils.resolveHtmlEntities(item.description);
+		const len = this.list.length;
+		const id = item.itemId;
+		return '<div style="width:100%;border-top: 0px dotted ' + this.getRowItemDivBackgroundColor(len + 1) + ';"><div id="' + this.getRowItemNumberBoxIdName(id) + '" class="item-number-box" style="background-color:' + this.getRowItemNumberBoxColor(len) + '"><label id="list_number" class="list-number">' + len + '</label></div><input id="' + this.getRowItemAmountInputIdName(id)  + '" class="amount-input-small item-amount-input-no-border" value="' + item.amount + '" type="number" min="1" max="999"/><div class="descriptions"><label class="description" id="line1">' + '[' + item.code + '] ' + description  + '</label><label id="line2" class="sub-description">(₱' + item.sell_price + '/' + item.unit + ') ' + description + '</label></div><div class="divtd" style="float:right;vertical-align:middle;"><label id="' + this.getItemPriceIdName(id)  + '" class="item-price" style="display:block;float:left;">' + this.getTotalPrice(item) + '</label><button id="' + this.getItemRemoveButtonIdName(id) + '" class="delete-button" style="display:block;float:right;">x</button></div></div>';
+	}
 
 	onChangeMouseUpKeyUp(itemId) {
 		let input = $('#' + this.getRowItemAmountInputIdName(itemId));

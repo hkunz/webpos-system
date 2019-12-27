@@ -52,7 +52,7 @@ return "<div class='receipt'><label class='receipt'>TXN:&nbsp;</label><label cla
 <body class="body">
   <div class="hover_bkgr_fricc" id="amount_popup_box">
     <span class="helper"></span>
-    <div style="width:100%;">
+    <div style='width:100%;<?php if ($ismobile) echo "vertical-align:top;top:0;margin-top:40px;max-width:80%;"?>'>
         <div class="popupCloseButton">X</div>
         <label id="popup_item_code" style="display:block;color:#888888;padding-bottom:6px;font-weight:bold"></label>
         <div style="width:100%;border:0px solid #222222;border-radius:5px">

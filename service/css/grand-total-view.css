@@ -77,11 +77,7 @@ div.grand-total-value {
 }
 
 input.cash-input {
-  padding: 10px 10px 10px 10px;
-  height: 30px;
   width: 120px;
-  border: 1px solid #AAAAAA;
-  border-radius:5px;
 }
 
 input.cash-input:focus {

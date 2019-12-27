@@ -69,7 +69,7 @@ return "<div class='receipt'><label class='receipt'>TXN:&nbsp;</label><label cla
   </div>
   <?php echo $navbar_content; ?>
   <div class="container-wrapper hide-scroll" <?php if ($ismobile) echo "style='overflow-y:scroll;'"; ?>>
-    <div class="container-left<?php if ($ismobile) echo '-mobile'; ?> hide-scroll" <?php if (!$ismobile) echo 'style="margin-right:20px;overflow-y:scroll;"'; ?>>
+    <div class="container-left<?php if ($ismobile) echo '-mobile'; ?> hide-scroll" style="<?php echo ($ismobile) ? "padding-bottom:0px;" : "margin-right:20px;overflow-y:scroll;"; ?>">
       <div class='store-heading'>
         <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>                                                              | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
         <hr class="division">
@@ -92,7 +92,7 @@ return "<div class='receipt'><label class='receipt'>TXN:&nbsp;</label><label cla
               </div>
             </td>
             <td valign='top'>
-              <div class="checkbox-container" style="margin:0px;width:100%;min-width:120px;max-width:120px;">
+              <div class="checkbox-container" style="margin:0px;<?php if ($ismobile) echo "margin-top:3px;" ?>width:100%;min-width:120px;max-width:120px;">
                 <label class="checkbox-container" style='width:100%;max-width:120px;'>Today-Now
                   <input id="use_currentdate_checkbox" type="checkbox" checked>
                   <span class="checkmark"></span>

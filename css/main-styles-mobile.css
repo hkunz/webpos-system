@@ -14,8 +14,9 @@ div.store-heading {
   display: none;
 }
 
-input {
+input, select {
   height: 37px;
+  border-radius: 8px;
 }
 
 div.container-wrapper {

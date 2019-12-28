@@ -44,7 +44,7 @@ $len = max(count($unit_prices), count($sell_prices));
 
 
 $table = "\"<div style='padding-right:" . ($ismobile ? "0px" : "6px") . ";width:" . ($ismobile ? "100%" : "50%") . ";float:left;'>";
-$table .= "<div class='common-table-wrapper' style='width:100%;'>";
+$table .= "<div class='common-table-wrapper' style='max-height:400px;overflow-y:auto;width:100%;'>";
 
 $table .= "<table class='common-table' cellspacing='0' cellpadding='0'><thead>";
 $table .= "<tr><th>Unit Price History</th><th style='text-align:right;' nowrap>Unit Price</th></tr></thead><tbody>";
@@ -59,10 +59,10 @@ for ($i = 0; $i < $len; ++$i) {
 $table .= "</tbody></table></div></div>";
 
 $table .= "<div style='padding-left:" . ($ismobile ? "0px" : "6px") . ";width:" . ($ismobile ? "100%" : "50%") . ";float:left;'>";
-$table .= "<div class='common-table-wrapper' style='width:100%;'>";
+$table .= "<div class='common-table-wrapper' style='max-height:400px;overflow-y:auto;width:100%;'>";
 
 $table .= "<table class='common-table' cellspacing='0' cellpadding='0'><thead>";
-$table .= "<tr><th>Sell Price History</th><th style='text-align:right;' nowrap>Sell Price</th></tr></thead></tbody>";
+$table .= "<tr><th>Sell Price History</th><th style='text-align:right;' nowrap>Sell Price</th></tr></thead><tbody>";
 
 for ($i = 0; $i < $len; ++$i) {
         $date = $sell_prices[$i][0];

@@ -50,13 +50,15 @@ require_once("${root}php/" . ($ismobile ? "mini-navigation-bar" : "navigation-ba
         <input type="text" class="awesomplete" id="search_item_input" placeholder="Type here to search product ..." spellcheck="false" />
       </div>
       <div id="product_name_container" class='common-table-wrapper' style='margin-top:13px;margin-bottom:5px;display:none;padding:0px;background: linear-gradient(to bottom, #333, #444)'>
-        <div class='header' style='height:55px;'>
-          <div style='padding:8px;padding-left:15px;'>
-            <label id="product_code" class="standard-label drop-shadow" style="display:block"></label>
-            <label id="product_name" class="product-caption"></label>
+        <div>
+          <div class='header' style='height:100%;'>
+            <div style='padding:8px;padding-left:15px;'>
+              <label id="product_code" class="standard-label drop-shadow" style="display:block"></label>
+              <label id="product_name" class="product-caption"></label>
+            </div>
           </div>
         </div>
-        <div id="price_editor_container" style='width:100%;margin:0px;margin-top:10px;margin-bottom:10px;padding-left:15px;'>
+        <div id="price_editor_container" style='width:100%;margin:0px;margin-top:10px;margin-bottom:10px;padding-left:15px;height:500px;'>
           <table width='100%' cellpadding='0' cellspacing='0'>
             <tr><td width='320px;'>
               <label class='standard-label'>Current Unit Price: <script type="text/javascript">document.write(Utils.getCurrencySymbol());</script>&nbsp;</label><input id='unit_price_input' type="number" min='0' placeholder='' onkeydown="return Utils.not(event);" style='color:#ffffaa;width:100px;margin-bottom:5px;'><br>
@@ -76,7 +78,7 @@ require_once("${root}php/" . ($ismobile ? "mini-navigation-bar" : "navigation-ba
             </table>
           </div>
         </div>
-        <div style='padding-left:<?php echo $ismobile ? "0px" : "6px"; ?>;width:<?php echo $ismobile ? "100%" : "50%"; ?>;float:left;'>
+        <div style='margin-top:-10px;padding-left:<?php echo $ismobile ? "0px" : "6px"; ?>;width:<?php echo $ismobile ? "100%" : "50%"; ?>;float:left;'>
           <div class="common-table-wrapper" style='width:100%'> 
             <table class='common-table' cellspacing="0" cellpadding="0">
               <thead><tr><th>Sell Price History</th><th align='right' nowrap></th></tr></thead>

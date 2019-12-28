@@ -41,11 +41,11 @@ require_once("${root}php/" . ($ismobile ? "mini-navigation-bar" : "navigation-ba
   <?php echo $navbar_content; ?>
   <div class="container-wrapper">
     <div class="container-left" <?php if ($ismobile) echo "style='height:100%'" ?>>
-      <div class='store-heading'>
+      <div class='store-heading content-min-height'>
         <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>                                                              | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
         <hr class="division">
       </div>
-      <div style="margin-left:2px;margin-bottom:3px;">
+      <div class='content-min-height' style="margin-left:2px;margin-bottom:3px;">
 	<table id='header_table' cellpadding='0' cellspacing='0' style='width:100%;'>
           <tr>
             <td style='width:100%;'>
@@ -63,7 +63,7 @@ require_once("${root}php/" . ($ismobile ? "mini-navigation-bar" : "navigation-ba
               </div>
             </td>
             <td style='text-align:right;width:100%;' valign='bottom' nowrap>
-              <label id='back_button' class='drop-shadow' style='display:none;cursor:Pointer;text-decoration:overline;background-color:#ff3333;text-align:right;'>&lt;&#61;&nbsp;<b>BACK</b>&nbsp;&lt;&#61;</label>
+              <label id='back_button' class='drop-shadow' style='display:none;cursor:Pointer;border-top:1px solid white;background-color:#ff3333;text-align:right;'>&lt;&#61;&nbsp;<b>BACK</b>&nbsp;&lt;&#61;</label>
             </td>
           </tr>
         </table>
@@ -76,9 +76,11 @@ require_once("${root}php/" . ($ismobile ? "mini-navigation-bar" : "navigation-ba
           <label>Customer</label>
         </div>
       </div>
-      <div id="table_container" class='common-table-wrapper' style='display:none;min-height:200px;height:100%;max-height:<?php echo $ismobile ? "none;flex: 1 1 auto" : "290px" ?>;'>
-        <table id='customer_table' class='common-table' cellspacing="0" cellpadding="0" style='height:100%;'>
-        </table>
+      <div class="content-full-height" style='max-height:<?php echo $ismobile ? 'none' : "none;height:100%;" ?>;'>
+        <div id="table_container" class='common-table-wrapper' style='display:none;height:100%;min-height:150px;max-height:100%;'>
+          <table id='customer_table' class='common-table' cellspacing="0" cellpadding="0" style='height:100%;'>
+          </table>
+        </div>
       </div>
     </div>
   </div>

@@ -165,8 +165,10 @@ div.container-wrapper {
 }
 
 div.container-left {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
   width: 100%;
-  height: auto;
   min-height: 100px;
   max-height: 100%;
   overflow-x: hidden;
@@ -174,12 +176,10 @@ div.container-left {
   padding: 15px 15px 15px 15px;
   border: 3px double #EEEEEE;
   border-radius: 8px;
-  display:block;
   background: radial-gradient(circle at top left, #353535, #555555);
   box-shadow: 0px 0px 4px 3px #333333;
   box-sizing: border-box;
   position: relative;
-
 }
 
 div.container-right {
@@ -197,6 +197,15 @@ div.container-right {
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+div.content-full-height {
+  margin-bottom:25px;
+  flex: 1 1 auto;
+}
+
+div.content-min-height {
+  flex: 0 1 auto;
 }
 
 button {

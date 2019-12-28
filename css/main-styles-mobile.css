@@ -31,9 +31,6 @@ div.container-wrapper {
 }
 
 div.container-left {
-  display: flex;
-  flex-flow: column;
-  height: 100%;
   max-height: none;
   overflow-x: hidden;
   overflow-y: visible;
@@ -71,3 +68,4 @@ label.checkbox-container {
   font-size: 18px;
   padding-top: 0px;
 }
+

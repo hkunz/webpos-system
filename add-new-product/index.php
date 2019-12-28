@@ -37,7 +37,7 @@ require_once("${root}php/" . ($ismobile ? "mini-navigation-bar" : "navigation-ba
 <body class="body">
   <?php echo $navbar_content; ?>
   <div class="container-wrapper">
-  <div class="container-left" style="overflow-x:hidden;">
+  <div class="container-left">
     <div class='store-heading'>
       <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>                                                              | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
       <hr class="division">

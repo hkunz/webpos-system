@@ -1,10 +1,15 @@
 <?php
 session_start();
 $root = $_SESSION['root'];
-require "${root}php/db.php";
+require_once("${root}php/db.php");
+
+ob_start();
+require_once("${root}php/check-detect-mobile-device.php");
+$ismobile = ob_get_clean() === '1';
 
 $item_id = $_POST['item_id'];
 $currency = $_SESSION['currency'];
+
 echo '{
 "item_id":' . $item_id . ',
 ';
@@ -37,8 +42,13 @@ $sql_con->close();
 
 $len = max(count($unit_prices), count($sell_prices));
 
-$table = "\"<table cellspacing='0' cellpadding='0' width='100%'><tr><td valign='top'><div class='common-table-wrapper' style='margin-right:8px;'>";
-$table .= "<table class='common-table' cellspacing='0' cellpadding='0'><thead><tr><th>Unit Price History</th><th style='text-align:right;' nowrap>Unit Price</th></tr></thead><tbody>";
+
+$table = "\"<div style='padding-right:" . ($ismobile ? "0px" : "6px") . ";width:" . ($ismobile ? "100%" : "50%") . ";float:left;'>";
+$table .= "<div class='common-table-wrapper' style='width:100%;'>";
+
+$table .= "<table class='common-table' cellspacing='0' cellpadding='0'><thead>";
+$table .= "<tr><th>Unit Price History</th><th style='text-align:right;' nowrap>Unit Price</th></tr></thead><tbody>";
+
 for ($i = 0; $i < $len; ++$i) {
 	$date = $unit_prices[$i][0];
 	if ($date == null) continue;
@@ -46,7 +56,14 @@ for ($i = 0; $i < $len; ++$i) {
 	$table .= $date . "</td><td style='text-align:right;'><span style='margin-right:2px;'>" . $currency . "</span>" . $unit_prices[$i][1];
 	$table .= "</td></tr>";
 }
-$table .= "</tbody></table></div></td><td valign='top'><div class='common-table-wrapper' style='margin-left:8px;'><table class='common-table' cellspacing='0' cellpadding='0'><thead><tr><th>Sell Price History</th><th style='text-align:right;' nowrap>Sell Price</th></tr></thead></tbody>";
+$table .= "</tbody></table></div></div>";
+
+$table .= "<div style='padding-left:" . ($ismobile ? "0px" : "6px") . ";width:" . ($ismobile ? "100%" : "50%") . ";float:left;'>";
+$table .= "<div class='common-table-wrapper' style='width:100%;'>";
+
+$table .= "<table class='common-table' cellspacing='0' cellpadding='0'><thead>";
+$table .= "<tr><th>Sell Price History</th><th style='text-align:right;' nowrap>Sell Price</th></tr></thead></tbody>";
+
 for ($i = 0; $i < $len; ++$i) {
         $date = $sell_prices[$i][0];
 	if ($date == null) continue;
@@ -54,7 +71,7 @@ for ($i = 0; $i < $len; ++$i) {
         $table .= $date . "</td><td style='text-align:right;'><span style='margin-right:2px;'>" . $currency . "</span>" . $sell_prices[$i][1];
         $table .= "</td></tr>";
 }
-$table .= "</tbody></table></div></td></tr></table>\"";
+$table .= "</tbody></table></div></div>\"";
 echo ',"table":' . $table . ',"curr_unit_price_asofdate":"' . $unit_prices[0][0] . '","curr_sell_price_asofdate":"' . $sell_prices[0][0] . '"}';
 ?>
 

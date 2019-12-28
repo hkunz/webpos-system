@@ -6,7 +6,11 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 }
 $href_root = $_SESSION['href_root'];
 $root = $_SESSION['root'];
-require_once("${root}php/navigation-bar.php");
+
+ob_start();
+require_once("${root}php/check-detect-mobile-device.php");
+$ismobile = ob_get_clean() === '1';
+require_once("${root}php/" . ($ismobile ? "mini-navigation-bar" : "navigation-bar") . ".php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,6 +22,7 @@ require_once("${root}php/navigation-bar.php");
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/awesomplete.css">
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/common-table.css">
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/responsive-web-page.css">
+  <link type="text/css" rel="stylesheet" href="<?php echo ($ismobile ? $href_root . 'css/main-styles-mobile.css' : '') ?>">
   <script type="text/javascript" src="<?php echo $href_root; ?>js/libs/jquery-3.4.1.min.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>js/libs/awesomplete.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>js/AwesompleteInputHandler.js"></script>
@@ -33,9 +38,11 @@ require_once("${root}php/navigation-bar.php");
 <body class="body">
   <?php echo $navbar_content; ?>
   <div class="container-wrapper">
-    <div class="container-left" style='overflow:hidden;'>
-      <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>                                                              | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
-      <hr class="division">
+    <div class="container-left">
+      <div class='store-heading'>
+        <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>                                                              | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
+        <hr class="division">
+      </div>
       <div style="margin-left:2px;margin-bottom:3px;">
         <label class="drop-shadow" style="font-weight:bold;">UPDATE PRODUCT PRICE</label>
       </div>
@@ -61,20 +68,22 @@ require_once("${root}php/navigation-bar.php");
         </div>
       </div>
       <div id="table_container" style="width:100%;margin:0px;">
-        <table cellspacing="0" cellpadding="0" width="100%"><tr><td>
-          <div class="common-table-wrapper" style='margin-right:8px;'>
+        <div style='padding-right:<?php echo $ismobile ? "0px" : "6px"; ?>;width:<?php echo $ismobile ? "100%" : "50%"; ?>;float:left;'>
+          <div class="common-table-wrapper" style='width:100%;'>
             <table class='common-table' cellspacing="0" cellpadding="0">
               <thead><tr><th>Unit Price History</th><th align='right' nowrap></th></tr></thead>
               <tbody><tr><td>&nbsp;</td><td></td></tr></tbody>
             </table>
-          </div></td><td>
-          <div class="common-table-wrapper" style='margin-left:8px;'> 
+          </div>
+        </div>
+        <div style='padding-left:<?php echo $ismobile ? "0px" : "6px"; ?>;width:<?php echo $ismobile ? "100%" : "50%"; ?>;float:left;'>
+          <div class="common-table-wrapper" style='width:100%'> 
             <table class='common-table' cellspacing="0" cellpadding="0">
               <thead><tr><th>Sell Price History</th><th align='right' nowrap></th></tr></thead>
               <tbody><tr><td>&nbsp;</td><td></td></tr></tbody>
             </table>
-          </div></td></tr>
-        </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>

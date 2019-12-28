@@ -6,17 +6,22 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 }
 $href_root = $_SESSION['href_root'];
 $root = $_SESSION['root'];
-require_once("{$root}php/navigation-bar.php");
+
+ob_start();
+require_once("${root}php/check-detect-mobile-device.php");
+$ismobile = ob_get_clean() === '1';
+require_once("${root}php/" . ($ismobile ? "mini-navigation-bar" : "navigation-bar") . ".php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Klebby's Store</title>
+  <title>Accounts Receivable</title>
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/main-styles.css">
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/navigation-bar.css">
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/awesomplete.css">
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/common-table.css">
+  <link type="text/css" rel="stylesheet" href="<?php echo ($ismobile ? $href_root . 'css/main-styles-mobile.css' : '') ?>">
   <script type="text/javascript" src="<?php echo $href_root; ?>js/libs/jquery-3.4.1.min.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>js/libs/awesomplete.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>js/AwesompleteInputHandler.js"></script>
@@ -35,31 +40,29 @@ require_once("{$root}php/navigation-bar.php");
 <body class="body">
   <?php echo $navbar_content; ?>
   <div class="container-wrapper">
-    <div class="container-left">
-      <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>                                                              | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
-      <hr class="division">
+    <div class="container-left" <?php if ($ismobile) echo "style='height:100%'" ?>>
+      <div class='store-heading'>
+        <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label>                                                              | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
+        <hr class="division">
+      </div>
       <div style="margin-left:2px;margin-bottom:3px;">
-	<table id='header_table' cellpadding='0' cellspacing='0' style=''>
+	<table id='header_table' cellpadding='0' cellspacing='0' style='width:100%;'>
           <tr>
-            <td nowrap>
+            <td style='width:100%;'>
               <label class="drop-shadow" style="font-weight:bold;">ACCOUNTS RECEIVABLE: </label><label id='colon_label' class="drop-shadow" style="display:none;font-weight:bold;"></label>
-            </td>
-            <td nowrap>
-              <div id='customer_total_div' style='display:none;'>
-                <label class="drop-shadow">&nbsp;(</label><label id='customer_total' class="drop-shadow" style="color:#44ff44;font-weight:bold;"></label><label class="drop-shadow">)&nbsp;</label>
+              <div style='display:inline;white-space:nowrap;'>
+                <div id='customer_total_div' style='display:none;'>
+                  <label class="drop-shadow">[</label><label id='customer_total' class="drop-shadow" style="color:#44ff44;font-weight:bold;"></label><label class="drop-shadow">]</label>
+                </div>
+                <div id='customer_div' style='display:none;margin:0px;padding:0px;'>
+                  <label class="drop-shadow" style=""></label><label id='customer_label' class="drop-shadow" style="font-weight:bold;color:white;"></label><label class="drop-shadow" style=""></label>
+                </div>
+              </div>
+	      <div id='transaction_td' style='white-space:nowrap;display:none;margin:0px;padding:0px;'>
+                <div style='display:inline;background-color:#000;border-radius:20px;padding-left:10px;padding-right:13px;'><label id='transaction_label' class='drop-shadow' style='color:#eee;'></label></div>
               </div>
             </td>
-            <td nowrap>
-              <div id='customer_div' style='display:none;margin:0px;padding:0px;'>
-                <label class="drop-shadow" style=""></label><label id='customer_label' class="drop-shadow" style="font-weight:bold;color:white;"></label><label class="drop-shadow" style=""></label>
-              </div>
-            </td>
-            <td nowrap>
-	      <div id='transaction_td' style='display:none;margin:0px;padding:0px;'>
-                <div style='margin-left:8px;display:inline;background-color:#000;border-radius:20px;padding-left:10px;padding-right:13px;'><label id='transaction_label' class='drop-shadow' style='color:#eee;'></label></div>
-              </div>
-            </td>
-            <td style='text-align:right;width:100%;'>
+            <td style='text-align:right;width:100%;' valign='bottom' nowrap>
               <label id='back_button' class='drop-shadow' style='display:none;cursor:Pointer;text-decoration:overline;background-color:#ff3333;text-align:right;'>&lt;&#61;&nbsp;<b>BACK</b>&nbsp;&lt;&#61;</label>
             </td>
           </tr>
@@ -73,7 +76,7 @@ require_once("{$root}php/navigation-bar.php");
           <label>Customer</label>
         </div>
       </div>
-      <div id="table_container" class='common-table-wrapper' style='display:none;min-height:200px;height:100%;max-height:290px;'>
+      <div id="table_container" class='common-table-wrapper' style='display:none;min-height:200px;height:100%;max-height:<?php echo $ismobile ? "none;flex: 1 1 auto" : "290px" ?>;'>
         <table id='customer_table' class='common-table' cellspacing="0" cellpadding="0" style='height:100%;'>
         </table>
       </div>

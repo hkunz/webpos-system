@@ -8,6 +8,8 @@ html {
 
 body.body {
   background: radial-gradient(circle at top left, #444, #555);
+  height: 100%;
+  margin: 0;
 }
 
 div.store-heading {
@@ -20,9 +22,8 @@ input, select {
 }
 
 div.container-wrapper {
-  height: calc(100% - 6px);
+  height: 100%;
   max-height: none;
-  display: block;
   padding: 0px;
   margin: 0px;
   overflow-x: hidden;
@@ -30,6 +31,9 @@ div.container-wrapper {
 }
 
 div.container-left {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
   max-height: none;
   overflow-x: hidden;
   overflow-y: visible;

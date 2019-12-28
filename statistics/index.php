@@ -15,7 +15,7 @@ require_once("${root}php/navigation-bar.php");
 <html lang="en">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Klebby's Statistics</title>
+  <title>Statistics</title>
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/main-styles.css">
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/navigation-bar.css">
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/awesomplete.css">

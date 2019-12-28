@@ -16,7 +16,7 @@ require_once("${root}php/" . ($ismobile ? "mini-navigation-bar" : "navigation-ba
 <html lang="en">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Klebby's Add New Product</title>
+  <title>Add New Product</title>
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/main-styles.css">
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/navigation-bar.css">
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/awesomplete.css">

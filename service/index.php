@@ -22,7 +22,7 @@ return "<div class='receipt'><label class='receipt'>TXN:&nbsp;</label><label cla
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Search Item code: https://www.cloudways.com/blog/live-search-php-mysql-ajax/ -->
-  <title>Klebby's Store</title>
+  <title>Service</title>
   <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/main-styles.css">
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/navigation-bar.css">

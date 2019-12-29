@@ -74,7 +74,7 @@ function create_stats_group($ismobile, $title, $totalId, $prepaidId, $productsId
       <hr class="division">
       <br/>
     </div>
-    <div style='width:100%;'>
+    <div style='width:100%;max-width:700px;'>
 <?php
 create_stats_group($ismobile, 'Today\'s Revenue:', 'revenue_today', 'revenue_today_prepaid', 'revenue_today_products', 'revenue_today_services', 'profit_today_prepaid', 'profit_today_products');
 create_stats_group($ismobile, 'Total Revenue To Date:', 'revenue_total', 'revenue_total_prepaid', 'revenue_total_products', 'revenue_total_services', 'profit_total_prepaid', 'profit_total_products', 'profit_total_services');

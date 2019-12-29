@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 10, 2019 at 09:16 PM
+-- Generation Time: Dec 29, 2019 at 05:39 PM
 -- Server version: 8.0.18
 -- PHP Version: 7.0.33-0ubuntu0.16.04.7
 
@@ -271,8 +271,8 @@ INSERT INTO `items` (`item_id`, `bar_code`, `unit`, `count`, `item_description`,
 (82, '4902430434393', 'pc', 1, 'Joy Complete Clean Kalamansi Dishwashing Liquid (20ml)', 'Dish Detergent', 'Joy', 'Toiletry', 'Chuyte'),
 (83, '', 'dz', 12, 'Nails Nail Polish Remover w/ Acetone (30ml)', 'Nail Polish Remover', 'Nails', 'Personal Hygiene', 'Chuyte'),
 (84, '4800147310477', 'pc', 1, 'Nails Nail Polish Remover w/ Acetone (30ml)', 'Nail Polish Remover', 'Nails', 'Personal Hygiene', 'Chuyte'),
-(85, '48031547', 'pc', 1, 'Efficascent Oil Regular (25ml)', 'Liniment', 'Efficascent', 'Galenical', 'Chuyte'),
-(86, '48035156', 'pc', 1, 'Efficascent Oil Extra Strength (25ml)', 'Liniment', 'Efficascent', 'Galenical', 'Chuyte'),
+(85, '48031547', 'bot', 1, 'Efficascent Oil Regular (25mL)', 'Liniment', 'Efficascent', 'Galenical', 'Chuyte'),
+(86, '48035156', 'bot', 1, 'Efficascent Oil Extra Strength (25mL)', 'Liniment', 'Efficascent', 'Galenical', 'Chuyte'),
 (87, '4801010104100', 'pc', 1, 'Johnson\'s Baby Powder Milk+Rice (50g)', 'Baby Powder', 'Johnson\'s', 'Personal Hygiene', 'Chuyte'),
 (88, '0000048032742', 'pc', 1, 'Johnson\'s Baby Powder White (25g)', 'Baby Powder', 'Johnson\'s', 'Personal Hygiene', 'Chuyte'),
 (89, '3022014800019', 'crd', 12, 'MGK Scissors 5" M19005', 'Scissors', 'MGK', 'School & Office', 'Chuyte'),
@@ -281,9 +281,9 @@ INSERT INTO `items` (`item_id`, `bar_code`, `unit`, `count`, `item_description`,
 (92, '', 'pc', 1, 'Cutter Knife (Big)', 'Box Cutter', '', 'School & Office', 'Chuyte'),
 (93, '6920805678287', 'crd', 12, 'Art Designing Knives Cutter (Small)', 'Box Cutter', '', 'School & Office', 'Chuyte'),
 (94, '', 'pc', 1, 'Art Designing Knives Cutter (Small)', 'Box Cutter', '', 'School & Office', 'Chuyte'),
-(95, '4800047820250', 'pc', 1, 'Green Cross 70% Solution Antiseptic Disinfectant Isopropyl Alcohol (60ml)', 'Alcohol', 'Green Cross', 'Toiletry', 'Chuyte'),
-(96, '4800047820243', 'pc', 1, 'Green Cross 70% Solution Antiseptic Disinfectant Isopropyl Alcohol (150ml)', 'Alcohol', 'Green Cross', 'Toiletry', 'Chuyte'),
-(97, '4800011120614', 'pc', 1, 'Casino 70% Solution Active Ethyl Alcohol Triclosan (150ml)', 'Alcohol', 'Casino', 'Toiletry', 'Chuyte'),
+(95, '4800047820250', 'bot', 1, 'Green Cross 70% Solution Antiseptic Disinfectant Isopropyl Alcohol (60mL)', 'Alcohol', 'Green Cross', 'Pharmaceutical', 'Chuyte'),
+(96, '4800047820243', 'bot', 1, 'Green Cross 70% Solution Antiseptic Disinfectant Isopropyl Alcohol (150mL)', 'Alcohol', 'Green Cross', 'Pharmaceutical', 'Chuyte'),
+(97, '4800011120614', 'bot', 1, 'Casino 70% Solution Active Ethyl Alcohol Triclosan (150mL)', 'Alcohol', 'Casino', 'Pharmaceutical', 'Chuyte'),
 (98, '', 'dz', 12, 'Sliding Plastic Folder Short', 'Folder', '', 'School & Office', 'Chuyte'),
 (99, '', 'pc', 1, 'Sliding Plastic Folder Short', 'Folder', '', 'School & Office', 'Chuyte'),
 (100, '', 'dz', 12, 'Sliding Plastic Folder Long', 'Folder', '', 'School & Office', 'Chuyte'),
@@ -479,7 +479,11 @@ INSERT INTO `items` (`item_id`, `bar_code`, `unit`, `count`, `item_description`,
 (290, '4902430344876', 'tie', 12, 'Downy Safeguard AntiBac Fabric Conditioner (25mL)', 'Fabric Conditioner', 'Downy', 'Household', 'Chuyte'),
 (291, '4902430344876', 'pc', 1, 'Downy Safeguard AntiBac Fabric Conditioner (25mL)', 'Fabric Conditioner', 'Downy', 'Household', 'Chuyte'),
 (292, '4801010503224', 'bot', 1, 'Johnson\'s Lite Baby Oil (50mL)', 'Baby Oil', 'Johnson\'s', 'Personal Hygiene', 'Chuyte'),
-(293, '', 'pc', 1, 'Ponytail Hair Tie K188 Assorted Colors', 'Hair Tie', '', 'Personal Accessory', 'Chuyte');
+(293, '', 'pc', 1, 'Ponytail Hair Tie K188 Assorted Colors', 'Hair Tie', '', 'Personal Accessory', 'Chuyte'),
+(294, '', 'bx', 74, 'Holy Flower Bobby Pin Hair Grip / Hairpin Black', 'Hairpin', 'Holy Flower', 'Personal Accessory', 'Chuyte'),
+(295, '', 'crd', 12, 'Holy Flower Bobby Pin Hair Grip / Hairpin Black', 'Hairpin', 'Holy Flower', 'Personal Accessory', 'Chuyte'),
+(296, '4800047820311', 'bot', 1, 'Green Cross 70% Solution Antiseptic Disinfectant Isopropyl Alcohol (250mL)', 'Alcohol', 'Green Cross', 'Pharmaceutical', 'Chuyte'),
+(297, '4800011133331', 'bot', 1, 'Efficascent Oil Regular (50mL)', 'Liniment', 'Efficascent', 'Galenical', 'Chuyte');
 
 -- --------------------------------------------------------
 
@@ -810,7 +814,13 @@ INSERT INTO `items_prices` (`row_id`, `item_id`, `unit_price_asofdate`, `unit_pr
 (320, 292, '2019-12-07 13:09:10', '42.00', '2019-12-07 13:09:10', '49.00'),
 (321, 293, '2019-12-10 05:42:30', '1.80', '2019-12-10 05:42:30', '3.00'),
 (322, 147, '2019-12-10 05:48:14', '132.00', '2019-08-31 16:00:00', '0.00'),
-(323, 148, '2019-12-10 05:49:17', '9.43', '2019-11-27 16:00:00', '13.00');
+(323, 148, '2019-12-13 16:00:00', '9.43', '2019-11-27 16:00:00', '13.00'),
+(324, 294, '2019-12-12 09:44:38', '90.00', '2019-12-12 09:44:38', '0.00'),
+(325, 295, '2019-12-12 09:46:55', '1.22', '2019-12-12 09:46:55', '3.00'),
+(326, 296, '2019-12-12 11:07:22', '41.50', '2019-12-12 11:07:22', '50.00'),
+(327, 297, '2019-12-12 11:13:23', '48.00', '2019-12-12 11:13:23', '58.00'),
+(328, 181, '2019-12-09 16:00:00', '3.60', '2019-12-09 16:00:00', '5.00'),
+(339, 148, '2019-12-28 14:22:11', '9.44', '2019-11-27 16:00:00', '13.00');
 
 -- --------------------------------------------------------
 
@@ -852,7 +862,7 @@ INSERT INTO `items_stock` (`item_id`, `stock`, `row_id`) VALUES
 (43, 10, 21),
 (44, 0, 22),
 (45, 12, 23),
-(46, 5, 24),
+(46, 4, 24),
 (47, 5, 25),
 (48, 0, 26),
 (49, 16, 27),
@@ -869,12 +879,12 @@ INSERT INTO `items_stock` (`item_id`, `stock`, `row_id`) VALUES
 (60, 2, 38),
 (61, 4, 39),
 (62, 0, 40),
-(63, 97, 41),
+(63, 96, 41),
 (64, 0, 42),
 (65, 0, 43),
-(66, 11, 44),
+(66, 10, 44),
 (67, 0, 45),
-(68, 4, 46),
+(68, 3, 46),
 (69, 0, 47),
 (70, 7, 48),
 (71, 25, 49),
@@ -886,13 +896,13 @@ INSERT INTO `items_stock` (`item_id`, `stock`, `row_id`) VALUES
 (77, 8, 55),
 (78, 2, 56),
 (79, 0, 57),
-(80, 68, 58),
+(80, 64, 58),
 (81, 0, 59),
 (82, 3, 60),
 (83, 0, 61),
 (84, 10, 62),
-(85, 4, 63),
-(86, 5, 64),
+(85, 3, 63),
+(86, 2, 64),
 (87, 2, 65),
 (88, 1, 66),
 (89, 0, 67),
@@ -900,7 +910,7 @@ INSERT INTO `items_stock` (`item_id`, `stock`, `row_id`) VALUES
 (91, 0, 69),
 (92, 11, 70),
 (93, 0, 71),
-(94, 11, 72),
+(94, 9, 72),
 (95, 3, 73),
 (96, 1, 74),
 (97, 3, 75),
@@ -931,11 +941,11 @@ INSERT INTO `items_stock` (`item_id`, `stock`, `row_id`) VALUES
 (122, 6, 100),
 (123, 3, 101),
 (124, 6, 102),
-(125, 4, 103),
+(125, 3, 103),
 (126, 0, 104),
 (127, 8, 105),
 (128, 0, 106),
-(129, 25, 107),
+(129, 22, 107),
 (130, 0, 108),
 (131, 25, 109),
 (132, 0, 110),
@@ -950,11 +960,11 @@ INSERT INTO `items_stock` (`item_id`, `stock`, `row_id`) VALUES
 (141, 0, 119),
 (142, 8, 120),
 (143, 4, 121),
-(144, 2, 122),
+(144, 1, 122),
 (145, 0, 123),
 (146, 243, 124),
 (147, 0, 125),
-(148, 16, 126),
+(148, 14, 126),
 (149, 0, 127),
 (150, 4, 128),
 (151, 0, 129),
@@ -998,13 +1008,13 @@ INSERT INTO `items_stock` (`item_id`, `stock`, `row_id`) VALUES
 (189, 0, 167),
 (190, 0, 168),
 (191, 0, 169),
-(192, 17, 170),
+(192, 16, 170),
 (193, 0, 171),
 (194, 0, 172),
 (195, 0, 173),
 (196, 9, 174),
 (197, 0, 175),
-(198, 14, 176),
+(198, 15, 176),
 (199, 0, 177),
 (200, 100, 178),
 (201, 0, 179),
@@ -1016,7 +1026,7 @@ INSERT INTO `items_stock` (`item_id`, `stock`, `row_id`) VALUES
 (207, 0, 185),
 (208, 1, 186),
 (209, 1, 187),
-(210, 1, 188),
+(210, 0, 188),
 (211, 1, 189),
 (212, 1, 190),
 (213, 1, 191),
@@ -1054,11 +1064,11 @@ INSERT INTO `items_stock` (`item_id`, `stock`, `row_id`) VALUES
 (245, 78, 223),
 (246, 0, 224),
 (247, 11, 225),
-(249, 10, 226),
+(249, 8, 226),
 (250, 0, 227),
-(251, 49, 228),
+(251, 46, 228),
 (256, 0, 229),
-(257, 420, 230),
+(257, 415, 230),
 (258, 0, 231),
 (259, 50, 232),
 (260, 0, 233),
@@ -1082,19 +1092,23 @@ INSERT INTO `items_stock` (`item_id`, `stock`, `row_id`) VALUES
 (278, 40, 251),
 (279, 12, 252),
 (280, 0, 253),
-(281, 50, 254),
+(281, 48, 254),
 (282, 3, 255),
 (283, 1, 256),
 (284, 2, 257),
 (285, 0, 258),
-(286, 12, 259),
+(286, 10, 259),
 (287, 5, 260),
 (288, 0, 261),
 (289, 24, 262),
 (290, 0, 263),
 (291, 12, 264),
 (292, 3, 265),
-(293, 30, 266);
+(293, 30, 266),
+(294, 0, 267),
+(295, 74, 268),
+(296, 6, 269),
+(297, 2, 270);
 
 -- --------------------------------------------------------
 
@@ -1613,9 +1627,9 @@ INSERT INTO `items_transactions` (`transaction_id`, `customer`, `type`, `date`, 
 (492, 'Jhondrex', 'SALE', '2019-11-20 01:30:00', '47.50', '2.50', '50.00', '0.00', '50.00'),
 (493, 'Estella C.', 'SALE', '2019-11-20 11:30:00', '9.50', '1.50', '11.00', '0.00', '11.00'),
 (494, 'Denalie C.', 'SALE', '2019-11-20 11:30:00', '47.50', '2.50', '50.00', '0.00', '50.00'),
-(495, 'Nectarina C.', 'SALE', '2019-11-20 13:10:00', '95.00', '5.00', '100.00', '0.00', '0.00'),
-(496, 'Nectarina C.', 'SALE', '2019-11-20 13:10:00', '19.00', '1.00', '20.00', '0.00', '0.00'),
-(497, 'Nectarina C.', 'SALE', '2019-11-20 13:10:00', '19.00', '1.00', '20.00', '0.00', '0.00'),
+(495, 'Nectarina C.', 'SALE', '2019-11-20 13:10:00', '95.00', '5.00', '100.00', '0.00', '99.99'),
+(496, 'Nectarina C.', 'SALE', '2019-11-20 13:10:00', '19.00', '1.00', '20.00', '0.00', '19.99'),
+(497, 'Nectarina C.', 'SALE', '2019-11-20 13:10:00', '19.00', '1.00', '20.00', '0.00', '19.98'),
 (498, '', 'SALE', '2019-11-21 01:00:00', '11.00', '0.00', '11.00', '0.00', '11.00'),
 (499, '', 'SALE', '2019-11-21 01:00:00', '14.00', '0.00', '14.00', '0.00', '14.00'),
 (500, '', 'SALE', '2019-11-21 01:00:00', '25.00', '0.00', '25.00', '0.00', '25.00'),
@@ -1647,11 +1661,11 @@ INSERT INTO `items_transactions` (`transaction_id`, `customer`, `type`, `date`, 
 (526, '', 'SALE', '2019-11-23 01:00:00', '7.00', '0.00', '7.00', '0.00', '7.00'),
 (527, '', 'SALE', '2019-11-23 01:00:00', '12.00', '0.00', '12.00', '0.00', '12.00'),
 (528, '', 'SALE', '2019-11-23 01:00:00', '28.00', '0.00', '28.00', '0.00', '28.00'),
-(529, 'Nectarina C.', 'SALE', '2019-11-23 01:00:00', '16.00', '0.00', '16.00', '0.00', '0.00'),
-(530, 'Nectarina C.', 'SALE', '2019-11-23 01:00:00', '7.00', '0.00', '7.00', '0.00', '0.00'),
-(531, 'Nectarina C.', 'SALE', '2019-11-23 01:00:00', '7.00', '0.00', '7.00', '0.00', '0.00'),
-(532, 'Nectarina C.', 'SALE', '2019-11-23 01:00:00', '7.00', '0.00', '7.00', '0.00', '0.00'),
-(533, 'Nectarina C.', 'SALE', '2019-11-23 01:00:00', '7.00', '0.00', '7.00', '0.00', '0.00'),
+(529, 'Nectarina C.', 'SALE', '2019-11-23 01:00:00', '16.00', '0.00', '16.00', '0.00', '14.01'),
+(530, 'Nectarina C.', 'SALE', '2019-11-23 01:00:00', '7.00', '0.00', '7.00', '0.00', '6.99'),
+(531, 'Nectarina C.', 'SALE', '2019-11-23 01:00:00', '7.00', '0.00', '7.00', '0.00', '6.99'),
+(532, 'Nectarina C.', 'SALE', '2019-11-23 01:00:00', '7.00', '0.00', '7.00', '0.00', '6.94'),
+(533, 'Nectarina C.', 'SALE', '2019-11-23 01:00:00', '7.00', '0.00', '7.00', '0.00', '6.88'),
 (534, 'Jhondrex', 'SALE', '2019-11-23 02:32:00', '47.50', '2.50', '50.00', '0.00', '50.00'),
 (535, 'Mutya K.', 'SALE', '2019-11-23 15:21:00', '47.50', '2.50', '50.00', '0.00', '50.00'),
 (536, 'Denalie C.', 'SALE', '2019-11-24 03:58:00', '45.00', '5.00', '50.00', '0.00', '50.00'),
@@ -1685,7 +1699,7 @@ INSERT INTO `items_transactions` (`transaction_id`, `customer`, `type`, `date`, 
 (564, 'Bossings Tindera', 'SALE', '2019-11-26 10:40:00', '6.00', '0.00', '6.00', '0.00', '6.00'),
 (565, 'Bossings Tindera', 'SALE', '2019-11-26 10:40:00', '15.00', '0.00', '15.00', '0.00', '15.00'),
 (566, 'Denalie C.', 'SALE', '2019-11-26 02:00:00', '60.00', '0.00', '60.00', '0.00', '60.00'),
-(567, 'Milarose K.', 'SALE', '2019-11-27 01:15:14', '76.00', '4.00', '80.00', '0.00', '0.00'),
+(567, 'Milarose K.', 'SALE', '2019-11-27 01:15:14', '80.00', '0.00', '80.00', '0.00', '45.75'),
 (568, '', 'RESTOCK', '2019-11-27 01:25:16', '192.00', '0.00', '192.00', '0.00', '138.00'),
 (569, '', 'RESTOCK', '2019-11-27 01:29:34', '72.00', '0.00', '72.00', '0.00', '60.00'),
 (570, 'Jhondrex', 'SALE', '2019-11-27 04:07:09', '47.50', '2.50', '50.00', '0.00', '50.00'),
@@ -1730,7 +1744,7 @@ INSERT INTO `items_transactions` (`transaction_id`, `customer`, `type`, `date`, 
 (608, '', 'RESTOCK', '2019-11-28 10:19:24', '36.00', '0.00', '36.00', '0.00', '21.00'),
 (609, '', 'SALE', '2019-11-28 10:39:00', '95.00', '7.00', '102.00', '0.00', '102.00'),
 (610, 'Jhondrex', 'SALE', '2019-11-30 05:27:52', '47.50', '2.50', '50.00', '0.00', '50.00'),
-(611, 'Tita Jo', 'SALE', '2019-12-01 02:30:00', '270.00', '30.00', '300.00', '0.00', '0.00'),
+(611, 'Tita Jo', 'SALE', '2019-12-01 02:30:00', '270.00', '30.00', '300.00', '0.00', '299.97'),
 (612, 'Estella Collector', 'SALE', '2019-11-28 16:00:00', '21.00', '0.00', '21.00', '0.00', '21.00'),
 (613, 'Estella Collector', 'SALE', '2019-11-29 16:00:00', '48.00', '0.00', '48.00', '0.00', '48.00'),
 (614, 'Estella Collector', 'SALE', '2019-11-30 16:00:00', '55.00', '0.00', '55.00', '0.00', '55.00'),
@@ -1780,7 +1794,7 @@ INSERT INTO `items_transactions` (`transaction_id`, `customer`, `type`, `date`, 
 (658, 'Denalie C.', 'SALE', '2019-12-04 09:43:38', '50.00', '0.00', '50.00', '0.00', '0.00'),
 (659, '', 'SALE', '2019-12-05 00:23:06', '6.00', '0.00', '6.00', '0.00', '6.00'),
 (660, '', 'SALE', '2019-12-05 00:23:26', '5.00', '0.00', '5.00', '0.00', '10.00'),
-(661, 'Nectarina C.', 'SALE', '2019-12-04 10:00:00', '17.00', '0.00', '17.00', '0.00', '0.00'),
+(661, 'Nectarina C.', 'SALE', '2019-12-04 10:00:00', '17.00', '0.00', '17.00', '0.00', '16.99'),
 (662, '', 'SALE', '2019-12-05 01:15:30', '12.00', '0.00', '12.00', '0.00', '20.00'),
 (663, '', 'SALE', '2019-12-05 01:59:32', '5.00', '0.00', '5.00', '0.00', '5.00'),
 (664, '', 'SALE', '2019-12-05 03:04:18', '12.00', '0.00', '12.00', '0.00', '12.00'),
@@ -1803,7 +1817,7 @@ INSERT INTO `items_transactions` (`transaction_id`, `customer`, `type`, `date`, 
 (681, 'Nectarina Collector', 'SALE', '2019-12-06 04:08:47', '7.00', '0.00', '7.00', '0.00', '7.00'),
 (682, '', 'SALE', '2019-12-06 04:09:00', '7.00', '0.00', '7.00', '0.00', '20.00'),
 (683, '', 'SALE', '2019-12-06 04:14:59', '66.00', '0.00', '66.00', '0.00', '66.00'),
-(684, 'Velma R.', 'SALE', '2019-12-06 04:17:11', '47.00', '0.00', '47.00', '0.00', '0.00'),
+(684, 'Velma R.', 'SALE', '2019-12-06 04:17:11', '47.00', '0.00', '47.00', '0.00', '100.00'),
 (685, '', 'SALE', '2019-12-06 04:30:15', '6.00', '0.00', '6.00', '0.00', '6.00'),
 (686, '', 'SALE', '2019-12-06 04:45:18', '22.00', '0.00', '22.00', '0.00', '25.00'),
 (687, '', 'SALE', '2019-12-06 04:58:14', '6.00', '0.00', '6.00', '0.00', '6.00'),
@@ -1824,9 +1838,9 @@ INSERT INTO `items_transactions` (`transaction_id`, `customer`, `type`, `date`, 
 (702, 'Milarose K.', 'RESTOCK', '2019-12-07 11:48:47', '60.00', '0.00', '60.00', '0.00', '0.00'),
 (703, 'Milarose K.', 'RESTOCK', '2019-12-07 11:56:44', '1461.00', '0.00', '1461.00', '0.00', '0.00'),
 (704, 'Harry K.', 'LOSS', '2019-12-07 13:27:16', '7.00', '0.00', '7.00', '0.00', '0.00'),
-(705, 'Hans K.', 'LOSS', '2019-12-07 13:38:18', '80.00', '0.00', '80.00', '0.00', '0.00'),
+(705, 'Hans K.', 'SALE', '2019-12-07 13:38:18', '100.00', '0.00', '100.00', '0.00', '93.49'),
 (706, 'Estella C.', 'SALE', '2019-12-07 06:00:00', '10.00', '0.00', '10.00', '0.00', '11.00'),
-(707, 'Tita Jo', 'SALE', '2019-12-08 03:08:03', '300.00', '0.00', '300.00', '0.00', '0.00'),
+(707, 'Tita Jo', 'SALE', '2019-12-08 03:08:03', '300.00', '0.00', '300.00', '0.00', '299.98'),
 (708, 'Jhondrex', 'SALE', '2019-12-09 00:00:00', '50.00', '0.00', '50.00', '0.00', '50.00'),
 (709, 'Edelweiss', 'SALE', '2019-12-08 23:00:00', '18.00', '0.00', '18.00', '0.00', '18.00'),
 (710, '', 'SALE', '2019-12-09 01:15:28', '32.00', '0.00', '32.00', '0.00', '40.00'),
@@ -1846,7 +1860,38 @@ INSERT INTO `items_transactions` (`transaction_id`, `customer`, `type`, `date`, 
 (724, 'Harry K.', 'RESTOCK', '2019-12-10 05:52:07', '182.00', '0.00', '182.00', '0.00', '0.00'),
 (725, '', 'SALE', '2019-12-10 06:17:01', '22.00', '0.00', '22.00', '0.00', '22.00'),
 (726, '', 'SALE', '2019-12-10 06:26:59', '20.00', '0.00', '20.00', '0.00', '20.00'),
-(727, '', 'SALE', '2019-12-10 09:14:00', '8.00', '0.00', '8.00', '0.00', '8.00');
+(727, '', 'SALE', '2019-12-10 09:14:00', '8.00', '0.00', '8.00', '0.00', '8.00'),
+(728, '', 'SALE', '2019-12-11 00:00:00', '12.00', '0.00', '12.00', '0.00', '20.00'),
+(729, '', 'SALE', '2019-12-11 00:28:55', '32.00', '0.00', '32.00', '0.00', '100.00'),
+(730, '', 'SALE', '2019-12-11 00:31:34', '14.00', '0.00', '14.00', '0.00', '50.00'),
+(731, '', 'SALE', '2019-12-11 01:00:12', '8.00', '0.00', '8.00', '0.00', '20.00'),
+(732, '', 'SALE', '2019-12-11 01:05:33', '22.00', '0.00', '22.00', '0.00', '52.00'),
+(733, 'Harry K.', 'LOSS', '2019-12-11 01:32:25', '30.00', '0.00', '30.00', '0.00', '0.00'),
+(734, '', 'SALE', '2019-12-11 02:44:53', '4.00', '0.00', '4.00', '0.00', '20.00'),
+(735, '', 'SALE', '2019-12-11 06:07:33', '5.00', '0.00', '5.00', '0.00', '5.00'),
+(736, 'Estella Collector', 'SALE', '2019-12-10 23:00:00', '23.00', '0.00', '23.00', '0.00', '23.00'),
+(737, '', 'SALE', '2019-12-11 06:39:47', '6.00', '0.00', '6.00', '0.00', '10.00'),
+(738, '', 'SALE', '2019-12-11 06:39:57', '4.00', '0.00', '4.00', '0.00', '4.00'),
+(739, 'Estella C.', 'SALE', '2019-12-11 06:43:44', '22.00', '0.00', '22.00', '0.00', '22.00'),
+(740, 'Loss Equalizer', 'SALE', '2019-12-11 07:03:25', '6.00', '0.00', '6.00', '0.00', '6.00'),
+(741, 'Jhondrex', 'SALE', '2019-12-12 01:28:35', '50.00', '0.00', '50.00', '0.00', '0.00'),
+(742, 'Bernie C.', 'SALE', '2019-12-13 01:00:00', '26.00', '0.00', '26.00', '0.00', '26.00'),
+(743, 'Mai-Mai @ Pepet', 'SALE', '2019-12-13 05:00:00', '32.00', '0.00', '32.00', '0.00', '32.00'),
+(744, '', 'SALE', '2019-12-13 05:00:00', '22.00', '0.00', '22.00', '0.00', '22.00'),
+(745, 'Nectarina C.', 'SALE', '2019-12-14 09:23:18', '2.00', '0.00', '2.00', '0.00', '1.99'),
+(746, 'Edelweiss', 'SALE', '2019-12-14 09:27:45', '32.00', '0.00', '32.00', '0.00', '31.95'),
+(747, 'Estella Collector', 'SALE', '2019-12-14 10:34:58', '102.00', '0.00', '102.00', '0.00', '100.00'),
+(748, 'Tita Jo', 'SALE', '2019-12-15 09:41:22', '300.00', '0.00', '300.00', '0.00', '299.00'),
+(749, 'Estella C.', 'SALE', '2019-12-15 09:42:12', '10.00', '0.00', '10.00', '0.00', '9.29'),
+(750, 'Estella C.', 'SALE', '2019-12-19 09:50:13', '10.00', '0.00', '10.00', '0.00', '9.50'),
+(751, 'Harry K.', 'SALE', '2019-12-19 09:52:35', '100.00', '0.00', '100.00', '0.00', '0.00'),
+(752, 'Estella Collector', 'SALE', '2019-12-19 10:07:02', '86.00', '0.00', '86.00', '0.00', '84.49'),
+(753, 'Hans K.', 'SALE', '2019-12-20 08:11:41', '100.00', '0.00', '100.00', '0.00', '97.50'),
+(754, 'Denalie C.', 'SALE', '2019-12-21 14:22:03', '50.00', '0.00', '50.00', '0.00', '0.00'),
+(755, 'Estella C.', 'SALE', '2019-12-25 01:28:17', '20.00', '0.00', '20.00', '0.00', '20.00'),
+(756, 'Estella C.', 'SALE', '2019-12-25 10:52:35', '32.00', '0.00', '32.00', '0.00', '32.00'),
+(757, 'Hans K.', 'SALE', '2019-12-27 13:42:08', '100.00', '0.00', '100.00', '0.00', '1.00'),
+(758, 'Estella C.', 'SALE', '2019-12-29 09:33:56', '10.00', '0.00', '10.00', '0.00', '0.00');
 
 -- --------------------------------------------------------
 
@@ -2791,7 +2836,7 @@ INSERT INTO `items_transactions_details` (`transaction_id`, `item_id`, `amount`)
 (703, 175, 48),
 (703, 177, 25),
 (704, 162, 1),
-(705, 187, 80),
+(705, 21, 1),
 (706, 13, 1),
 (707, 20, 3),
 (708, 18, 1),
@@ -2806,7 +2851,7 @@ INSERT INTO `items_transactions_details` (`transaction_id`, `item_id`, `amount`)
 (713, 1, 10),
 (714, 68, 1),
 (715, 47, 1),
-(716, 198, 1),
+(716, 129, 1),
 (717, 4, 20),
 (718, 1, 2),
 (719, 2, 14),
@@ -2822,7 +2867,57 @@ INSERT INTO `items_transactions_details` (`transaction_id`, `item_id`, `amount`)
 (725, 15, 1),
 (725, 252, 200),
 (726, 4, 10),
-(727, 22, 2);
+(727, 22, 2),
+(728, 1, 6),
+(729, 13, 1),
+(729, 15, 1),
+(729, 252, 200),
+(730, 1, 2),
+(730, 2, 2),
+(731, 281, 2),
+(732, 13, 2),
+(732, 252, 200),
+(733, 251, 3),
+(734, 4, 2),
+(735, 257, 5),
+(736, 63, 1),
+(736, 129, 1),
+(736, 192, 1),
+(736, 286, 1),
+(737, 4, 3),
+(738, 4, 2),
+(739, 13, 2),
+(739, 252, 200),
+(740, 129, 1),
+(741, 19, 1),
+(742, 148, 2),
+(743, 13, 1),
+(743, 15, 1),
+(743, 252, 200),
+(744, 15, 1),
+(744, 252, 200),
+(745, 80, 1),
+(746, 68, 1),
+(746, 210, 1),
+(747, 21, 1),
+(747, 252, 200),
+(748, 20, 3),
+(749, 12, 1),
+(750, 13, 1),
+(751, 21, 1),
+(752, 46, 1),
+(752, 66, 1),
+(752, 80, 3),
+(752, 94, 2),
+(752, 249, 2),
+(752, 286, 1),
+(753, 21, 1),
+(754, 11, 50),
+(755, 13, 2),
+(756, 125, 1),
+(756, 144, 1),
+(757, 21, 1),
+(758, 12, 1);
 
 -- --------------------------------------------------------
 
@@ -2843,7 +2938,8 @@ CREATE TABLE `operational_expenses` (
 --
 
 INSERT INTO `operational_expenses` (`expense_transaction_id`, `timestamp`, `type`, `grand_total`, `remarks`) VALUES
-(1, '2019-12-04 05:45:30', 'ELECTRICITY', '400.00', 'Paid electric bill to Estella C.');
+(1, '2019-12-04 05:45:30', 'ELECTRICITY', '400.00', 'Paid electric bill to Estella C.'),
+(2, '2019-12-11 06:00:00', 'PRINTING_STOCKS', '500.00', 'Black Ink');
 
 -- --------------------------------------------------------
 
@@ -2864,7 +2960,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`, `created_at`) VALUES
 (2, 'hkunz', '$2y$10$WFOtNwsGYnxaUAlQDpFrLeHn8KSmVS/8vwYXteO5KvdGr7W5fv1DG', '2019-12-09 20:22:50'),
-(12, 'mkunz', '$2y$10$N6l7pAIFPxmqi32CF2ovUO8u4wH87i6lTeRifb9ks5PA68S/OXNmu', '2019-12-10 17:18:49');
+(12, 'mkunz', '$2y$10$N6l7pAIFPxmqi32CF2ovUO8u4wH87i6lTeRifb9ks5PA68S/OXNmu', '2019-12-10 17:18:49'),
+(18, 'Harry Kunz', '$2y$10$znpGqGIg45o46hKvB/c.3efLEdPkdCEH61MPvdftx6rYKzL4Qnss.', '2019-12-19 04:49:19');
 
 -- --------------------------------------------------------
 
@@ -2882,6 +2979,7 @@ CREATE TABLE `users_whitelist` (
 --
 
 INSERT INTO `users_whitelist` (`username`, `white_listed_on`) VALUES
+('Harry Kunz', '2019-12-10 21:38:52'),
 ('hkunz', '2019-12-09 20:22:03'),
 ('mkunz', '2019-12-10 17:18:14');
 
@@ -2891,18 +2989,18 @@ INSERT INTO `users_whitelist` (`username`, `white_listed_on`) VALUES
 -- Stand-in structure for view `view_items`
 --
 CREATE TABLE `view_items` (
-`item_id` int(10) unsigned
-,`bar_code` varchar(13)
-,`unit` enum('bar','bot','bx','crd','cut','dz','jar','ld','pc','pd','pg','pk','rm','sbx','sc','set','tie')
-,`count` smallint(5) unsigned
-,`item_description` varchar(100)
-,`general_name` varchar(30)
+`bar_code` varchar(13)
 ,`brand_name` varchar(25)
 ,`category` enum('Electronics','Food Additive','Galenical','Hardware','Household','Personal Accessory','Personal Hygiene','Pharmaceutical','School & Office','Service','Toiletry')
-,`unit_price_latest` decimal(13,2)
+,`count` smallint(5) unsigned
+,`general_name` varchar(30)
+,`item_description` varchar(100)
+,`item_id` int(10) unsigned
 ,`sell_price_latest` decimal(13,2)
-,`supplier_name` enum('Cangs','Chuyte','Klebbys','Conchitas','Hypermart','Other')
 ,`stock` bigint(10)
+,`supplier_name` enum('Cangs','Chuyte','Klebbys','Conchitas','Hypermart','Other')
+,`unit` enum('bar','bot','bx','crd','cut','dz','jar','ld','pc','pd','pg','pk','rm','sbx','sc','set','tie')
+,`unit_price_latest` decimal(13,2)
 );
 
 -- --------------------------------------------------------
@@ -2912,10 +3010,10 @@ CREATE TABLE `view_items` (
 --
 CREATE TABLE `view_items_prices_latest` (
 `item_id` int(10) unsigned
-,`unit_price` decimal(13,2)
-,`unit_price_asofdate` timestamp
 ,`sell_price` decimal(13,2)
 ,`sell_price_asofdate` timestamp
+,`unit_price` decimal(13,2)
+,`unit_price_asofdate` timestamp
 );
 
 -- --------------------------------------------------------
@@ -2926,9 +3024,9 @@ CREATE TABLE `view_items_prices_latest` (
 CREATE TABLE `view_items_transactions_prices` (
 `date` timestamp
 ,`item_id` int(10) unsigned
+,`sell_price` decimal(13,2)
 ,`transaction_id` int(10) unsigned
 ,`unit_price` decimal(13,2)
-,`sell_price` decimal(13,2)
 );
 
 -- --------------------------------------------------------
@@ -2937,16 +3035,16 @@ CREATE TABLE `view_items_transactions_prices` (
 -- Stand-in structure for view `view_transactions_prepaid_load`
 --
 CREATE TABLE `view_transactions_prepaid_load` (
-`date` timestamp
-,`item_id` int(10) unsigned
+`amount` int(10) unsigned
+,`cost` decimal(23,2)
+,`date` timestamp
 ,`item_description` varchar(100)
-,`unit_price` decimal(13,2)
+,`item_id` int(10) unsigned
+,`profit` decimal(25,2)
+,`revenue` decimal(24,2)
 ,`sell_price` decimal(13,2)
 ,`transaction_id` int(10) unsigned
-,`amount` int(10) unsigned
-,`cost` decimal(23,2)
-,`revenue` decimal(24,2)
-,`profit` decimal(25,2)
+,`unit_price` decimal(13,2)
 );
 
 -- --------------------------------------------------------
@@ -2955,17 +3053,17 @@ CREATE TABLE `view_transactions_prepaid_load` (
 -- Stand-in structure for view `view_transactions_products`
 --
 CREATE TABLE `view_transactions_products` (
-`date` timestamp
-,`item_id` int(10) unsigned
-,`unit` enum('bar','bot','bx','crd','cut','dz','jar','ld','pc','pd','pg','pk','rm','sbx','sc','set','tie')
+`amount` int(10) unsigned
+,`cost` decimal(23,2)
+,`date` timestamp
 ,`item_description` varchar(100)
-,`unit_price` decimal(13,2)
+,`item_id` int(10) unsigned
+,`profit` decimal(24,2)
+,`revenue` decimal(23,2)
 ,`sell_price` decimal(13,2)
 ,`transaction_id` int(10) unsigned
-,`amount` int(10) unsigned
-,`cost` decimal(23,2)
-,`revenue` decimal(23,2)
-,`profit` decimal(24,2)
+,`unit` enum('bar','bot','bx','crd','cut','dz','jar','ld','pc','pd','pg','pk','rm','sbx','sc','set','tie')
+,`unit_price` decimal(13,2)
 );
 
 -- --------------------------------------------------------
@@ -2974,13 +3072,13 @@ CREATE TABLE `view_transactions_products` (
 -- Stand-in structure for view `view_transactions_services`
 --
 CREATE TABLE `view_transactions_services` (
-`date` timestamp
-,`item_id` int(10) unsigned
-,`item_description` varchar(100)
-,`transaction_id` int(10) unsigned
-,`amount` int(10) unsigned
+`amount` int(10) unsigned
 ,`cost` decimal(23,2)
+,`date` timestamp
+,`item_description` varchar(100)
+,`item_id` int(10) unsigned
 ,`revenue` decimal(23,2)
+,`transaction_id` int(10) unsigned
 );
 
 -- --------------------------------------------------------
@@ -3101,32 +3199,32 @@ ALTER TABLE `users_whitelist`
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `item_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=294;
+  MODIFY `item_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=298;
 --
 -- AUTO_INCREMENT for table `items_prices`
 --
 ALTER TABLE `items_prices`
-  MODIFY `row_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=324;
+  MODIFY `row_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=340;
 --
 -- AUTO_INCREMENT for table `items_stock`
 --
 ALTER TABLE `items_stock`
-  MODIFY `row_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=267;
+  MODIFY `row_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=271;
 --
 -- AUTO_INCREMENT for table `items_transactions`
 --
 ALTER TABLE `items_transactions`
-  MODIFY `transaction_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=728;
+  MODIFY `transaction_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=759;
 --
 -- AUTO_INCREMENT for table `operational_expenses`
 --
 ALTER TABLE `operational_expenses`
-  MODIFY `expense_transaction_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `expense_transaction_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- Constraints for dumped tables
 --

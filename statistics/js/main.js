@@ -24,12 +24,20 @@ function setLabel(value, id) {
 
 $(document).ready(function() {
 	const now = Utils.getTimestampNow();
+	const todayStart = Utils.getTimestampTodayStart();
 	const currMonthStart = Utils.getTimestampCurrentMonthStart();
 	const currMonthEnd = Utils.getTimestampCurrentMonthEnd();
 	const prevMonthStart = Utils.getTimestampPreviousMonthStart();
 	const prevMonthEnd = Utils.getTimestampPreviousMonthEnd();
 	const prev2MonthStart = Utils.getTimestampPreviousMonthsStart(2);
 	const prev2MonthEnd = Utils.getTimestampPreviousMonthsEnd(2);
+
+	phpGetTotalRevenue("php/get-total-revenue.php", todayStart, now, setLabel, '#revenue_today');
+	phpGetTotalRevenue("php/get-total-revenue-prepaid-load.php", todayStart, now, setLabel, '#revenue_today_prepaid');
+	phpGetTotalRevenue("php/get-total-revenue-services.php", todayStart, now, setLabel, '#revenue_today_services');
+	phpGetTotalRevenue("php/get-total-revenue-products.php", todayStart, now, setLabel, '#revenue_today_products');
+	phpGetTotalRevenue("php/get-total-profit-prepaid-load.php", todayStart, now, setLabel, '#profit_today_prepaid');
+	phpGetTotalRevenue("php/get-total-profit-products.php", todayStart, now, setLabel, '#profit_today_products');
 
 	phpGetTotalRevenue("php/get-total-revenue.php", DATE_START, now, setLabel, '#revenue_total');
 	phpGetTotalRevenue("php/get-total-revenue-prepaid-load.php", DATE_START, now, setLabel, '#revenue_total_prepaid');

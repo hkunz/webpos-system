@@ -20,6 +20,30 @@ function sbr($indent) {
   if ($indent) echo '&nbsp;&nbsp;&nbsp;';
 }
 
+function br($indent) {
+  $b = '<br>';
+  if ($indent) $b .= '&nbsp;&nbsp;&nbsp;';
+  return $b;
+}
+
+function create_stats_group($ismobile, $title, $totalId, $prepaidId, $productsId, $servicesId, $prepaid2Id, $products2Id, $services2Id) {
+	echo
+"<div class='common-table-wrapper' style='margin-top:0px;margin-bottom:10px;'>
+        <div class='stats-heading'>
+          <label class='standard-label'>$title</label>" . ($ismobile ? br(1) : '') . "
+          <label id='$totalId' class='drop-shadow stat-total'></label>
+        </div>
+        <div class='stats-content'>
+          <label class='standard-label'>Prepaid-Load:</label>" . ($ismobile ? br(1) : '') . "
+          <label id='$prepaidId' class='drop-shadow'></label> (<label id='$prepaid2Id' class='drop-shadow profit'></label>)<br/>
+          <label class='standard-label'>Products:</label>" . ($ismobile ? br(1) : '') . "
+          <label id='$productsId' class='drop-shadow'></label> (<label id='$products2Id' class='drop-shadow profit'></label>)<br/>
+          <label class='standard-label'>Services:</label>" . ($ismobile ? br(1) : '') . "
+          <label id='$servicesId' class='drop-shadow'></label>
+        </div>
+      </div>
+";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,62 +75,13 @@ function sbr($indent) {
       <br/>
     </div>
     <div style='width:100%;'>
-      <div class='common-table-wrapper' style='margin-top:0px;'>
-        <div class='stats-heading'>
-          <label class='standard-label'>Total Revenue To Date:</label><?php if ($ismobile) sbr(1); ?>
-          <label id='revenue_total' class='drop-shadow stat-total'></label>
-        </div>
-        <div class='stats-content'>
-          <label class='standard-label'>Prepaid-Load:</label><?php if ($ismobile) sbr(1); ?>
-          <label id='revenue_total_prepaid' class='drop-shadow'></label> (<label id='profit_total_prepaid' class='drop-shadow profit'></label>)<br/>
-          <label class='standard-label'>Products:</label><?php if ($ismobile) sbr(1); ?>
-          <label id='revenue_total_products' class='drop-shadow'></label> (<label id='profit_total_products' class='drop-shadow profit'></label>)<br/>
-          <label class='standard-label'>Services:</label><?php if ($ismobile) sbr(1); ?>
-          <label id='revenue_total_services' class='drop-shadow'></label>
-        </div>
-      </div>
-      <div class='common-table-wrapper'>
-        <div class='stats-heading'>
-          <label class='standard-label'>Total Revenue For Current Month:</label><?php if ($ismobile) sbr(1); ?>
-          <label id='revenue_total_curr_month' class='drop-shadow stat-total'></label>
-        </div>
-        <div class='stats-content'>
-          <label class='standard-label'>&nbsp;&nbsp;Prepaid-Load:</label><?php if ($ismobile) sbr(1); ?>
-          <label id='revenue_total_curr_month_prepaid' class='drop-shadow'></label> (<label id='profit_curr_month_prepaid' class='drop-shadow profit'></label>)<br/>
-          <label class='standard-label'>&nbsp;&nbsp;Products:</label><?php if ($ismobile) sbr(1); ?>
-          <label id='revenue_total_curr_month_products' class='drop-shadow'></label> (<label id='profit_curr_month_products' class='drop-shadow profit'></label>)<br/>
-          <label class='standard-label'>&nbsp;&nbsp;Services:</label><?php if ($ismobile) sbr(1); ?>
-          <label id='revenue_total_curr_month_services' class='drop-shadow'></label>
-        </div>
-      </div>
-      <div class='common-table-wrapper'>
-        <div class='stats-heading'>
-          <label class='standard-label'>Total Revenue For Previous Month:</label><?php if ($ismobile) sbr(1); ?>
-          <label id='revenue_total_prev_month' class='drop-shadow stat-total'></label>
-        </div>
-        <div class='stats-content'>
-          <label class='standard-label'>&nbsp;&nbsp;Prepaid-Load:</label><?php if ($ismobile) sbr(1); ?>
-          <label id='revenue_total_prev_month_prepaid' class='drop-shadow'></label> (<label id='profit_prev_month_prepaid' class='drop-shadow profit'></label>)<br/>
-          <label class='standard-label'>&nbsp;&nbsp;Products:</label><?php if ($ismobile) sbr(1); ?>
-          <label id='revenue_total_prev_month_products' class='drop-shadow'></label> (<label id='profit_prev_month_products' class='drop-shadow profit'></label>)<br/>
-          <label class='standard-label'>&nbsp;&nbsp;Services:</label><?php if ($ismobile) sbr(1); ?>
-          <label id='revenue_total_prev_month_services' class='drop-shadow'></label>
-        </div>
-      </div>
-      <div class='common-table-wrapper'>
-        <div class='stats-heading'>
-          <label class='standard-label'>Total Revenue For One Before Previous Month:</label><?php if ($ismobile) sbr(1); ?>
-          <label id='revenue_total_prev2_month' class='drop-shadow stat-total'></label>
-        </div>
-        <div class='stats-content'>
-          <label class='standard-label'>&nbsp;&nbsp;Prepaid-Load:</label><?php if ($ismobile) sbr(1); ?>
-          <label id='revenue_total_prev2_month_prepaid' class='drop-shadow'></label> (<label id='profit_prev2_month_prepaid' class='drop-shadow profit'></label>)<br/>
-          <label class='standard-label'>&nbsp;&nbsp;Products:</label><?php if ($ismobile) sbr(1); ?>
-          <label id='revenue_total_prev2_month_products' class='drop-shadow'></label> (<label id='profit_prev2_month_products' class='drop-shadow profit'></label>)<br/>
-          <label class='standard-label'>&nbsp;&nbsp;Services:</label><?php if ($ismobile) sbr(1); ?>
-          <label id='revenue_total_prev2_month_services' class='drop-shadow'></label><br/>
-        </div>
-      </div>
+<?php
+create_stats_group($ismobile, 'Today\'s Revenue:', 'revenue_today', 'revenue_today_prepaid', 'revenue_today_products', 'revenue_today_services', 'profit_today_prepaid', 'profit_today_products');
+create_stats_group($ismobile, 'Total Revenue To Date:', 'revenue_total', 'revenue_total_prepaid', 'revenue_total_products', 'revenue_total_services', 'profit_total_prepaid', 'profit_total_products', 'profit_total_services');
+create_stats_group($ismobile, 'Total Revenue For Current Month:', 'revenue_total_curr_month', 'revenue_total_curr_month_prepaid', 'revenue_total_curr_month_products', 'revenue_total_curr_month_services', 'profit_curr_month_prepaid', 'profit_curr_month_products', 'profit_curr_month_services');
+create_stats_group($ismobile, 'Total Revenue For Previous Month:', 'revenue_total_prev_month', 'revenue_total_prev_month_prepaid', 'revenue_total_prev_month_products', 'revenue_total_prev_month_services', 'profit_prev_month_prepaid', 'profit_prev_month_products', 'profit_prev_month_services');
+create_stats_group($ismobile, 'Total Revenue For One Before Previous Month:', 'revenue_total_prev2_month', 'revenue_total_prev2_month_prepaid', 'revenue_total_prev2_month_products', 'revenue_total_prev2_month_services', 'profit_prev2_month_prepaid', 'profit_prev2_month_products', 'profit_prev2_month_services');
+?>
     </div>
   </div>
   </div>

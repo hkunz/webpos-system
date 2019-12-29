@@ -48,6 +48,11 @@ class Utils {
 		return m.getFullYear() +"-"+ (m.getMonth()+1) +"-"+ m.getDate() + " " + m.getHours() + ":" + m.getMinutes() + ":" + m.getSeconds();
 	}
 
+	static getTimestampTodayStart() {
+		let m = new Date();
+		return m.getFullYear() +"-"+ (m.getMonth()+1) +"-"+ m.getDate() + " 00:00:00";
+	}
+
 	static getTimestampPreviousMonthStart() {
 		return Utils.getTimestampPreviousMonthsStart(1);
 	}

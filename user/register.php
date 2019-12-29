@@ -1,10 +1,10 @@
 <?php
 
-require_once('php/db.php');
-require_once('php/navigation-bar.php');
+require_once('../php/db.php');
+require_once('../php/navigation-bar.php');
 
 ob_start();
-require_once("php/check-detect-mobile-device.php");
+require_once("../php/check-detect-mobile-device.php");
 $ismobile = ob_get_clean() === '1';
  
 // Define variables and initialize with empty values
@@ -104,13 +104,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>System Registration</title>
-  <script type="text/javascript" src="js/libs/jquery-3.4.1.min.js"></script>
-  <script type="text/javascript" src="js/Utils.js"></script>
-  <link type="text/css" rel="stylesheet" href="css/responsive-web-page.css">
-  <link type="text/css" rel="stylesheet" href="css/main-styles.css">
-  <link type="text/css" rel="stylesheet" href="css/navigation-bar.css">
+  <script type="text/javascript" src="../js/libs/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="../js/Utils.js"></script>
+  <link type="text/css" rel="stylesheet" href="../css/responsive-web-page.css">
+  <link type="text/css" rel="stylesheet" href="../css/main-styles.css">
+  <link type="text/css" rel="stylesheet" href="../css/navigation-bar.css">
   <?php if ($ismobile) echo '<link type="text/css" rel="stylesheet" href="css/login.css">'; ?>
-  <?php require_once("php/favicon.php"); ?>
+  <?php require_once("../php/favicon.php"); ?>
   </style>
 </head>
 <body class="body">

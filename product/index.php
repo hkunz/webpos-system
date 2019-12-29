@@ -1,8 +1,8 @@
 <?php
 session_start();
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: ../login.php");
+    header("location: ../user/login.php");
     exit;
 }
-header("location: ../welcome.php");
+header("location: ../user/welcome.php");
 ?>

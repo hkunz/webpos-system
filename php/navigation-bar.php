@@ -26,8 +26,8 @@ $user_list = '
 <div class="dropdown-content">
   <a id="menu_home" href="' . $rootpath . 'welcome.php">Home</a>
   <a id="menu_settings" href="#">Settings</a>
-  <a id="menu_resetpass" href="' . $rootpath . 'reset-password.php">Reset Password</a>
-  <a id="menu_logout" href="' . $rootpath . 'logout.php">Logout</a>
+  <a id="menu_resetpass" href="' . $rootpath . 'user/reset-password.php">Reset Password</a>
+  <a id="menu_logout" href="' . $rootpath . 'user/logout.php">Logout</a>
 </div>';
 
 $user_menu = '

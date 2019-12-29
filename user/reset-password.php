@@ -6,6 +6,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 }
 
 $root = $_SESSION['root'];
+$href_root = $_SESSION['href_root'];
+
 require_once("${root}php/db.php");
 require_once("${root}php/navigation-bar.php");
 
@@ -124,10 +126,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reset Password</title>
-  <script type="text/javascript" src="js/libs/jquery-3.4.1.min.js"></script>
-  <script type="text/javascript" src="js/Utils.js"></script>
-  <link type="text/css" rel="stylesheet" href="css/main-styles.css">
-  <link type="text/css" rel="stylesheet" href="css/navigation-bar.css">
+  <script type="text/javascript" src="<?php echo $href_root; ?>js/libs/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="<?php echo $href_root; ?>js/Utils.js"></script>
+  <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/main-styles.css">
+  <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/navigation-bar.css">
   <?php require_once("${root}php/favicon.php"); ?>
 </head>
 <body class="body" style='overflow:none;'>

@@ -10,10 +10,13 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;
 }
+$root = $_SESSION['root'];
+$href_root = $_SESSION['href_root'];
+
 ob_start();
-require_once('php/check-detect-mobile-device.php');
+require_once("${root}/php/check-detect-mobile-device.php");
 $ismobile = ob_get_clean() === '1';
-require_once('php/navigation-bar.php');
+require_once("${root}/php/navigation-bar.php");
 $username = htmlspecialchars($_SESSION["username"]);
 ?>
 <!DOCTYPE html>
@@ -21,12 +24,12 @@ $username = htmlspecialchars($_SESSION["username"]);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Welcome <?php echo $username; ?></title>
-  <link type="text/css" rel="stylesheet" href="css/responsive-web-page.css">
-  <link type="text/css" rel="stylesheet" href="css/main-styles.css">
-  <link type="text/css" rel="stylesheet" href="css/navigation-bar.css">
-  <script type="text/javascript" src="js/libs/jquery-3.4.1.min.js"></script>
-  <script type="text/javascript" src="js/Utils.js"></script>
-  <script type="text/javascript" src="js/main.js"></script>
+  <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>/css/responsive-web-page.css">
+  <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/main-styles.css">
+  <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/navigation-bar.css">
+  <script type="text/javascript" src="<?php echo $href_root; ?>js/libs/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="<?php echo $href_root; ?>js/Utils.js"></script>
+  <script type="text/javascript" src="<?php echo $href_root; ?>js/main.js"></script>
 </head>
 <body class="body" style='overflow:hidden'>
   <?php echo $ismobile ? "<div class='navbar' style='padding:12px;padding-left:16px;'><label class='header-caption'><script type='text/javascript'>document.write(Utils.getStoreHeading());</script></label></div>
@@ -39,7 +42,7 @@ $username = htmlspecialchars($_SESSION["username"]);
     </div>
     <h1>Welcome <?php echo $username; ?></h1>
     <div>
-      <img class="welcome-image" src="imgs/makoy.jpg" style='min-width:100px;max-width:330px;width:100%;'>
+      <img class="welcome-image" src="<?php echo $href_root; ?>/imgs/makoy.jpg" style='min-width:100px;max-width:330px;width:100%;'>
     </div>
   </div>
   </div>

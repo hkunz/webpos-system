@@ -58,17 +58,19 @@ require_once("${root}php/" . ($ismobile ? "mini-navigation-bar" : "navigation-ba
             </div>
           </div>
         </div>
-        <div id="price_editor_container" style='width:100%;margin:0px;margin-top:10px;margin-bottom:10px;padding-left:15px;'>
-          <table cellpadding='0' cellspacing='0' style='table-layout:fixed;padding-right:15px;'>
-            <tr><td>
-              <label class='standard-label'>Current Unit Price:&nbsp;<script type="text/javascript">document.write(Utils.getCurrencySymbol());</script>&nbsp;</label></td><td><input id='unit_price_input' type="number" min='0' placeholder='' onkeydown="return Utils.not(event);" style='color:#ffffaa;width:100%;max-width:100px;margin-bottom:5px;padding-right:5px;'>
-            </tr><tr><td>
-              <label class='standard-label'>Current Sell Price:&nbsp;<script type="text/javascript">document.write(Utils.getCurrencySymbol());</script>&nbsp;</label></td><td><input id='sell_price_input' type="number" min='0' placeholder='' onkeydown="return Utils.not(event);" style='color:#ffffaa;width:100%;max-width:100px;padding-right:5px;'>
-            </td></tr> 
-          </table>
-        </div>
-        <div style='padding:15px;padding-top:0px;width:100%;max-width:<?php echo ($mobile) ? "100%" : "325px" ?>;'>
-          <button id="update_price_button" class="commit-transaction-button" disabled="true">UPDATE PRODUCT PRICE</button>
+        <div id="price_editor_container" style='width:100%;margin:0px;margin-top:10px;margin-bottom:10px;padding-left:15px;padding-right:15px;'>
+          <div style='width:100%;'>
+            <table cellpadding='0' cellspacing='0' <?php if ($ismobile) echo 'style="width:100%;"' ; ?>>
+              <tr><td>
+                <label class='standard-label'>Curr Unit Price:&nbsp;<script type="text/javascript">document.write(Utils.getCurrencySymbol());</script>&nbsp;</label></td><td style='text-align:<?php echo $ismobile ? "right" : "left"; ?>'><input id='unit_price_input' type="number" min='0' placeholder='' onkeydown="return Utils.not(event);" style='color:#ffffaa;width:100%;max-width:100px;margin-bottom:5px;'>
+              </tr><tr><td>
+                <label class='standard-label'>Curr Sell Price:&nbsp;<script type="text/javascript">document.write(Utils.getCurrencySymbol());</script>&nbsp;</label></td><td style='text-align:<?php echo $ismobile ? "right" : "left"; ?>'><input id='sell_price_input' type="number" min='0' placeholder='' onkeydown="return Utils.not(event);" style='color:#ffffaa;width:100%;max-width:100px;'>
+              </td></tr> 
+            </table>
+          </div>
+          <div style='display:block;float:left;padding-top:10px;padding-bottom:10px;width:100%;max-width:<?php echo ($mobile) ? "100%" : "100%" ?>;'>
+            <button id="update_price_button" class="commit-transaction-button" disabled="true">UPDATE PRODUCT PRICE</button>
+          </div>
         </div>
       </div>
       <div id="table_container" style="width:100%;margin:0px;">

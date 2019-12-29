@@ -1,0 +1,20 @@
+div.stats-heading {
+  background-color: #222;
+  width: 100%;
+  padding: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-bottom: 2px ridge #333333;
+  box-shadow: 0px 0px 10px 2px #222222;
+}
+
+div.stats-content {
+  padding: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+label.stat-total {
+  font-weight: bold;
+  color: #ffff99;
+}

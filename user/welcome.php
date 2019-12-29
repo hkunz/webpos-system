@@ -42,7 +42,7 @@ $username = htmlspecialchars($_SESSION["username"]);
     </div>
     <h1>Welcome <?php echo $username; ?></h1>
     <div>
-      <img class="welcome-image" src="<?php echo $href_root; ?>/imgs/makoy.jpg" style='min-width:100px;max-width:330px;width:100%;'>
+      <img class="welcome-image" src="<?php echo $href_root; ?>/assets/imgs/makoy.jpg" style='min-width:100px;max-width:330px;width:100%;'>
     </div>
   </div>
   </div>

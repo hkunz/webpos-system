@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: ../login.php");
+    header("location: ../../login.php");
     exit;
 }
 $href_root = $_SESSION['href_root'];

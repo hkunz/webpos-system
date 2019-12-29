@@ -11,9 +11,9 @@ $company_list = '
 
 $products_list = '
 <div class="dropdown-content">
-  <a href="' . $rootpath . 'add-new-product/">Add New Product</a>
-  <a href="' . $rootpath . 'update-product-price/">Update Product Price</a>
-  <a href="' . $rootpath . 'view-product-details/">View Product Details</a>
+  <a href="' . $rootpath . 'product/add-new-product/">Add New Product</a>
+  <a href="' . $rootpath . 'product/update-product-price/">Update Product Price</a>
+  <a href="' . $rootpath . 'product/view-product-details/">View Product Details</a>
 </div>';
 
 $accounts_list = '

@@ -12,6 +12,8 @@ require_once("${root}php/navigation-bar.php");
 ob_start();
 require_once("${root}php/check-detect-mobile-device.php");
 $ismobile = ob_get_clean() === '1';
+require_once("${root}php/" . ($ismobile ? "mini-navigation-bar" : "navigation-bar") . ".php");
+
 
 $username = htmlspecialchars($_SESSION["username"]); 
 
@@ -131,12 +133,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <body class="body" style='overflow:none;'>
   <?php echo $navbar_content; ?>
   <div class="container-wrapper">
-    <div class="container-left" style='max-width:500px;overflow:hidden;padding-bottom:30px;margin-bottom:50px;'>
+    <div class="container-left" style='width:100%;max-width:500px;overflow:hidden;overflow-y:auto;padding-bottom:30px;margin-bottom:50px;'>
       <div class='store-heading' <?php echo $ismobile ? "style='display:none;'" : '' ?>>
         <label class="heading"><script type="text/javascript">document.write(Utils.getStoreHeading());</script></label> | <label class="heading-sub"><script type="text/javascript">document.write(Utils.getStoreSubHeading());</script></label>
         <hr class="division">
       </div>
-      <label style="font-weight:bold;">RESET PASSWORD</label><label class="standard-label"> FOR USER: </label><label style="color:cyan;font-weight:bold;"><?php echo $username?></label>
+      <div style='width:100%;'>
+        <label style="font-weight:bold;">RESET PASSWORD&nbsp;</label><?php if ($ismobile) echo "<hr class='division'>"; ?><label class='standard-label'>FOR USER: </label><label style="color:cyan;font-weight:bold;"><?php echo $username?></label>
+      </div>
       <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post"> 
         <div class="form-group <?php echo (!empty($curr_password_err)) ? 'has-error' : ''; ?>" style="padding-bottom:7px;padding-top:20px;">
           <label class="standard-label">Current Password: </label>

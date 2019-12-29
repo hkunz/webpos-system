@@ -49,7 +49,7 @@ require_once("${root}php/" . ($ismobile ? "mini-navigation-bar" : "navigation-ba
       <div class="search_item">
         <input type="text" class="awesomplete" id="search_item_input" placeholder="Type here to search product ..." spellcheck="false" />
       </div>
-      <div id="product_name_container" class='common-table-wrapper' style='margin-top:13px;margin-bottom:5px;display:none;padding:0px;background: linear-gradient(to bottom, #333, #444)'>
+      <div id="product_name_container" class='common-table-wrapper' style='overflow-y:visible;margin-top:13px;margin-bottom:5px;display:none;padding:2px;background: linear-gradient(to bottom, #333, #444)'>
         <div>
           <div class='header' style='height:100%;'>
             <div style='padding:8px;padding-left:15px;'>
@@ -58,15 +58,17 @@ require_once("${root}php/" . ($ismobile ? "mini-navigation-bar" : "navigation-ba
             </div>
           </div>
         </div>
-        <div id="price_editor_container" style='width:100%;margin:0px;margin-top:10px;margin-bottom:10px;padding-left:15px;height:500px;'>
-          <table width='100%' cellpadding='0' cellspacing='0'>
-            <tr><td width='320px;'>
-              <label class='standard-label'>Current Unit Price: <script type="text/javascript">document.write(Utils.getCurrencySymbol());</script>&nbsp;</label><input id='unit_price_input' type="number" min='0' placeholder='' onkeydown="return Utils.not(event);" style='color:#ffffaa;width:100px;margin-bottom:5px;'><br>
-              <label class='standard-label'>Current Sell Price: <script type="text/javascript">document.write(Utils.getCurrencySymbol());</script>&nbsp;</label><input id='sell_price_input' type="number" min='0' placeholder='' onkeydown="return Utils.not(event);" style='color:#ffffaa;width:100px;'>
-            </td><td>
-              <button id="update_price_button" class="commit-transaction-button" style='width:210px;' disabled="true">UPDATE PRODUCT PRICE</button>
-            </td></tr>
+        <div id="price_editor_container" style='width:100%;margin:0px;margin-top:10px;margin-bottom:10px;padding-left:15px;'>
+          <table cellpadding='0' cellspacing='0' style='table-layout:fixed;padding-right:15px;'>
+            <tr><td>
+              <label class='standard-label'>Current Unit Price:&nbsp;<script type="text/javascript">document.write(Utils.getCurrencySymbol());</script>&nbsp;</label></td><td><input id='unit_price_input' type="number" min='0' placeholder='' onkeydown="return Utils.not(event);" style='color:#ffffaa;width:100%;max-width:100px;margin-bottom:5px;padding-right:5px;'>
+            </tr><tr><td>
+              <label class='standard-label'>Current Sell Price:&nbsp;<script type="text/javascript">document.write(Utils.getCurrencySymbol());</script>&nbsp;</label></td><td><input id='sell_price_input' type="number" min='0' placeholder='' onkeydown="return Utils.not(event);" style='color:#ffffaa;width:100%;max-width:100px;padding-right:5px;'>
+            </td></tr> 
           </table>
+        </div>
+        <div style='padding:15px;padding-top:0px;width:100%;max-width:<?php echo ($mobile) ? "100%" : "325px" ?>;'>
+          <button id="update_price_button" class="commit-transaction-button" disabled="true">UPDATE PRODUCT PRICE</button>
         </div>
       </div>
       <div id="table_container" style="width:100%;margin:0px;">
@@ -78,7 +80,7 @@ require_once("${root}php/" . ($ismobile ? "mini-navigation-bar" : "navigation-ba
             </table>
           </div>
         </div>
-        <div style='margin-top:-10px;padding-left:<?php echo $ismobile ? "0px" : "6px"; ?>;width:<?php echo $ismobile ? "100%" : "50%"; ?>;float:left;'>
+        <div style='padding-left:<?php echo $ismobile ? "0px" : "6px"; ?>;width:<?php echo $ismobile ? "100%" : "50%"; ?>;float:left;'>
           <div class="common-table-wrapper" style='width:100%'> 
             <table class='common-table' cellspacing="0" cellpadding="0">
               <thead><tr><th>Sell Price History</th><th align='right' nowrap></th></tr></thead>

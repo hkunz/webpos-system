@@ -74,6 +74,9 @@ class ItemSelectionListHandler {
 		$(amtId).bind('input', function(e) {
 			thiz.onChangeMouseUpKeyUp(id);
 		});
+		$(amtId).keypress(function(e) {
+			if (e.keyCode == 13) this.blur();
+		});
 		this.updateItemsList();
 		this.updatePrice(id);
 	}

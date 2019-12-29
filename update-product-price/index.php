@@ -62,9 +62,9 @@ require_once("${root}php/" . ($ismobile ? "mini-navigation-bar" : "navigation-ba
           <div style='width:100%;'>
             <table cellpadding='0' cellspacing='0' <?php if ($ismobile) echo 'style="width:100%;"' ; ?>>
               <tr><td>
-                <label class='standard-label'>Curr Unit Price:&nbsp;<script type="text/javascript">document.write(Utils.getCurrencySymbol());</script>&nbsp;</label></td><td style='text-align:<?php echo $ismobile ? "right" : "left"; ?>'><input id='unit_price_input' type="number" min='0' placeholder='' onkeydown="return Utils.not(event);" style='color:#ffffaa;width:100%;max-width:100px;margin-bottom:5px;'>
+                <label class='standard-label'>Curr Unit Price:</label></td><td style='text-align:<?php echo $ismobile ? "right" : "left"; ?>'><div style='white-space:nowrap;'><label class='standard-label'><script type="text/javascript">document.write(Utils.getCurrencySymbol());</script>&nbsp;</label><input id='unit_price_input' type="number" min='0' placeholder='' onkeydown="return Utils.not(event);" style='color:#ffffaa;width:100%;max-width:100px;margin-bottom:5px;'></div>
               </tr><tr><td>
-                <label class='standard-label'>Curr Sell Price:&nbsp;<script type="text/javascript">document.write(Utils.getCurrencySymbol());</script>&nbsp;</label></td><td style='text-align:<?php echo $ismobile ? "right" : "left"; ?>'><input id='sell_price_input' type="number" min='0' placeholder='' onkeydown="return Utils.not(event);" style='color:#ffffaa;width:100%;max-width:100px;'>
+                <label class='standard-label'>Curr Sell Price:</label></td><td style='text-align:<?php echo $ismobile ? "right" : "left"; ?>'><div style='white-space:nowrap;'><label class='standard-label'><script type="text/javascript">document.write(Utils.getCurrencySymbol());</script>&nbsp;</label><input id='sell_price_input' type="number" min='0' placeholder='' onkeydown="return Utils.not(event);" style='color:#ffffaa;width:100%;max-width:100px;'></div>
               </td></tr> 
             </table>
           </div>

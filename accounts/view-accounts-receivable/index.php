@@ -30,11 +30,11 @@
 </head>
 
 <body class="body">
-  <div id="item_name_dialog" class="modal">
+  <!-- <div id="item_name_dialog" class="modal">
     <label id='item_name_label' class='standard-label'></label>
-    <!-- <a href="#" rel="modal:close">Close</a> -->
+    <a href="#" rel="modal:close">Close</a>
   </div>
-  <!-- <p><a href="#item_name_dialog" rel="modal:open">Open Modal</a></p> -->
+  <p><a href="#item_name_dialog" rel="modal:open">Open Modal</a></p> -->
   <?php echo $navbar_content; ?>
   <div class="container-wrapper">
     <div class="container-left" <?php if ($ismobile) echo "style='height:100%;overflow:hidden;'" ?>>

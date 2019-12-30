@@ -39,6 +39,7 @@ class AccountsReceivableByCustomerHandler {
 			thiz.onTableButtonClick(e.detail);
 		});
 		this.phpGetAccountsReceivable(null, ViewState.CUSTOMERS_LIST);
+		this.setSearchFocus();
 	}
 
 	onCustomerSelection() {
@@ -93,7 +94,7 @@ class AccountsReceivableByCustomerHandler {
 			let row = thiz.getRowByCellContent(id, json.data);
 			thiz.onRowTableClick(id, row);
 		});
-		this.setSearchFocus();
+		//this.setSearchFocus();
 		this.updateHeader();
 	}
 
@@ -131,7 +132,7 @@ class AccountsReceivableByCustomerHandler {
 			this.phpGetAccountsReceivable(value, ViewState.TRANSACTIONS_DETAILS_LIST);
 		} else if (s === ViewState.TRANSACTIONS_DETAILS_LIST) {
 			console.log(row['item_id'] + ": " + row['Product Description']);
-			this.setSearchFocus();
+			//this.setSearchFocus();
 		}
 	}
 
@@ -140,7 +141,7 @@ class AccountsReceivableByCustomerHandler {
 		let s = this.current_state;
 		if (s === ViewState.TRANSACTIONS_LIST) {
 			this.setCurrentState(ViewState.TRANSACTION_PAY);
-			this.setSearchFocus();
+			//this.setSearchFocus();
 			let transaction_id = Number(detail.first_cellvalue);
 			$('#table_container').html('');
 			$('#table_container').load('html/pay-transaction-div.html', function(e) {

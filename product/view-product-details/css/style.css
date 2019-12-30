@@ -1,0 +1,10 @@
+td.td-col {
+  width: 140px;
+  white-space: nowrap;
+}
+
+td.td2-col {
+  width: 100%;
+  white-space: nowrap;
+  text-align: right;
+}

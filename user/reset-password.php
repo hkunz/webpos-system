@@ -130,6 +130,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   <script type="text/javascript" src="<?php echo $href_root; ?>js/Utils.js"></script>
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/main-styles.css">
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/navigation-bar.css">
+  <?php if ($ismobile) echo '<link type="text/css" rel="stylesheet" href="css/login.css">'; ?>
   <?php require_once("${root}php/favicon.php"); ?>
 </head>
 <body class="body" style='overflow:none;'>

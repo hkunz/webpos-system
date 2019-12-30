@@ -49,7 +49,7 @@ require_once("${root}php/" . ($ismobile ? "mini-navigation-bar" : "navigation-ba
       <div class="search_item">
         <input type="text" class="awesomplete" id="search_item_input" placeholder="Type here to search product ..." spellcheck="false" />
       </div>
-      <div class="common-table-wrapper" style='height:100%;max-height:100%;display:flex;flex-flow:column;'>
+      <div class="common-table-wrapper" style='max-height:100%;display:flex;flex-flow:column;'>
       <div>
       <table class="common-table" cellspacing="0" cellpadding="0" style=''>
         <thead style='display:table;'>
@@ -59,9 +59,9 @@ require_once("${root}php/" . ($ismobile ? "mini-navigation-bar" : "navigation-ba
         </thead>
       </table>
       </div>
-      <div style='overflow-y:auto;flex:1;height:100%;'>
-      <table class="common-table" cellspacing="0" cellpadding="0" style='height:100%;'>
-        <tbody style='display:flex;flex-flow:column;height:100%;overflow:hidden'>
+      <div style='overflow-y:auto;flex:1;'>
+      <table class="common-table" cellspacing="0" cellpadding="0">
+        <tbody style='display:flex;flex-flow:column;overflow:hidden'>
         <tr>
           <td class='td-col'><label class="standard-label">Product ID</label></td>
           <td class='td2-col'><label id="product_id" class="drop-shadow"></label>

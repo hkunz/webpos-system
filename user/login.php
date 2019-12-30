@@ -2,21 +2,13 @@
 $ROOT_DIRECTORY = "klebbys/";
 
 // SOURCE: https://www.tutorialrepublic.com/php-tutorial/php-mysql-login-system.php
-// Initialize the session
-session_start();
+
+require_once("../php/page-header.php");
  
-// Check if the user is already logged in, if yes then redirect him to welcome page
-if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+if ($login) {
     header("location: welcome.php");
     exit;
 }
- 
-require_once("../php/db.php");
-require_once("../php/navigation-bar.php");
-
-ob_start();
-require_once("../php/check-detect-mobile-device.php");
-$ismobile = ob_get_clean() === '1';
  
 // Define variables and initialize with empty values
 $username = $password = "";

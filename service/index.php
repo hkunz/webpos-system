@@ -1,21 +1,9 @@
 <?php
-session_start();
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: ../user/login.php");
-    exit;
-}
-$root = $_SESSION['root'];
-$href_root = $_SESSION['href_root'];
+  require_once("../php/page-header.php");
 
-ob_start();
-require_once("${root}php/check-detect-mobile-device.php");
-$ismobile = ob_get_clean() === '1';
-require_once("${root}php/" . ($ismobile ? "mini-navigation-bar" : "navigation-bar") . ".php");
-
-function getTransactionContainer() {
-return "<div class='receipt'><label class='receipt'>TXN:&nbsp;</label><label class='receipt' style='color:white' id='transaction_id'>&nbsp;</label></div>";
-}
-
+  function getTransactionContainer() {
+    return "<div class='receipt'><label class='receipt'>TXN:&nbsp;</label><label class='receipt' style='color:white' id='transaction_id'>&nbsp;</label></div>";
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -1,34 +1,14 @@
 <?php
-// Initialize the session
-session_start();
+  require_once("../php/page-header.php");
 
-// Check if the user is logged in, if not then redirect to login page
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: ../user/login.php");
-    exit;
-}
-$href_root = $_SESSION['href_root'];
-$root = $_SESSION['root'];
+  function br($indent) {
+    $b = '<br>';
+    if ($indent) $b .= '&nbsp;&nbsp;&nbsp;';
+    return $b;
+  }
 
-ob_start();
-require_once("${root}php/check-detect-mobile-device.php");
-$ismobile = ob_get_clean() === '1';
-require_once("${root}php/" . ($ismobile ? "mini-navigation-bar" : "navigation-bar") . ".php");
-
-function sbr($indent) {
-  echo '<br>';
-  if ($indent) echo '&nbsp;&nbsp;&nbsp;';
-}
-
-function br($indent) {
-  $b = '<br>';
-  if ($indent) $b .= '&nbsp;&nbsp;&nbsp;';
-  return $b;
-}
-
-function create_stats_group($ismobile, $title, $totalId, $prepaidId, $productsId, $servicesId, $prepaid2Id, $products2Id, $services2Id) {
-	echo
-"<div class='common-table-wrapper' style='margin-top:0px;margin-bottom:10px;'>
+  function create_stats_group($ismobile, $title, $totalId, $prepaidId, $productsId, $servicesId, $prepaid2Id, $products2Id, $services2Id) {
+    echo "<div class='common-table-wrapper' style='margin-top:0px;margin-bottom:10px;'>
         <div class='stats-heading'>
           <label class='standard-label'>$title</label>" . ($ismobile ? br(1) : '') . "
           <label id='$totalId' class='drop-shadow stat-total'></label>
@@ -41,9 +21,8 @@ function create_stats_group($ismobile, $title, $totalId, $prepaidId, $productsId
           <label class='standard-label'>Services:</label>" . ($ismobile ? br(1) : '') . "
           <label id='$servicesId' class='drop-shadow'></label>
         </div>
-      </div>
-";
-}
+      </div>";
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">

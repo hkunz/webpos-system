@@ -1,23 +1,11 @@
 <?php
-session_start();
 /*
 foreach ($_SERVER as $key => $value) {
 	echo "$key : $value<br>";
 }
 exit;
 //*/
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: login.php");
-    exit;
-}
-$root = $_SESSION['root'];
-$href_root = $_SESSION['href_root'];
-
-ob_start();
-require_once("${root}/php/check-detect-mobile-device.php");
-$ismobile = ob_get_clean() === '1';
-require_once("${root}/php/navigation-bar.php");
-$username = htmlspecialchars($_SESSION["username"]);
+require_once("../php/page-header.php");
 ?>
 <!DOCTYPE html>
 <html lang="en" style='border-top:0;'>

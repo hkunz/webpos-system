@@ -2,10 +2,9 @@
 session_start();
 $root = $_SESSION['root'];
 require_once("${root}php/db.php");
+require_once("${root}php/libs/MobileDetect.php");
 
-ob_start();
-require_once("${root}php/check-detect-mobile-device.php");
-$ismobile = ob_get_clean() === '1';
+$ismobile = (new MobileDetect)->isMobile();
 
 $item_id = $_POST['item_id'];
 $currency = $_SESSION['currency'];

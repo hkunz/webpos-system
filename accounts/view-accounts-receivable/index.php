@@ -1,31 +1,23 @@
 <?php
-session_start();
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: ../../user/login.php");
-    exit;
-}
-$href_root = $_SESSION['href_root'];
-$root = $_SESSION['root'];
-
-ob_start();
-require_once("${root}php/check-detect-mobile-device.php");
-$ismobile = ob_get_clean() === '1';
-require_once("${root}php/" . ($ismobile ? "mini-navigation-bar" : "navigation-bar") . ".php");
+  require_once("../../php/page-header.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Accounts Receivable</title>
+  <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/libs/jquery-modal-0.9.1.min.css" />
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/main-styles.css">
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/navigation-bar.css">
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/awesomplete.css">
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/common-table.css">
   <link type="text/css" rel="stylesheet" href="<?php echo ($ismobile ? $href_root . 'css/main-styles-mobile.css' : '') ?>">
   <script type="text/javascript" src="<?php echo $href_root; ?>js/libs/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="<?php echo $href_root; ?>js/libs/jquery-modal-0.9.1.min.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>js/libs/awesomplete.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>js/AwesompleteInputHandler.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>js/Utils.js"></script>
+  <script type="text/javascript" src="<?php echo $href_root; ?>js/PopupUtils.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>js/sound-effects.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>service/js/CustomerSearchInputHandler.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>js/common/TableRowHandler.js"></script>
@@ -38,6 +30,11 @@ require_once("${root}php/" . ($ismobile ? "mini-navigation-bar" : "navigation-ba
 </head>
 
 <body class="body">
+  <div id="item_name_dialog" class="modal">
+    <label id='item_name_label' class='standard-label'></label>
+    <!-- <a href="#" rel="modal:close">Close</a> -->
+  </div>
+  <!-- <p><a href="#item_name_dialog" rel="modal:open">Open Modal</a></p> -->
   <?php echo $navbar_content; ?>
   <div class="container-wrapper">
     <div class="container-left" <?php if ($ismobile) echo "style='height:100%;overflow:hidden;'" ?>>

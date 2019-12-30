@@ -1,11 +1,6 @@
 <?php
 
-require_once('../php/db.php');
-require_once('../php/navigation-bar.php');
-
-ob_start();
-require_once("../php/check-detect-mobile-device.php");
-$ismobile = ob_get_clean() === '1';
+require_once("../php/page-header.php");
  
 // Define variables and initialize with empty values
 $username = $password = $confirm_password = "";

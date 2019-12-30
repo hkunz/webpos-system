@@ -131,7 +131,11 @@ class AccountsReceivableByCustomerHandler {
 			this.transaction_total = row["Receivable"];
 			this.phpGetAccountsReceivable(value, ViewState.TRANSACTIONS_DETAILS_LIST);
 		} else if (s === ViewState.TRANSACTIONS_DETAILS_LIST) {
-			console.log(row['item_id'] + ": " + row['Product Description']);
+			let c = Utils.getCurrencySymbol();
+			let msg = row['Product Description'] + ' {ID-' + row['item_id'] + '} (' + c + row['Unit Price'] + " X " + row['Qty'] + ' = ' + c + row['Cost'] + ')';
+			Utils.play(sfx_display);
+			console.log(msg);
+			PopupUtils.create(msg);
 			//this.setSearchFocus();
 		}
 	}

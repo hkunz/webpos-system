@@ -1,16 +1,5 @@
 <?php
-session_start();
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: ../../user/login.php");
-    exit;
-}
-$href_root = $_SESSION['href_root'];
-$root = $_SESSION['root'];
-
-ob_start();
-require_once("${root}php/check-detect-mobile-device.php");
-$ismobile = ob_get_clean() === '1';
-require_once("${root}php/" . ($ismobile ? "mini-navigation-bar" : "navigation-bar") . ".php");
+  require_once("../../php/page-header.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">

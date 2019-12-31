@@ -155,10 +155,21 @@ class AccountsReceivableByCustomerHandler {
 	}
 
 	onPayTransactionViewLoad(detail) {
+		let thiz = this;
 		this.transaction_id = detail.first_cellvalue;
 		let row = this.getRowByCellContent(this.transaction_id, this.current_data);
 		this.transaction_total = row["Receivable"];
-		let payment = row["Payment"];
+		let curr_payment = row["Payment"];
+		$('#payment_input').attr('max', this.transaction_total);
+		$('#payment_input').attr('placeholder', curr_payment);
+		$('#payment_input').val(curr_payment);
+		$('#payment_input').bind('input', function(e) {
+			let pay = Number($('#payment_input').val());
+			let rec = Number(thiz.transaction_total);
+			let cur = Number(curr_payment);
+			let enable = pay > curr_payment && pay <= rec;
+			document.getElementById('update_payment_button').disabled = !enable;
+		});
 		this.updateHeader();
 		$('#transaction_id').text($('#transaction_label').text());
 	}

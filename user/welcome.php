@@ -6,6 +6,7 @@ foreach ($_SERVER as $key => $value) {
 exit;
 //*/
 require_once("../php/page-header.php");
+$username = htmlspecialchars($_SESSION["username"]);
 ?>
 <!DOCTYPE html>
 <html lang="en" style='border-top:0;'>

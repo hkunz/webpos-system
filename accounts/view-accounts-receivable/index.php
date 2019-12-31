@@ -12,6 +12,7 @@
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/awesomplete.css">
   <link type="text/css" rel="stylesheet" href="<?php echo $href_root; ?>css/common-table.css">
   <link type="text/css" rel="stylesheet" href="<?php echo ($ismobile ? $href_root . 'css/main-styles-mobile.css' : '') ?>">
+  <link type="text/css" rel="stylesheet" href="css/styles.css">
   <script type="text/javascript" src="<?php echo $href_root; ?>js/libs/jquery-3.4.1.min.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>js/libs/jquery-modal-0.9.1.min.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>js/libs/awesomplete.js"></script>

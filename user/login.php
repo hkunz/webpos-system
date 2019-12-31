@@ -4,7 +4,8 @@ $ROOT_DIRECTORY = "klebbys/";
 // SOURCE: https://www.tutorialrepublic.com/php-tutorial/php-mysql-login-system.php
 
 require_once("../php/page-header.php");
- 
+require_once("../php/db.php");
+
 if ($login) {
     header("location: welcome.php");
     exit;

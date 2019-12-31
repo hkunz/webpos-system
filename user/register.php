@@ -1,7 +1,13 @@
 <?php
 
 require_once("../php/page-header.php");
- 
+require_once("../php/db.php");
+
+if ($login) {
+    header("location: welcome.php");
+    exit;
+}
+
 // Define variables and initialize with empty values
 $username = $password = $confirm_password = "";
 $username_err = $password_err = $confirm_password_err = "";

@@ -24,30 +24,42 @@ class AwesompleteInputHandler {
 			}
 		});
 		let thiz = this;
-		$("#" + this.name).keyup(function(e) {
+		this.getInputElement().keyup(function(e) {
 			thiz.onItemSearchInputChange(e);
 		});
 	}
 
 	onItemSearchInputChange(e) {
-		let name = $("#" + this.name).val().trim();
+		let name = this.getInputElementVal();
 		if (name == "") {
 			//$("#items_dropdown").html("");
 		} else {
-			let thiz = this;
-			$.ajax({
-				type: "POST",
-				url: this.url + Utils.getRandomUrlVar(),
-				data: {
-					search: name,
-					postvar1: this.postvar1,
-					postvar2: this.postvar2
-				},
-				success: function(data) {
-					thiz.onAjaxSuccess(data);
-				}
-			});
+			this.ajax(name);
 		}
+	}
+
+	ajax(search) {
+		let thiz = this;
+		$.ajax({
+			type: "POST",
+			url: this.url + Utils.getRandomUrlVar(),
+			data: {
+				search: search,
+				postvar1: this.postvar1,
+				postvar2: this.postvar2
+			},
+			success: function(data) {
+				thiz.onAjaxSuccess(data);
+			}
+		});
+	}
+
+	getInputElementVal() {
+		return this.getInputElement().val().trim();
+	}
+
+	getInputElement() {
+		return $("#" + this.name);
 	}
 
 	onAjaxSuccess(data) {

@@ -159,6 +159,10 @@ class Utils {
 			return false;
 		});
 	}
+
+	static barcodeLength() {
+		return 13;
+	}
 }
 
 $.ajax({

@@ -80,17 +80,21 @@ class ItemAmountInputPopupHandler {
 
 	onPopupEnter() {
 		let amount = Number(document.getElementById('popup_amount_input').value);
+		ItemAmountInputPopupHandler.dispatchInputComplete(this.code, this.unit, this.itemId, this.description, amount > 0 ? amount : 1, this.sell_price);
+		this.showPopup(false);
+	}
+
+	static dispatchInputComplete(code, unit, itemId, description, amount, sell_price) {
 		const e = new CustomEvent(EVENT_ITEM_AMOUNT_POPUP_INPUT_COMPLETE, {
 			detail: {
-				code:this.code,
-				unit:this.unit,
-				itemId:this.itemId,
-				description:this.description,
-				amount:(amount > 0 ? amount : 1),
-				sell_price:this.sell_price,
+				code: code,
+				unit: unit,
+				itemId: itemId,
+				description: description,
+				amount: (amount > 0 ? amount : 1),
+				sell_price: sell_price
 			}
 		});
-		this.showPopup(false);
 		document.getElementById("eventdispatcher").dispatchEvent(e);
 	}
 

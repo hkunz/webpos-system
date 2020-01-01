@@ -30,6 +30,7 @@
   <script type="text/javascript" src="js/constants.js"></script>
   <script type="text/javascript" src="js/ItemAmountInputPopupHandler.js"></script>
   <script type="text/javascript" src="js/ItemSearchInputHandler.js"></script>
+  <script type="text/javascript" src="js/ProductSearchInputHandler.js"></script>
   <script type="text/javascript" src="js/CustomerSearchInputHandler.js"></script>
   <script type="text/javascript" src="js/ItemSelectionListHandler.js"></script>
   <?php if ($ismobile) echo '  <script type="text/javascript" src="js/ItemSelectionListHandlerMobile.js"></script>'; ?>

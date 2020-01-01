@@ -4,7 +4,7 @@ class Controller {
 
 	constructor() {
 		this.item_amount_input_handler = new ItemAmountInputPopupHandler();
-		this.item_search_input_handler = new ItemSearchInputHandler();
+		this.item_search_input_handler = new ProductSearchInputHandler();
 		this.item_selects_list_handler = null;
 		try {
 			this.item_selects_list_handler = new ItemSelectionListHandlerMobile();

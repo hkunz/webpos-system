@@ -7,6 +7,14 @@ class ProductSearchInputHandler extends ItemSearchInputHandler {
 		this.barcode = null;
 	}
 
+	onDocumentReady() {
+		super.onDocumentReady();
+		let thiz = this;
+		document.getElementById(this.name).addEventListener('paste', function(e) {
+			thiz.onTextPaste(e);
+		});
+	}
+
 	onItemSearchInputChange(e) {
 		let thiz = this;
 		let search = this.getInputElementVal();
@@ -18,8 +26,9 @@ class ProductSearchInputHandler extends ItemSearchInputHandler {
 	}
 
 	onEnterPress() {
-		let value = $('#search_item_input').val();
+		let value = this.getInputElementVal();
 		let index = value.indexOf("*");
+		this.clearInputElement();
 		if (index > -1) {
 			let qty = parseInt(value.substring(0, index));
 			if (isNaN(qty)) {
@@ -45,6 +54,19 @@ class ProductSearchInputHandler extends ItemSearchInputHandler {
 			ItemAmountInputPopupHandler.dispatchInputComplete(i.code, i.unit, i.item_id, i.description, qty, i.sell_price);
 		} else {
 			super.onAjaxSuccess(data);
+		}
+	}
+
+	onTextPaste(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		let clipboard = e.clipboardData || window.clipboardData;
+		let paste = clipboard.getData('Text');
+		let enter = (paste.indexOf('\n') > 0);
+		let text = paste.replace(/[\n\r]/g, '');
+		this.getInputElement().val(text);
+		if (enter) {
+			this.onEnterPress();
 		}
 	}
 }

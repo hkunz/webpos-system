@@ -62,6 +62,10 @@ class AwesompleteInputHandler {
 		return $("#" + this.name);
 	}
 
+	clearInputElement() {
+		this.getInputElement().val('');
+	}
+
 	onAjaxSuccess(data) {
 		//https://github.com/LeaVerou/awesomplete/issues/17207
 	}

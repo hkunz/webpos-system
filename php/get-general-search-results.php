@@ -23,5 +23,7 @@ if (isset($_POST['search'])) {
 		}
 	}
 }
+
+$sql_con->close();
 ?>
 

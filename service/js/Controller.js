@@ -53,6 +53,7 @@ class Controller {
 		document.getElementById('transaction_timestamp').value = '';
 		document.getElementById('customer').value = '';
 		document.getElementById('transaction_type').value = 'sale';
+		$('#payment_method').prop("selectedIndex", 0);
 		$('#timestamp_input').css('display','none');
 		$('#use_currentdate_checkbox').prop('checked', true);
 		$('#require_payment_checkbox').prop('checked', true);
@@ -64,6 +65,8 @@ class Controller {
 	onDocumentReady() {
 		let thiz = this;
 		$('#cash_input').attr('placeholder', Utils.getCurrencySymbol());
+		this.phpGetPaymentOptions();
+
                 $('#use_currentdate_checkbox').change(function(e) {
                         thiz.onCurrentDateCheckboxChange(e);
                 });
@@ -130,5 +133,30 @@ class Controller {
 		} else {
 			$("#transaction_timestamp").focus();
 		}
+	}
+
+	phpGetPaymentOptions() {
+		let thiz = this;
+		$.ajax({
+			type: "POST",
+			url: "/" + Utils.getRootName() + "/php/get-general-options-list.php" + Utils.getRandomUrlVar(), 
+			data: {
+				table: 'payment_methods',
+				field: 'payment_method',
+				order: 'payment_method_id'
+			},
+			success: function(data) {
+				thiz.onPaymentOptionsLoaded(data);
+			}
+		});
+	}
+
+	onPaymentOptionsLoaded(data) {
+		var list = $('#payment_method');
+		let values = data.split(',');
+		values.forEach(function(item, index) {
+			list.append(new Option(values[index], index));
+		});
+		list.prop("selectedIndex", 0);
 	}
 }

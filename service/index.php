@@ -165,10 +165,6 @@
         <td>
           <div style='padding-left:1px;'>
             <select id="payment_method">
-              <option value="CASH">CASH</option>
-              <option value="loss">CHECK</option>
-              <option value="restock">MASTERCARD</option>
-              <option value="return">VISA</option>
             </select>
           </div>
         </td>

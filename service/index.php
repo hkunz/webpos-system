@@ -111,7 +111,7 @@
         </div>
       </div>
     </div>
-    <div class="container-right" style='max-height:360px;'>
+    <div class="container-right" style='max-height:370px;'>
     <?php if (!$ismobile) echo getTransactionContainer(); ?>
     <table class="totals-grid" cellspacing='0' cellpadding='0'>
       <tr class="totals-tr">
@@ -154,17 +154,28 @@
       <tr class="totals-tr">
         <td colspan="2">
           <div class="checkbox-container checkbox-container-bg">
-            <label class="checkbox-container">Require payment
+            <label class="checkbox-container">Full payment
               <input id="require_payment_checkbox" type="checkbox" checked>
               <span class="checkmark"></span>
             </label>
           </div>
         </td>
       </tr>
-      <tr class="totals-tr">
-        <td><label class="label-text">Cash:</label></td>
+      <tr>
+        <td>
+          <div style='padding-left:1px;'>
+            <select id="payment_method">
+              <option value="CASH">CASH</option>
+              <option value="loss">CHECK</option>
+              <option value="restock">MASTERCARD</option>
+              <option value="return">VISA</option>
+            </select>
+          </div>
+        </td>
         <td class="td-value">
-          <input class="cash-input" type="number" id="cash_input" disabled="true" min="0" onkeydown="return Utils.not(event);"/>
+          <div style='margin-top:-5px;'>
+            <input class="cash-input" type="number" id="cash_input" disabled="true" min="0" onkeydown="return Utils.not(event);"/>
+          </div>
         </td>
       </tr>
       <tr id='cash_change_tr' class="totals-tr">

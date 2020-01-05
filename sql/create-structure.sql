@@ -13,6 +13,37 @@ CREATE TABLE users (
     FOREIGN KEY (username) REFERENCES users_whitelist(username)
 );
 
+DROP TABLE IF EXISTS payment_details;
+DROP TABLE IF EXISTS payment_methods;
+
+CREATE TABLE payment_methods (
+	payment_method_id INT UNSIGNED AUTO_INCREMENT,
+	payment_method VARCHAR(30) PRIMARY KEY,
+	payment_description VARCHAR(100),
+	KEY(payment_method_id)
+);
+
+INSERT INTO payment_methods (payment_method) VALUES
+('CASH'),
+('CHECK'),
+('MASTERCARD'),
+('VISA');
+
+CREATE TABLE payment_details (
+	payment_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	transaction_id INT UNSIGNED NOT NULL,
+	timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	payment_method VARCHAR(15) NOT NULL,
+	amount INT UNSIGNED NOT NULL,
+	account_name VARCHAR(30) DEFAULT NULL,
+	instrument_number VARCHAR(20) DEFAULT NULL,
+	expiration TIMESTAMP DEFAULT NULL,
+	remarks VARCHAR(30),
+	FOREIGN KEY (payment_method) REFERENCES payment_methods(payment_method),
+	FOREIGN KEY (transaction_id) REFERENCES items_transactions(transaction_id)
+);
+
+
 DROP TABLE IF EXISTS items_transactions_details;
 DROP TABLE IF EXISTS items_transactions;
 DROP TABLE IF EXISTS items_stock;

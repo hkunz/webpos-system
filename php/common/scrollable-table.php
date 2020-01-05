@@ -1,5 +1,10 @@
 <?php
 
+$root_defined = isset($_SESSION['root']);
+$root = $root_defined ? $_SESSION['root'] : "";
+
+require_once("${root}/php/libs/MobileDetect.php");
+
 // Enclose selected query fields with {{ }} to exclude them from table layout if it's needed for in_data only
 
 // @column_formats values:
@@ -9,6 +14,7 @@
 // 3 => button
 
 function create_scrollable_table($id, $con, $query, $column_widths, $column_formats, & $in_data) {
+	$ismobile = (new MobileDetect)->isMobile();
 	$vscroll_w = 12;
 	$ccy = $_SESSION['currency'];
 	$cols = count($column_widths);
@@ -44,7 +50,7 @@ function create_scrollable_table($id, $con, $query, $column_widths, $column_form
 			}
 			if ($fmt === 3) {
 				$event = 'document.getElementById(\"eventdispatcher\").dispatchEvent(new CustomEvent(\"table-button-click\", {\"detail\":{\"button_id\":\"button_' . $i . '\",\"first_cellvalue\":\"' . $first_cellvalue . '\",\"row_id\":\"row_' . $row_id . '\",\"row_number\":\"' . $row_id . '\"}}))';
-				$cellvalue = "<label id='button_$i' onclick='event.stopImmediatePropagation();$event' style='cursor:pointer;box-shadow: 0px 0px 0px 0px #000;font-size:14px;background-color:#33AA33;border:1px solid #fff;border-radius:5px;margin-bottom:2px;'>&nbsp;<b>${row[$key]}</b>&nbsp;</label>";
+				$cellvalue = "<label id='button_$i' onclick='event.stopImmediatePropagation();$event' style='cursor:pointer;box-shadow: 0px 0px 0px 0px #000;font-size:" . ($ismobile ? "20px" : "15px") . ";background-color:#33AA33;border:1px solid #fff;border-radius:5px;margin-bottom:2px;'>&nbsp;<b>${row[$key]}</b>&nbsp;</label>";
 			} else {
 				$cellvalue = $isccy ? number_format($row[$key], 2) : $row[$key];
 			}

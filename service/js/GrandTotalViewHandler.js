@@ -77,7 +77,7 @@ class GrandTotalViewHandler {
 		let ready = this.isPaymentReady(this);
 		this.cash = cash;
 		$('#' + this.getCashChangeIdName()).text(ready ? changeText : '');
-		//$('#cash_change_tr').css('display', ready ? 'table-row' : 'none');
+		$('#change_label').text(ready ? 'Change:' : '&nbsp;');
 		this.updateCommitButton();
 	}
 
@@ -105,7 +105,8 @@ class GrandTotalViewHandler {
 	}
 
 	onCommitButtonClick() {
-		let commitButton = document.getElementById(this.getCommitButtonIdName());                                                                                                   commitButton.disabled = true;
+		let commitButton = document.getElementById(this.getCommitButtonIdName());
+		commitButton.disabled = true;
 		Utils.play(sfx_commit_transaction);
 
 		const e = new CustomEvent(EVENT_COMMIT_TRANSACTION, {

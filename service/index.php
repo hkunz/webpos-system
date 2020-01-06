@@ -175,7 +175,7 @@
         </td>
       </tr>
       <tr id='cash_change_tr' class="totals-tr">
-        <td><label class="label-text" style='line-height:30px;'>Change:</label></td>
+        <td><label id='change_label' class="label-text" style='line-height:30px;'>&nbsp;</label></td>
         <td class="td-value"><label id="cash_change" class="cash-change" style="line-height:30px"></label></td>
       </tr>
     </table>

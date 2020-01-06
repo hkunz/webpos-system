@@ -58,7 +58,7 @@ class Controller {
 		$('#use_currentdate_checkbox').prop('checked', true);
 		$('#require_payment_checkbox').prop('checked', true);
 		$("#transaction_timestamp").prop('disabled', true);
-		$('#cash_change_tr').css('display', 'none');
+		$('#change_label').text('');
 		this.item_selects_list_handler.reset();
 	}
 

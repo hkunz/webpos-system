@@ -29,16 +29,14 @@ class Controller {
 	}
 
 	onDocumentReady() {
-		//#revenue_today_label
 		const DATE_START = '2019-01-01 00:00:00';
 
 		let thiz = this;
 		let date_input = document.getElementById('date_picker');
 		date_input.valueAsDate = new Date();
+
 		date_input.onchange = function(e) {
-			let d = new Date(this.value);
-			let ds = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ';
-			thiz.populateRevenueCustomDay(ds + '00:00:00', ds + '23:59:59');
+			thiz.onDateChange(this.value);
 		}
 
 		const now = Utils.getTimestampNow();
@@ -69,5 +67,14 @@ class Controller {
 		this.phpGetTotalRevenue("php/get-total-profit-prepaid-load.php", start, end, this.setLabel, pPrepaidId);
 		this.phpGetTotalRevenue("php/get-total-profit-products.php", start, end, this.setLabel, pProductsId);
 		//this.phpGetTotalRevenue("php/get-total-profit-services.php", start, end, this.setLabel, pServicesId);
+	}
+
+	onDateChange(value) {
+		let today = new Date();
+		let d = new Date(value);
+		let s = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ';
+		let same = today.getFullYear() == d.getFullYear() && today.getMonth() == d.getMonth() && today.getDate() == d.getDate();
+		this.populateRevenueCustomDay(s + '00:00:00', s + '23:59:59');
+		$('#revenue_today_label').text(same ? "Today's Revenue:" : "Revenue on:");
 	}
 }

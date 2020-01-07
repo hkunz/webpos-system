@@ -32,8 +32,6 @@
         </div>
       </div>";
   }
-
-  //<input type='datetime-local' id='transaction_timestamp' step='1' style='max-width:240px;height:33px;'>
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,7 +65,7 @@
     </div>
     <div style='width:100%;max-width:700px;'>
 <?php
-$datetime = "<input type='date' id='date_picker' step='1' min='2020-01-01' max='" . date("Y/m/d") . "' style='max-width:190px;height:33px;'>";
+$datetime = "<input type='date' id='date_picker' step='1' min='2020-01-01' max='" . date("Y/m/d") . "' style='max-width:190px;height:33px;' required='required'>";
 create_stats_group($ismobile, 'Today\'s Revenue:', $datetime, 'revenue_today', 'revenue_today_prepaid', 'revenue_today_products', 'revenue_today_services', 'profit_today_prepaid', 'profit_today_products');
 create_stats_group($ismobile, 'Total Revenue To Date:', '', 'revenue_total', 'revenue_total_prepaid', 'revenue_total_products', 'revenue_total_services', 'profit_total_prepaid', 'profit_total_products', 'profit_total_services');
 create_stats_group($ismobile, 'Total Revenue For Current Month:', '', 'revenue_total_curr_month', 'revenue_total_curr_month_prepaid', 'revenue_total_curr_month_products', 'revenue_total_curr_month_services', 'profit_curr_month_prepaid', 'profit_curr_month_products', 'profit_curr_month_services');

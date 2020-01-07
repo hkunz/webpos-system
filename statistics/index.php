@@ -7,11 +7,20 @@
     return $b;
   }
 
-  function create_stats_group($ismobile, $title, $totalId, $prepaidId, $productsId, $servicesId, $prepaid2Id, $products2Id, $services2Id) {
+  function create_stats_group($ismobile, $title, $title_widget, $totalId, $prepaidId, $productsId, $servicesId, $prepaid2Id, $products2Id, $services2Id) {
     echo "<div class='common-table-wrapper' style='margin-top:0px;margin-bottom:10px;'>
         <div class='stats-heading'>
-          <label class='standard-label'>$title</label>" . ($ismobile ? br(1) : '') . "
-          <label id='$totalId' class='drop-shadow stat-total'></label>
+          <table style='width:100%;'>
+            <tr>
+              <td style='white-space:nowrap;'>
+                <label id='${totalId}_label' class='standard-label'>$title</label>" . ($ismobile ? br(1) : '') . "
+                <label id='$totalId' class='drop-shadow stat-total'></label>
+              </td>
+              <td>
+                <div style='float:right;'>$title_widget</div>
+              </td>
+            </tr>
+          </table>
         </div>
         <div class='stats-content'>
           <label class='standard-label'>Prepaid-Load:</label>" . ($ismobile ? br(1) : '') . "
@@ -23,6 +32,8 @@
         </div>
       </div>";
   }
+
+  //<input type='datetime-local' id='transaction_timestamp' step='1' style='max-width:240px;height:33px;'>
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,6 +51,7 @@
   <script type="text/javascript" src="<?php echo $href_root; ?>js/libs/awesomplete.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>js/Utils.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>js/sound-effects.js"></script>
+  <script type="text/javascript" src="js/Controller.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
   <?php require_once("${root}php/favicon.php"); ?>
 </head>
@@ -55,11 +67,12 @@
     </div>
     <div style='width:100%;max-width:700px;'>
 <?php
-create_stats_group($ismobile, 'Today\'s Revenue:', 'revenue_today', 'revenue_today_prepaid', 'revenue_today_products', 'revenue_today_services', 'profit_today_prepaid', 'profit_today_products');
-create_stats_group($ismobile, 'Total Revenue To Date:', 'revenue_total', 'revenue_total_prepaid', 'revenue_total_products', 'revenue_total_services', 'profit_total_prepaid', 'profit_total_products', 'profit_total_services');
-create_stats_group($ismobile, 'Total Revenue For Current Month:', 'revenue_total_curr_month', 'revenue_total_curr_month_prepaid', 'revenue_total_curr_month_products', 'revenue_total_curr_month_services', 'profit_curr_month_prepaid', 'profit_curr_month_products', 'profit_curr_month_services');
-create_stats_group($ismobile, 'Total Revenue For Previous Month:', 'revenue_total_prev_month', 'revenue_total_prev_month_prepaid', 'revenue_total_prev_month_products', 'revenue_total_prev_month_services', 'profit_prev_month_prepaid', 'profit_prev_month_products', 'profit_prev_month_services');
-create_stats_group($ismobile, 'Total Revenue For One Before Previous Month:', 'revenue_total_prev2_month', 'revenue_total_prev2_month_prepaid', 'revenue_total_prev2_month_products', 'revenue_total_prev2_month_services', 'profit_prev2_month_prepaid', 'profit_prev2_month_products', 'profit_prev2_month_services');
+$datetime = "<input type='date' id='date_picker' step='1' min='2020-01-01' max='" . date("Y/m/d") . "' style='max-width:190px;height:33px;'>";
+create_stats_group($ismobile, 'Today\'s Revenue:', $datetime, 'revenue_today', 'revenue_today_prepaid', 'revenue_today_products', 'revenue_today_services', 'profit_today_prepaid', 'profit_today_products');
+create_stats_group($ismobile, 'Total Revenue To Date:', '', 'revenue_total', 'revenue_total_prepaid', 'revenue_total_products', 'revenue_total_services', 'profit_total_prepaid', 'profit_total_products', 'profit_total_services');
+create_stats_group($ismobile, 'Total Revenue For Current Month:', '', 'revenue_total_curr_month', 'revenue_total_curr_month_prepaid', 'revenue_total_curr_month_products', 'revenue_total_curr_month_services', 'profit_curr_month_prepaid', 'profit_curr_month_products', 'profit_curr_month_services');
+create_stats_group($ismobile, 'Total Revenue For Previous Month:', '', 'revenue_total_prev_month', 'revenue_total_prev_month_prepaid', 'revenue_total_prev_month_products', 'revenue_total_prev_month_services', 'profit_prev_month_prepaid', 'profit_prev_month_products', 'profit_prev_month_services');
+create_stats_group($ismobile, 'Total Revenue For One Before Previous Month:', '', 'revenue_total_prev2_month', 'revenue_total_prev2_month_prepaid', 'revenue_total_prev2_month_products', 'revenue_total_prev2_month_services', 'profit_prev2_month_prepaid', 'profit_prev2_month_products', 'profit_prev2_month_services');
 ?>
     </div>
   </div>

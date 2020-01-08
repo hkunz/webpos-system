@@ -29,34 +29,52 @@ class Controller {
 	}
 
 	onDocumentReady() {
-		const DATE_START = '2019-01-01 00:00:00';
+		const DATE_START = '2019-01-01';
+		const DATE_TIME_START = DATE_START + ' 00:00:00';
 
 		let thiz = this;
 		let date_input = document.getElementById('date_picker');
+		let date_input_start = document.getElementById('date_picker_start');
+		let date_input_end = document.getElementById('date_picker_end');
 		date_input.valueAsDate = new Date();
+		date_input_start.valueAsDate = new Date(DATE_START);
+		date_input_end.valueAsDate = new Date();
 
 		date_input.onchange = function(e) {
 			thiz.onDateChange(this.value);
-		}
+		};
 
-		const now = Utils.getTimestampNow();
-		const todayStart = Utils.getTimestampTodayStart();
-		const currMonthStart = Utils.getTimestampCurrentMonthStart();
-		const currMonthEnd = Utils.getTimestampCurrentMonthEnd();
-		const prevMonthStart = Utils.getTimestampPreviousMonthStart();
-		const prevMonthEnd = Utils.getTimestampPreviousMonthEnd();
-		const prev2MonthStart = Utils.getTimestampPreviousMonthsStart(2);
-		const prev2MonthEnd = Utils.getTimestampPreviousMonthsEnd(2);
+		date_input_start.onchange = function(e) {
+			thiz.onRevenueDateChange();
+		};
 
-		this.populateRevenueCustomDay(todayStart, now);
-		this.populateRevenues(DATE_START, now, '#revenue_total', '#revenue_total_prepaid', '#revenue_total_products', '#revenue_total_services', '#profit_total_prepaid', '#profit_total_products', '');
+		date_input_end.onchange = function(e) {
+			thiz.onRevenueDateChange();
+		};
+
+		const now = DateUtils.getTimestampNow();
+		const currMonthStart = DateUtils.getTimestampCurrentMonthStart();
+		const currMonthEnd = DateUtils.getTimestampCurrentMonthEnd();
+		const prevMonthStart = DateUtils.getTimestampPreviousMonthStart();
+		const prevMonthEnd = DateUtils.getTimestampPreviousMonthEnd();
+		const prev2MonthStart = DateUtils.getTimestampPreviousMonthsStart(2);
+		const prev2MonthEnd = DateUtils.getTimestampPreviousMonthsEnd(2);
+
+		this.populateRevenueCustomDay(new Date());
+		this.populateRevenueCustomRange(DATE_TIME_START, now);
 		this.populateRevenues(currMonthStart, currMonthEnd, '#revenue_total_curr_month', '#revenue_total_curr_month_prepaid', '#revenue_total_curr_month_products', '#revenue_total_curr_month_services', '#profit_curr_month_prepaid', '#profit_curr_month_products', '');
 		this.populateRevenues(prevMonthStart, prevMonthEnd, '#revenue_total_prev_month', '#revenue_total_prev_month_prepaid', '#revenue_total_prev_month_products', '#revenue_total_prev_month_services', '#profit_prev_month_prepaid', '#profit_prev_month_products', '');
 		this.populateRevenues(prev2MonthStart, prev2MonthEnd, '#revenue_total_prev2_month', '#revenue_total_prev2_month_prepaid', '#revenue_total_prev2_month_products', '#revenue_total_prev2_month_services', '#profit_prev2_month_prepaid', '#profit_prev2_month_products', '');
 	}
 
-	populateRevenueCustomDay(start, end) {
+	populateRevenueCustomDay(date) {
+		let start = DateUtils.getDateStringStart(date);
+		let end = DateUtils.getDateStringEnd(date);
 		this.populateRevenues(start, end, '#revenue_today', '#revenue_today_prepaid', '#revenue_today_products', '#revenue_today_services', '#profit_today_prepaid', '#profit_today_products', '');
+	}
+
+	populateRevenueCustomRange(start, end) {
+		this.populateRevenues(start, end, '#revenue_total', '#revenue_total_prepaid', '#revenue_total_products', '#revenue_total_services', '#profit_total_prepaid', '#profit_total_products', '');
 	}
 
 	populateRevenues(start, end, rTotalId, rPrepaidId, rProductsId, rServicesId, pPrepaidId, pProductsId, pServicesId) {
@@ -72,9 +90,17 @@ class Controller {
 	onDateChange(value) {
 		let today = new Date();
 		let d = new Date(value);
-		let s = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ';
 		let same = today.getFullYear() == d.getFullYear() && today.getMonth() == d.getMonth() && today.getDate() == d.getDate();
-		this.populateRevenueCustomDay(s + '00:00:00', s + '23:59:59');
+		this.populateRevenueCustomDay(d);
 		$('#revenue_today_label').text(same ? "Today's Revenue:" : "Revenue on:");
+	}
+
+	onRevenueDateChange() {
+		let today = new Date();
+                let from = new Date(document.getElementById('date_picker_start').value);
+		let to = new Date(document.getElementById('date_picker_end').value);
+                let sfr = DateUtils.getDateStringStart(from);
+		let sto = DateUtils.getDateStringEnd(to);
+		this.populateRevenueCustomRange(sfr, sto);
 	}
 }

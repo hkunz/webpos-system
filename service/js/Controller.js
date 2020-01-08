@@ -97,7 +97,7 @@ class Controller {
 			let timestamp = document.getElementById('transaction_timestamp').value.replace('T',' ');
 			let items = thiz.item_selects_list_handler.simpleList;
 			if (timestamp == '') {
-				timestamp = Utils.getTimestamp(Date.now());
+				timestamp = DateUtils.getTimestamp(Date.now());
 			}
 			o['transaction_id'] = thiz.sql_transaction_handler.getNextTransactionId();
 			o['customer'] = document.getElementById('customer').value;

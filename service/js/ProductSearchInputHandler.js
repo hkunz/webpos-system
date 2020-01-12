@@ -41,6 +41,7 @@ class ProductSearchInputHandler extends ItemSearchInputHandler {
 			this.barcode = value;
 		}
 		this.ajax(this.barcode);
+		this.closePopup();
 	}
 
 	onAjaxSuccess(data) {
@@ -51,10 +52,16 @@ class ProductSearchInputHandler extends ItemSearchInputHandler {
 			if (i == null || i.code !== this.barcode) {
 				return;
 			}
-			ItemAmountInputPopupHandler.dispatchInputComplete(i.code, i.unit, i.item_id, i.description, qty, i.sell_price);
+			this.onEnterProduct(qty, i);
 		} else {
 			super.onAjaxSuccess(data);
 		}
+	}
+
+	onEnterProduct(qty, item) {
+		//addEventListener or override and use item properties (code|unit|item_id|description|sell_price|etc)
+		var event = new CustomEvent(ProductSearchInputHandler.ENTER_PRODUCT_EVENT, { detail: {quantity: qty, item: item} });
+		document.getElementById('eventdispatcher').dispatchEvent(event);
 	}
 
 	onTextPaste(e) {
@@ -64,9 +71,14 @@ class ProductSearchInputHandler extends ItemSearchInputHandler {
 		let paste = clipboard.getData('Text');
 		let enter = (paste.indexOf('\n') > 0);
 		let text = paste.replace(/[\n\r]/g, '');
-		this.getInputElement().val(text);
+		let elem = this.getInputElement();
+		elem.val(elem.val() + text);
 		if (enter) {
 			this.onEnterPress();
 		}
+	}
+
+	static get ENTER_PRODUCT_EVENT() {
+		return "ENTER_PRODUCT_EVENT";
 	}
 }

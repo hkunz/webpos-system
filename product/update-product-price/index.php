@@ -17,6 +17,7 @@
   <script type="text/javascript" src="<?php echo $href_root; ?>js/AwesompleteInputHandler.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>js/Utils.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>service/js/ItemSearchInputHandler.js"></script>
+  <script type="text/javascript" src="<?php echo $href_root; ?>service/js/ProductSearchInputHandler.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>js/sound-effects.js"></script>
   <script type="text/javascript" src="js/ProductSelectionHandler.js"></script>
   <script type="text/javascript" src="js/Controller.js"></script>

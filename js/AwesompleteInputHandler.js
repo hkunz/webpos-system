@@ -54,6 +54,10 @@ class AwesompleteInputHandler {
 		});
 	}
 
+	closePopup() {
+		this.input_element.close();
+	}
+
 	getInputElementVal() {
 		return this.getInputElement().val().trim();
 	}

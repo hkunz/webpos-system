@@ -17,8 +17,7 @@ class ProductSelectionHandler {
 	onDocumentReady() {
 		let thiz = this;
 		$("#search_item_input").on('awesomplete-selectcomplete', function(e) {
-			thiz.curr_item = e.originalEvent.text.value;
-			thiz.onProductSelection();
+			thiz.onProductSelection(e.originalEvent.text.value);
 		});
 		$('#unit_price_input').bind('input', function() {
 			thiz.onCurrentPriceChange();
@@ -42,8 +41,9 @@ class ProductSelectionHandler {
 		button.disabled = !enable;
 	}
 
-	onProductSelection() {
+	onProductSelection(item) {
 		let thiz = this;
+		thiz.curr_item = item;
 		Utils.play(sfx_display);
 		$('#search_item_input').val('');
 		$.ajax({

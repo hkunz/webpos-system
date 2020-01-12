@@ -120,7 +120,15 @@ class Controller {
 			thiz.updateNextTransactionId();
 		});
 
+		$('#eventdispatcher').on(ProductSearchInputHandler.ENTER_PRODUCT_EVENT, function(e) {
+			thiz.onEnterProduct(e.detail.item, e.detail.quantity);
+		});
+
 		$("#search_item_input").focus();
+	}
+
+	onEnterProduct(i, qty) {
+		ItemAmountInputPopupHandler.dispatchInputComplete(i.code, i.unit, i.item_id, i.description, qty, i.sell_price);
 	}
 
 	onCurrentDateCheckboxChange(e) {

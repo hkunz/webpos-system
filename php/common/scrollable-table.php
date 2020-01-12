@@ -54,7 +54,7 @@ function create_scrollable_table($id, $con, $query, $column_widths, $column_form
 			} else {
 				$cellvalue = $isccy ? number_format($row[$key], 2) : $row[$key];
 			}
-			$tbody .= "<td style='width:$width;text-align:" . ($align_right ? 'right' : 'left') . ";$css_max' nowrap>$ccyspan$cellvalue</td>";
+			$tbody .= "<td style='width:$width;text-align:" . ($align_right ? 'right' : 'left') . ";$css_max' nowrap>$ccyspan" . htmlentities($cellvalue) . "</td>";
 			++$i;
 			if ($thead_complete) {
 				continue;

@@ -1,5 +1,5 @@
 <?php
-  require_once("../php/page-header.php");
+  require_once("../../php/page-header.php");
 
   function br($indent) {
     $b = '<br>';

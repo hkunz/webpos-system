@@ -1,0 +1,30 @@
+# https://www.opentechguides.com/how-to/article/apache/116/htaccess-file-dir-security.html
+
+# Deny access to files with extensions specified extensions 
+<FilesMatch "\.(ini|psd|log|sh|sql)$">
+Order allow,deny
+Deny from all
+</FilesMatch>
+
+# Deny access to filenames starting with dot(.)
+<FilesMatch "^\.">
+Order allow,deny
+Deny from all
+</FilesMatch>
+
+# Deny access to filenames starting with dot(.)
+<FilesMatch "^websql-setup">
+Order allow,deny
+Deny from all
+</FilesMatch>
+
+# Hide files of types specified from listing
+IndexIgnore *.png *.zip *.jpg *.gif *.doc *.wav
+
+# Disable directory browsing 
+#Options -Indexes
+
+# Hide the contents of directories
+#IndexIgnore *
+
+

@@ -19,6 +19,9 @@ function getLevels() {
 if ($login === false && $pagename !== 'login' && $pagename !== 'register') {
     header("location: " . getLevels() . "user/login.php");
     die;
+} else if ($welcome === 1) {
+    header("location: " . getLevels() . "user/welcome.php");
+    die;
 }
 
 $root_defined = isset($_SESSION['root']);

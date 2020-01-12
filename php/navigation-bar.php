@@ -4,9 +4,10 @@ $rootpath = ($ready ? $_SESSION["href_root"] : '#');
 
 $company_list = '
 <div class="dropdown-content">
-	<a href="' . $rootpath . 'service/">Service</a>
-	<a href="' . $rootpath . 'company/statistics/">Statistics</a>
-	<a href="' . $_SESSION['href_host'] . 'phpmyadmin/" target="_blank">Database</a>
+  <a href="' . $rootpath . 'service/">Service</a>
+  <a href="' . $rootpath . 'company/statistics/">Statistics</a>
+  <a href="' . $rootpath . 'company/transaction-history/">Transaction History</a>
+  <a href="' . $_SESSION['href_host'] . 'phpmyadmin/" target="_blank">Database</a>
 </div>';
 
 $products_list = '

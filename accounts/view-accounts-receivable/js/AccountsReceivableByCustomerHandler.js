@@ -91,7 +91,7 @@ class AccountsReceivableByCustomerHandler {
 		let table = document.getElementById('scroll_table');
 		let thiz = this;
 		this.table_handler.init(table, function(id) {
-			let row = thiz.getRowByCellContent(id, json.data);
+			let row = TableRowHandler.getRowByCellContent(id, json.data);
 			thiz.onRowTableClick(id, row);
 		});
 		//this.setSearchFocus();
@@ -105,19 +105,6 @@ class AccountsReceivableByCustomerHandler {
 
 	setSearchFocus() {
 		$("#search_customer_input").focus();
-	}
-
-	getRowByCellContent(id, rows) {
-		let len = rows ? rows.length : 0;
-		for (let i = 0; i < len; ++i) {
-			let row = rows[i];
-			for (let key in row) {
-				if (row.hasOwnProperty(key) && row[key] === id) {
-					return row;
-				}
-			}
-		}
-		return null;
 	}
 
 	onRowTableClick(value, row) {

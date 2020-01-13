@@ -87,7 +87,7 @@ class TransactionHistoryHandler {
 		let table = document.getElementById('scroll_table');
 		let thiz = this;
 		this.table_handler.init(table, function(id) {
-			let row = thiz.getRowByCellContent(id, json.data);
+			let row = TableRowHandler.getRowByCellContent(id, json.data);
 			thiz.onRowTableClick(id, row);
 		});
 		this.updateHeader();
@@ -105,22 +105,9 @@ class TransactionHistoryHandler {
 		$("#search_customer_input").focus();
 	}
 
-	getRowByCellContent(id, rows) {
-		let len = rows ? rows.length : 0;
-		for (let i = 0; i < len; ++i) {
-			let row = rows[i];
-			for (let key in row) {
-				if (row.hasOwnProperty(key) && row[key] === id) {
-					return row;
-				}
-			}
-		}
-		return null;
-	}
-
 	onRowTableClick(value, row) {
 		let s = this.current_state;
-		console.log("state: " + s);
+		//console.log("value: " + value);
 		if (s === ViewState.TRANSACTIONS_LIST || s === ViewState.TRANSACTIONS_LIST_BY_CUSTOMER) {
 			this.customer = row['Transactor'];
 			this.transaction_id = Utils.getPaddedTransactionId(value);

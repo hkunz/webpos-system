@@ -7,7 +7,8 @@ class PopupUtils {
 	}
 
 	static create(message) {
-		let div = document.createElement('div');
+		let div_exists = document.getElementById('temp_popup');
+		let div = div_exists ? div_exists : document.createElement('div');
 		div.setAttribute('id', 'temp_popup');
 		div.className = "modal";
 		div.innerHTML = "<label class='standard-label'>" + Utils.resolveHtmlEntities(message) + "</label>";

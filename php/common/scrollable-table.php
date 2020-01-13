@@ -52,9 +52,8 @@ function create_scrollable_table($id, $con, $query, $column_widths, $column_form
 				$event = 'document.getElementById(\"eventdispatcher\").dispatchEvent(new CustomEvent(\"table-button-click\", {\"detail\":{\"button_id\":\"button_' . $i . '\",\"first_cellvalue\":\"' . $first_cellvalue . '\",\"row_id\":\"row_' . $row_id . '\",\"row_number\":\"' . $row_id . '\"}}))';
 				$cellvalue = "<label id='button_$i' onclick='event.stopImmediatePropagation();$event' style='cursor:pointer;box-shadow: 0px 0px 0px 0px #000;font-size:" . ($ismobile ? "20px" : "15px") . ";background-color:#33AA33;border:1px solid #fff;border-radius:5px;margin-bottom:2px;'>&nbsp;<b>${row[$key]}</b>&nbsp;</label>";
 			} else {
-				$cellvalue = $isccy ? number_format($row[$key], 2) : $row[$key];
+				$cellvalue = $isccy ? number_format($row[$key], 2) : htmlentities($row[$key]);
 			}
-			//$tbody .= "<td style='width:$width;text-align:" . ($align_right ? 'right' : 'left') . ";$css_max' nowrap>$ccyspan" . htmlentities($cellvalue) . "</td>";
 			$tbody .= "<td style='width:$width;text-align:" . ($align_right ? 'right' : 'left') . ";$css_max' nowrap>$ccyspan$cellvalue</td>";
 			++$i;
 			if ($thead_complete) {

@@ -9,7 +9,7 @@ $customer = $all ? '%%' : $_POST['value'];
 $table_id = $_POST['table_id'];
 $limit = isset($_POST['limit']) ? $_POST['limit'] : 20;
 
-$query = "SELECT LPAD(`transaction_id`, 7, '0') `TRX-ID`,`date` `Date Time`, `type` `Type`, `customer` `Transactor` ,`grand_total` `Cost` FROM `items_transactions` WHERE customer LIKE '$customer' ORDER BY `date` DESC LIMIT $limit;";
+$query = "SELECT LPAD(`transaction_id`, 7, '0') `TRX-ID`,`date` `Date Time`, `type` `Type`, `customer` `Transactor` ,`grand_total` `Total` FROM `items_transactions` WHERE customer LIKE '$customer' ORDER BY `date` DESC LIMIT $limit;";
 
 $view = $all ? "view_transactions" : "view_transactions_by_customer";
 $data = array();

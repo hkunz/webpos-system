@@ -104,7 +104,7 @@ class ProductSelectionHandler {
 		} else {
 			alert("failed: " + json.message + ": " + json.query);
 		}
-		this.onProductSelection();
+		this.onProductSelection(this.curr_item);
 	}
 
 	isNewUnitPrice() {

@@ -1,5 +1,6 @@
 <?php
 require_once("../php/page-header.php");
+require_once("../php/db.php");
 
 $username = htmlspecialchars($_SESSION["username"]); 
 

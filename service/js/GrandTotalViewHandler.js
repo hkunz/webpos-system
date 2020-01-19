@@ -1,7 +1,7 @@
 "use strict";
 
 class GrandTotalViewHandler {
-	constructor() {
+	constructor(payment_input_handler) {
 		let thiz = this;
 		this.list = null;
 		this.sub_total = 0;
@@ -9,6 +9,7 @@ class GrandTotalViewHandler {
 		this.cash = 0;
 		this.discount = 0;
 		this.service_charge = 0;
+		this.payment_handler = payment_input_handler;
 		$(document).ready(function() {
 			thiz.onDocumentReady();
 		});
@@ -16,6 +17,10 @@ class GrandTotalViewHandler {
 
 	onDocumentReady() {
 		let thiz = this;
+		document.getElementById('eventdispatcher').addEventListener(PaymentInputHandler.CHANGE, function(e) {
+			console.log("payment details change");
+			thiz.updateCommitButton();
+		});
 		$('#' + this.getCashInputIdName()).bind('input', function(e) {
 			thiz.onChangeMouseUpKeyUp();
 		});
@@ -92,7 +97,7 @@ class GrandTotalViewHandler {
 		let requirePay = this.isRequirePaymentChecked();
 		let ready = this.isPaymentReady();
 		let commitButton = document.getElementById(this.getCommitButtonIdName());
-		let enableCommit = ready || (!requirePay && this.sub_total > 0 && customer != '');
+		let enableCommit = this.payment_handler.ready() && (ready || (!requirePay && this.sub_total > 0 && customer != ''));
 		commitButton.disabled = !enableCommit;
 	}
 

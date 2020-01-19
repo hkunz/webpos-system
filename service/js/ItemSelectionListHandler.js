@@ -1,9 +1,9 @@
 "use strict";
 
 class ItemSelectionListHandler {
-	constructor() {
+	constructor(grand_total_view_handler) {
 		this.list = [];
-		this.grand_total_handler = new GrandTotalViewHandler();
+		this.grand_total_handler = grand_total_view_handler;
 		this.grand_total_handler.setList(this.list);
 		let thiz = this;
 	}

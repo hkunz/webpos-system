@@ -6,10 +6,12 @@ class Controller {
 		this.item_amount_input_handler = new ItemAmountInputPopupHandler();
 		this.item_search_input_handler = new ProductSearchInputHandler();
 		this.item_selects_list_handler = null;
+		this.payment_input_handler = new PaymentInputHandler();	
+		this.grand_total_handler = new GrandTotalViewHandler(this.payment_input_handler);
 		try {
-			this.item_selects_list_handler = new ItemSelectionListHandlerMobile();
+			this.item_selects_list_handler = new ItemSelectionListHandlerMobile(this.grand_total_handler);
 		} catch(e) {
-			this.item_selects_list_handler = new ItemSelectionListHandler();
+			this.item_selects_list_handler = new ItemSelectionListHandler(this.grand_total_handler);
 		}
 		this.customer_search_handler = new CustomerSearchInputHandler();
 		this.sql_transaction_handler = new SqlTransactionHandler();
@@ -53,7 +55,7 @@ class Controller {
 		document.getElementById('transaction_timestamp').value = '';
 		document.getElementById('customer').value = '';
 		document.getElementById('transaction_type').value = 'sale';
-		$('#payment_method').prop("selectedIndex", 0);
+		this.payment_input_handler.reset();
 		$('#timestamp_input').css('display','none');
 		$('#use_currentdate_checkbox').prop('checked', true);
 		$('#require_payment_checkbox').prop('checked', true);
@@ -64,9 +66,6 @@ class Controller {
 
 	onDocumentReady() {
 		let thiz = this;
-		$('#cash_input').attr('placeholder', Utils.getCurrencySymbol());
-		this.phpGetPaymentOptions();
-
                 $('#use_currentdate_checkbox').change(function(e) {
                         thiz.onCurrentDateCheckboxChange(e);
                 });
@@ -141,30 +140,5 @@ class Controller {
 		} else {
 			$("#transaction_timestamp").focus();
 		}
-	}
-
-	phpGetPaymentOptions() {
-		let thiz = this;
-		$.ajax({
-			type: "POST",
-			url: "/" + Utils.getRootName() + "/php/get-general-options-list.php" + Utils.getRandomUrlVar(), 
-			data: {
-				table: 'payment_methods',
-				field: 'payment_method',
-				order: 'payment_method_id'
-			},
-			success: function(data) {
-				thiz.onPaymentOptionsLoaded(data);
-			}
-		});
-	}
-
-	onPaymentOptionsLoaded(data) {
-		var list = $('#payment_method');
-		let values = data.split(',');
-		values.forEach(function(item, index) {
-			list.append(new Option(values[index], index));
-		});
-		list.prop("selectedIndex", 0);
 	}
 }

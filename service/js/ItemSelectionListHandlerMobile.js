@@ -1,8 +1,8 @@
 "use strict";
 
 class ItemSelectionListHandlerMobile extends ItemSelectionListHandler {
-	constructor() {
-		super();
+	constructor(grand_total_view_handler) {
+		super(grand_total_view_handler);
 	}
 
 	getListRowItemInnerHtml(item) {

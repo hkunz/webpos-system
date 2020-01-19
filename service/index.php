@@ -35,10 +35,19 @@
   <script type="text/javascript" src="js/CustomerSearchInputHandler.js"></script>
   <script type="text/javascript" src="js/ItemSelectionListHandler.js"></script>
   <?php if ($ismobile) echo '  <script type="text/javascript" src="js/ItemSelectionListHandlerMobile.js"></script>'; ?>
+  <script type="text/javascript" src="js/PaymentInputHandler.js"></script>
   <script type="text/javascript" src="js/GrandTotalViewHandler.js"></script>
   <script type="text/javascript" src="js/SqlTransactionHandler.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
   <?php require_once("${root}php/favicon.php"); ?>
+  <style>
+    /*WORKAROUND: include style here because it does not working if defined inside main-styles.css style sheet*/
+    input[type=number].hide-spinner::-webkit-inner-spin-button,
+    input[type=number].hide-spinner::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  </style>
 </head>
 <body class="body">
   <div class="hover_bkgr_fricc" id="amount_popup_box">
@@ -112,7 +121,7 @@
         </div>
       </div>
     </div>
-    <div class="container-right" style='max-height:370px;'>
+    <div class="container-right" style=''>
     <?php if (!$ismobile) echo getTransactionContainer(); ?>
     <table class="totals-grid" cellspacing='0' cellpadding='0'>
       <tr class="totals-tr">
@@ -175,13 +184,28 @@
           </div>
         </td>
       </tr>
-      <tr id='cash_change_tr' class="totals-tr">
-        <td><label id='change_label' class="label-text" style='line-height:30px;'>&nbsp;</label></td>
-        <td class="td-value"><label id="cash_change" class="cash-change" style="line-height:30px"></label></td>
-      </tr>
     </table>
-    <br />
+    <div style='width:100%;'>
+      <div style='float:right;padding-bottom:10px;padding-left:1px;'>
+        <div id='payment_content_cash' style='display:block;'>
+          <label id='change_label' class="label-text" style=''>&nbsp;</label>
+          <label id="cash_change" class="cash-change" style=''></label>
+        </div>
+        <div id='payment_content_instr' style='width:100%;display:none;'>
+          <form autocomplete='off'>
+            <input id='instr_accname' type='text' placeholder='Account Name ...'/>
+            <input id='instr_accnumber' type='number' placeholder='Account Number ...' class='hide-spinner' style='margin-top:5px;' onkeydown="return Utils.not_i(event);"/>
+            <div style='margin-top:5px;width:100%;' nowrap> 
+                <label class="label-text" style='display:inline-block;'>Expiration: </label>
+		<input id='instr_expiration' type='date' style='width:100%;' step='1'>
+            </div>
+            <input id='instr_remarks' type='text' placeholder='Remarks ...' style='margin-top:5px;'/>
+          </form>
+        </div>
+      </div>
+    </div>
     <button id="commit_transaction_button" class="commit-transaction-button" style="margin-top:0px;" disabled="true">COMMIT TRANSACTION</button>
+    <div style='height:10px'></div>
   </div>
   </div>
   <div id="eventdispatcher" style="display:none;" />

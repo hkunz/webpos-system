@@ -318,7 +318,7 @@ BEGIN
     CALL insert_items_transaction_details(`transaction_id`, `type`, @items, @success2);
     SET success = @success2;
 
-    IF success = TRUE AND (payment < grand_total OR payment_method <> 'CASH') THEN     
+    IF success = TRUE AND (payment < grand_total OR payment_method <> 'CASH') THEN
         INSERT INTO `payment_details`(`transaction_id`, `payment_method`, `amount`, `account_name`, `instrument_number`, `expiration`, `remarks`)
         VALUES (`transaction_id`, `payment_method`, `payment`, `account_name`, `instrument_number`, `instrument_expiration`, `remarks`);
     END IF;

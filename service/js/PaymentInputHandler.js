@@ -37,6 +37,26 @@ class PaymentInputHandler {
 		this.onPaymentTypeChange();
 	}
 
+	get remarks() {
+		let r = $('#instr_remarks').val().trim();
+		return r == '' ? null : r;
+	}
+
+	get account_number() {
+		let r = $('#instr_accnumber').val().trim();
+		return r == '' ? null : r;
+	}
+
+	get account_name() {
+		let r = $('#instr_accname').val().trim();
+		return r == '' ? null : r;
+	}
+
+	get instrument_expiration() {
+		let r = $('#instr_expiration').val();
+		return r == '' ? null : r;
+	}
+
 	setEnabled(en) {
 	}
 
@@ -56,6 +76,10 @@ class PaymentInputHandler {
 		let iscash = type === 'CASH';
 		$('#payment_content_cash').css('display', iscash ? 'block' : 'none');
 		$('#payment_content_instr').css('display', iscash ? 'none' : 'block');
+	}
+
+	get selected_payment_method() {
+		return this.selected_type;
 	}
 
 	isCash() {

@@ -159,6 +159,32 @@ class AccountsReceivableByCustomerHandler {
 		$('#payment_input').bind('input', function(e) {
 			thiz.updatePayUnpaidBalanceButton();
 		});
+		$('#update_payment_button').click(function(e) {
+			let payment = $('#payment_input').val();
+			$.ajax({
+				type: "POST",
+				url: "php/add-payment-details.php" + Utils.getRandomUrlVar(),
+				data: {
+					transaction_id: thiz.transaction_id,
+					payment_method: thiz.payment_handler.selected_payment_method,
+					account_name: thiz.payment_handler.account_name,
+					account_number: thiz.payment_handler.account_number,
+					instrument_expiration: thiz.payment_handler.instrument_expiration,
+					payment: payment,
+					remarks: thiz.payment_handler.remarks
+				},
+				success: function(data) {
+					let json = JSON.parse(data);
+					let tid = Utils.getTransactionPrefix(thiz.transaction_id);
+					if (json.success) {
+						alert(tid + " => payment " + Utils.getAmountCurrencyText(payment) + " execution success!"); 
+					} else {
+						alert(tid + " => Error: " + json.error);
+					}
+					thiz.onBackButtonClick();
+				}
+			});
+		});
 		this.updateHeader();
 		$('#transaction_id').text(Utils.getTransactionPrefix(this.transaction_id) + ' ');
 		$('#transaction_amount_paid').text('( ' + Utils.getCurrencySymbol() + curr_payment + ' / ' + Utils.getCurrencySymbol() + this.transaction_total + ' )');

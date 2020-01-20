@@ -109,7 +109,7 @@ class Controller {
 			o['payment'] = cash;
 			o['grand_total'] = grand_total;
 
-			if (cash < grand_total || !thiz.payment_input_handler.isCash()) {
+			if (type == 'SALE' && (cash < grand_total || !thiz.payment_input_handler.isCash())) {
 				thiz.payment_input_handler.populatePaymentDetails(o);
 			}
 

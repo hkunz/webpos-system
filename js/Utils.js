@@ -79,6 +79,10 @@ class Utils {
 		return Utils.lpad(id, '0', 7);
 	}
 
+	static getTransactionPrefix(id) {
+		return 'TRX-' + id;
+	}
+
 	static disableCutCopyPaste(input_id) {
 		$(input_id).bind("cut copy paste", function(e) {
 			e.preventDefault();

@@ -18,9 +18,11 @@
   <script type="text/javascript" src="<?php echo $href_root; ?>js/libs/awesomplete.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>js/AwesompleteInputHandler.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>js/Utils.js"></script>
+  <script type="text/javascript" src="<?php echo $href_root; ?>js/DateUtils.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>js/PopupUtils.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>js/sound-effects.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>service/js/CustomerSearchInputHandler.js"></script>
+  <script type="text/javascript" src="<?php echo $href_root; ?>service/js/PaymentInputHandler.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>js/common/TableRowHandler.js"></script>
   <script type="text/javascript" src="js/ViewState.js"></script>
   <script type="text/javascript" src="js/PayTransactionHandler.js"></script>

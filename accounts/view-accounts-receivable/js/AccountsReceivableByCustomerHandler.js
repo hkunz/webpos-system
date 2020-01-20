@@ -11,6 +11,7 @@ class AccountsReceivableByCustomerHandler {
 		this.table_handler = new TableRowHandler();
 		this.current_data = null;
 		this.pay_trx_handler = new PayTransactionHandler();
+		this.payment_handler = null;
 
 		let thiz = this;
 		$(document).ready(function(e) {
@@ -37,6 +38,9 @@ class AccountsReceivableByCustomerHandler {
 		});
 		$("#eventdispatcher").on('table-button-click', function(e) {
 			thiz.onTableButtonClick(e.detail);
+		});
+		document.getElementById('eventdispatcher').addEventListener(PaymentInputHandler.CHANGE, function(e) {
+			thiz.onPaymentChange();
 		});
 		this.phpGetAccountsReceivable(null, ViewState.CUSTOMERS_LIST);
 		this.setSearchFocus();
@@ -143,22 +147,35 @@ class AccountsReceivableByCustomerHandler {
 
 	onPayTransactionViewLoad(detail) {
 		let thiz = this;
+		this.payment_handler = new PaymentInputHandler();
 		this.transaction_id = detail.first_cellvalue;
-		let row = this.getRowByCellContent(this.transaction_id, this.current_data);
+		let row = TableRowHandler.getRowByCellContent(this.transaction_id, this.current_data);
 		this.transaction_total = row["Receivable"];
 		let curr_payment = row["Payment"];
-		$('#payment_input').attr('max', this.transaction_total);
-		$('#payment_input').attr('placeholder', curr_payment);
-		$('#payment_input').val(curr_payment);
+		let unpaid_bal = this.transaction_total - curr_payment;
+		$('#payment_input').attr('max', unpaid_bal);
+		$('#payment_input').attr('placeholder', Utils.getCurrencySymbol());
+		$('#payment_input').val(Utils.getCurrencyValue(unpaid_bal));
 		$('#payment_input').bind('input', function(e) {
-			let pay = Number($('#payment_input').val());
-			let rec = Number(thiz.transaction_total);
-			let cur = Number(curr_payment);
-			let enable = pay > curr_payment && pay <= rec;
-			document.getElementById('update_payment_button').disabled = !enable;
+			thiz.updatePayUnpaidBalanceButton();
 		});
 		this.updateHeader();
-		$('#transaction_id').text($('#transaction_label').text());
+		$('#transaction_id').text(Utils.getTransactionPrefix(this.transaction_id) + ' ');
+		$('#transaction_amount_paid').text('( ' + Utils.getCurrencySymbol() + curr_payment + ' / ' + Utils.getCurrencySymbol() + this.transaction_total + ' )');
+		$('#unpaid_bal').text(Utils.getAmountCurrencyText(unpaid_bal));
+		$('#pay_label').text("Pay: " + Utils.getCurrencySymbol());
+		$('#payment_main_container').css('display','block');
+	}
+
+	updatePayUnpaidBalanceButton() {
+		let pay = Number($('#payment_input').val());
+		let rec = Number(this.transaction_total);
+		let enable = pay > 0 && this.payment_handler.ready();
+		document.getElementById('update_payment_button').disabled = !enable;
+	}
+
+	onPaymentChange() {
+		this.updatePayUnpaidBalanceButton();
 	}
 
 	updateHeader() {
@@ -167,7 +184,7 @@ class AccountsReceivableByCustomerHandler {
 		let total = this.grand_total ? Utils.getAmountCurrencyText(this.grand_total) : null;
 		$('#customer_label').text(c ? c : '');
 		$('#customer_total').text(total ? total : '');
-		$('#transaction_label').html('TRX-' + t + ' <b style="color:#33FF33">' + Utils.getAmountCurrencyText(this.transaction_total) + "</b>");
+		$('#transaction_label').html(Utils.getTransactionPrefix(t) + ' <b style="color:#33FF33">' + Utils.getAmountCurrencyText(this.transaction_total) + "</b>");
 		$('#back_button').css('display', c ? 'inline' : 'none');
 		$('#customer_total_div').css('display', total == null ? 'none' : 'inline');
 		$('#customer_div').css('display', c ? 'inline' : 'none');

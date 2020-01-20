@@ -35,10 +35,10 @@ CREATE TABLE payment_details (
 	timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	payment_method VARCHAR(15) NOT NULL,
 	amount INT UNSIGNED NOT NULL,
-	account_name VARCHAR(30) DEFAULT NULL,
-	instrument_number VARCHAR(20) DEFAULT NULL,
+	account_name VARCHAR(80) DEFAULT NULL,
+	instrument_number VARCHAR(25) DEFAULT NULL,
 	expiration TIMESTAMP DEFAULT NULL,
-	remarks VARCHAR(30),
+	remarks VARCHAR(30) DEFAULT NULL,
 	FOREIGN KEY (payment_method) REFERENCES payment_methods(payment_method),
 	FOREIGN KEY (transaction_id) REFERENCES items_transactions(transaction_id)
 );
@@ -104,7 +104,7 @@ DROP TABLE IF EXISTS operational_expenses;
 CREATE TABLE operational_expenses (
     expense_transaction_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    type ENUM('PRINTING_STOCKS', 'ELECTRICITY') NOT NULL,
+    type ENUM('ELECTRICITY', 'EQUIPMENT', 'STOCKS', 'BUILDING') NOT NULL,
     grand_total DECIMAL(13,2) NOT NULL,
     remarks VARCHAR(100) NOT NULL
 );
@@ -295,6 +295,12 @@ BEGIN
     DECLARE discount DECIMAL(13,2) DEFAULT json_unquote(json_extract(data, '$.discount'));
     DECLARE payment DECIMAL(13,2) DEFAULT json_unquote(json_extract(data, '$.payment'));
 
+    DECLARE payment_method VARCHAR(15) DEFAULT json_unquote(json_extract(data, '$.payment_method'));
+    DECLARE account_name VARCHAR(80) DEFAULT json_unquote(json_extract(data, '$.account_name'));
+    DECLARE instrument_number VARCHAR(25) DEFAULT json_unquote(json_extract(data, '$.instrument_number'));
+    DECLARE remarks VARCHAR(30) DEFAULT json_unquote(json_extract(data, '$.remarks'));
+    DECLARE instrument_expiration TIMESTAMP DEFAULT json_unquote(json_extract(data, '$.instrument_expiration'));
+
     SET success = FALSE;
     SET @items = json_unquote(json_extract(data, '$.items'));
     SET id = get_next_transaction_id();
@@ -311,6 +317,11 @@ BEGIN
     VALUES (`transaction_id`, `customer`, `type`, `timestamp`, `sub_total`, `service_charge`, `grand_total`, `discount`, `payment`);
     CALL insert_items_transaction_details(`transaction_id`, `type`, @items, @success2);
     SET success = @success2;
+
+    IF success = TRUE AND (payment < grand_total OR payment_method <> 'CASH') THEN     
+        INSERT INTO `payment_details`(`transaction_id`, `payment_method`, `amount`, `account_name`, `instrument_number`, `expiration`, `remarks`)
+        VALUES (`transaction_id`, `payment_method`, `payment`, `account_name`, `instrument_number`, `instrument_expiration`, `remarks`);
+    END IF;
 END $$
 DELIMITER ;
 

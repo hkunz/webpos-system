@@ -23,6 +23,7 @@ class PaymentInputHandler {
 		$('#instr_expiration').bind('input', function(e) {
 			thiz.onInputChange();
 		});
+		this.reset();
 		this.phpGetPaymentOptions();
 	}
 
@@ -32,7 +33,11 @@ class PaymentInputHandler {
 		$('#instr_accnumber').val('');
 		$('#instr_expiration').val('');
 		$('#instr_remarks').val('');
+		this.setEnabled(false);
 		this.onPaymentTypeChange();
+	}
+
+	setEnabled(en) {
 	}
 
 	onPaymentTypeChange() {
@@ -51,6 +56,22 @@ class PaymentInputHandler {
 		let iscash = type === 'CASH';
 		$('#payment_content_cash').css('display', iscash ? 'block' : 'none');
 		$('#payment_content_instr').css('display', iscash ? 'none' : 'block');
+	}
+
+	isCash() {
+		return this.selected_type === 'CASH';
+	}
+
+	populatePaymentDetails(json) {
+		let accname = $('#instr_accname').val();
+		let accnumber = $('#instr_accnumber').val();
+		let expiration = $('#instr_expiration').val();
+		let remarks = $('#instr_remarks').val();
+		json['payment_method'] = this.selected_type;
+		if (accname != '') json['account_name'] = accname;
+		if (accnumber != '') json['instrument_number'] = accnumber;
+		if (expiration != '') json['instrument_expiration'] = expiration;
+		if (remarks != '') json['remarks'] = remarks;
 	}
 
 	setLabels() {
@@ -101,7 +122,7 @@ class PaymentInputHandler {
 		let accname = $('#instr_accname').val().trim();
 		let accnumber = $('#instr_accnumber').val().trim();
 		let expiration = $('#instr_expiration').val();
-		return accname != '' && accnumber != '' && expiration != '';
+		return accname != '' && accnumber != '' && expiration != '' && DateUtils.isFutureDate(expiration);
 	}
 
 	static get CHANGE() {

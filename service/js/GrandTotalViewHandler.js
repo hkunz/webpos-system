@@ -18,7 +18,6 @@ class GrandTotalViewHandler {
 	onDocumentReady() {
 		let thiz = this;
 		document.getElementById('eventdispatcher').addEventListener(PaymentInputHandler.CHANGE, function(e) {
-			console.log("payment details change");
 			thiz.updateCommitButton();
 		});
 		$('#' + this.getCashInputIdName()).bind('input', function(e) {
@@ -61,6 +60,7 @@ class GrandTotalViewHandler {
 		let cashInput = document.getElementById(this.getCashInputIdName());
 		let serviceChInput = document.getElementById(this.getServiceChargeIdName());
 		cashInput.disabled = nothingToPay;
+		this.payment_handler.setEnabled(!nothingToPay);
 		serviceChInput.disabled = nothingToPay;
 		if (nothingToPay) {
 			serviceChInput.value = '';

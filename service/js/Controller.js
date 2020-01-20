@@ -108,6 +108,11 @@ class Controller {
 			o['discount'] = discount;
 			o['payment'] = cash;
 			o['grand_total'] = grand_total;
+
+			if (cash < grand_total || !thiz.payment_input_handler.isCash()) {
+				thiz.payment_input_handler.populatePaymentDetails(o);
+			}
+
 			let json = JSON.stringify(o);
 			console.log("commit transaction: " + json);
 			if (type == "SALE" || type == "RESTOCK" || type == "LOSS" || type == "RETURN") {

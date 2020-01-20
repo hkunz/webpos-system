@@ -185,22 +185,24 @@
         </td>
       </tr>
     </table>
-    <div style='width:100%;'>
+    <div id='payment_container' style='width:100%;'>
       <div style='float:right;padding-bottom:10px;padding-left:1px;'>
         <div id='payment_content_cash' style='display:block;'>
           <label id='change_label' class="label-text" style=''>&nbsp;</label>
           <label id="cash_change" class="cash-change" style=''></label>
         </div>
+        <div id='payment_content_instr_container' style='width:100%'>
         <div id='payment_content_instr' style='width:100%;display:none;'>
-          <form autocomplete='off'>
-            <input id='instr_accname' type='text' placeholder='Account Name ...'/>
-            <input id='instr_accnumber' type='number' placeholder='Account Number ...' class='hide-spinner' style='margin-top:5px;' onkeydown="return Utils.not_i(event);"/>
+          <form autocomplete='off' autocorrect='off' spellcheck='false'>
+            <input id='instr_accname' type='text' maxlength='80' placeholder='Account Name ...'/>
+            <input id='instr_accnumber' type='text' maxlength='25' placeholder='Account Number ...' class='hide-spinner' style='margin-top:5px;' pattern="^[0–9]$" onkeydown="return Utils.not_i(event);"/>
             <div style='margin-top:5px;width:100%;' nowrap> 
                 <label class="label-text" style='display:inline-block;'>Expiration: </label>
 		<input id='instr_expiration' type='date' style='width:100%;' step='1'>
             </div>
-            <input id='instr_remarks' type='text' placeholder='Remarks ...' style='margin-top:5px;'/>
+            <input id='instr_remarks' type='text' maxlength='30' placeholder='Remarks ...' style='margin-top:5px;'/>
           </form>
+        </div>
         </div>
       </div>
     </div>

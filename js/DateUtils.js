@@ -26,6 +26,10 @@ class DateUtils {
 		return DateUtils.lpad(text, '0', 2);
 	}
 
+	static isFutureDate(date_string) {
+		return new Date(date_string).getTime() > new Date().getTime();
+	}
+
 	// returns 'yyyy-MM-dd hh:mm:ss' formatted string
 	static getTimestampNowUTC() {
 		let m = new Date();

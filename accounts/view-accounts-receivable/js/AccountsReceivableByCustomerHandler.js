@@ -202,7 +202,7 @@ class AccountsReceivableByCustomerHandler {
 	updatePayUnpaidBalanceButton() {
 		let pay = Number($('#payment_input').val());
 		let rec = Number(this.transaction_total);
-		let enable = pay > 0 && this.payment_handler.ready();
+		let enable = Utils.getCurrencyValue(pay) > 0 && this.payment_handler.ready();
 		document.getElementById('update_payment_button').disabled = !enable;
 	}
 

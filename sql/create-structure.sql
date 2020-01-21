@@ -34,7 +34,7 @@ CREATE TABLE payment_details (
 	transaction_id INT UNSIGNED NOT NULL,
 	timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	payment_method VARCHAR(15) NOT NULL,
-	amount INT UNSIGNED NOT NULL,
+	amount DECIMAL(13,2) NOT NULL,
 	account_name VARCHAR(80) DEFAULT NULL,
 	instrument_number VARCHAR(25) DEFAULT NULL,
 	expiration TIMESTAMP DEFAULT NULL,
@@ -318,7 +318,7 @@ BEGIN
     CALL insert_items_transaction_details(`transaction_id`, `type`, @items, @success2);
     SET success = @success2;
 
-    IF success = TRUE AND (payment < grand_total OR payment_method <> 'CASH') THEN
+    IF success = TRUE AND type = 'SALE' AND payment > 0 AND (payment < grand_total OR payment_method <> 'CASH') THEN
         INSERT INTO `payment_details`(`transaction_id`, `payment_method`, `amount`, `account_name`, `instrument_number`, `expiration`, `remarks`)
         VALUES (`transaction_id`, `payment_method`, `payment`, `account_name`, `instrument_number`, `instrument_expiration`, `remarks`);
     END IF;

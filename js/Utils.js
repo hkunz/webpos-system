@@ -18,7 +18,7 @@ class Utils {
 	}
 
 	static getStoreHeading() {
-		return "Klebby's Supplies &amp; Computer Services";
+		return "Macky's Printing Services";
 	}
 
 	static getStoreSubHeading() {

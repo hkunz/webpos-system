@@ -44,17 +44,17 @@ class PaymentInputHandler {
 
 	get account_number() {
 		let r = $('#instr_accnumber').val().trim();
-		return r == '' ? null : r;
+		return (r == '' || this.isCash()) ? null : r;
 	}
 
 	get account_name() {
 		let r = $('#instr_accname').val().trim();
-		return r == '' ? null : r;
+		return (r == '' || this.isCash()) ? null : r;
 	}
 
 	get instrument_expiration() {
 		let r = $('#instr_expiration').val();
-		return r == '' ? null : r;
+		return (r == '' || this.isCash()) ? null : r;
 	}
 
 	setEnabled(en) {
@@ -73,9 +73,8 @@ class PaymentInputHandler {
 
 	setPaymentType(type) {
 		this.selected_type = type;
-		let iscash = type === 'CASH';
-		$('#payment_content_cash').css('display', iscash ? 'block' : 'none');
-		$('#payment_content_instr').css('display', iscash ? 'none' : 'block');
+		$('#payment_content_cash').css('display', this.isCash() ? 'block' : 'none');
+		$('#payment_content_instr').css('display', this.isCash() ? 'none' : 'block');
 	}
 
 	get selected_payment_method() {
@@ -92,9 +91,11 @@ class PaymentInputHandler {
 		let expiration = $('#instr_expiration').val();
 		let remarks = $('#instr_remarks').val();
 		json['payment_method'] = this.selected_type;
-		if (accname != '') json['account_name'] = accname;
-		if (accnumber != '') json['instrument_number'] = accnumber;
-		if (expiration != '') json['instrument_expiration'] = expiration;
+		if (!this.isCash()) {
+			if (accname != '') json['account_name'] = accname;
+			if (accnumber != '') json['instrument_number'] = accnumber;
+			if (expiration != '') json['instrument_expiration'] = expiration;
+		}
 		if (remarks != '') json['remarks'] = remarks;
 	}
 
@@ -139,8 +140,7 @@ class PaymentInputHandler {
 	}
 
 	ready() {
-		let t = this.selected_type;
-		if (t == 'CASH') {
+		if (this.isCash()) {
 			return true;
 		}
 		let accname = $('#instr_accname').val().trim();

@@ -160,30 +160,7 @@ class AccountsReceivableByCustomerHandler {
 			thiz.updatePayUnpaidBalanceButton();
 		});
 		$('#update_payment_button').click(function(e) {
-			let payment = $('#payment_input').val();
-			$.ajax({
-				type: "POST",
-				url: "php/add-payment-details.php" + Utils.getRandomUrlVar(),
-				data: {
-					transaction_id: thiz.transaction_id,
-					payment_method: thiz.payment_handler.selected_payment_method,
-					account_name: thiz.payment_handler.account_name,
-					account_number: thiz.payment_handler.account_number,
-					instrument_expiration: thiz.payment_handler.instrument_expiration,
-					payment: payment,
-					remarks: thiz.payment_handler.remarks
-				},
-				success: function(data) {
-					let json = JSON.parse(data);
-					let tid = Utils.getTransactionPrefix(thiz.transaction_id);
-					if (json.success) {
-						alert(tid + " => payment " + Utils.getAmountCurrencyText(payment) + " execution success!"); 
-					} else {
-						alert(tid + " => Error: " + json.error);
-					}
-					thiz.onBackButtonClick();
-				}
-			});
+			thiz.onUpdatePaymentButtonClick();
 		});
 		this.updateHeader();
 		$('#transaction_id').text(Utils.getTransactionPrefix(this.transaction_id) + ' ');
@@ -191,6 +168,35 @@ class AccountsReceivableByCustomerHandler {
 		$('#unpaid_bal').text(Utils.getAmountCurrencyText(unpaid_bal));
 		$('#pay_label').text("Pay: " + Utils.getCurrencySymbol());
 		$('#payment_main_container').css('display','block');
+	}
+
+	onUpdatePaymentButtonClick() {
+		Utils.play(sfx_commit_transaction);
+		let thiz = this;
+		let payment = $('#payment_input').val();
+		$.ajax({
+			type: "POST",
+			url: "php/add-payment-details.php" + Utils.getRandomUrlVar(),
+			data: {
+				transaction_id: this.transaction_id,
+				payment_method: this.payment_handler.selected_payment_method,
+				account_name: this.payment_handler.account_name,
+				account_number: this.payment_handler.account_number,
+				instrument_expiration: this.payment_handler.instrument_expiration,
+				payment: payment,
+				remarks: this.payment_handler.remarks
+			},
+			success: function(data) {
+				let json = JSON.parse(data);
+				let tid = Utils.getTransactionPrefix(thiz.transaction_id);
+				if (json.success) {
+					alert(tid + " => payment " + Utils.getAmountCurrencyText(payment) + " execution success!"); 
+				} else {
+					alert(tid + " => Error: " + json.error);
+				}
+				thiz.onBackButtonClick();
+			}
+		});
 	}
 
 	updatePayUnpaidBalanceButton() {

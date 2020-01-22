@@ -86,6 +86,12 @@ class AccountsReceivableByCustomerHandler {
 	onShowAccountsReceivable(json) {
 		this.current_data = json.data;
 		this.setCurrentState(ViewState.getStateValue(json.view));
+		let s = this.current_state;
+		let datalen = this.current_data ? this.current_data.length : 0;
+		if (s === ViewState.TRANSACTIONS_LIST && datalen <= 0) {
+			this.onBackButtonClick();
+			return;
+		}
 		if (json.total_receivable) {
 			this.grand_total = json.total_receivable;
 		}
@@ -155,7 +161,7 @@ class AccountsReceivableByCustomerHandler {
 		let unpaid_bal = this.transaction_total - curr_payment;
 		$('#payment_input').attr('max', unpaid_bal);
 		$('#payment_input').attr('placeholder', Utils.getCurrencySymbol());
-		$('#payment_input').val(Utils.getCurrencyValue(unpaid_bal));
+		$('#payment_input').val(Utils.getCurrencyValueText(unpaid_bal));
 		$('#payment_input').bind('input', function(e) {
 			thiz.updatePayUnpaidBalanceButton();
 		});

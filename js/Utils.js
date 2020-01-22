@@ -65,6 +65,11 @@ class Utils {
 		return Number(Number(text).toFixed(places));
 	}
 
+	static getCurrencyValueText(text) {
+		const places = 2;
+		return Number(text).toFixed(places);
+	}
+
 	static play(sound) {
 		sound.currentTime = 0;
 		sound.play();

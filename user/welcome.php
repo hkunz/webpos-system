@@ -20,6 +20,7 @@ $username = htmlspecialchars($_SESSION["username"]);
   <script type="text/javascript" src="<?php echo $href_root; ?>js/Utils.js"></script>
   <script type="text/javascript" src="<?php echo $href_root; ?>js/main.js"></script>
   <?php if ($ismobile) echo '<link type="text/css" rel="stylesheet" href="css/login.css">'; ?>
+  <?php require_once("${root}php/favicon.php"); ?>
 </head>
 <body class="body" style='overflow:hidden'>
   <?php echo $ismobile ? "<div class='navbar' style='padding:12px;padding-left:16px;'><label class='header-caption'><script type='text/javascript'>document.write(Utils.getStoreHeading());</script></label></div>

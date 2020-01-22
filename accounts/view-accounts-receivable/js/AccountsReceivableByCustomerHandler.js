@@ -144,9 +144,11 @@ class AccountsReceivableByCustomerHandler {
 			this.setCurrentState(ViewState.TRANSACTION_PAY);
 			//this.setSearchFocus();
 			let transaction_id = Number(detail.first_cellvalue);
-			$('#table_container').html('');
-			$('#table_container').load('html/pay-transaction-div.html', function(e) {
+			let temp = "temp" + Utils.getRandomValue();
+			$('#table_container').html('<div id="' + temp + '" style="display:none;"></div>');
+			$('#' + temp).load('html/pay-transaction-div.html', function(e) {
 				thiz.onPayTransactionViewLoad(detail);
+				setTimeout(function(){ $('#' + temp).css('display','block'); }, 50);
 			});
 		}
 	}
@@ -173,7 +175,6 @@ class AccountsReceivableByCustomerHandler {
 		$('#transaction_amount_paid').text('( ' + Utils.getCurrencySymbol() + curr_payment + ' / ' + Utils.getCurrencySymbol() + this.transaction_total + ' )');
 		$('#unpaid_bal').text(Utils.getAmountCurrencyText(unpaid_bal));
 		$('#pay_label').text("Pay: " + Utils.getCurrencySymbol());
-		$('#payment_main_container').css('display','block');
 	}
 
 	onUpdatePaymentButtonClick() {

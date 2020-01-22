@@ -25,8 +25,12 @@ class Utils {
 		return "Kunz, Inc.";
 	}
 
+	static getRandomValue() {
+		return new Date().getTime();
+	}
+
 	static getRandomUrlVar() {
-		return "?_=" + new Date().getTime();
+		return "?_=" + Utils.getRandomValue();
 	}
 
 	static getCurrencySymbol() {

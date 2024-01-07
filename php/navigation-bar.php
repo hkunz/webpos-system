@@ -7,7 +7,7 @@ $company_list = '
   <a href="' . $rootpath . 'service/">Service</a>
   <a href="' . $rootpath . 'company/statistics/">Statistics</a>
   <a href="' . $rootpath . 'company/transaction-history/">Transaction History</a>
-  <a href="' . $_SESSION['href_host'] . 'phpmyadmin/" target="_blank">Database</a>
+  <a href="' . ($_SESSION['href_host'] ?? '') . 'phpmyadmin/" target="_blank">Database</a>
 </div>';
 
 $products_list = '
@@ -33,7 +33,7 @@ $user_list = '
 
 $user_menu = '
 <div class="dropdown">
-  <button class="dropbtn menu-btn" style="color:Cyan;">' . htmlspecialchars($_SESSION["username"]) . '
+  <button class="dropbtn menu-btn" style="color:Cyan;">' . htmlspecialchars($_SESSION["username"] ?? '') . '
     <i class="fa fa-caret-down"></i>
   </button>' . $user_list . '
 </div>';

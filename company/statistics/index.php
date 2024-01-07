@@ -11,7 +11,7 @@
     return "<input type='date' id='$id' step='1' min='$mindate' max='" . date("Y/m/d") . "' style='max-width:190px;height:33px;' required='required'>";
   }
 
-  function create_stats_group($ismobile, $title, $title_widget, $totalId, $prepaidId, $productsId, $servicesId, $prepaid2Id, $products2Id, $services2Id) {
+  function create_stats_group($ismobile, $title, $title_widget, $totalId, $prepaidId, $productsId, $servicesId, $prepaid2Id, $products2Id, $services2Id = null) {
     echo "<div class='common-table-wrapper' style='margin-top:0px;margin-bottom:10px;'>
         <div class='stats-heading'>
           <table style='width:100%;'>

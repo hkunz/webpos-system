@@ -1064,9 +1064,10 @@ class MobileDetect
      */
     public function isMobile($userAgent = null, $httpHeaders = null)
     {
-	if ($_GET['mobile'] === '1') {
-            return true;
-	}
+		if (isset($_GET['mobile']) && $_GET['mobile'] === '1') {
+			return true;
+		}
+
         if ($httpHeaders) {
             $this->setHttpHeaders($httpHeaders);
         }

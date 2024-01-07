@@ -5,7 +5,7 @@ require_once("${root}php/db.php");
 require_once("${root}php/common/scrollable-table.php");
 
 $customer = $_POST['value'];
-$table_id = $_POST['table_id'];
+$table_id = $_POST['table_id'] ?? null;
 
 $query = "SELECT SUM(t.grand_total) - SUM(t.payment) FROM items_transactions t WHERE t.customer='$customer' AND t.type='SALE' AND t.payment < t.grand_total";
 $result = $sql_con->query($query);

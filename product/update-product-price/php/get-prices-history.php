@@ -49,7 +49,7 @@ $table .= "<table class='common-table' cellspacing='0' cellpadding='0'><thead>";
 $table .= "<tr><th>Unit Price History</th><th style='text-align:right;' nowrap>Unit Price</th></tr></thead><tbody>";
 
 for ($i = 0; $i < $len; ++$i) {
-	$date = $unit_prices[$i][0];
+	$date = $unit_prices[$i][0] ?? null;
 	if ($date == null) continue;
 	$table .= "<tr><td>";
 	$table .= $date . "</td><td style='text-align:right;'><span style='margin-right:2px;'>" . $currency . "</span>" . $unit_prices[$i][1];
@@ -64,7 +64,7 @@ $table .= "<table class='common-table' cellspacing='0' cellpadding='0'><thead>";
 $table .= "<tr><th>Sell Price History</th><th style='text-align:right;' nowrap>Sell Price</th></tr></thead><tbody>";
 
 for ($i = 0; $i < $len; ++$i) {
-        $date = $sell_prices[$i][0];
+        $date = $sell_prices[$i][0] ?? null;
 	if ($date == null) continue;
         $table .= "<tr><td>";
         $table .= $date . "</td><td style='text-align:right;'><span style='margin-right:2px;'>" . $currency . "</span>" . $sell_prices[$i][1];

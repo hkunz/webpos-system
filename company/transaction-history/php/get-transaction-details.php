@@ -5,7 +5,7 @@ require_once("${root}php/db.php");
 require_once("${root}php/common/scrollable-table.php");
 
 $transaction_id = $_POST['value'];
-$table_id = $_POST['table_id'];
+$table_id = $_POST['table_id'] ?? null;
 
 //workaround added spaces between row_number to have a unique cellcontent searchable by TableRowHandler
 $query = "

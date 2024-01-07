@@ -13,7 +13,7 @@ require_once("${root}/php/libs/MobileDetect.php");
 // 2 => just align right
 // 3 => button
 
-function create_scrollable_table($id, $con, $query, $column_widths, $column_formats, & $in_data) {
+function create_scrollable_table($id, $con, $query, $column_widths, $column_formats, & $in_data = null) {
 	$ismobile = (new MobileDetect)->isMobile();
 	$vscroll_w = 12;
 	$ccy = $_SESSION['currency'];

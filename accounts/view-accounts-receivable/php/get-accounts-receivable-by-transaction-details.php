@@ -5,7 +5,7 @@ require_once("${root}php/db.php");
 require_once("${root}php/common/scrollable-table.php");
 
 $transaction_id = $_POST['value'];
-$table_id = $_POST['table_id'];
+$table_id = $_POST['table_id'] ?? null;
 
 $query = "
 SELECT row_number() OVER () '#', ii.item_id `{{item_id}}`, ii.item_description 'Product Description', BBB.sell_price 'Unit Price', t.amount Qty, BBB.sell_price * t.amount 'Cost'

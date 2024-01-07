@@ -6,7 +6,7 @@ require_once("${root}php/common/scrollable-table.php");
 
 $all = (!isset($_POST['value']) || $_POST['value'] === '');
 $customer = $all ? '%%' : $_POST['value'];
-$table_id = $_POST['table_id'];
+$table_id = $_POST['table_id'] ?? null;
 $limit = isset($_POST['limit']) ? $_POST['limit'] : (isset($_GET['limit']) ? $_GET['limit'] : 300);
 
 $query = "SELECT LPAD(`transaction_id`, 7, '0') `TRX-ID`,`date` `Date Time`, `type` `Type`, `customer` `Transactor` ,`grand_total` `Total` FROM `items_transactions` WHERE customer LIKE '$customer' ORDER BY `date` DESC LIMIT $limit;";

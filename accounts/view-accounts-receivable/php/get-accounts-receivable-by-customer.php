@@ -4,7 +4,7 @@ $root = $_SESSION['root'];
 require_once("${root}php/db.php");
 require_once("${root}php/common/scrollable-table.php");
 
-$table_id = $_POST['table_id'];
+$table_id = $_POST['table_id'] ?? null;
 
 $query = "SELECT SUM(`grand_total`) - SUM(`payment`) `Receivable` FROM `items_transactions` WHERE `type`='SALE' AND `payment` < `grand_total`;";
 $result = $sql_con->query($query);

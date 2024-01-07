@@ -2,7 +2,7 @@
 
 class Utils {
 	static getRootName() {
-		return "webpos-system";
+		return "mysites/webpos-system"; // localhost/mysites/webpos-system/
 	}
 
 	static lpad(text, pad, length) {

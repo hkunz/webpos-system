@@ -1,5 +1,5 @@
 <?php
-$ROOT_DIRECTORY = "webpos-system/";
+$ROOT_DIRECTORY = "mysites/webpos-system/"; // localhost/mysites/webpos-system/
 
 // SOURCE: https://www.tutorialrepublic.com/php-tutorial/php-mysql-login-system.php
 

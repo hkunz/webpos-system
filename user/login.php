@@ -1,5 +1,5 @@
 <?php
-$ROOT_DIRECTORY = "klebbys/";
+$ROOT_DIRECTORY = "webpos-system/";
 
 // SOURCE: https://www.tutorialrepublic.com/php-tutorial/php-mysql-login-system.php
 

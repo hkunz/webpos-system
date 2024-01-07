@@ -2,7 +2,7 @@
 
 class Utils {
 	static getRootName() {
-		return "klebbys";
+		return "webpos-system";
 	}
 
 	static lpad(text, pad, length) {

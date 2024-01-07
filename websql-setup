@@ -23,13 +23,13 @@ mysql> GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' IDENTIFIED BY 'pass
 Setting a domain name for localhost:
 https://www.geeksforgeeks.org/creating-custom-domain-name-instead-of-localhost-in-ubuntu/
 
-$ sudo vi /etc/hosts #add IP addr and host name klebbys.md #also edit C:\Windows\System32\drivers\etc\hosts
-$ sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/klebbys.md.conf
-$ sudo vi /etc/apache2/sites-available/klebbys.md.conf #change set ServerName to klebbys.md
+$ sudo vi /etc/hosts #add IP addr and host name webpos-system.md #also edit C:\Windows\System32\drivers\etc\hosts
+$ sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/webpos-system.md.conf
+$ sudo vi /etc/apache2/sites-available/webpos-system.md.conf #change set ServerName to webpos-system.md
 $ sudo a2dissite 000-default.conf
-$ sudo a2ensite klebbys.md.conf
+$ sudo a2ensite webpos-system.md.conf
 $ sudo service apache2 reload
-$ dig -t a Page on klebbys.md @domain_registrar_dns_server #test if site can be accessed
+$ dig -t a Page on webpos-system.md @domain_registrar_dns_server #test if site can be accessed
 $ vi /etc/apache2/apache2.conf #make sure site's document root (i.e. /var/www/html) is also in here
 
 
